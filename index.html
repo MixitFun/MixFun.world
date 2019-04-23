@@ -1,76 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<style type="text/css">
-    .mix_home_img{
-        width: 100%;
-        text-align: center
-    }
-    .mix_img{
-        width: 1440px;
-        height: 900px;
-    }
-    .mix_introduction{
-        font-family: Raleway;
-        font-size: 36px;
-    }
-    .mix_txt{
-        text-align: center;
-        position: absolute;
-        width: 100%;
-        margin-top: 50px;
-    }
-    .download_img{
-        text-align: center;
-        margin-top: 50px;
-    }
-    .download_img a{
-        padding: 20px;
-    }
-    .download_img a img{
-        width: 280px;
-    }
-    .reserved_txt{
-        text-align: center;
-        font-size: 12px;
-        margin-top: 180px;
-    }
-    .reserved_txt a{
-        text-decoration:none;
-        color: black;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="css/bootstrap.css"/>
+    <link href="css/bootstrap-grid.css"/>
+    <link href="css/bootstrap-reboot.css"/>
+    <title>mixFun</title>
+</head>
+<style>
+    a{
+        padding-left: 10%;
     }
 </style>
-<title>MixFun - Short Fun Videos</title>
-</head>
-<body>
-    <div class="mix_home">
-        <div class="mix_txt">
-            <img src="image/mixit.png" />
-            <div class="mix_introduction">MixFun - Short video, unlimited happiness!</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<body style="background-color: #1b1e21;">
+    <div class="container-fluid">
+        <img id="img" src="img/mixfun.png" style="width: 100%;"/>
+        <div class="container" style='position:absolute; z-index:999; top:0;width: 40%'>
+            <row>
+                <div id="empty"></div>
+            </row>
+            <row>
+                <div class="col-lg-3" style="margin-top: 5%;margin-left: 8%">
+                    <a>
+                        <img style="margin-top: 30px" src="img/app_store.png" onclick="download(1)">
+                    </a>
+                    <a>
+                        <img style="margin-top: 30px" src="img/google.png" onclick="download(2)">
+                    </a>
+                </div>
+            </row>
+            <row>
+                <div style="width:250%;margin-top: 20%;position:absolute; z-index:1000;">
+                    <span style="color: white;font-size:10%;padding-left: 5%">All Rights Reserved | MixFun</span>
+                    <a style="color: white;font-size:10%;padding-left: 5%" href="privacy_policy.html">Privacy Policy</a>
+                    <a style="color: white;font-size:10%;padding-left: 5%" href="term_of_service.html">Term Of Service</a>
+                </div>
+            </row>
         </div>
-        <div class="mix_home_img">
-            <img src="image/mixit_home.jpg"  class="mix_img" />
-        </div>
-        <div class="download_img">
-            <a href="https://play.google.com/store/apps/details?id=com.mixit.fun"><img src="image/google_play.png" /></a>
-            <a href="https://itunes.apple.com/hk/app/mixfun/id1450796214?mt=8"><img src="image/app_store.png" /></a>
-        </div>
-        <div class="reserved_txt">
-            <span>All Rights Reserved | MixFun</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="privacy_policy.html">Privacy Policy</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="term_of_service.html">Term Of Service</a>
-        </div>
-
     </div>
 </body>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-138276305-1');
+<script type="text/javascript">
+    $(document).ready(function(){
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        var imgh = 0;
+        if(flag){
+            imgh = 1080;
+            $('#img').attr('src','img/mixfun.png');
+            $('body').attr('height',imgh);
+        }else{
+            imgh = 816;
+            $('#img').attr('src','img/mixfun_phone.png');
+            $('body').attr('height',imgh);
+        }
+        //var imgh=document.getElementById('img').height;
+        document.getElementById("empty").setAttribute("style",'height:'+imgh*4/5+'px');
+    });
+    function download(userAgentInfo){
+        if(userAgentInfo==1){
+            window.open("https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun");
+        }else if(userAgentInfo==2){
+            window.open("http://itunes.apple.com/cn/app/id1450796214?mt=8");
+        }
+    }
 </script>
 </html>
