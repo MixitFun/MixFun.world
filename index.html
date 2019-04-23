@@ -22,17 +22,17 @@
                 <div id="empty"></div>
             </row>
             <row>
-                <div class="col-lg-3" style="margin-top: 5%;margin-left: 8%">
-                    <a>
-                        <img style="margin-top: 30px" src="img/app_store.png" onclick="download(1)">
+                <div class="col-lg-3" style="margin-top: 5%;margin-left: 8%;">
+                    <a href="http://itunes.apple.com/cn/app/id1450796214?mt=8">
+                        <img style="margin-top: 30px" src="img/app_store.png">
                     </a>
-                    <a>
-                        <img style="margin-top: 30px" src="img/google.png" onclick="download(2)">
+                    <a href="https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun">
+                        <img style="margin-top: 30px" src="img/google.png">
                     </a>
                 </div>
             </row>
             <row>
-                <div style="width:250%;margin-top: 20%;position:absolute; z-index:1000;">
+                <div style="width:250%;margin-top: 10%;position:absolute; z-index:1000;">
                     <span style="color: white;font-size:10%;padding-left: 5%">All Rights Reserved | MixFun</span>
                     <a style="color: white;font-size:10%;padding-left: 5%" href="privacy_policy.html">Privacy Policy</a>
                     <a style="color: white;font-size:10%;padding-left: 5%" href="term_of_service.html">Term Of Service</a>
@@ -43,6 +43,7 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
+        clientWidth = document.body.clientWidth;
         var userAgentInfo = navigator.userAgent;
         var Agents = ["Android", "iPhone",
             "SymbianOS", "Windows Phone",
@@ -56,7 +57,7 @@
         }
         var imgh = 0;
         if(flag){
-            imgh = 1080;
+            imgh = 1080*clientWidth/1920;
             $('#img').attr('src','img/mixfun.png');
             $('body').attr('height',imgh);
         }else{
@@ -65,14 +66,7 @@
             $('body').attr('height',imgh);
         }
         //var imgh=document.getElementById('img').height;
-        document.getElementById("empty").setAttribute("style",'height:'+imgh*4/5+'px');
+        document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
     });
-    function download(userAgentInfo){
-        if(userAgentInfo==2){
-            window.open("https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun");
-        }else if(userAgentInfo==1){
-            window.open("http://itunes.apple.com/cn/app/id1450796214?mt=8");
-        }
-    }
 </script>
 </html>
