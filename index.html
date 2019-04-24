@@ -37,7 +37,7 @@
             $('body').attr('height',imgh);
             $('.im').attr('height',68*bl);
             $('.im').attr('width',221*bl);
-            document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
+            document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px;');
         }else{
             imgh = 816*clientWidth/375;
             bl = clientWidth/375;
@@ -66,11 +66,16 @@
         <img id="img" src="img/mixfun.png" style="width: 100%;"/>
         <div class="container" style='position:absolute; z-index:999; top:0;width: 40%'>
             <row>
-                <div id="empty"></div>
+                <div id="empty">
+                    <p>Fun at your<br>
+                        fingertips
+                    </p>
+                    <p>MixFun gathers the world's funniest pics,gifs.videos,and recommends the right one to people at the right time.Make you laugh out and enjoy unlimited happiness</p>
+                </div>
             </row>
             <row>
                 <div style="margin-top: 5%;margin-left: 8%;">
-                    <a href="http://itunes.apple.com/cn/app/id1450796214?mt=8">
+                    <a href="https://itunes.apple.com/ph/app/id1450796214?mt=8">
                         <img class="im" style="margin-top: 30px" src="img/Button_app_store_big.png">
                     </a>
                     <a href="https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun">
