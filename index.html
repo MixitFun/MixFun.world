@@ -47,13 +47,13 @@
         }
 
         //var imgh=document.getElementById('img').height;
-        $.ajax({
-                url:'https://pv.sohu.com/cityjson',
-                method:'GET',
-                dataType:'jsonp',
-                success:function(data) {
-                    alert(data);
-                }
+        $.ajax(
+            {url:'https://pv.sohu.com/cityjson',
+            method:'GET',
+            dataType:'text',
+            success:function(data) {
+                alert(data);
+            }
         });
         var code = "";
         if(code == 'cn'){
