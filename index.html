@@ -47,18 +47,18 @@
         }
 
         //var imgh=document.getElementById('img').height;
-        $.ajax(
-            {
-                url:'http://pv.sohu.com/cityjson',
-                dataType:'jsonp'
-            },function(data){
-            alert(data);
+        $.ajax({
+                url:'https://pv.sohu.com/cityjson',
+                method:'GET',
+                dataType:'jsonp',
+                success:function(data) {
+                    alert(data);
+                }
         });
         var code = "";
         if(code == 'cn'){
             code = 'hk';
         }
-        console.log(code);
         $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8");
 
     });
