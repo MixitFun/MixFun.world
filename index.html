@@ -10,7 +10,7 @@
 </head>
 <style>
     a{
-        padding-left: 10%;
+        padding-left: 8%;
     }
 </style>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -35,8 +35,8 @@
             bl = clientWidth/1920;
             $('#img').attr('src','img/mixfun.png');
             $('body').attr('height',imgh);
-            $('.im').attr('height',42*bl);
-            $('.im').attr('width',224*bl);
+            //$('.im').attr('height',42*bl);
+            //$('.im').attr('width',224*bl);
             document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
         }else{
             imgh = 816*clientWidth/375;
@@ -55,8 +55,8 @@
         if(flag){
             imgh = 1080*clientWidth/1920;
             $('body').attr('height',imgh);
-            $('.im').attr('height',42*bl);
-            $('.im').attr('width',224*bl);
+            //$('.im').attr('height',42*bl);
+            //$('.im').attr('width',224*bl);
             document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
         }
     };
@@ -71,16 +71,16 @@
             <row>
                 <div class="col-lg-3" style="margin-top: 5%;margin-left: 8%;">
                     <a href="http://itunes.apple.com/cn/app/id1450796214?mt=8">
-                        <img class="im" style="margin-top: 30px" src="img/app_store.png">
+                        <img class="im" style="margin-top: 30px" src="img/Button_app_store_big.png">
                     </a>
                     <a href="https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun">
-                        <img class="im" style="margin-top: 30px" src="img/google.png">
+                        <img class="im" style="margin-top: 30px" src="img/Button_google_big.png">
                     </a>
                 </div>
             </row>
             <row>
                 <div style="width:250%;margin-top: 13%;position:absolute; z-index:1000;">
-                    <span style="color: white;font-size:10%;padding-left: 5%">©MixFun,Ltd</span>
+                    <span style="color: white;font-size:10%;padding-left: 5%">MIXFUN©2019</span>
                     <a style="color: white;font-size:10%;padding-left: 5%" href="privacy_policy.html">Privacy Policy</a>
                     <a style="color: white;font-size:10%;padding-left: 5%" href="term_of_service.html">Term Of Service</a>
                 </div>
@@ -88,4 +88,15 @@
         </div>
     </div>
 </body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-138276305-1');
+    gtag('commement', '');
+</script>
 </html>
