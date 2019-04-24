@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link href="css/bootstrap.css"/>
     <link href="css/bootstrap-grid.css"/>
     <link href="css/bootstrap-reboot.css"/>
@@ -49,16 +48,12 @@
         }
 
         //var imgh=document.getElementById('img').height;
-        jQuery.getScript('http://www.geoplugin.net/javascript.gp', function(data)
-        {
-            var code = geoplugin_countryCode().toLowerCase();
-            if(code == 'cn'){
-                code = 'hk';
-            }
-            console.log(code);
-            $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8")
-
-        });
+        var code = geoplugin_countryCode().toLowerCase();
+        if(code == 'cn'){
+            code = 'hk';
+        }
+        console.log(code);
+        $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8")；
 
     });
     window.onresize=function(){
