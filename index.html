@@ -14,7 +14,6 @@
     }
 </style>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 <script type="text/javascript">
     var flag = true;
     $(document).ready(function(){
@@ -48,12 +47,19 @@
         }
 
         //var imgh=document.getElementById('img').height;
-        var code = geoplugin_countryCode().toLowerCase();
+        $.ajax(
+            {
+                url:'http://pv.sohu.com/cityjson',
+                dataType:'jsonp'
+            },function(data){
+            alert(data);
+        });
+        var code = "";
         if(code == 'cn'){
             code = 'hk';
         }
         console.log(code);
-        $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8")；
+        $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8");
 
     });
     window.onresize=function(){
