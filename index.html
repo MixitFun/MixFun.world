@@ -13,7 +13,9 @@
         padding-left: 8%;
     }
 </style>
-<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s"
+        async defer></script>
 <script type="text/javascript">
     var flag = true;
     $(document).ready(function(){
@@ -47,19 +49,24 @@
         }
 
         //var imgh=document.getElementById('img').height;
-        $.ajax(
-            {url:'https://pv.sohu.com/cityjson',
-            method:'GET',
-            dataType:'text',
-            success:function(data) {
-                alert(data);
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({ "considerIp": "true" }),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function(data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function(results, status) {
+                    if (status === 'OK') {
+                        var code = results[results.length-1].address_components[0].short_name.toLowerCase();
+                        if(code == 'cn'){
+                            code = 'hk';
+                        }
+                        $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8");
+                    }
+                });
             }
         });
-        var code = "";
-        if(code == 'cn'){
-            code = 'hk';
-        }
-        $('#app').attr('href',"https://itunes.apple.com/"+code+"/app/id1450796214?mt=8");
 
     });
     window.onresize=function(){
