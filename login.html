@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mixfun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<style>
+    .input{
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 0px;
+        margin-top: 10%;
+    }
+</style>
+<body>
+    <div id="content">
+        <img src="img/home_background.png" width="100%">
+        <div id="footer" style="width: 100%;background-color: #FFF4E4;" align="center">
+            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#ModalLong"
+                    style="margin-top: 20%;border-radius:30px;width: 80%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
+                Help to open
+            </button>
+            <p style="color: #BC9982;margin-top: 20%;">copyright@2019 mixfu</p>
+            <p style="color: #BC9982;margin-bottom: 0px;">www.mixfun.world</p>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="ModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top: 30%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border-radius:25px;" align="center">
+                <div class="modal-body">
+                    <h5>login please!</h5>
+                    <row class="form-inline">
+                        <select id="sl" class="form-control form-control-xs input" style="width: 25%">
+                        </select>
+                        <input id="num" class="form-control form-control-xs input" type="text" style="width: 75%" placeholder="your phone number">
+                    </row>
+                    <row class="form-inline">
+                        <span class="form-control form-control-xs input" style="width: 25%;color: #9B9B9B;">
+                            verify
+                        </span>
+                        <input class="form-control form-control-xs input" id="verify" type="text" style="width: 50%" placeholder="verification code">
+                        <button id="send" onclick="getCode()" class="btn" style="width: 25%;color: #FA5C7E;border-radius: 20px;border-color: #FA5C7E;margin-top: 10%;">Send</button>
+                        <button id="time" class="btn" style="width: 25%;color: #9B9B9B;border-radius: 20px;border-color: #9B9B9B;margin-top: 10%;display: none;"></button>
+                    </row>
+                    <row>
+                        <p style="color: #9B9B9B;font-size: small;">unregistered phones will automatically create accounts.</p>
+                    </row>
+                    <row>
+                        <button type="button" class="btn btn-default btn-lg" onclick="login()"
+                                style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
+                            Login
+                        </button>
+                    </row>
+                    <row>
+
+                    </row>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well come!</h4>
+    </div>
+</body>
+<script type="text/javascript">
+    var clientHeight = document.body.clientHeight;
+    var imgHeight = $('img').height();
+    $('#footer').css('height',clientHeight-imgHeight);
+
+    var select = '[{"name": "China", "code": "+86", "shortName": "CN"}, {"name": "Hong Kong", "code": "+852", "shortName": "HK"}, {"name": "Indonesia", "code": "+62", "shortName": "ID"}, {"name": "India", "code": "+91", "shortName": "IN"}, {"name": "Malaysia", "code": "+60", "shortName": "MY"}, {"name": "Philippines", "code": "+63", "shortName": "PH"}, {"name": "Singapore", "code": "+65", "shortName": "SG"}, {"name": "Thailand", "code": "+66", "shortName": "TH"}, {"name": "United States", "code": "+1", "shortName": "US"}, {"name": "Vietnam", "code": "+84", "shortName": "VN"}]';
+    var jn = JSON.parse(select);
+    var op = '';
+    jn.forEach(function(object,index){
+        op += '<option>'+object.code+'</option>';
+    });
+    $('#sl').html(op);
+
+    function getCode() {
+        var time = 60;
+        var p = $("#time");
+        p.css('display','block');
+        $('#send').css('display','none');
+        p.html((time--)+'s');
+        var set = setInterval(function() {
+            p.html(time+'s');
+            time--;
+            if(time === 0) {
+                p.innerHTML = "";
+                p.css('display','none');
+                $('#send').css('display','block');
+                clearInterval(set);
+            }
+        }, 1000);
+
+        var num = $('#sl').val()+$('#num').val();
+        $.ajax({
+            url:'https://api.mixit.fun/auth/send_verify_code',
+            method:'POST',
+            contentType: 'application/json;charset=UTF-8',
+            dataType:'JSON',
+            data:JSON.stringify(
+                {mobile:num}
+            )
+        });
+    }
+
+    var verify = $('#verify').val();
+    function login() {
+        var num = $('#sl').val()+$('#num').val();
+        var verify = $('#verify').val();
+        $.ajax({
+            url:'https://api.mixit.fun/auth/login_by_mobile_phone',
+            method:'POST',
+            contentType: 'application/json;charset=UTF-8',
+            dataType:'JSON',
+            data:JSON.stringify(
+                {mobile:num,
+                verify_code:verify,
+                device_type:3,
+                device_code:'web'}
+            ),
+            seccuss:function(data){
+                alert('welcome');
+            }
+        })
+    }
+
+</script>
+</html>
