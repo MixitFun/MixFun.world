@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mixFun player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
+<script type="text/javascript">
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+    vi = GetRequest().id;
+    $(document).ready(function() {
+        $.get('https://api.mixit.fun/video/getInfo?id=' + vi, function (data) {
+            if (data.data.user.avatar != null) {
+                $('#avatar').attr('src', data.data.user.avatar);
+            }
+            $('#nickname').text(data.data.user.nickname);
+            $('#claps').text(data.data.myClaps);
+            $('#comments').text(data.data.myComments);
+            $('#title').text(data.data.title);
+            if (data.data.type == 1){
+                $('#source').attr('src', data.data.playUrl);
+                $('video').attr('poster', data.data.thumbnailUrl);
+                $('video').attr('atuoplay', true);
+                document.getElementById('player').load();
+                $('#image').css('display','none');
+            } else if(data.data.type == 1){
+                $('#img').attr('src', data.data.thumbnailUrl);
+                $('#video').css('display','none');
+            }
+        });
+
+        var type = 1;
+        var userAgentInfo = navigator.userAgent;
+
+        if (userAgentInfo.indexOf('iPhone') > 0) {
+            type = 2;
+        } else if (userAgentInfo.indexOf('Android') > 0) {
+            type = 3
+        }
+
+        if (type === 1) {
+            $('#content').attr('style', 'width:70%');
+            $('.download').attr('href', "https://mixfun.world/index.html");
+        } else if (type === 2) {
+            $.ajax({
+                url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+                data: JSON.stringify({"considerIp": "true"}),
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (data) {
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({'location': data.location}, function (results, status) {
+                        if (status === 'OK') {
+                            var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                            if (code == 'cn') {
+                                code = 'hk';
+                            }
+                            $('.download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                        }
+                    });
+                }
+            });
+        } else if (type === 3) {
+            $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
+        }
+    });
+    function play() {
+        var video = document.getElementById('player');
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                if (!video.palyed) {
+                    video.play();
+                }
+            })
+                .catch(error => {
+
+                });
+        }
+    }
+</script>
+<style>
+    .header{
+        background-color: #c8c8c8;
+        opacity:0.6;
+        padding: 2% 2% 2% 2%;
+    }
+    .footer{
+        background-color: #269ce5;
+        opacity:0.5;
+        z-index: 999;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        height: 120px;
+        margin-top: -120px;
+    }
+    .content{
+        position: relative;
+        min-height: 100%;
+    }
+</style>
+<body>
+<div class="header">
+    <div class="row" vertical-align>
+        <div class="col-8">
+            <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
+        </div>
+        <div class="col-4">
+            <a class="btn btn-info download" style="margin-top: 5%;margin-bottom: 5%;float: right;">download</a>
+        </div>
+    </div>
+</div>
+<div id="content" class="container-fluid content" style="margin-top: 10px;min-height: 100%">
+    <row>
+        <img id="avatar" src="img/mixit-logo.png" class="img-thumbnail" style="width: 30px;height: 30px;margin-top: 5%;margin-bottom: 5%;">
+        <a id="nickname" style="font-size: large">MixFun</a>
+    </row>
+    <div id="video">
+        <video id="player" style="width: 100%" preload="auto">
+            <source id="source" type="video/mp4"/>
+            <track>
+        </video>
+    </div>
+    <div id="image">
+        <img id="img">
+    </div>
+    <div>
+        <row>
+            <a class="col-3" style="padding-left: 0px">claps <span id="claps" style="color: #7abaff"></span></a>
+            <a class="col-3">comments <span id="comments" style="color: #7abaff"></span></a>
+            <a onclick="play()"><span class="btn badge-primary btn-sm" style="float: right">play</span></a>
+        </row>
+        <p id="title" style="height: 200px;">
+        </p>
+    </div>
+</div>
+<div id="footer" class="footer">
+    <a>
+        <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
+        <span>MixFUn</span>
+    </a>
+    <p>To watch more interesting videos and pictures, please download the MixFun app<a class="btn btn-primary btn-sm download"  style="float: right;">download</a></p>
+</div>
+</body>
+</html>
+
