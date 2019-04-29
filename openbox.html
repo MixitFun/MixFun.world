@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>mixfun</title>
+    <title>A referral from your friend,he need your generous help!Sign up with his link,both of you will get 50 Mixcoin.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
@@ -22,7 +23,18 @@
 </style>
 <body>
     <div id="content">
-        <img src="img/home_background.png" width="100%">
+        <div style="z-index: 999;position: absolute;margin-top: 15%;" align="center">
+            <img src="img/mixit-logo.png" style="width: 15%">
+
+        </div>
+        <p style="font-size: 13pt;margin-top: 30%;z-index: 999;position: absolute;margin-left: 8%;margin-right: 8%;font-weight:bold;">
+            hi,dear:
+            <br/>
+            Here is refferral from your friend!He need your generous help!
+            <br/>
+            Help him to open the treasure chest,you can share the treasures.Let's do it.
+        </p>
+        <img id="backgroup" src="img/home_background.png" width="100%"/>
         <div id="footer" style="width: 100%;background-color: #FFF4E4;" align="center">
             <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#ModalLong"
                     style="margin-top: 20%;border-radius:30px;width: 80%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
@@ -35,6 +47,9 @@
     <!-- Modal -->
     <div class="modal fade" id="ModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top: 30%;">
         <div class="modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <div class="modal-content" style="border-radius:25px;" align="center">
                 <div class="modal-body">
                     <h5>login please!</h5>
@@ -67,10 +82,32 @@
             </div>
         </div>
     </div>
+
+    <!-- BoxModal -->
+    <div class="modal fade" id="ModalBox" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;">
+        <div class="modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content" style="border-radius:25px;" align="center">
+                <div class="modal-body">
+                    <h5>you did it!</h5>
+                    <img src="img/box.png">
+                    <p>
+                        You helped your friend open the treasure chest successfully!You got your own reward-50 Mixcoins!Check the reward in MixFun app.
+                    </p>
+                    <a id="download" class="btn btn-default btn-lg"
+                            style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
+                        Open
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script type="text/javascript">
     var clientHeight = document.body.clientHeight;
-    var imgHeight = $('img').height();
+    var imgHeight = $('#backgroup').height();
     $('#footer').css('height',clientHeight-imgHeight);
 
     var select = '[{"name": "China", "code": "+86", "shortName": "CN"}, {"name": "Hong Kong", "code": "+852", "shortName": "HK"}, {"name": "Indonesia", "code": "+62", "shortName": "ID"}, {"name": "India", "code": "+91", "shortName": "IN"}, {"name": "Malaysia", "code": "+60", "shortName": "MY"}, {"name": "Philippines", "code": "+63", "shortName": "PH"}, {"name": "Singapore", "code": "+65", "shortName": "SG"}, {"name": "Thailand", "code": "+66", "shortName": "TH"}, {"name": "United States", "code": "+1", "shortName": "US"}, {"name": "Vietnam", "code": "+84", "shortName": "VN"}]';
@@ -80,6 +117,41 @@
         op += '<option>'+object.code+'</option>';
     });
     $('#sl').html(op);
+
+    var type = 1;
+    var userAgentInfo = navigator.userAgent;
+
+    if (userAgentInfo.indexOf('iPhone') > 0) {
+        type = 2;
+    } else if (userAgentInfo.indexOf('Android') > 0) {
+        type = 3
+    }
+
+    if (type === 1) {
+        $('#content').attr('style', 'width:70%');
+        $('.download').attr('href', "https://mixfun.world/index.html");
+    } else if (type === 2) {
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({"considerIp": "true"}),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function (results, status) {
+                    if (status === 'OK') {
+                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        if (code == 'cn') {
+                            code = 'hk';
+                        }
+                        $('.download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                    }
+                });
+            }
+        });
+    } else if (type === 3) {
+        $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
+    }
 
     function getCode() {
         var time = 60;
@@ -125,8 +197,8 @@
                 device_type:3,
                 device_code:'web'}
             ),
-            seccuss:function(data){
-                alert('welcome');
+            success:function(data){
+                $('#ModalBox').modal('show');
             }
         })
     }
