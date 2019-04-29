@@ -70,7 +70,7 @@
                         <p style="color: #9B9B9B;font-size: small;">unregistered phones will automatically create accounts.</p>
                     </row>
                     <row>
-                        <button type="button" class="btn btn-default btn-lg" onclick="login()"
+                        <button type="button" class="btn btn-default btn-lg" onclick="openbox()"
                                 style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                             Login
                         </button>
@@ -129,7 +129,7 @@
 
     if (type === 1) {
         $('#content').attr('style', 'width:70%');
-        $('.download').attr('href', "https://mixfun.world/index.html");
+        $('#download').attr('href', "https://mixfun.world/index.html");
     } else if (type === 2) {
         $.ajax({
             url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
@@ -144,13 +144,13 @@
                         if (code == 'cn') {
                             code = 'hk';
                         }
-                        $('.download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                        $('#download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
                     }
                 });
             }
         });
     } else if (type === 3) {
-        $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
+        $('#download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
     }
 
     function getCode() {
@@ -182,6 +182,20 @@
         });
     }
 
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+    vi = GetRequest().shareCode;
     var verify = $('#verify').val();
     function login() {
         var num = $('#sl').val()+$('#num').val();
@@ -198,7 +212,23 @@
                 device_code:'web'}
             ),
             success:function(data){
-                $('#ModalBox').modal('show');
+                var auth = data.data.token;
+                $.ajax({
+                    url:'https://api.mixit.fun/user/setFriendShareCode',
+                    method:'POST',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:'JSON',
+                    headers: {
+                        'authorization': auth
+                    },
+                    data:JSON.stringify(
+                        {share_code : vi}
+                    ),
+                    success:function(data){
+
+                        $('#ModalBox').modal('show');
+                    }
+                });
             }
         })
     }
