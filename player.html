@@ -26,29 +26,24 @@
         return theRequest;
     }
 
+    function play() {
+        var video = document.getElementById('player');
+        var playPromise = video.play();
+        console.log(playPromise);
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                if (!video.palyed) {
+                    video.play();
+                }
+            })
+                .catch(error => {
+
+                });
+        }
+    }
+
     vi = GetRequest().id;
     $(document).ready(function() {
-        $.get('https://api.mixit.fun/video/getInfo?id=' + vi, function (data) {
-            $('title').html(data.data.title);
-            if (data.data.user.avatar != null) {
-                $('#avatar').attr('src', data.data.user.avatar);
-            }
-            $('#nickname').text(data.data.user.nickname);
-            $('#claps').text(data.data.myClaps);
-            $('#comments').text(data.data.myComments);
-            $('#title').text(data.data.title);
-            if (data.data.type == 1){
-                $('#source').attr('src', data.data.playUrl);
-                $('video').attr('poster', data.data.thumbnailUrl);
-                $('video').attr('atuoplay', true);
-                document.getElementById('player').load();
-                $('#image').css('display','none');
-            } else if(data.data.type == 3){
-                $('#img').attr('src', data.data.thumbnailUrl);
-                $('#video').css('display','none');
-            }
-        });
-
         var type = 1;
         var userAgentInfo = navigator.userAgent;
 
@@ -83,21 +78,31 @@
         } else if (type === 3) {
             $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
         }
-    });
-    function play() {
-        var video = document.getElementById('player');
-        var playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                if (!video.palyed) {
-                    video.play();
-                }
-            })
-                .catch(error => {
 
-                });
-        }
-    }
+        $.get('https://api.mixit.fun/video/getInfo?id=' + vi, function (data) {
+            $('title').html(data.data.title);
+            if (data.data.user.avatar != null) {
+                $('#avatar').attr('src', data.data.user.avatar);
+            }
+            $('#nickname').text(data.data.user.nickname);
+            $('#claps').text(data.data.myClaps);
+            $('#comments').text(data.data.myComments);
+            $('#title').text(data.data.title);
+            if (data.data.type == 1){
+                $('#source').attr('src', data.data.playUrl);
+                $('video').attr('poster', data.data.thumbnailUrl);
+                $('video').attr('atuoplay', true);
+                document.getElementById('player').load();
+                $('#image').css('display','none');
+                $('#play').click();
+            } else if(data.data.type == 3){
+                $('#img').attr('src', data.data.thumbnailUrl);
+                $('#video').css('display','none');
+            }
+            
+        });
+    });
+
 </script>
 <style>
     .header{
@@ -149,7 +154,7 @@
         <row>
             <a class="col-3" style="padding-left: 0px">claps <span id="claps" style="color: #7abaff"></span></a>
             <a class="col-3">comments <span id="comments" style="color: #7abaff"></span></a>
-            <a onclick="play()"><span class="btn badge-primary btn-sm" style="float: right">play</span></a>
+            <a id="play" onclick="play()"><span class="btn badge-primary btn-sm" style="float: right">play</span></a>
         </row>
         <p id="title" style="height: 200px;">
         </p>
