@@ -40,7 +40,7 @@
                     style="margin-top: 20%;border-radius:30px;width: 80%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                 Help to open
             </button>
-            <p style="color: #BC9982;margin-top: 20%;">copyright@2019 mixfu</p>
+            <p style="color: #BC9982;margin-top: 20%;">copyright@2019 mixfun</p>
             <p style="color: #BC9982;margin-bottom: 0px;">www.mixfun.world</p>
         </div>
     </div>
@@ -98,7 +98,7 @@
                     </p>
                     <a id="download" onclick="openl()" class="btn btn-default btn-lg"
                             style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
-                        Open
+                        Download MixFun App
                     </a>
                 </div>
             </div>
@@ -218,30 +218,29 @@
             success: function (data) {
                 auth = data.data.token;
                 $('#ModalBox').modal('show');
+                $.ajax({
+                    url:'https://api.mixit.fun/user/setFriendShareCode',
+                    method:'POST',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:'JSON',
+                    headers: {
+                        'authorization': auth
+                    },
+                    data:JSON.stringify(
+                        {share_code : vi}
+                    ),
+                    success:function(data){
+                        alert(data.msg);
+                    }
+                });
             }
         });
     }
 
 
     function openl() {
-        $.ajax({
-            url:'https://api.mixit.fun/user/setFriendShareCode',
-            method:'POST',
-            contentType: 'application/json;charset=UTF-8',
-            dataType:'JSON',
-            headers: {
-                'authorization': auth
-            },
-            data:JSON.stringify(
-                {share_code : vi}
-            ),
-            success:function(data){
-                alert(data.msg);
-                if(data.status == 0){
-                    window.onload(loadt);
-                }
-            }
-        });
+        window.onload(loadt);
+
     }
 
 
