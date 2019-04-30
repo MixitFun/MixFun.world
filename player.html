@@ -101,6 +101,9 @@
             } else if(data.data.type == 3){
                 $('#img').attr('src', data.data.thumbnailUrl);
                 $('#video').css('display','none');
+                $('#play').css('display','none');
+                $('#img').css('src', data.data.thumbnailWidth);
+                $('#img').css('src', data.data.thumbnailheight);
             }
 
         });
