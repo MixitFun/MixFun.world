@@ -55,6 +55,8 @@
 
         if (type === 1) {
             $('#content').attr('style', 'width:70%');
+            var clientHeight = document.body.clientHeight/2;
+            $('video').css('height',clientHeight);
             $('.download').attr('href', "https://mixfun.world/index.html");
         } else if (type === 2) {
             $.ajax({
@@ -92,6 +94,7 @@
                 $('#source').attr('src', data.data.playUrl);
                 $('video').attr('poster', data.data.thumbnailUrl);
                 $('video').attr('atuoplay', true);
+                $('video').css('background-image', data.data.thumbnailUrl);
                 document.getElementById('player').load();
                 $('#image').css('display','none');
                 $('#play').click();
@@ -142,7 +145,7 @@
         <a id="nickname" style="font-size: large">MixFun</a>
     </row>
     <div id="video">
-        <video id="player" style="width: 100%" preload="auto">
+        <video id="player" style="width: 100%;" preload="auto">
             <source id="source" type="video/mp4"/>
             <track>
         </video>
