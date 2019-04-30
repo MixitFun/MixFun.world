@@ -70,7 +70,7 @@
                         <p style="color: #9B9B9B;font-size: small;">unregistered phones will automatically create accounts.</p>
                     </row>
                     <row>
-                        <button type="button" class="btn btn-default btn-lg" onclick="open()"
+                        <button type="button" class="btn btn-default btn-lg" onclick="login()"
                                 style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                             Login
                         </button>
@@ -96,7 +96,7 @@
                     <p>
                         You helped your friend open the treasure chest successfully!You got your own reward-50 Mixcoins!Check the reward in MixFun app.
                     </p>
-                    <a id="download" class="btn btn-default btn-lg"
+                    <a id="download" onclick="open()" class="btn btn-default btn-lg"
                             style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                         Open
                     </a>
@@ -198,22 +198,26 @@
     vi = GetRequest().shareCode;
     var verify = $('#verify').val();
     function login() {
-        var num = $('#sl').val()+$('#num').val();
+        var num = $('#sl').val() + $('#num').val();
         var verify = $('#verify').val();
         $.ajax({
-            url:'https://api.mixit.fun/auth/login_by_mobile_phone',
-            method:'POST',
+            url: 'https://api.mixit.fun/auth/login_by_mobile_phone',
+            method: 'POST',
             contentType: 'application/json;charset=UTF-8',
-            dataType:'JSON',
-            data:JSON.stringify(
-                {mobile:num,
-                verify_code:verify,
-                device_type:3,
-                device_code:'web'}
+            dataType: 'JSON',
+            data: JSON.stringify(
+                {
+                    mobile: num,
+                    verify_code: verify,
+                    device_type: 3,
+                    device_code: 'web'
+                }
             ),
-            success:function(data){
+            success: function (data) {
                 $('#ModalBox').modal('show');
-            }});
+            }
+        });
+    }
 
 
     function open() {
@@ -233,7 +237,7 @@
                 $('#ModalBox').click();
             }});
     }
-    }
+
 
 </script>
 </html>
