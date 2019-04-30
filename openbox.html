@@ -28,7 +28,7 @@
 
         </div>
         <p style="font-size: 13pt;margin-top: 30%;z-index: 999;position: absolute;margin-left: 8%;margin-right: 8%;font-weight:bold;">
-            hi,dear:
+            Hi,dear:
             <br/>
             Here is refferral from your friend!He need your generous help!
             <br/>
@@ -96,7 +96,7 @@
                     <p>
                         You helped your friend open the treasure chest successfully!You got your own reward-50 Mixcoins!Check the reward in MixFun app.
                     </p>
-                    <a id="download" onclick="openl()" class="btn btn-default btn-lg"
+                    <a id="download" class="btn btn-default btn-lg"
                             style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                         Download MixFun App
                     </a>
@@ -127,10 +127,9 @@
         type = 3
     }
 
-    var loadt = '';
     if (type === 1) {
         $('#content').attr('style', 'width:70%');
-        loadt = 'href', "https://mixfun.world/index.html";
+        $('#download').attr('href', "https://mixfun.world/index.html");
     } else if (type === 2) {
         $.ajax({
             url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
@@ -145,13 +144,13 @@
                         if (code == 'cn') {
                             code = 'hk';
                         }
-                        loadt = 'href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                        $('#download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
                     }
                 });
             }
         });
     } else if (type === 3) {
-        loadt = 'href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
+        $('#download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
     }
 
     function getCode() {
@@ -238,10 +237,6 @@
     }
 
 
-    function openl() {
-        window.onload(loadt);
-
-    }
 
 
 </script>
