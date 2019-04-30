@@ -127,10 +127,10 @@
         type = 3
     }
 
-    var load = '';
+    var loadt = '';
     if (type === 1) {
         $('#content').attr('style', 'width:70%');
-        load = 'href', "https://mixfun.world/index.html";
+        loadt = 'href', "https://mixfun.world/index.html";
     } else if (type === 2) {
         $.ajax({
             url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
@@ -145,13 +145,13 @@
                         if (code == 'cn') {
                             code = 'hk';
                         }
-                        load = 'href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                        loadt = 'href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
                     }
                 });
             }
         });
     } else if (type === 3) {
-        load = 'href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
+        loadt = 'href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
     }
 
     function getCode() {
@@ -224,7 +224,6 @@
 
 
     function openl() {
-
         $.ajax({
             url:'https://api.mixit.fun/user/setFriendShareCode',
             method:'POST',
@@ -237,7 +236,10 @@
                 {share_code : vi}
             ),
             success:function(data){
-                window.onload(load);
+                alert(data.msg);
+                if(data.status == 0){
+                    window.onload(loadt);
+                }
             }
         });
     }
