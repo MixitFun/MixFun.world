@@ -96,7 +96,7 @@
                     <p>
                         You helped your friend open the treasure chest successfully!You got your own reward-50 Mixcoins!Check the reward in MixFun app.
                     </p>
-                    <a id="download" onclick="open()" class="btn btn-default btn-lg"
+                    <a id="download" onclick="openl()" class="btn btn-default btn-lg"
                             style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
                         Open
                     </a>
@@ -127,9 +127,10 @@
         type = 3
     }
 
+    var load = '';
     if (type === 1) {
         $('#content').attr('style', 'width:70%');
-        $('#download').attr('href', "https://mixfun.world/index.html");
+        load = 'href', "https://mixfun.world/index.html";
     } else if (type === 2) {
         $.ajax({
             url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
@@ -144,13 +145,13 @@
                         if (code == 'cn') {
                             code = 'hk';
                         }
-                        $('#download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                        load = 'href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
                     }
                 });
             }
         });
     } else if (type === 3) {
-        $('#download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
+        load = 'href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
     }
 
     function getCode() {
@@ -197,6 +198,7 @@
 
     vi = GetRequest().shareCode;
     var verify = $('#verify').val();
+    var auth;
     function login() {
         var num = $('#sl').val() + $('#num').val();
         var verify = $('#verify').val();
@@ -214,14 +216,15 @@
                 }
             ),
             success: function (data) {
+                auth = data.data.token;
                 $('#ModalBox').modal('show');
             }
         });
     }
 
 
-    function open() {
-        var auth = data.data.token;
+    function openl() {
+
         $.ajax({
             url:'https://api.mixit.fun/user/setFriendShareCode',
             method:'POST',
@@ -234,8 +237,9 @@
                 {share_code : vi}
             ),
             success:function(data){
-                $('#ModalBox').click();
-            }});
+                window.onload(load);
+            }
+        });
     }
 
 
