@@ -24,21 +24,21 @@
 <body>
     <div id="content">
         <div style="z-index: 999;position: absolute;margin-top: 15%;" align="center">
-            <img src="img/mixit-logo.png" style="width: 15%">
+            <img src="img/mixit-logo.png" style="width: 15%" >
 
         </div>
         <p style="font-size: 13pt;margin-top: 30%;z-index: 999;position: absolute;margin-left: 8%;margin-right: 8%;font-weight:bold;">
             Hi,dear:
             <br/>
-            Here is refferral from your friend!He need your generous help!
+            Here is refferral from your friend! He needs your generous help!
             <br/>
-            Help him to open the treasure chest,you can share the treasures.Let's do it.
+            Help him to open the treasure chest and you can win the treasure too. Let's do it.
         </p>
         <img id="backgroup" src="img/home_background.png" width="100%"/>
         <div id="footer" style="width: 100%;background-color: #FFF4E4;" align="center">
             <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#ModalLong"
                     style="margin-top: 20%;border-radius:30px;width: 80%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
-                Help to open
+                Open
             </button>
             <p style="color: #BC9982;margin-top: 20%;">copyright@2019 mixfun</p>
             <p style="color: #BC9982;margin-bottom: 0px;">www.mixfun.world</p>
@@ -66,9 +66,9 @@
                         <button id="send" onclick="getCode()" class="btn" style="width: 25%;color: #FA5C7E;border-radius: 20px;border-color: #FA5C7E;margin-top: 10%;">Send</button>
                         <button id="time" class="btn" style="width: 25%;color: #9B9B9B;border-radius: 20px;border-color: #9B9B9B;margin-top: 10%;display: none;"></button>
                     </row>
-                    <row>
+                    <!--<row>
                         <p style="color: #9B9B9B;font-size: small;">unregistered phones will automatically create accounts.</p>
-                    </row>
+                    </row>-->
                     <row>
                         <button type="button" class="btn btn-default btn-lg" onclick="login()"
                                 style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
@@ -91,10 +91,10 @@
             </button>
             <div class="modal-content" style="border-radius:25px;" align="center">
                 <div class="modal-body">
-                    <h5>you did it!</h5>
+                    <h5>Congratulations!</h5>
                     <img src="img/box.png">
                     <p>
-                        You helped your friend open the treasure chest successfully!You got your own reward-50 Mixcoins!Check the reward in MixFun app.
+                        You've helped your friend opended the treasure chest successfully! You won reward 50 Mixcoins too! Check the reward in MixFun app.
                     </p>
                     <a id="download" class="btn btn-default btn-lg"
                             style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
@@ -229,7 +229,11 @@
                         {share_code : vi}
                     ),
                     success:function(data){
-                        alert(data.msg);
+                        if(data.status == 0){
+                            alert("Congratulations!");
+                        }else{
+                            alert(data.msg);
+                        }
                     }
                 });
             }
