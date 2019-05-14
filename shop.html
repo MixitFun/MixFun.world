@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>shop</title>
+    <title>MixMall</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
@@ -52,6 +53,7 @@
         <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body">
                 <p style="color: #9B9B9B;font-size: medium">You've intied <span id="num" style="color: #6974FF"></span> friend successfully</p>
+                <div id="ref"></div>
                 <p class="card-text">My referral code：
                     <text id="shareId"></text>
                     <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy()">&nbsp;Copy&nbsp;</button>
@@ -88,7 +90,7 @@
     </div>
 
     <!-- role -->
-    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 10%;border-radius: 20px;">
         <div class="modal-dialog" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -114,7 +116,7 @@
     </div>
 
     <!-- alert -->
-    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 10%;border-radius: 20px;">
         <div class="modal-dialog" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -130,7 +132,7 @@
     </div>
 
     <!-- Exchange -->
-    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 10%;border-radius: 20px;">
         <div class="modal-dialog" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -217,6 +219,11 @@
         dataType: 'json',
         success: function(data){
             $('#num').html(data.data.length);
+            var ht = '';
+            data.data.forEach(function (item,index) {
+               ht+='<img src="'+item.avatar+'" style="width: 40px;height: 40px;border-radius: 20px;"/>';
+            });
+            $('#ref').html(ht);
         }
     });
 
@@ -277,7 +284,7 @@
                             '<div class="media-body" style="padding: 3%;">'+
                                 '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.count+'</span></h5></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.name+'</span>' +
+                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.sale+' spot left</span>' +
                                 '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+')">&nbsp;Draw&nbsp;</button></p></div>'+
                             '</div>'+
                         '</div>';
