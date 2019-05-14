@@ -19,34 +19,52 @@
         background-repeat: no-repeat;
         background-size: 100%;
     }
+    .tooltip-inner{
+        background-color: #b3d7ff;
+        color: #6974FF;
+        max-width: 300px;
+    }
+    .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before{
+        border-top-color: #b3d7ff;
+    }
+    .tooltip{
+        align-content: center;
+        z-index: -1;
+    }
+    input{
+        margin-top: 15px;
+    }
+    textarea{
+        margin-top: 15px;
+    }
 </style>
 <body>
     <div class="container" style="padding:0;" align="center">
         <div align="center" class="top">
-            <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;">Activity rules</button>
+            <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
             <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
             <p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>
         </div>
         <div align="center">
-            <img src="img/logo.png" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
-            <p>name</p>
+            <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
+            <p id="mc"></p>
         </div>
         <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body">
-                <p style="color: #9B9B9B;font-size: medium">You've intied 10 friend successfully</p>
+                <p style="color: #9B9B9B;font-size: medium">You've intied <span id="num" style="color: #6974FF"></span> friend successfully</p>
                 <p class="card-text">My referral code：
-                    <span id="shareId">w8kgm598n</span>
-                    <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Copy&nbsp;</button>
+                    <text id="shareId"></text>
+                    <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy()">&nbsp;Copy&nbsp;</button>
                 </p>
             </div>
         </div>
-        <div style="margin-top: 30px;">
+        <div style="margin-top: 90px;">
             <row>
                 <a class="col-4" style="padding: 10%">
                     <img src="img/logo_whatsapp.png">
                 </a>
                 <a class="col-4" style="padding: 10%">
-                    <img src="img/icon_facebook.png">
+                    <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
                 </a>
                 <a class="col-4" style="padding: 10%">
                     <img src="img/icon_ic_link.png">
@@ -57,23 +75,88 @@
             <div class="media" style="padding: 2%;">
                 <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
                 <div class="media-body" >
-                    <table style="width: 100%">
-                        <tbody>
-                        <tr>
-                            <td style="width: 30%;padding: 4px;">
-                                asdfsdf
-                            </td>
-                            <td style="width: 70%;padding: 4px;">
-                                asdfsdfadfad
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="commodity">
 
+        </div>
+    </div>
+
+    <!-- role -->
+    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Activity rules</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>How to join it?</h5>
+                    <p> Follow the instructions to invite friends to sign up on MixFun and you can win prizes. </p>
+                </div>
+                <div class="modal-body">
+                    <h5>How to do it?</h5>
+                    <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. 2.Share the invite link and your friend can register on the unique invite link. </p>
+                </div>
+                <div class="modal-body">
+                    <h5>How can I get my prize?</h5>
+                    <p> Leave your personal information and we will contact you after the activity in one month. First come first served. You can inbox us on Facebook for any questions. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- alert -->
+    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alert">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exchange -->
+    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Congratulations!
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Congratulations! You got me!
+                        Please leave us your information and we will send you the prize soon!
+                    </p>
+                </div>
+                <div class="modal-body" align="center">
+                    <form method="post" >
+                        <input type="hidden" id="id"/>
+                        <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                        <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                        <input class="form-control" type="text" id="moblieLegend" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                        <textarea class="form-control" id="address" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                        <p>Should you have any questions,please inbox us on MixFun Facebook</p>
+                        <button onclick="buy()" class="btn" type="submit" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -83,11 +166,106 @@
     $('.top').css('height',170/(375/clientWidth)+"px");
     $('.d-block').css('height',clientHeight/4);
 
+    $('#tips').tooltip('show');
+
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    
+    var token =  GetRequest().id;
+    
+    function cj(it){
+        $.ajax({
+            method: 'post',
+            url: 'https://api.mixit.fun/shop/exchange',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            data: JSON.stringify({
+                commodityId: it
+            }),
+            dataType: 'json',
+            success: function(data){
+                if (data.status==0){
+                    $('#ModalExchange').modal('show');
+                    $('#id').val(data.data.id);
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
+    $.ajax({
+        method: 'get',
+        url: 'https://api.mixit.fun/user/referralList',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#num').html(data.data.length);
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: 'https://api.mixit.fun/user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#tx').attr('src',data.data.avatar);
+            $('#mc').text(data.data.nickname);
+            $('#shareId').text(data.data.ownShareCode);
+        }
+    });
+
+    function buy(){
+        var id = $('#id').val();
+        var recipient = $('#recipient').val();
+        var phone = $('#phone').val();
+        var moblieLegend = $('#moblieLegend').val();
+        var address = $('#address').val();
+        $.ajax({
+            url : "https://api.mixit.fun/shop/buy",
+            type : 'post',
+            dataType : 'json',
+            data: {
+                id: id,
+                recipient:recipient,
+                phone: phone,
+                moblieLegend: moblieLegend,
+                address: address
+            },
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+            }
+        });
+    }
+
     $.ajax({
         method: 'post',
-        url: 'http://localhost:7001/shop/list',
+        url: 'https://api.mixit.fun/shop/list',
         headers:{
-            authorization:'abab92e5636e40dab6f26b21a486b449'
+            authorization:token
         },
         dataType: 'json',
         success: function(data) {
@@ -100,7 +278,7 @@
                                 '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.count+'</span></h5></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.name+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Redeem&nbsp;</button></p></div>'+
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+')">&nbsp;Draw&nbsp;</button></p></div>'+
                             '</div>'+
                         '</div>';
                 });
@@ -109,25 +287,52 @@
         }
     });
 
+    function copy(){
+        var Url2=document.getElementById("shareId");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+    }
+
     $.ajax({
         method: 'post',
-        url: 'http://localhost:7001/shop/transactionList',
+        url: 'https://api.mixit.fun/shop/transactionList',
         headers:{
-            authorization:'abab92e5636e40dab6f26b21a486b449'
+            authorization:token
         },
         dataType: 'json',
         success: function(data){
             if(data.status == 0) {
                 var ht = '';
                 data.data.forEach(function(item, index) {
+                    var dat = new Date(item.createdTime);
                     if(index == 0){
-                        ht+='<div class="carousel-item active" style="background-color: #9B9B9B">' +
-                            '    <p>'+item.user.nickname+'成功兑换'+item.commodity.name+'</p>' +
-                            '</div>'
+                        ht+='<div  class="carousel-item active"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 25%;padding: 4px;">\n' +
+                                                            dat.getMonth()+'-'+dat.getDate() +' '+
+                                                            dat.getHours()+':'+dat.getMinutes()+
+                            '                            </td>\n' +
+                            '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
+                                                            item.user.nickname +' just won the '+item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
                     }else {
-                        ht+='<div class="carousel-item" style="background-color: #9B9B9B">' +
-                            '    <p>'+item.user.nickname+'成功兑换'+item.commodity.name+'</p>' +
-                            '</div>'
+                        ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 25%;padding: 4px;">\n' +
+                                                            dat.getMonth() + '-' + dat.getDate() + ' '+
+                                                            dat.getHours() + ':' + dat.getMinutes() +
+                            '                            </td>\n' +
+                            '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
+                                                            item.user.nickname + ' just won the ' + item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
                     }
                 });
                 $('.carousel-inner').html(ht);
