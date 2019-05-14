@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<style>
+    .top{
+        background-image: url("img/bg_new.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+</style>
+<body>
+    <div class="container" style="padding:0;" align="center">
+        <div align="center" class="top">
+            <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;">Activity rules</button>
+            <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
+            <p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>
+        </div>
+        <div align="center">
+            <img src="img/logo.png" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
+            <p>name</p>
+        </div>
+        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card-body">
+                <p style="color: #9B9B9B;font-size: medium">You've intied 10 friend successfully</p>
+                <p class="card-text">My referral code：
+                    <span id="shareId">w8kgm598n</span>
+                    <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Copy&nbsp;</button>
+                </p>
+            </div>
+        </div>
+        <div style="margin-top: 30px;">
+            <row>
+                <a class="col-4" style="padding: 10%">
+                    <img src="img/logo_whatsapp.png">
+                </a>
+                <a class="col-4" style="padding: 10%">
+                    <img src="img/icon_facebook.png">
+                </a>
+                <a class="col-4" style="padding: 10%">
+                    <img src="img/icon_ic_link.png">
+                </a>
+            </row>
+        </div>
+        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+            <div class="media" style="padding: 2%;">
+                <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
+                <div class="media-body" >
+                    <table style="width: 100%">
+                        <tbody>
+                        <tr>
+                            <td style="width: 30%;padding: 4px;">
+                                asdfsdf
+                            </td>
+                            <td style="width: 70%;padding: 4px;">
+                                asdfsdfadfad
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="commodity">
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var clientHeight = document.body.clientHeight;
+    var clientWidth = document.body.clientWidth;
+    $('.top').css('height',170/(375/clientWidth)+"px");
+    $('.d-block').css('height',clientHeight/4);
+
+    $.ajax({
+        method: 'post',
+        url: 'http://localhost:7001/shop/list',
+        headers:{
+            authorization:'abab92e5636e40dab6f26b21a486b449'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                var ht = '';
+                data.data.forEach(function(item, index) {
+                    ht+='<div class="media"style="padding: 3%">'+
+                            '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 25%;border-radius: 5px;"/>'+
+                            '<div class="media-body" style="padding: 3%;">'+
+                                '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.count+'</span></h5></div>'+
+                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.name+'</span>' +
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Redeem&nbsp;</button></p></div>'+
+                            '</div>'+
+                        '</div>';
+                });
+                $('.commodity').html(ht);
+            }
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: 'http://localhost:7001/shop/transactionList',
+        headers:{
+            authorization:'abab92e5636e40dab6f26b21a486b449'
+        },
+        dataType: 'json',
+        success: function(data){
+            if(data.status == 0) {
+                var ht = '';
+                data.data.forEach(function(item, index) {
+                    if(index == 0){
+                        ht+='<div class="carousel-item active" style="background-color: #9B9B9B">' +
+                            '    <p>'+item.user.nickname+'成功兑换'+item.commodity.name+'</p>' +
+                            '</div>'
+                    }else {
+                        ht+='<div class="carousel-item" style="background-color: #9B9B9B">' +
+                            '    <p>'+item.user.nickname+'成功兑换'+item.commodity.name+'</p>' +
+                            '</div>'
+                    }
+                });
+                $('.carousel-inner').html(ht);
+            }
+        }
+    });
+</script>
+</html>
