@@ -313,15 +313,14 @@
             if(data.status == 0) {
                 var ht = '';
                 data.data.forEach(function(item, index) {
-                    var dat = new Date(item.createdTime);
+                    var dat = item.createdTime;
                     if(index == 0){
                         ht+='<div  class="carousel-item active"><table style="width: 100%">\n' +
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 25%;padding: 4px;">\n' +
-                            item.createdTime+
-                                                            /*dat.getMonth()+'-'+dat.getDate() +' '+
-                                                            dat.getHours()+':'+dat.getMinutes()+*/
+                                                            dat.getMonth()+'-'+dat.getDate() +' '+
+                                                            dat.getHours()+':'+dat.getMinutes()+
                             '                            </td>\n' +
                             '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
                                                             item.user.nickname +' just won the '+item.commodity.name+
@@ -334,9 +333,8 @@
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 25%;padding: 4px;">\n' +
-                            item.createdTime+
-                                                            /*dat.getMonth() + '-' + dat.getDate() + ' '+
-                                                            dat.getHours() + ':' + dat.getMinutes() +*/
+                                                            dat.getMonth() + '-' + dat.getDate() + ' '+
+                                                            dat.getHours() + ':' + dat.getMinutes() +
                             '                            </td>\n' +
                             '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
                                                             item.user.nickname + ' just won the ' + item.commodity.name+
