@@ -19,6 +19,7 @@
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
 <style>
     .top{
         background-image: url("img/bg_new.png");
@@ -73,7 +74,8 @@
                 <a class="col-4" style="padding: 10%" id="fc"  href="" target="_blank">
                     <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
                 </a>
-                <a class="col-4" style="padding: 10%" target="_blank" onclick="copy('lj')" id="lj">
+                <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                    <input id="lj" type="hidden">
                     <img src="img/icon_ic_link.png">
                 </a>
             </row>
@@ -159,7 +161,7 @@
                         <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                         <input class="form-control" type="text" id="moblieLegend" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                         <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                        <p>Should you have any questions , please inbox us on MixFun Facebook</p>
+                        <p>Should you have any questions, please inbox us on MixFun Facebook</p>
                         <button onclick="buy()" class="btn" type="submit" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
                     </form>
                 </div>
@@ -213,6 +215,7 @@
             }
         });
     }
+
 
     $.ajax({
         method: 'get',
@@ -309,6 +312,13 @@
     });
 
     function copy(id){
+        if(id == 'lj'){
+            var clipboard = new ClipboardJS('.copy-button', {
+                text: function() {
+                    return $('#lj').val();
+                }
+            });
+        }
         var shareId = document.getElementById(id);
         shareId.select();
         document.execCommand('copy');
