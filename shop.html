@@ -52,7 +52,7 @@
         </div>
         <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body">
-                <p style="color: #9B9B9B;font-size: medium">You've intied <span id="num" style="color: #6974FF"></span> friend successfully</p>
+                <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
                 <div id="ref"></div>
                 <p class="card-text">My referral code：
                     <text id="shareId"></text>
@@ -153,8 +153,8 @@
                         <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                         <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                         <input class="form-control" type="text" id="moblieLegend" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                        <textarea class="form-control" id="address" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                        <p>Should you have any questions,please inbox us on MixFun Facebook</p>
+                        <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                        <p>Should you have any questions , please inbox us on MixFun Facebook</p>
                         <button onclick="buy()" class="btn" type="submit" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
                     </form>
                 </div>
@@ -188,7 +188,7 @@
     function cj(it){
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: 'http://localhost:7001/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -264,6 +264,8 @@
                     authorization: token
                 },
             success: function(data){
+                $('#alert').html('<p>Congratulations!</p>');
+                $('#ModalAlert').modal('show');
             }
         });
     }
@@ -317,8 +319,9 @@
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 25%;padding: 4px;">\n' +
-                                                            dat.getMonth()+'-'+dat.getDate() +' '+
-                                                            dat.getHours()+':'+dat.getMinutes()+
+                            item.createdTime+
+                                                            /*dat.getMonth()+'-'+dat.getDate() +' '+
+                                                            dat.getHours()+':'+dat.getMinutes()+*/
                             '                            </td>\n' +
                             '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
                                                             item.user.nickname +' just won the '+item.commodity.name+
@@ -331,8 +334,9 @@
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 25%;padding: 4px;">\n' +
-                                                            dat.getMonth() + '-' + dat.getDate() + ' '+
-                                                            dat.getHours() + ':' + dat.getMinutes() +
+                            item.createdTime+
+                                                            /*dat.getMonth() + '-' + dat.getDate() + ' '+
+                                                            dat.getHours() + ':' + dat.getMinutes() +*/
                             '                            </td>\n' +
                             '                            <td style="width: 75%;padding: 4px;font-size: small;">\n' +
                                                             item.user.nickname + ' just won the ' + item.commodity.name+
