@@ -200,7 +200,7 @@
     
     var token =  GetRequest().id;
     
-    function cj(it){
+    function cj(it,name){
         $.ajax({
             method: 'post',
             url: 'https://api.mixit.fun/shop/exchange',
@@ -214,6 +214,11 @@
             dataType: 'json',
             success: function(data){
                 if (data.status==0){
+                    if(name == 'Mobile Legends'){
+                        $('#address').css('display','none');
+                    }else{
+                        $('#moblieLegend').css('display','none');
+                    }
                     $('#ModalExchange').modal('show');
                     $('#id').val(data.data.id);
                 }else{
@@ -309,7 +314,7 @@
                                 '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.count+' spot left</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+')">&nbsp;Draw&nbsp;</button></p></div>'+
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+','+item.name+')">&nbsp;Draw&nbsp;</button></p></div>'+
                             '</div>'+
                         '</div>';
                 });
