@@ -96,8 +96,13 @@
         </div>
     </div>
 
+    <div id="footer" style="width: 100%;" align="center">
+        <p>Apple is not a sponsor or involved in the activity in any manner</p>
+        <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
+    </div>
+
     <!-- role -->
-    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 10%;border-radius: 20px;">
+    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 25%;border-radius: 20px;">
         <div class="modal-dialog" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -112,7 +117,7 @@
                 </div>
                 <div class="modal-body">
                     <h5>How to do it?</h5>
-                    <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. 2.Share the invite link and your friend can register on the unique invite link. </p>
+                    <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. <br/>2.Share the invite link and your friend can register on the unique invite link. </p>
                 </div>
                 <div class="modal-body">
                     <h5>How can I get my prize?</h5>
@@ -139,8 +144,8 @@
     </div>
 
     <!-- Exchange -->
-    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 10%;border-radius: 20px;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
                     <h5 class="modal-title">Congratulations!
@@ -174,6 +179,9 @@
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
     $('.d-block').css('height',clientHeight/4);
+    $('#ModalExchange').css('height',clientHeight);
+    $('.modal-content').css('height',clientHeight);
+    $('#ModalRole').css('height',clientHeight);
 
     $('#tips').tooltip('show');
 
@@ -215,7 +223,6 @@
             }
         });
     }
-
 
     $.ajax({
         method: 'get',
@@ -370,5 +377,16 @@
             }
         }
     });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-138276305-1');
+    gtag('commement', '');
 </script>
 </html>
