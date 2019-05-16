@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>I found many interesting videos and memes on MixFun, I think you will like it too!</title>
+    <title>I found many videos and memes on MixFun, I think you will like it too!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
@@ -81,7 +81,7 @@
             $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
         }
 
-        $.get('https://api.mixit.fun/video/getInfo?id=' + vi, function (data) {
+        $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
             $('title').html(data.data.title);
             if (data.data.user.avatar != null) {
                 $('#avatar').attr('src', data.data.user.avatar);
@@ -174,5 +174,15 @@
     <p style="color: white">To watch more interesting videos and pictures, please download the MixFun app<a class="btn btn-primary btn-sm download"  style="float: right;">Download</a></p>
 </div>
 </body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-138276305-1');
+    gtag('commement', '');
+</script>
 </html>
 
