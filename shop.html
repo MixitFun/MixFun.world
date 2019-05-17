@@ -160,15 +160,13 @@
                     </p>
                 </div>
                 <div class="modal-body" align="center">
-                    <form method="post" >
-                        <input type="hidden" id="id"/>
-                        <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                        <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                        <input class="form-control" type="text" id="moblieLegend" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                        <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                        <p>Should you have any questions, please inbox us on MixFun Facebook</p>
-                        <button onclick="buy()" class="btn" type="submit" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
-                    </form>
+                    <input type="hidden" id="id"/>
+                    <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <input class="form-control" type="text" id="moblieLegend" placeholder="Enter your mobile legends account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                    <p>Should you have any questions, please inbox us on MixFun Facebook</p>
+                    <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
                 </div>
             </div>
         </div>
@@ -202,7 +200,7 @@
     function cj(it,name){
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: 'http://localhost:7001/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -230,7 +228,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/referralList',
+        url: 'http://localhost:7001/user/referralList',
         headers:{
             authorization:token
         },
@@ -248,7 +246,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/profile',
+        url: 'http://localhost:7001/user/profile',
         headers:{
             authorization:token
         },
@@ -272,7 +270,7 @@
         var moblieLegend = $('#moblieLegend').val();
         var address = $('#address').val();
         $.ajax({
-            url : "https://api.mixit.fun/shop/buy",
+            url : "http://localhost:7001/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -287,6 +285,7 @@
                     authorization: token
                 },
             success: function(data){
+                $('#ModalExchange').modal('hide');
                 $('#alert').html('<p>Congratulations!</p>');
                 $('#ModalAlert').modal('show');
             }
@@ -295,7 +294,7 @@
 
 
     function exModelShow(){
-        $('#ModalExchange').modal('show')
+        $('#ModalExchange').modal('show');
     }
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
@@ -306,7 +305,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'http://localhost:7001/shop/list',
         headers:{
             authorization:token
         },
@@ -348,7 +347,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/transactionList',
+        url: 'http://localhost:7001/shop/transactionList',
         headers:{
             authorization:token
         },
