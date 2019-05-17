@@ -293,6 +293,17 @@
         });
     }
 
+
+    function exModelShow(){
+        $('#ModalExchange').modal('show')
+    }
+    $('#ModalExchange').on('hide.bs.modal',function(){
+        $('#ModalAlert').modal('show');
+        $('#alert').html('<p>Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#ModalExchange').modal('show');
+
+    });
+
     $.ajax({
         method: 'post',
         url: 'https://api.mixit.fun/shop/list',
