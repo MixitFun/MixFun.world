@@ -259,7 +259,7 @@
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             $('#lj').val("https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
             $('#fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
-            $('#wc').attr('href',"https://api.whatsapp.com/send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
+            $('#wc').attr('href',"whatsapp://send?text="+encodeURIComponent("Please help me to win the iPhone!📱Just click the link below😁")+encodeURIComponent(+"\n\nhttps://mixfun.world/openbox?shadeCode="+data.data.ownShareCode)+"&via=lopscoop");
         }
     });
 
