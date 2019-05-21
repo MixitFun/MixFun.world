@@ -20,7 +20,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
-<script src="js/wasap.js"></script>
+<!--<script src="js/wasap.js"></script>-->
 <style>
     .top{
         background-image: url("img/bg_new.png");
@@ -69,9 +69,9 @@
         </div>
         <div style="margin-top: 90px;">
             <row>
-                <a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
+                <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
                     <img src="img/logo_whatsapp.png">
-                </a>
+                </a>-->
                 <a class="col-4" style="padding: 10%" id="fc"  href="" target="_blank">
                     <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
                 </a>
@@ -183,7 +183,7 @@
 
     $('#tips').tooltip('show');
 
-    wasap.init();
+
 
     function GetRequest() {
         var url = location.search;
@@ -262,7 +262,7 @@
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             $('#lj').val("https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
             $('#fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
-            //$('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
+            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
         }
     });
 
@@ -271,7 +271,7 @@
         var recipient = $('#recipient').val();
         var phone = $('#phone').val();
         var moblieLegend = $('#moblieLegend').val();
-        var address = $('#address').val();
+        //var address = $('#address').val({enableIf: true});
         $.ajax({
             url : "https://api.mixit.fun/shop/buy",
             type : 'post',
