@@ -63,7 +63,7 @@
                 <div id="ref"></div>
                 <p class="card-text">My referral code：
                     <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                    <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')">&nbsp;Copy&nbsp;</button>
+                    <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
                 </p>
             </div>
         </div>
@@ -172,6 +172,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Exchange -->
+    <div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Copied!
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script type="text/javascript">
     var clientHeight = document.body.clientHeight;
@@ -184,7 +196,7 @@
     $('#tips').tooltip('show');
 
 
-
+    $('.toast').toast('show');
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -346,7 +358,12 @@
         var shareId = document.getElementById(id);
         shareId.select();
         document.execCommand('copy');
+        $('#tot').modal('show');
     }
+
+    $('#tot').on('shown.bs.modal', function (e) {
+        $('#tot').modal('hide');
+    })
 
     $.ajax({
         method: 'post',
