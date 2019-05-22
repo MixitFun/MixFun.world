@@ -203,7 +203,7 @@
     function cj(it,name){
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: 'http://localhost:7001/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -231,7 +231,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/referralList',
+        url: 'http://localhost:7001/user/referralList',
         headers:{
             authorization:token
         },
@@ -249,7 +249,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/profile',
+        url: 'http://localhost:7001/user/profile',
         headers:{
             authorization:token
         },
@@ -273,7 +273,7 @@
         var moblieLegend = $('#moblieLegend').val();
         //var address = $('#address').val({enableIf: true});
         $.ajax({
-            url : "https://api.mixit.fun/shop/buy",
+            url : "http://localhost:7001/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -308,7 +308,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'http://localhost:7001/shop/list',
         headers:{
             authorization:token
         },
@@ -350,7 +350,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/transactionList',
+        url: 'http://localhost:7001/shop/transactionList',
         headers:{
             authorization:token
         },
