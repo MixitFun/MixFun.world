@@ -51,7 +51,8 @@
         <div align="center" class="top">
             <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
             <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
-            <p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>
+            <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
+            <p>Lucky Draw-50% of Success Rate</p>
         </div>
         <div align="center">
             <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
@@ -93,7 +94,6 @@
             </div>
         </div>
         <div class="commodity">
-
         </div>
     </div>
 
@@ -144,8 +144,29 @@
         </div>
     </div>
 
+    <!-- alert -->
+    <div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>You coins will be deducted <span id="hf"></span> coin!</p>
+                    <button class="btn btn-info" onclick="cjl()">Continue</button>
+                    <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <input id="it" type="hidden"/>
+                    <input id="itname" type="hidden"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Exchange -->
-    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 5%;border-radius: 20px;">
+    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
         <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -212,7 +233,17 @@
     
     var token =  GetRequest().id;
     
-    function cj(it,name){
+    function cj(it,name,sale){
+        $('#ModalConf').modal('show');
+        $('#it').val(it);
+        $('#itname').val(name);
+        $('#hf').text(sale);
+    }
+
+    function cjl(){
+        var it = $('#it').val();
+        var name = $('#itname').val();
+        $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
             url: 'https://api.mixit.fun/shop/exchange',
@@ -311,6 +342,7 @@
     function exModelShow(){
         $('#ModalExchange').modal('show');
     }
+
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
         $('#alert').html('<p>Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
@@ -338,7 +370,7 @@
                                 '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.count+' spot left</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\')">&nbsp;Draw&nbsp;</button></p></div>'+
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+')">&nbsp;Draw&nbsp;</button></p></div>'+
                             '</div>'+
                         '</div>';
                 });
