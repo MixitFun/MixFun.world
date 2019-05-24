@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MixFun</title>
+    <title>MixMall</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
@@ -270,9 +270,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         We apologize for any inconvenience caused.<br/><br/>
-                        We are running huge traffic today, the Treasure Hunt will be available again on Saturday 11AM. <br/><br/>
+                        We are running huge traffic today, the Treasure Hunt will be available again on Friday 11AM. <br/><br/>
                         You can continue to earn coin by watching / uploading/ engaging videos and inviting new friends to MixFun.<br/><br/>
-                        Please message us on Facebook (<a href="https://www.facebook.com/mixfun.world/">MixFun.world</a>) if you have any questions.
+                        Please message us on Facebook or email to admin@mixfun.world if you have any questions.
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -352,7 +352,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: 'http://localhost:7001/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -377,7 +377,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/referralList',
+        url: 'http://localhost:7001/user/referralList',
         headers:{
             authorization:token
         },
@@ -397,7 +397,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/profile',
+        url: 'http://localhost:7001/user/profile',
         headers:{
             authorization:token
         },
@@ -445,7 +445,7 @@
             return;
         }
         $.ajax({
-            url : "https://api.mixit.fun/shop/buy",
+            url : "http://localhost:7001/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -490,7 +490,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'http://localhost:7001/shop/list',
         headers:{
             authorization:token
         },
@@ -500,10 +500,9 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! 50% success rate.</p>';
                 data.data.forEach(function(item, index) {
-                    ht+='<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! 50% success rate.</p>' +
-                        '<div class="media"style="padding: 3%">'+
+                    ht+= '<div class="media"style="padding: 3%">'+
                             '<div style="width: 25%;">' +
                                 '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
                                 '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
@@ -525,7 +524,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'http://localhost:7001/shop/list',
         headers:{
             authorization:token
         },
@@ -535,10 +534,9 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable! You can redeem the prize directly with the number of coins.</p>';
                 data.data.forEach(function(item, index) {
-                    ht+='<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable! You can redeem the prize directly with the number of coins.</p>' +
-                        '<div class="media"style="padding: 3%">'+
+                    ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
                         '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
                         '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
@@ -578,7 +576,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/transactionList',
+        url: 'http://localhost:7001/shop/transactionList',
         headers:{
             authorization:token
         },
