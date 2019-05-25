@@ -368,15 +368,13 @@
             headers:{
                 authorization:token
             },
-            beforeSend:function(){
-                $('#zzd').modal('show');
-            },
             data: {
                 commodityId: it,
                 type: type
             },
             dataType: 'json',
             success: function(data) {
+                $('#zzd').modal('show');
                 $('#zzd').on('shown.bs.modal',function () {
                     ss = null;
                     gmfh = data;
