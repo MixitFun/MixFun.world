@@ -281,10 +281,10 @@
 </div>
 </body>
 <script type="text/javascript">
+    var baseUrl;
     function stop(){
         $('#ModalStop').modal('show');
     }
-    stop();
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -312,6 +312,12 @@
 
     var token =  GetRequest().id;
 
+    if (token != 'abab92e5636e40dab6f26b21a486b449'){
+        baseUrl = "https://api.mixit.fun";
+        stop();
+    }else{
+        baseUrl = "https://shop.mixit.fun";
+    }
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
@@ -363,7 +369,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: baseUrl+'/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -390,7 +396,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/referralList',
+        url: baseUrl+'/user/referralList',
         headers:{
             authorization:token
         },
@@ -410,7 +416,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/profile',
+        url: baseUrl+'/user/profile',
         headers:{
             authorization:token
         },
@@ -464,7 +470,7 @@
             }
         }
         $.ajax({
-            url : "https://api.mixit.fun/shop/buy",
+            url : baseUrl+"/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -536,7 +542,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: baseUrl+'/shop/list',
         headers:{
             authorization:token
         },
@@ -570,7 +576,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: baseUrl+'/shop/list',
         headers:{
             authorization:token
         },
@@ -623,7 +629,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/transactionList',
+        url: baseUrl+'/shop/transactionList',
         headers:{
             authorization:token
         },
