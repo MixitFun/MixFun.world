@@ -284,7 +284,7 @@
     function stop(){
         $('#ModalStop').modal('show');
     }
-
+    stop();
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -312,9 +312,6 @@
 
     var token =  GetRequest().id;
 
-    if(token != ""){
-
-    }
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
@@ -366,7 +363,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'https://shop.mixit.fun/shop/exchange',
+            url: 'https://api.mixit.fun/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -393,7 +390,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://shop.mixit.fun/user/referralList',
+        url: 'https://api.mixit.fun/user/referralList',
         headers:{
             authorization:token
         },
@@ -413,7 +410,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'https://shop.mixit.fun/user/profile',
+        url: 'https://api.mixit.fun/user/profile',
         headers:{
             authorization:token
         },
@@ -467,7 +464,7 @@
             }
         }
         $.ajax({
-            url : "https://shop.mixit.fun/shop/buy",
+            url : "https://api.mixit.fun/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -539,7 +536,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://shop.mixit.fun/shop/list',
+        url: 'https://api.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -573,7 +570,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://shop.mixit.fun/shop/list',
+        url: 'https://api.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -626,7 +623,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://shop.mixit.fun/shop/transactionList',
+        url: 'https://api.mixit.fun/shop/transactionList',
         headers:{
             authorization:token
         },
