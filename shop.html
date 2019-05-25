@@ -284,7 +284,7 @@
     function stop(){
         $('#ModalStop').modal('show');
     }
-    stop();
+
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -312,6 +312,9 @@
 
     var token =  GetRequest().id;
 
+    if(token != ""){
+
+    }
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
@@ -363,7 +366,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'https://api.mixit.fun/shop/exchange',
+            url: 'https://shop.mixit.fun/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -390,7 +393,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/referralList',
+        url: 'https://shop.mixit.fun/user/referralList',
         headers:{
             authorization:token
         },
@@ -410,7 +413,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'https://api.mixit.fun/user/profile',
+        url: 'https://shop.mixit.fun/user/profile',
         headers:{
             authorization:token
         },
@@ -464,7 +467,7 @@
             }
         }
         $.ajax({
-            url : "https://api.mixit.fun/shop/buy",
+            url : "https://shop.mixit.fun/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -534,9 +537,9 @@
         pj = 'https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
     }
 
-    /*$.ajax({
+    $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'https://shop.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -557,7 +560,7 @@
                         '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot:'+item.count+'</span>' +
-                        /!*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+*!/
+                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+*/
                         '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+
                         '</div>'+
                         '</div>';
@@ -570,7 +573,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/list',
+        url: 'https://shop.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -592,7 +595,7 @@
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0">' +
                         '<p style="width: 100%;text-align: left;"><span>Hourly spot: '+item.glh+'</span>' +
-                        /!*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+*!/
+                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+*/
                         '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+
                         '</div>'+
                         '</div>';
@@ -601,7 +604,7 @@
             }
         }
     });
-*/
+
 
     function copy(id){
         if(id == 'lj'){
@@ -623,7 +626,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'https://api.mixit.fun/shop/transactionList',
+        url: 'https://shop.mixit.fun/shop/transactionList',
         headers:{
             authorization:token
         },
