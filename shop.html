@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MixFun</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
@@ -354,9 +355,11 @@
 
 
     var ss;
+    var gmfh;
+    var gmname;
     function cjl(){
         var it = $('#it').val();
-        var name = $('#itname').val();
+        var gmname = $('#itname').val();
         var type = $('#ittype').val();
         $('#ModalConf').modal('hide');
         $.ajax({
@@ -376,14 +379,15 @@
             success: function(data) {
                 $('#zzd').on('shown.bs.modal',function () {
                     ss = null;
+                    gmfh = data;
                     var ss = setTimeout(function () {
                         $('#zzd').modal('hide');
-                        dde(name, data);
-                        data = null;
-                        name = '';
                     },2000);
                 });
 
+                $('#zzd').on('hide.bs.modal', function () {
+                    dde(gmname, gmfh)
+                })
             }
         });
     }
