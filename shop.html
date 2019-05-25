@@ -333,8 +333,14 @@
             if(name == 'Mobile Legends'){
                 $('#address').val(0);
                 $('#address').css('display','none');
+                $('#phone').css('display','none');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','block');
             }else{
                 $('#moblieLegend').val(0);
+                $('#address').css('display','block');
+                $('#phone').css('display','block');
+                $('#phoneType').css('display','block');
                 $('#moblieLegend').css('display','none');
             }
             $('#ModalExchange').modal('show');
