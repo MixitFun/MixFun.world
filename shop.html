@@ -327,17 +327,18 @@
         $('.hf').text(sale);
     }
 
-    function dde(data) {
-        console.log(data);
+    function dde(name, data) {
         if (data.status==0){
             if(name == 'Mobile Legends'){
-                $('#address').val(0);
+                $('#address').val('nil');
+                $('#phone').val('nil');
+                $('#phoneType').val('nil');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','block');
             }else{
-                $('#moblieLegend').val(0);
+                $('#moblieLegend').val('nil');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
@@ -377,7 +378,7 @@
                     ss = null;
                     var ss = setTimeout(function () {
                         $('#zzd').modal('hide');
-                        dde(data);
+                        dde(name, data);
                         data = null;
                     },2000);
                 });
