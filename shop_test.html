@@ -364,7 +364,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'http://127.0.0.1:7001/shop/exchange',
+            url: 'https://shop.mixit.fun/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -391,7 +391,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'http://127.0.0.1:7001/user/referralList',
+        url: 'https://shop.mixit.fun/user/referralList',
         headers:{
             authorization:token
         },
@@ -411,7 +411,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'http://127.0.0.1:7001/user/profile',
+        url: 'https://shop.mixit.fun/user/profile',
         headers:{
             authorization:token
         },
@@ -465,7 +465,7 @@
             }
         }
         $.ajax({
-            url : "http://127.0.0.1:7001/shop/buy",
+            url : "https://shop.mixit.fun/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -537,7 +537,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http://127.0.0.1:7001/shop/list',
+        url: 'https://shop.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -571,7 +571,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http://127.0.0.1:7001/shop/list',
+        url: 'https://shop.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -624,7 +624,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http://127.0.0.1:7001/shop/transactionList',
+        url: 'https://shop.mixit.fun/shop/transactionList',
         headers:{
             authorization:token
         },
