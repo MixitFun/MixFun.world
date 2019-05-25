@@ -48,6 +48,9 @@
     li:hover{
         background-color: #adb5bd;
     }
+    .nav-link.active{
+        color: #007bff;
+    }
 </style>
 <body>
     <div class="container" style="padding:0;" align="center">
@@ -56,6 +59,7 @@
             <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
             <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
             <p>Redeem & Lucky Draw - Test Your Luck</p>
+            <span style="font-size: small">(This event is only available for Philippines region.)</span>
         </div>
         <div align="center">
             <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
@@ -115,7 +119,7 @@
     </div>
 
     <div id="footer" style="width: 100%;" align="center">
-        <p>Apple is not a sponsor or involved in the activity in any manner</p>
+        <p>More coins on MixFun <a href="https://www.facebook.com/mixfun.world"> Facebook</a></p>
         <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
     </div>
 
@@ -150,7 +154,7 @@
         <div class="modal-dialog" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
                 <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title">message</h5>
+                    <h5 class="modal-title">Message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -195,22 +199,16 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p> Congratulations! You got me!
+                <div class="modal-body" style="padding-bottom: 5px;">
+                    <span> Congratulations! You got me!
                         Please leave us your information and we will send you the prize soon!
-                    </p>
+                    </span>
                 </div>
                 <span id="bt" style="color: red;margin-left: 10%;"></span>
                 <div class="modal-body" align="center">
                     <input type="hidden" id="id"/>
                     <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                    <div class="form-group">
-                        <label>Telecommunications Company:</label>
-                        <select class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
-                            <option>Smart</option>
-                            <option>Globe</option>
-                        </select>
-                    </div>
+                    <input placeholder="Telecom Company(Smart or Global)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
                     <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                     <input class="form-control" type="text" id="moblieLegend" placeholder="Please input the complete user ID here, e.g. 12345678(1234)." style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                     <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
@@ -270,9 +268,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         We apologize for any inconvenience caused.<br/><br/>
-                        We are running huge traffic today, the Treasure Hunt will be available again on Saturday 11AM. <br/><br/>
+                        We are running huge traffic today, the Treasure Hunt will be available again on Friday 11AM. <br/><br/>
                         You can continue to earn coin by watching / uploading/ engaging videos and inviting new friends to MixFun.<br/><br/>
-			Please message us on Facebook (<a href="https://www.facebook.com/mixfun.world/">MixFun.world</a>) if you have any questions.
+                        Please message us on Facebook or email to admin@mixfun.world if you have any questions.
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -286,7 +284,7 @@
     function stop(){
         $('#ModalStop').modal('show');
     }
-    stop();
+    //stop();
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -321,13 +319,16 @@
         $('#ittype').val(type);
         if(type == 1){
             $('#type2').css('display','none');
+            $('#type1').css('display','block');
         }else{
             $('#type1').css('display','none');
+            $('#type2').css('display','block');
         }
         $('.hf').text(sale);
     }
 
     function dde(data) {
+        console.log(data);
         if (data.status==0){
             if(name == 'Mobile Legends'){
                 $('#address').val(0);
@@ -345,6 +346,7 @@
     }
 
 
+    var ss;
     function cjl(){
         var it = $('#it').val();
         var name = $('#itname').val();
@@ -366,11 +368,14 @@
             dataType: 'json',
             success: function(data) {
                 $('#zzd').on('shown.bs.modal',function () {
-                    setTimeout(function () {
+                    ss = null;
+                    var ss = setTimeout(function () {
                         $('#zzd').modal('hide');
                         dde(data);
+                        data = null;
                     },2000);
                 });
+
             }
         });
     }
@@ -416,6 +421,7 @@
         }
     });
 
+    var pj;
     function buy(){
         var id = $('#id').val();
         var recipient = $('#recipient').val();
@@ -462,15 +468,9 @@
                 },
             success: function(data){
                 $('#ModalExchange').modal('hide');
-                $('#alert').html('<p>Congratulations!</p><p>Please leave us your information and we will send you the prize within 7 days!<br/><br/>\n' +
-                    'You want to share this good news to your friends too?</p>' +
-                    '<a class="col-4" id="fd" style="padding: 20%"  href="'+fc+'" target="_blank">\n' +
-                    '                    <img  id="tips" src="img/icon_facebook.png">\n' +
-                    '                </a>\n' +
-                    '                <a class="col-4 copy-button" style="padding: 20%" target="_blank" onclick="copy(\'lj\')">\n' +
-                        '<input id="jj" type="hidden"/>'+
-                    '                    <img src="img/icon_ic_link.png">\n' +
-                    '                </a>');
+                $('#alert').html('<p>Congratulations!</p><p>We need your good words. Can you leave us a review in store? </p>' +
+                    '<a class="btn btn-info" id="pj"  href="'+pj+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding: 20%"  href="'+pj+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
             }
         });
@@ -488,6 +488,39 @@
 
     });
 
+    var type = 1;
+    var userAgentInfo = navigator.userAgent;
+
+    if (userAgentInfo.indexOf('iPhone') > 0) {
+        type = 2;
+    } else if (userAgentInfo.indexOf('Android') > 0) {
+        type = 3
+    }
+    if (type === 1) {
+        pj = "https://mixfun.world/index.html";
+    } else if (type === 2) {
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({"considerIp": "true"}),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function (results, status) {
+                    if (status === 'OK') {
+                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        if (code == 'cn') {
+                            code = 'hk';
+                        }
+                        pj = "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                    }
+                });
+            }
+        });
+    } else if (type === 3) {
+        pj = 'https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
+    }
+
     $.ajax({
         method: 'post',
         url: 'https://api.mixit.fun/shop/list',
@@ -500,7 +533,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! 50% success rate.</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! </p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                             '<div style="width: 25%;">' +
@@ -510,9 +543,9 @@
                             '<div class="media-body" style="padding: 3%;">'+
                                 '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.count+' spot left</span>' +
-                                /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+*/
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+
+                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot:'+item.count+'</span>' +
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
+                                /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
                             '</div>'+
                         '</div>';
                 });
@@ -534,7 +567,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable! You can redeem the prize directly with the number of coins.</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable. Everyone can redeem once everyday, you can try hourly (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
@@ -542,11 +575,12 @@
                         '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
                         '</div>'+
                         '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Amount：'+item.amount+'</span></p></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                        '<div class="mt-0"><p style="width: 100%;text-align: left;"><span>'+item.count+' spot left</span>' +
-                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Draw&nbsp;</button></p></div>'+*/
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Hourly spot: '+item.glh+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
                         '</div>'+
                         '</div>';
                 });
