@@ -330,15 +330,15 @@
     function dde(name, data) {
         if (data.status==0){
             if(name == 'Mobile Legends'){
-                $('#address').val('nil');
-                $('#phone').val('nil');
-                $('#phoneType').val('nil');
+                $('#address').val('');
+                $('#phone').val('');
+                $('#phoneType').val('');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','block');
             }else{
-                $('#moblieLegend').val('nil');
+                $('#moblieLegend').val('');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
@@ -432,31 +432,36 @@
     var pj;
     function buy(){
         var id = $('#id').val();
+        var name = $('#itname');
         var recipient = $('#recipient').val();
-        if (recipient == null || recipient == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var phone = $('#phone').val();
-        if (phone == null || phone == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var moblieLegend = $('#moblieLegend').val();
-        if (moblieLegend == null || moblieLegend == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var address = $('#address').val();
-        if (address == null || address == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
+        if(name == 'Mobile Legends'){
+            var moblieLegend = $('#moblieLegend').val();
+            if (moblieLegend == null || moblieLegend == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }else{
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var phone = $('#phone').val();
+            if (phone == null || phone == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
 
-        var phoneType = $('#phoneType').val();
-        if (phoneType == null || phoneType == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
+            var address = $('#address').val();
+            if (address == null || address == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var phoneType = $('#phoneType').val();
+            if (phoneType == null || phoneType == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
         }
         $.ajax({
             url : "http://localhost:7001/shop/buy",
