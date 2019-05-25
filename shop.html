@@ -354,7 +354,7 @@
         $('#ModalConf').modal('hide');
         $.ajax({
             method: 'post',
-            url: 'http:34.92.40.15/shop/exchange',
+            url: 'https://api.mixit.fun/shop/exchange',
             headers:{
                 authorization:token
             },
@@ -382,7 +382,7 @@
 
     $.ajax({
         method: 'get',
-        url: 'http:34.92.40.15/user/referralList',
+        url: 'https://api.mixit.fun/user/referralList',
         headers:{
             authorization:token
         },
@@ -402,7 +402,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: 'http:34.92.40.15/user/profile',
+        url: 'https://api.mixit.fun/user/profile',
         headers:{
             authorization:token
         },
@@ -451,7 +451,7 @@
             return;
         }
         $.ajax({
-            url : "http:34.92.40.15/shop/buy",
+            url : "https://api.mixit.fun/shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -523,7 +523,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http:34.92.40.15/shop/list',
+        url: 'https://api.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -557,7 +557,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http:34.92.40.15/shop/list',
+        url: 'https://api.mixit.fun/shop/list',
         headers:{
             authorization:token
         },
@@ -610,7 +610,7 @@
 
     $.ajax({
         method: 'post',
-        url: 'http:34.92.40.15/shop/transactionList',
+        url: 'https://api.mixit.fun/shop/transactionList',
         headers:{
             authorization:token
         },
