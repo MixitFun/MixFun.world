@@ -270,7 +270,7 @@
                 <h5 class="modal-title">
                     We are very sorry that MixFun is not stable at moment.
                     We decided to suspend the treasure hunt again until we fix the unstable issue!
-                    Please message us on Facebook (<a href="https://www.facebook.com/groups/419649578852831/">MixFun.world</a>) if you have any questions.
+                    Please message us on Facebook (<a href="https://www.facebook.com/mixfun.world">MixFun.world</a>) if you have any questions.
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -396,7 +396,7 @@
 
     $.ajax({
         method: 'get',
-        url: "https://api.mixit.fun"+'/user/referralList',
+        url: baseUrl+'/user/referralList',
         headers:{
             authorization:token
         },
@@ -416,7 +416,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: baseUrl+'/user/profile',
+        url: "https://shop.mixit.fun"+'/user/profile',
         headers:{
             authorization:token
         },
