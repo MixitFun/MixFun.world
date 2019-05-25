@@ -53,232 +53,232 @@
     }
 </style>
 <body>
-    <div class="container" style="padding:0;" align="center">
-        <div align="center" class="top">
-            <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
-            <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
-            <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
-            <p>Redeem & Lucky Draw - Test Your Luck</p>
-            <span style="font-size: small">(This event is only available for Philippines region.)</span>
+<div class="container" style="padding:0;" align="center">
+    <div align="center" class="top">
+        <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
+        <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
+        <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
+        <p>Redeem & Lucky Draw - Test Your Luck</p>
+        <span style="font-size: small">(This event is only available for Philippines region.)</span>
+    </div>
+    <div align="center">
+        <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
+        <p id="mc"></p>
+    </div>
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body">
+            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
+            <div id="ref"></div>
+            <p class="card-text">My referral code：
+                <input id="shareId" style="border: 0px;width: 100px;" readonly/>
+                <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
+            </p>
         </div>
-        <div align="center">
-            <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
-            <p id="mc"></p>
-        </div>
-        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-            <div class="card-body">
-                <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
-                <div id="ref"></div>
-                <p class="card-text">My referral code：
-                    <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                    <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
-                </p>
-            </div>
-        </div>
-        <div style="margin-top: 90px;">
-            <row>
-                <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
-                    <img src="img/logo_whatsapp.png">
-                </a>-->
-                <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                    <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
-                </a>
-                <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
-                    <input id="lj" type="hidden">
-                    <img src="img/icon_ic_link.png">
-                </a>
-            </row>
-        </div>
-        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
-            <div class="media" style="padding: 2%;">
-                <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
-                <div class="media-body" >
-                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                        </div>
+    </div>
+    <div style="margin-top: 90px;">
+        <row>
+            <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
+                <img src="img/logo_whatsapp.png">
+            </a>-->
+            <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
+                <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
+            </a>
+            <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                <input id="lj" type="hidden">
+                <img src="img/icon_ic_link.png">
+            </a>
+        </row>
+    </div>
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+        <div class="media" style="padding: 2%;">
+            <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
+            <div class="media-body" >
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
                     </div>
                 </div>
             </div>
         </div>
-        <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-            <ul class="nav nav-tabs">
-                <li class="nav-item" style="width: 50%">
-                    <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw </a>
-                </li>
-                <li class="nav-item" style="width: 50%">
-                    <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
-                </li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade in active show commodity" id="draw">
-                </div>
-                <div class="tab-pane fade" id="buy">
-                </div>
+    </div>
+    <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" style="width: 50%">
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw </a>
+            </li>
+            <li class="nav-item" style="width: 50%">
+                <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active show commodity" id="draw">
+            </div>
+            <div class="tab-pane fade" id="buy">
             </div>
         </div>
     </div>
+</div>
 
-    <div id="footer" style="width: 100%;" align="center">
-        <p>More coins on MixFun <a href="https://www.facebook.com/mixfun.world"> Facebook</a></p>
-        <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
-    </div>
+<div id="footer" style="width: 100%;" align="center">
+    <p>More coins on MixFun <a href="https://www.facebook.com/mixfun.world"> Facebook</a></p>
+    <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
+</div>
 
-    <!-- role -->
-    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 25%;border-radius: 20px;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title">Activity rules</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>How to join it?</h5>
-                    <p> Follow the instructions to invite friends to sign up on MixFun and you can win prizes. </p>
-                </div>
-                <div class="modal-body">
-                    <h5>How to do it?</h5>
-                    <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. <br/>2.Share the invite link and your friend can register on the unique invite link. </p>
-                </div>
-                <div class="modal-body">
-                    <h5>How can I get my prize?</h5>
-                    <p> Leave your personal information and we will contact you after the activity in one month. First come first served. You can inbox us on Facebook for any questions. </p>
-                </div>
+<!-- role -->
+<div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 25%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Activity rules</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>How to join it?</h5>
+                <p> Follow the instructions to invite friends to sign up on MixFun and you can win prizes. </p>
+            </div>
+            <div class="modal-body">
+                <h5>How to do it?</h5>
+                <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. <br/>2.Share the invite link and your friend can register on the unique invite link. </p>
+            </div>
+            <div class="modal-body">
+                <h5>How can I get my prize?</h5>
+                <p> Leave your personal information and we will contact you after the activity in one month. First come first served. You can inbox us on Facebook for any questions. </p>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- alert -->
-    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title">Message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="alert">
-                </div>
+<!-- alert -->
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alert">
             </div>
         </div>
     </div>
+</div>
 
-    <!-- alert -->
-    <div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title">Warning</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="type1">You coins will be deducted <span class="hf"></span> coin!</p>
-                    <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                    <button class="btn btn-info" onclick="cjl()">Continue</button>
-                    <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
-                    <input id="it" type="hidden"/>
-                    <input id="itname" type="hidden"/>
-                    <input id="ittype" type="hidden"/>
-                </div>
+<!-- alert -->
+<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Warning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="type1">You coins will be deducted <span class="hf"></span> coin!</p>
+                <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
+                <button class="btn btn-info" onclick="cjl()">Continue</button>
+                <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <input id="it" type="hidden"/>
+                <input id="itname" type="hidden"/>
+                <input id="ittype" type="hidden"/>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Exchange -->
-    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title">Congratulations!
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="padding-bottom: 5px;">
+<!-- Exchange -->
+<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Congratulations!
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;">
                     <span> Congratulations! You got me!
                         Please leave us your information and we will send you the prize soon!
                     </span>
-                </div>
-                <span id="bt" style="color: red;margin-left: 10%;"></span>
-                <div class="modal-body" align="center">
-                    <input type="hidden" id="id"/>
-                    <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                    <input placeholder="Telecom Company(Smart or Global)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
-                    <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                    <input class="form-control" type="text" id="moblieLegend" placeholder="Please input the complete user ID here, e.g. 12345678(1234)." style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                    <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                    <p>Should you have any questions, please inbox us on MixFun Facebook</p>
-                    <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
-                </div>
+            </div>
+            <span id="bt" style="color: red;margin-left: 10%;"></span>
+            <div class="modal-body" align="center">
+                <input type="hidden" id="id"/>
+                <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input placeholder="Telecom Company(Smart or Global)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Please input the complete user ID here, e.g. 12345678(1234)." style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <p>Should you have any questions, please inbox us on MixFun Facebook</p>
+                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- tip -->
-    <div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header">
-                    <h5 class="modal-title">Copied!
-                    </h5>
-                </div>
+<!-- tip -->
+<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header">
+                <h5 class="modal-title">Copied!
+                </h5>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- tip -->
-    <div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+<!-- tip -->
+<div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
+</div>
 
-    <!-- Stop -->
-    <div class="modal fade" id="ModalStop" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
-        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        We apologize for any inconvenience caused.<br/><br/>
-                        We are running huge traffic today, the Treasure Hunt will be available again on Friday 11AM. <br/><br/>
-                        You can continue to earn coin by watching / uploading/ engaging videos and inviting new friends to MixFun.<br/><br/>
-                        Please message us on Facebook or email to admin@mixfun.world if you have any questions.
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+<!-- Stop -->
+<div class="modal fade" id="ModalStop" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    We apologize for any inconvenience caused.<br/><br/>
+                    We are running huge traffic today, the Treasure Hunt will be available again on Friday 11AM. <br/><br/>
+                    You can continue to earn coin by watching / uploading/ engaging videos and inviting new friends to MixFun.<br/><br/>
+                    Please message us on Facebook or email to admin@mixfun.world if you have any questions.
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
     </div>
+</div>
 </body>
 <script type="text/javascript">
     function stop(){
@@ -309,9 +309,9 @@
         }
         return theRequest;
     }
-    
+
     var token =  GetRequest().id;
-    
+
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
@@ -330,15 +330,15 @@
     function dde(name, data) {
         if (data.status==0){
             if(name == 'Mobile Legends'){
-                $('#address').val('nil');
-                $('#phone').val('nil');
-                $('#phoneType').val('nil');
+                $('#address').val('');
+                $('#phone').val('');
+                $('#phoneType').val('');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','block');
             }else{
-                $('#moblieLegend').val('nil');
+                $('#moblieLegend').val('');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
@@ -400,7 +400,7 @@
             $('#num').html(data.data.length);
             var ht = '';
             data.data.forEach(function (item,index) {
-               ht+='<img src="'+item.avatar+'" style="width: 40px;height: 40px;border-radius: 20px;"/>';
+                ht+='<img src="'+item.avatar+'" style="width: 40px;height: 40px;border-radius: 20px;"/>';
             });
             $('#ref').html(ht);
         }
@@ -432,31 +432,36 @@
     var pj;
     function buy(){
         var id = $('#id').val();
+        var name = $('#itname');
         var recipient = $('#recipient').val();
-        if (recipient == null || recipient == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var phone = $('#phone').val();
-        if (phone == null || phone == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var moblieLegend = $('#moblieLegend').val();
-        if (moblieLegend == null || moblieLegend == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
-        var address = $('#address').val();
-        if (address == null || address == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
-        }
+        if(name == 'Mobile Legends'){
+            var moblieLegend = $('#moblieLegend').val();
+            if (moblieLegend == null || moblieLegend == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }else{
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var phone = $('#phone').val();
+            if (phone == null || phone == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
 
-        var phoneType = $('#phoneType').val();
-        if (phoneType == null || phoneType == ''){
-            $('#bt').text('Please fill up all your details.');
-            return;
+            var address = $('#address').val();
+            if (address == null || address == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var phoneType = $('#phoneType').val();
+            if (phoneType == null || phoneType == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
         }
         $.ajax({
             url : "https://api.mixit.fun/shop/buy",
@@ -544,17 +549,17 @@
                 var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! </p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
-                            '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                            '</div>'+
-                            '<div class="media-body" style="padding: 3%;">'+
-                                '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot:'+item.count+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
-                                /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
-                            '</div>'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot:'+item.count+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
+                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
+                        '</div>'+
                         '</div>';
                 });
                 $('.commodity').html(ht);
@@ -633,11 +638,11 @@
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                                            dat[0] +' '+
-                                                            dat[1].split(".")[0]+
+                            dat[0] +' '+
+                            dat[1].split(".")[0]+
                             '                            </span></td>\n' +
                             '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                                            item.user.nickname +' just won the '+item.commodity.name+
+                            item.user.nickname +' just won the '+item.commodity.name+
                             '                            </td>\n' +
                             '                        </tr>\n' +
                             '                        </tbody>\n' +
@@ -647,11 +652,11 @@
                             '                        <tbody>\n' +
                             '                        <tr>\n' +
                             '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                                            dat[0] +' '+
-                                                            dat[1].split(".")[0]+
+                            dat[0] +' '+
+                            dat[1].split(".")[0]+
                             '                            </span></td>\n' +
                             '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                                            item.user.nickname + ' just won the ' + item.commodity.name+
+                            item.user.nickname + ' just won the ' + item.commodity.name+
                             '                            </td>\n' +
                             '                        </tr>\n' +
                             '                        </tbody>\n' +
