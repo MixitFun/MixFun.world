@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MixMall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Please help me to win the iPhone!📱Just click the link below😁" />
+    <meta property="og:description" content="Please help me to win the iPhone!📱Just click the link below😁" />
+    <meta property="og:image" content="images/share-logo.png" />
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
+<!--<script src="js/wasap.js"></script>-->
+<style>
+    .top{
+        background-image: url("img/bg_new.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    .tooltip-inner{
+        background-color: #b3d7ff;
+        color: #6974FF;
+        max-width: 300px;
+    }
+    .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before{
+        border-top-color: #b3d7ff;
+    }
+    .tooltip{
+        align-content: center;
+        z-index: -1;
+    }
+    input{
+        margin-top: 15px;
+    }
+    textarea{
+        margin-top: 15px;
+    }
+    li:hover{
+        background-color: #adb5bd;
+    }
+    .nav-link.active{
+        color: #007bff;
+    }
+</style>
+<body>
+    <div class="container" style="padding:0;" align="center">
+        <div align="center" class="top">
+            <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
+            <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
+            <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
+            <p>Redeem & Lucky Draw - Test Your Luck</p>
+            <span style="font-size: small">(This event is only available for Philippines region.)</span>
+        </div>
+        <div align="center">
+            <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
+            <p id="mc"></p>
+        </div>
+        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card-body">
+                <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
+                <div id="ref"></div>
+                <p class="card-text">My referral code：
+                    <input id="shareId" style="border: 0px;width: 100px;" readonly/>
+                    <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
+                </p>
+            </div>
+        </div>
+        <div style="margin-top: 90px;">
+            <row>
+                <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
+                    <img src="img/logo_whatsapp.png">
+                </a>-->
+                <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
+                    <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
+                </a>
+                <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                    <input id="lj" type="hidden">
+                    <img src="img/icon_ic_link.png">
+                </a>
+            </row>
+        </div>
+        <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+            <div class="media" style="padding: 2%;">
+                <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
+                <div class="media-body" >
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item" style="width: 50%">
+                    <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw </a>
+                </li>
+                <li class="nav-item" style="width: 50%">
+                    <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active show commodity" id="draw">
+                </div>
+                <div class="tab-pane fade" id="buy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" style="width: 100%;" align="center">
+        <p>More coins on MixFun <a href="https://www.facebook.com/mixfun.world"> Facebook</a></p>
+        <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
+    </div>
+
+    <!-- role -->
+    <div class="modal fade" id="ModalRole" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 25%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Activity rules</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>How to join it?</h5>
+                    <p> Follow the instructions to invite friends to sign up on MixFun and you can win prizes. </p>
+                </div>
+                <div class="modal-body">
+                    <h5>How to do it?</h5>
+                    <p> 1.Copy and share the referral code to your friends, they should input the code while they sign up account. <br/>2.Share the invite link and your friend can register on the unique invite link. </p>
+                </div>
+                <div class="modal-body">
+                    <h5>How can I get my prize?</h5>
+                    <p> Leave your personal information and we will contact you after the activity in one month. First come first served. You can inbox us on Facebook for any questions. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- alert -->
+    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alert">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- alert -->
+    <div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="type1">You coins will be deducted <span class="hf"></span> coin!</p>
+                    <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
+                    <button class="btn btn-info" onclick="cjl()">Continue</button>
+                    <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <input id="it" type="hidden"/>
+                    <input id="itname" type="hidden"/>
+                    <input id="ittype" type="hidden"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exchange -->
+    <div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title">Congratulations!
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding-bottom: 5px;">
+                    <span> Congratulations! You got me!
+                        Please leave us your information and we will send you the prize soon!
+                    </span>
+                </div>
+                <span id="bt" style="color: red;margin-left: 10%;"></span>
+                <div class="modal-body" align="center">
+                    <input type="hidden" id="id"/>
+                    <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <input placeholder="Telecom Company(Smart or Global)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                    <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <input class="form-control" type="text" id="moblieLegend" placeholder="Please input the complete user ID here, e.g. 12345678(1234)." style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                    <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                    <p>Should you have any questions, please inbox us on MixFun Facebook</p>
+                    <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tip -->
+    <div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Copied!
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tip -->
+    <div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stop -->
+    <div class="modal fade" id="ModalStop" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        We apologize for any inconvenience caused.<br/><br/>
+                        We are running huge traffic today, the Treasure Hunt will be available again on Friday 11AM. <br/><br/>
+                        You can continue to earn coin by watching / uploading/ engaging videos and inviting new friends to MixFun.<br/><br/>
+                        Please message us on Facebook or email to admin@mixfun.world if you have any questions.
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    function stop(){
+        $('#ModalStop').modal('show');
+    }
+    //stop();
+    var clientHeight = document.body.clientHeight;
+    var clientWidth = document.body.clientWidth;
+    $('.top').css('height',170/(375/clientWidth)+"px");
+    $('.d-block').css('height',clientHeight/4);
+    $('#ModalExchange').css('height',clientHeight);
+    $('#ModalRole').css('height',clientHeight);
+    $('#zzd').css('margin-top',clientHeight/2);
+
+    $('#tips').tooltip('show');
+
+
+    $('.toast').toast('show');
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    
+    var token =  GetRequest().id;
+    
+    function cj(it,name,sale,type){
+        $('#ModalConf').modal('show');
+        $('#it').val(it);
+        $('#itname').val(name);
+        $('#ittype').val(type);
+        if(type == 1){
+            $('#type2').css('display','none');
+        }else{
+            $('#type1').css('display','none');
+        }
+        $('.hf').text(sale);
+    }
+
+    function dde(data) {
+        console.log(data);
+        if (data.status==0){
+            if(name == 'Mobile Legends'){
+                $('#address').val(0);
+                $('#address').css('display','none');
+            }else{
+                $('#moblieLegend').val(0);
+                $('#moblieLegend').css('display','none');
+            }
+            $('#ModalExchange').modal('show');
+            $('#id').val(data.data.id);
+        }else{
+            $('#alert').html('<p>'+data.msg+'</p>');
+            $('#ModalAlert').modal('show');
+        }
+    }
+
+
+    var ss;
+    function cjl(){
+        var it = $('#it').val();
+        var name = $('#itname').val();
+        var type = $('#ittype').val();
+        $('#ModalConf').modal('hide');
+        $.ajax({
+            method: 'post',
+            url: 'https://api.mixit.fun/shop/exchange',
+            headers:{
+                authorization:token
+            },
+            beforeSend:function(){
+                $('#zzd').modal('show');
+            },
+            data: {
+                commodityId: it,
+                type: type
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#zzd').on('shown.bs.modal',function () {
+                    ss = null;
+                    var ss = setTimeout(function () {
+                        $('#zzd').modal('hide');
+                        dde(data);
+                        data = null;
+                    },2000);
+                });
+
+            }
+        });
+    }
+
+    $.ajax({
+        method: 'get',
+        url: 'https://api.mixit.fun/user/referralList',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#num').html(data.data.length);
+            var ht = '';
+            data.data.forEach(function (item,index) {
+               ht+='<img src="'+item.avatar+'" style="width: 40px;height: 40px;border-radius: 20px;"/>';
+            });
+            $('#ref').html(ht);
+        }
+    });
+
+    var fc;
+    var lj;
+    $.ajax({
+        method: 'get',
+        url: 'https://api.mixit.fun/user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
+            lj = "https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode;
+            $('#tx').attr('src',data.data.avatar);
+            $('#mc').text(data.data.nickname);
+            $('#shareId').val(data.data.ownShareCode);
+            $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
+            $('#lj').val("https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
+            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
+            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
+        }
+    });
+
+    var pj;
+    function buy(){
+        var id = $('#id').val();
+        var recipient = $('#recipient').val();
+        if (recipient == null || recipient == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        var phone = $('#phone').val();
+        if (phone == null || phone == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        var moblieLegend = $('#moblieLegend').val();
+        if (moblieLegend == null || moblieLegend == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        var address = $('#address').val();
+        if (address == null || address == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+
+        var phoneType = $('#phoneType').val();
+        if (phoneType == null || phoneType == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        $.ajax({
+            url : "https://api.mixit.fun/shop/buy",
+            type : 'post',
+            dataType : 'json',
+            data: {
+                id: id,
+                recipient:recipient,
+                phone: phone,
+                moblieLegend: moblieLegend,
+                address: address,
+                phoneType: phoneType
+            },
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                $('#ModalExchange').modal('hide');
+                $('#alert').html('<p>Congratulations!</p><p>We need your good words. Can you leave us a review in store? </p>' +
+                    '<a class="btn btn-info" id="pj"  href="'+pj+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding: 20%"  href="'+pj+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+            }
+        });
+    }
+
+
+    function exModelShow(){
+        $('#ModalExchange').modal('show');
+    }
+
+    $('#ModalExchange').on('hide.bs.modal',function(){
+        $('#ModalAlert').modal('show');
+        $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#ModalExchange').modal('show');
+
+    });
+
+    var type = 1;
+    var userAgentInfo = navigator.userAgent;
+
+    if (userAgentInfo.indexOf('iPhone') > 0) {
+        type = 2;
+    } else if (userAgentInfo.indexOf('Android') > 0) {
+        type = 3
+    }
+    if (type === 1) {
+        pj = "https://mixfun.world/index.html";
+    } else if (type === 2) {
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({"considerIp": "true"}),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function (results, status) {
+                    if (status === 'OK') {
+                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        if (code == 'cn') {
+                            code = 'hk';
+                        }
+                        pj = "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                    }
+                });
+            }
+        });
+    } else if (type === 3) {
+        pj = 'https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
+    }
+
+    $.ajax({
+        method: 'post',
+        url: 'https://api.mixit.fun/shop/list',
+        headers:{
+            authorization:token
+        },
+        data: {
+            type: 1
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck! </p>';
+                data.data.forEach(function(item, index) {
+                    ht+= '<div class="media"style="padding: 3%">'+
+                            '<div style="width: 25%;">' +
+                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                            '</div>'+
+                            '<div class="media-body" style="padding: 3%;">'+
+                                '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Amount：'+item.amount+'</span></h5></div>'+
+                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                                '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot:'+item.count+'</span>' +
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
+                                /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
+                            '</div>'+
+                        '</div>';
+                });
+                $('.commodity').html(ht);
+
+            }
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: 'https://api.mixit.fun/shop/list',
+        headers:{
+            authorization:token
+        },
+        data: {
+            type: 2
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable. Everyone can redeem once everyday, you can try hourly (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
+                data.data.forEach(function(item, index) {
+                    ht+= '<div class="media"style="padding: 3%">'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Amount：'+item.amount+'</span></p></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Hourly spot: '+item.glh+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
+                        '</div>'+
+                        '</div>';
+                });
+                $('#buy').html(ht);
+            }
+        }
+    });
+
+
+    function copy(id){
+        if(id == 'lj'){
+            var clipboard = new ClipboardJS('.copy-button', {
+                text: function() {
+                    return lj;
+                }
+            });
+        }
+        var shareId = document.getElementById(id);
+        shareId.select();
+        document.execCommand('copy');
+        $('#tot').modal('show');
+    }
+
+    $('#tot').on('shown.bs.modal', function (e) {
+        $('#tot').modal('hide');
+    })
+
+    $.ajax({
+        method: 'post',
+        url: 'https://api.mixit.fun/shop/transactionList',
+        headers:{
+            authorization:token
+        },
+        dataType: 'json',
+        success: function(data){
+            if(data.status == 0) {
+                var ht = '';
+                data.data.forEach(function(item, index) {
+                    var dat = item.createdTime.split("T");
+                    if(index == 0){
+                        ht+='<div  class="carousel-item active"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                                            dat[0] +' '+
+                                                            dat[1].split(".")[0]+
+                            '                            </span></td>\n' +
+                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                                            item.user.nickname +' just won the '+item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
+                    }else {
+                        ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                                            dat[0] +' '+
+                                                            dat[1].split(".")[0]+
+                            '                            </span></td>\n' +
+                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                                            item.user.nickname + ' just won the ' + item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
+                    }
+                });
+                $('.carousel-inner').html(ht);
+            }
+        }
+    });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-138276305-1');
+    gtag('commement', '');
+</script>
+</html>
