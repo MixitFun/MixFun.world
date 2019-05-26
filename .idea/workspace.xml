@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2143">
-              <caret line="566" column="5" lean-forward="true" selection-start-line="566" selection-start-column="5" selection-end-line="566" selection-end-column="5" />
+            <state relative-caret-position="776">
+              <caret line="686" column="23" lean-forward="true" selection-start-line="686" selection-start-column="23" selection-end-line="686" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -190,23 +190,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558853157275</updated>
-      <workItem from="1558853159383" duration="12469000" />
+      <workItem from="1558853159383" duration="12895000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12469000" />
+    <option name="totallyTimeSpent" value="12895000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="260" y="105" width="1864" height="1147" extended-state="0" />
-    <editor active="true" />
+    <frame x="127" y="23" width="2433" height="1336" extended-state="0" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23494303" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17951907" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.23981042" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.2033762" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -233,8 +232,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2143">
-          <caret line="566" column="5" lean-forward="true" selection-start-line="566" selection-start-column="5" selection-end-line="566" selection-end-column="5" />
+        <state relative-caret-position="776">
+          <caret line="686" column="23" lean-forward="true" selection-start-line="686" selection-start-column="23" selection-end-line="686" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
