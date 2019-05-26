@@ -649,7 +649,9 @@
     }
 
     $('#tot').on('shown.bs.modal', function (e) {
-        $('#tot').modal('hide');
+        setTimeout(function () {
+            $('#tot').modal('hide');
+        },500)
     })
 
     function setShadeCode(){
