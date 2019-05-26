@@ -325,13 +325,14 @@
 
     var token =  GetRequest().id;
 
-    if (token != '78b311bf271a41b4a494ad9d14847733'){
+    baseUrl = "https://shop.mixit.fun";
+    /*if (token != '78b311bf271a41b4a494ad9d14847733'){
         baseUrl = "https://api.mixit.fun";
         stop();
     }else{
-        baseUrl = "https://shop.mixit.fun";
+
         //baseUrl ="http://localhost:7001";
-    }
+    }*/
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
