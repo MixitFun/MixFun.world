@@ -444,7 +444,7 @@
             $('#tx').attr('src',data.data.avatar);
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
-            if(data.data.shareCode){
+            if(data.data.shareCode != null){
                 $('.shade').css('display','none');
             }
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
