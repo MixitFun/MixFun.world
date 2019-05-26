@@ -363,7 +363,6 @@
 
     var ss;
     var gmfh;
-    var gmname;
     function cjl(){
         var it = $('#it').val();
         var gmname = $('#itname').val();
@@ -442,6 +441,7 @@
         var id = $('#id').val();
         var name = $('#itname');
         var recipient = $('#recipient').val();
+        console.log(name);
         if(name == 'Mobile Legends'){
             var moblieLegend = $('#moblieLegend').val();
             if (moblieLegend == null || moblieLegend == ''){
@@ -529,7 +529,8 @@
                 var geocoder = new google.maps.Geocoder();
                 geocoder.geocode({'location': data.location}, function (results, status) {
                     if (status === 'OK') {
-                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        var code = 'ph';
+                        code = results[results.length - 1].address_components[0].short_name.toLowerCase();
                         if (code == 'cn') {
                             code = 'hk';
                         }
