@@ -97,8 +97,8 @@
 
     <div class="shade" align="center">
         <p>If you have a referral code, please enter here to get 50 Mixcoin reward.</p>
-        <input class="form-control" id="shadeCode" style="width: 70%">
-        <button class="btn btn-light" style="margin-top: 10px;">Submit</button>
+        <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;">
+        <button class="btn btn-light" style="margin-top: 10px;" onclick="setShadeCode()">Submit</button>
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
@@ -328,8 +328,8 @@
         baseUrl = "https://api.mixit.fun";
         stop();
     }else{
-        //baseUrl = "https://shop.mixit.fun";
-        baseUrl ="http://localhost:7001";
+        baseUrl = "https://shop.mixit.fun";
+        //baseUrl ="http://localhost:7001";
     }
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
@@ -440,6 +440,9 @@
             $('#tx').attr('src',data.data.avatar);
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
+            if(data.data.shareCode != null || data.data.shareCode != ''){
+                $('.shade').css('display','none');
+            }
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             $('#lj').val("https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
@@ -639,6 +642,34 @@
     $('#tot').on('shown.bs.modal', function (e) {
         $('#tot').modal('hide');
     })
+
+    function setShadeCode(){
+        var shadeCode = $('#shadeCode').val();
+        $.ajax({
+            url : baseUrl+"/user/setFriendShareCode",
+            type : 'post',
+            dataType : 'json',
+            data: JSON.stringify({
+                share_code:shadeCode
+            }),
+            contentType:'application/json',
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                if(data.status == 0){
+                    $('#alert').html('<p>Congratulations!</p><p></p>');
+                    $('#ModalAlert').modal('show');
+                    $('.shade').css('display','none');
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+
+            }
+        });
+    }
 
     $.ajax({
         method: 'post',
