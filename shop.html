@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MixFun</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:url" content="" />
@@ -71,14 +72,14 @@
     </div>
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
-            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
+            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
             <div id="ref"></div>
-            <p class="card-text">My referral code：
+            <p class="card-text">Your referral code：
                 <input id="shareId" style="border: 0px;width: 100px;" readonly/>
                 <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
             </p>
             <div style="margin-top: 20px;">
-                <p>Share your referral code or click the button below to invite your friends.</p>
+                <p>Share your referral code or click the link below to invite your friends.</p>
                 <row>
                     <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
                         <img src="img/logo_whatsapp.png">
@@ -98,7 +99,7 @@
     <div class="shade" align="center">
         <p>If you have a referral code, please enter here to get 50 Mixcoin reward.</p>
         <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;">
-        <button class="btn btn-light" style="margin-top: 10px;" onclick="setShadeCode()">Submit</button>
+        <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
@@ -131,7 +132,7 @@
 </div>
 
 <div id="footer" style="width: 100%;" align="center">
-    <p>More coins on MixFun <a href="https://www.facebook.com/mixfun.world"> Facebook</a></p>
+    <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
 </div>
 
@@ -188,7 +189,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="type1">You coins will be deducted <span class="hf"></span> coin!</p>
+                <p id="type1"><span class="hf"></span> coins will be deducted. Confirm to draw?(No Refund)</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
                 <button class="btn btn-info" onclick="cjl()">Continue</button>
                 <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
@@ -422,7 +423,11 @@
             $('#num').html(data.data.length);
             var ht = '';
             data.data.forEach(function (item,index) {
-                ht+='<img src="'+item.avatar+'" style="width: 40px;height: 40px;border-radius: 20px;"/>';
+                var img = "img/person.png";
+                if(item.avatar != ''){
+                    img = item.avatar;
+                }
+                ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
             });
             $('#ref').html(ht);
         }
@@ -663,7 +668,7 @@
                 },
             success: function(data){
                 if(data.status == 0){
-                    $('#alert').html('<p>Congratulations!</p><p></p>');
+                    $('#alert').html('<p>Congratulations!</p><p>Both of you and your friends are received the 50 coin.</p>');
                     $('#ModalAlert').modal('show');
                     $('.shade').css('display','none');
                 }else{

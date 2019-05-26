@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="" />
+    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="446" selection-start-line="446" selection-end-line="446" />
+            <state relative-caret-position="290">
+              <caret line="427" column="43" selection-start-line="427" selection-start-column="43" selection-end-line="427" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -75,17 +77,37 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cj(</find>
       <find>itname</find>
       <find>consol</find>
       <find>sha</find>
       <find>baseUrl</find>
       <find>base</find>
       <find>prof</find>
+      <find>My re</find>
+      <find>My</find>
+      <find>cj(</find>
+      <find>zzd</find>
+      <find>coin</find>
+      <find>coins</find>
+      <find>butto</find>
+      <find>your luck</find>
+      <find>luck</find>
+      <find>refer</find>
+      <find>friend</find>
+      <find>#ref</find>
       <find>shade</find>
     </findStrings>
   </component>
@@ -117,6 +139,11 @@
             <path>
               <item name="MixFun.world" type="b2602c69:ProjectViewProjectNode" />
               <item name="MixFun.world" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MixFun.world" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MixFun.world" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -153,22 +180,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558853157275</updated>
-      <workItem from="1558853159383" duration="6534000" />
+      <workItem from="1558853159383" duration="8331000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6534000" />
+    <option name="totallyTimeSpent" value="8331000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="105" width="1864" height="1147" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23494303" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23494303" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.23981042" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.23981042" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -186,10 +214,17 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/player.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="446" selection-start-line="446" selection-end-line="446" />
+        <state relative-caret-position="290">
+          <caret line="427" column="43" selection-start-line="427" selection-start-column="43" selection-end-line="427" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
