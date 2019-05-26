@@ -52,44 +52,55 @@
     .nav-link.active{
         color: #007bff;
     }
+    .shade{
+        margin-top: 30px;
+    }
 </style>
 <body>
-<div class="container" style="padding:0;" align="center">
-    <div align="center" class="top">
+<div class="container" style="padding:0;background-color: #f6f4ff;" align="center">
+    <!--<div align="center" class="top">
         <button class="btn-sm" style="color: #6974FF;background: transparent;font: caption;border: 0px;margin-left: 65%;margin-top: 2%;" data-toggle="modal" data-target="#ModalRole">Activity rules</button>
         <img src="img/Treasury_hunt.png" style="margin-top: 2%;">
-        <!--<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>-->
+        &lt;!&ndash;<p style="color: #0C005B;margin-bottom: 1%">Invite your friends and win mobile phone</p>&ndash;&gt;
         <p>Redeem & Lucky Draw - Test Your Luck</p>
         <span style="font-size: small">(This event is only available for Philippines region.)</span>
-    </div>
+    </div>-->
     <div align="center">
-        <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: -25px;">
+        <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc"></p>
     </div>
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body">
+        <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friend successfully</p>
             <div id="ref"></div>
             <p class="card-text">My referral code：
                 <input id="shareId" style="border: 0px;width: 100px;" readonly/>
                 <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
             </p>
+            <div style="margin-top: 20px;">
+                <p>Share your referral code or click the button below to invite your friends.</p>
+                <row>
+                    <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
+                        <img src="img/logo_whatsapp.png">
+                    </a>-->
+                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
+                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
+                    </a>
+                    <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                        <input id="lj" type="hidden">
+                        <img src="img/icon_ic_link.png">
+                    </a>
+                </row>
+            </div>
         </div>
     </div>
-    <div style="margin-top: 90px;">
-        <row>
-            <!--<a class="col-4" style="padding: 10%" id="wc" href="" data-action="share/whatsapp/share" data-whatsapp="+8618682078597" data-whatsapp-message="Hello from wasap.js" target="_blank">
-                <img src="img/logo_whatsapp.png">
-            </a>-->
-            <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                <img  id="tips" src="img/icon_facebook.png" data-toggle="tooltip" data-placement="top" title="Share the referral link to your friend and both of you will win 50 coins.">
-            </a>
-            <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
-                <input id="lj" type="hidden">
-                <img src="img/icon_ic_link.png">
-            </a>
-        </row>
+
+    <div class="shade" align="center">
+        <p>If you have a referral code, please enter here to get 50 Mixcoin reward.</p>
+        <input class="form-control" id="shadeCode" style="width: 70%">
+        <button class="btn btn-light" style="margin-top: 10px;">Submit</button>
     </div>
+
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
         <div class="media" style="padding: 2%;">
             <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
@@ -211,7 +222,7 @@
                 <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input placeholder="Telecom Company(Smart or Global)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="moblieLegend" placeholder="Please input the complete user ID here, e.g. 12345678(1234)." style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends user ID:12345678(1234)" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p>Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
@@ -317,8 +328,8 @@
         baseUrl = "https://api.mixit.fun";
         stop();
     }else{
-        baseUrl = "https://shop.mixit.fun";
-        //baseUrl ="http://localhost:7001";
+        //baseUrl = "https://shop.mixit.fun";
+        baseUrl ="http://localhost:7001";
     }
     function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
@@ -439,9 +450,8 @@
     var pj;
     function buy(){
         var id = $('#id').val();
-        var name = $('#itname');
+        var name = $('#itname').val();
         var recipient = $('#recipient').val();
-        console.log(name);
         if(name == 'Mobile Legends'){
             var moblieLegend = $('#moblieLegend').val();
             if (moblieLegend == null || moblieLegend == ''){
