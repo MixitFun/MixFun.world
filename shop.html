@@ -98,7 +98,7 @@
 
     <div class="shade" align="center">
         <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
-        <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;">
+        <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter refferals code">
         <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
 
@@ -325,7 +325,7 @@
 
     var token =  GetRequest().id;
 
-    if (token != '96dd18a06def448fba18d83cbe49d5ed'){
+    if (token != '78b311bf271a41b4a494ad9d14847733'){
         baseUrl = "https://api.mixit.fun";
         stop();
     }else{
