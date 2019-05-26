@@ -399,6 +399,10 @@
                         $('#zzd').modal('hide');
                     },2000);
                 });
+            },
+            error: function(){
+                $('#alert').html('<p>Net Error!</p>');
+                $('#ModalAlert').modal('show');
             }
         });
         $('#zzd').on('hide.bs.modal', function () {
