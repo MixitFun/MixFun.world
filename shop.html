@@ -97,7 +97,7 @@
     </div>
 
     <div class="shade" align="center">
-        <p>If you have a referral code, please enter here to get 50 Mixcoin reward.</p>
+        <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
         <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;">
         <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
@@ -189,7 +189,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="type1"><span class="hf"></span> coins will be deducted. Confirm to draw?(No Refund)</p>
+                <p id="type1"><span class="hf"></span> coins will be deducted. (No Refund) Confirm to draw?</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
                 <button class="btn btn-info" onclick="cjl()">Continue</button>
                 <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
@@ -611,7 +611,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable. Everyone can redeem once everyday, you can try hourly (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">100% redeemable. Everyone can redeem once everyday, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
