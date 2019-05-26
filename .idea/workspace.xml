@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="" />
+    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="334" column="7" selection-start-line="328" selection-start-column="4" selection-end-line="334" selection-end-column="7" />
+            <state relative-caret-position="356">
+              <caret line="215" column="116" selection-start-line="215" selection-start-column="116" selection-end-line="215" selection-end-column="116" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -89,7 +92,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>itname</find>
       <find>consol</find>
       <find>sha</find>
       <find>baseUrl</find>
@@ -115,6 +117,11 @@
       <find>submi</find>
       <find>copy</find>
       <find>tot</find>
+      <find>here</find>
+      <find>global</find>
+      <find>globe</find>
+      <find>pj</find>
+      <find>cong</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,15 +193,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558853157275</updated>
-      <workItem from="1558853159383" duration="10911000" />
+      <workItem from="1558853159383" duration="11881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10911000" />
+    <option name="totallyTimeSpent" value="11881000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="105" width="1864" height="1147" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23494303" />
@@ -228,8 +236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="334" column="7" selection-start-line="328" selection-start-column="4" selection-end-line="334" selection-end-column="7" />
+        <state relative-caret-position="356">
+          <caret line="215" column="116" selection-start-line="215" selection-start-column="116" selection-end-line="215" selection-end-column="116" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />

@@ -213,8 +213,7 @@
                 </button>
             </div>
             <div class="modal-body" style="padding-bottom: 5px;">
-                    <span> Congratulations! You got me!
-                        Please leave us your information and we will send you the prize soon!
+                    <span> If you enjoy using MixFun, please leave a good review for us? Thank you for your support!
                     </span>
             </div>
             <span id="bt" style="color: red;margin-left: 10%;"></span>
@@ -558,12 +557,13 @@
                             code = 'hk';
                         }
                         pj = "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                        console.log(pj);
                     }
                 });
             }
         });
     } else if (type === 3) {
-        pj = 'https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
+        pj = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.myapp';
     }
 
     $.ajax({
