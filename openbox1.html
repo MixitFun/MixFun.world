@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A referral from your friend,he need your generous help!Sign up with his link,both of you will get 50 Mixcoin.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<style>
+    .input{
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 0px;
+        margin-top: 10%;
+    }
+</style>
+<body>
+    <div id="content" style="color: rgb(245, 245, 245);">
+        <div id="header" style="width: 100%; background-color: rgb(8, 16, 58); top: 0px; vertical-align: top;" align="center">
+            <div id="invite_img" style="display: contents; width: 100%; top: 0px;">
+                <p style="font-size: 16px; text-align: -webkit-left; font-family: PingFangSC-Regular, sans-serif; color: white; margin-left: 8%; margin-right: 8%;padding-top: 5%">
+                    Dear Friend,
+                    <br>
+                    Please help me to win Mixcoin! Just download the app here.
+                    <br>
+                    Download MixFun and enter the referral code below, both of you and I will get 50 Mixcoin! You can redeem/draw gifts on MixFun.
+                </p>
+            </div>
+            <div style="display: contents; width: 100%;">
+                <img src="img/invite_backgroud.png" style="width: 90%;">
+            </div>
+        </div>
+        <div id="step_one" style="width: 100%; background-color: white; vertical-align: top;" align="center">
+            <div class="modal-content" style="border-radius: 6x; border-width: 3px; border-color: rgb(84, 96, 161); background-color: rgb(18, 32, 103); width: 60%; height: 48px; display: inline-table; margin-top: -24px">
+                <p id="shareCode" style="font-family: italic;color: white; text-align: left; font-weight: bold; font-size: 16px; line-height: 40px; display: inline; margin-right: 15px"></p>
+                <button onclick="copy('shareCode')" class="button" data-clipboard-target="#shareCode" data-clipboard-action="copy" style="width: 25%; color: black; border-radius: 20px; border-color: rgb(18, 32, 103); background-color: white; font-family: initial; font-weight: normal; display: inline; margin-left: 15px">Copy</button>
+            </div>
+            <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
+                STEP 1
+                <br>
+                Install MixFun App
+            </p>
+            <div style="z-index: 999; margin-top: 0px; margin-bottom: 5%" align="center">
+                <img src="img/shaow_logo.png" style="width: 15%">
+            </div>
+            <div style="z-index: 999; display: inline; padding-right: 8px">
+                <a href="https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun">
+                    <img src="img/Button_google_other.png" style="width: 40%;">
+                </a>
+            </div>
+            <div style="z-index: 999; display: inline; padding-left: 8px">
+                <a id="download">
+                    <img src="img/Button_app_store_other.png" style="width: 40%;">
+                </a>
+            </div>
+        </div>
+
+        <div id="step_two" style="width: 100%;background-color: white; vertical-align: top;" align="center">
+            <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
+                STEP 2
+                <br>
+                Login and click the text link
+            </p>
+            <div style="z-index: 999; margin-top: 10px; margin-bottom: 5%" align="center">
+                <img src="img/step_two_first.png" style="width: 90%">
+            </div>
+            <div>
+                <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin-top: 30px; margin-bottom: 30px; margin-left: 8%; margin-right: 8%"/>
+            </div>
+            <div style="z-index: 999; margin-top: 0px; margin-bottom: 5%" align="center">
+                <img src="img/step_two_second.png" style="width: 90%">
+            </div>
+        </div>
+
+        <div id="step_there" style="width: 100%;background-color: white; vertical-align: top;" align="center">
+            <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
+                STEP 3
+                <br>
+                Enter your friend's referral code here
+            </p>
+            <div style="z-index: 999; margin-top: 30px; margin-bottom: 5%" align="center">
+                <img src="img/step_three_first.png" style="width: 90%">
+            </div>
+        </div>
+
+        <div id="step_four" style="width: 100%;background-color: white; vertical-align: top;" align="center">
+            <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
+                STEP 4
+                <br>
+                Redeem/draw gifts
+            </p>
+            <div style="z-index: 999; margin-top: 0px; margin-bottom: 5%" align="center">
+                <img src="img/step_four_first.png" style="width: 90%">
+            </div>
+        </div>
+
+        <div id="footer" style="width: 100%;background-color: white;" align="center">
+        	<p style="font-size: 14px;margin-top: 10%;z-index: 999;margin-left: 8%;margin-right: 8%;font-family: PingFangSC-Regular, sans-serif;color: #868686">© 2019 MIXFUN LIMITED</p>
+        	<p style="font-size: 14px;margin-top: -10px;z-index: 999;margin-left: 8%;margin-right: 8%;font-family: PingFangSC-Regular, sans-serif;color: #868686">www.mixfun.world</p>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="ModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top: 30%;">
+        <div class="modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content" style="border-radius:25px;" align="center">
+                <div class="modal-body">
+                    <h5>login please!</h5>
+                    <row class="form-inline">
+                        <select id="sl" class="form-control form-control-xs input" style="width: 25%">
+                        </select>
+                        <input id="num" class="form-control form-control-xs input" type="text" style="width: 75%" placeholder="your phone number">
+                    </row>
+                    <row class="form-inline">
+                        <span class="form-control form-control-xs input" style="width: 25%;color: #9B9B9B;">
+                            verify
+                        </span>
+                        <input class="form-control form-control-xs input" id="verify" type="text" style="width: 50%" placeholder="verification code">
+                        <button id="send" onclick="getCode()" class="btn" style="width: 25%;color: #FA5C7E;border-radius: 20px;border-color: #FA5C7E;margin-top: 10%;">Send</button>
+                        <button id="time" class="btn" style="width: 25%;color: #9B9B9B;border-radius: 20px;border-color: #9B9B9B;margin-top: 10%;display: none;"></button>
+                    </row>
+                    <!--<row>
+                        <p style="color: #9B9B9B;font-size: small;">unregistered phones will automatically create accounts.</p>
+                    </row>-->
+                    <row>
+                        <button type="button" class="btn btn-default btn-lg" onclick="login()"
+                                style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
+                            Login
+                        </button>
+                    </row>
+                    <row>
+
+                    </row>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BoxModal -->
+    <div class="modal fade" id="ModalBox" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 30%;">
+        <div class="modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content" style="border-radius:25px;" align="center">
+                <div class="modal-body">
+                    <h5>Congratulations!</h5>
+                    <img src="img/box.png">
+                    <p>
+                        You've helped your friend opended the treasure chest successfully! You won reward 50 Mixcoins too! Check the reward in MixFun app.
+                    </p>
+                    <a id="download" class="btn btn-default btn-lg"
+                            style="margin-top: 10%;border-radius:30px;width: 90%;background: linear-gradient(#FF824E, #FF3F0C);color: white">
+                        Download MixFun App
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var clientHeight = document.body.clientHeight;
+    var imgHeight = $('#backgroup').height();
+    $('#footer').css('height',clientHeight-imgHeight);
+
+    var select = '[{"name": "China", "code": "+86", "shortName": "CN"}, {"name": "Hong Kong", "code": "+852", "shortName": "HK"}, {"name": "Indonesia", "code": "+62", "shortName": "ID"}, {"name": "India", "code": "+91", "shortName": "IN"}, {"name": "Malaysia", "code": "+60", "shortName": "MY"}, {"name": "Philippines", "code": "+63", "shortName": "PH"}, {"name": "Singapore", "code": "+65", "shortName": "SG"}, {"name": "Thailand", "code": "+66", "shortName": "TH"}, {"name": "United States", "code": "+1", "shortName": "US"}, {"name": "Vietnam", "code": "+84", "shortName": "VN"}]';
+    var jn = JSON.parse(select);
+    var op = '';
+    jn.forEach(function(object,index){
+        op += '<option>'+object.code+'</option>';
+    });
+    $('#sl').html(op);
+
+    var type = 1;
+    var userAgentInfo = navigator.userAgent;
+
+    if (userAgentInfo.indexOf('iPhone') > 0) {
+        type = 2;
+    } else if (userAgentInfo.indexOf('Android') > 0) {
+        type = 3
+    }
+
+	$.ajax({
+        url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+        data: JSON.stringify({"considerIp": "true"}),
+        type: 'POST',
+        contentType: 'application/json',
+        success: function (data) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'location': data.location}, function (results, status) {
+                if (status === 'OK') {
+                    var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                    if (code == 'cn') {
+                        code = 'hk';
+                    }
+                    $('#download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                }
+            });
+        }
+    });
+    if (type === 1) {
+        $('#content').attr('style', 'width:70%');
+        $('#download').attr('href', "https://mixfun.world/index.html");
+    } else if (type === 2) {
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({"considerIp": "true"}),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function (results, status) {
+                    if (status === 'OK') {
+                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        if (code == 'cn') {
+                            code = 'hk';
+                        }
+                        $('#download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
+                    }
+                });
+            }
+        });
+    } else if (type === 3) {
+        $('#download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
+    }
+
+    function getCode() {
+        var time = 60;
+        var p = $("#time");
+        p.css('display','block');
+        $('#send').css('display','none');
+        p.html((time--)+'s');
+        var set = setInterval(function() {
+            p.html(time+'s');
+            time--;
+            if(time === 0) {
+                p.innerHTML = "";
+                p.css('display','none');
+                $('#send').css('display','block');
+                clearInterval(set);
+            }
+        }, 1000);
+
+        var num = $('#sl').val()+$('#num').val();
+        $.ajax({
+            url:'https://api.mixit.fun/auth/send_verify_code',
+            method:'POST',
+            contentType: 'application/json;charset=UTF-8',
+            dataType:'JSON',
+            data:JSON.stringify(
+                {mobile:num}
+            )
+        });
+    }
+
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        $('#shareCode').val(theRequest.shareCode);
+        $('#copy').attr('data-clipboard-text',theRequest.shareCode);
+        return theRequest;
+    }
+
+    vi = GetRequest().shareCode;
+    var verify = $('#verify').val();
+    var auth;
+    function login() {
+        var num = $('#sl').val() + $('#num').val();
+        var verify = $('#verify').val();
+        $.ajax({
+            url: 'https://api.mixit.fun/auth/login_by_mobile_phone',
+            method: 'POST',
+            contentType: 'application/json;charset=UTF-8',
+            dataType: 'JSON',
+            data: JSON.stringify(
+                {
+                    mobile: num,
+                    verify_code: verify,
+                    device_type: 3,
+                    device_code: 'web'
+                }
+            ),
+            success: function (data) {
+                auth = data.data.token;
+                $('#ModalBox').modal('show');
+                $.ajax({
+                    url:'https://api.mixit.fun/user/setFriendShareCode',
+                    method:'POST',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:'JSON',
+                    headers: {
+                        'authorization': auth
+                    },
+                    data:JSON.stringify(
+                        {share_code : vi}
+                    ),
+                    success:function(data){
+                        if(data.status == 0){
+                            alert("Congratulations!");
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function copy(id){
+        if(id == 'lj'){
+            var clipboard = new ClipboardJS('.copy-button', {
+                text: function() {
+                    return lj;
+                }
+            });
+        }
+        var shareId = document.getElementById(id);
+        shareId.select();
+        document.execCommand('copy');
+        $('#tot').modal('show');
+    }
+
+</script>
+</html>
