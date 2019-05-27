@@ -281,8 +281,15 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        $('#shareCode').text(theRequest.shareCode);
-        $('#copy').attr('data-clipboard-text',theRequest.shareCode);
+	if (theRequest.shadeCode) {
+          $('#shareCode').text(theRequest.shadeCode);
+          $('#copy').attr('data-clipboard-text',theRequest.shadeCode);
+	  theRequest['shareCode'] = theRequest['shadeCode'];
+	} else {
+          $('#shareCode').text(theRequest.shareCode);
+    	  $('#copy').attr('data-clipboard-text',theRequest.shareCode);
+	  theRequest['shadeCode'] = theRequest['shareCode'];
+	}
         return theRequest;
     }
 
