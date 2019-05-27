@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.js" type="text/javascript"></script>
 <style>
     .input{
         border-left: 0;
@@ -41,7 +42,7 @@
         <div id="step_one" style="width: 100%; background-color: white; vertical-align: top;" align="center">
             <div class="modal-content" style="border-radius: 6x; border-width: 3px; border-color: rgb(84, 96, 161); background-color: rgb(18, 32, 103); width: 60%; height: 48px; display: inline-table; margin-top: -24px">
                 <p id="shareCode" style="font-family: italic;color: white; text-align: left; font-weight: bold; font-size: 16px; line-height: 40px; display: inline; margin-right: 15px"></p>
-                <button onclick="copy('shareCode')" class="button" data-clipboard-target="#shareCode" data-clipboard-action="copy" style="width: 25%; color: black; border-radius: 20px; border-color: rgb(18, 32, 103); background-color: white; font-family: initial; font-weight: normal; display: inline; margin-left: 15px">Copy</button>
+                <button class="btn copy-button" id="copy" data-clipboard-target="#shareCode" data-clipboard-action="copy" style="background: white; border-radius: 20px;border: 0px;color: black; height: 30px; text-align: center; vertical-align: middle; line-height: 15px" onclick="copy('shareCode');">&nbsp;Copy&nbsp;</button>
             </div>
             <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
                 STEP 1
@@ -273,7 +274,7 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        $('#shareCode').val(theRequest.shareCode);
+        $('#shareCode').text(theRequest.shareCode);
         $('#copy').attr('data-clipboard-text',theRequest.shareCode);
         return theRequest;
     }
@@ -324,16 +325,13 @@
     }
 
     function copy(id){
-        if(id == 'lj'){
-            var clipboard = new ClipboardJS('.copy-button', {
+    	var lj = $('#shareCode').text();
+    	var clipboard = new ClipboardJS('.copy-button', {
                 text: function() {
                     return lj;
                 }
-            });
-        }
-        var shareId = document.getElementById(id);
-        shareId.select();
-        document.execCommand('copy');
+         });
+    	console.log(clipboard);
         $('#tot').modal('show');
     }
 
