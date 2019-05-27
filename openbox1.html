@@ -30,7 +30,9 @@
                 <p style="font-size: 16px; text-align: -webkit-left; font-family: PingFangSC-Regular, sans-serif; color: white; margin-left: 8%; margin-right: 8%;padding-top: 5%">
                     Dear Friend,
                     <br>
+                    <br>
                     Please help me to win Mixcoin! Just download the app here.
+                    <br>
                     <br>
                     Download MixFun and enter the referral code below, both of you and I will get 50 Mixcoin! You can redeem/draw gifts on MixFun.
                 </p>
@@ -40,9 +42,14 @@
             </div>
         </div>
         <div id="step_one" style="width: 100%; background-color: white; vertical-align: top;" align="center">
-            <div class="modal-content" style="border-radius: 6x; border-width: 3px; border-color: rgb(84, 96, 161); background-color: rgb(18, 32, 103); width: 60%; height: 48px; display: inline-table; margin-top: -24px">
+<!--             <div class="modal-content" style="border-radius: 6x; border-width: 3px; border-color: rgb(84, 96, 161); background-color: rgb(18, 32, 103); width: 60%; height: 48px; display: inline-table; margin-top: -24px">
                 <p id="shareCode" style="font-family: italic;color: white; text-align: left; font-weight: bold; font-size: 16px; line-height: 40px; display: inline; margin-right: 15px"></p>
                 <button class="btn copy-button" id="copy" data-clipboard-target="#shareCode" data-clipboard-action="copy" style="background: white; border-radius: 20px;border: 0px;color: black; height: 30px; text-align: center; vertical-align: middle; line-height: 15px" onclick="copy('shareCode');">&nbsp;Copy&nbsp;</button>
+            </div> -->
+            <div style="margin-top: 5%">
+            	<p style="font-family: italic;color: black; text-align: left; font-weight: bold; font-size: 16px; line-height: 40px; display: inline; margin-right: 5px;">Referral Code:</p>
+           		<p id="shareCode" style="font-family: italic;color: black; text-align: left; font-weight: bold; font-size: 16px; line-height: 40px; display: inline; margin-right: 15px;"></p>
+            	<button class="btn copy-button" id="copy" data-clipboard-target="#shareCode" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8); color: white; border-radius: 20px;border: 0px;" onclick="copy('shareCode');">&nbsp;Copy&nbsp;</button>
             </div>
             <p style="font-size: 16px; margin-top: 26px; margin-left: 8%;margin-right: 8%; font-family: italic;color: black; text-align: -webkit-left; font-weight: bold;">
                 STEP 1
@@ -330,9 +337,8 @@
                 text: function() {
                     return lj;
                 }
-         });
-    	console.log(clipboard);
-        $('#tot').modal('show');
+        });
+    	window.alert('Copied!');
     }
 
 </script>
