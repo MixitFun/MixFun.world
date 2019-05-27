@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="" />
+    <list default="true" id="33ab9220-0ca3-4fad-856d-f20c2015880c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/shop.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="686" column="23" lean-forward="true" selection-start-line="686" selection-start-column="23" selection-end-line="686" selection-end-column="23" />
+            <state relative-caret-position="299">
+              <caret line="448" column="26" selection-start-line="448" selection-start-column="26" selection-end-line="448" selection-end-column="26" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -89,9 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>consol</find>
-      <find>sha</find>
-      <find>baseUrl</find>
       <find>base</find>
       <find>prof</find>
       <find>My re</find>
@@ -110,7 +109,6 @@
       <find>plea</find>
       <find>hourly</find>
       <find>invi</find>
-      <find>spot</find>
       <find>submi</find>
       <find>copy</find>
       <find>tot</find>
@@ -119,6 +117,10 @@
       <find>globe</find>
       <find>cong</find>
       <find>pj</find>
+      <find>spot</find>
+      <find>lj</find>
+      <find>copy-button</find>
+      <find>tx</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,7 +155,7 @@
             <path>
               <item name="MixFun.world" type="b2602c69:ProjectViewProjectNode" />
               <item name="MixFun.world" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -190,22 +192,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1558853157275</updated>
-      <workItem from="1558853159383" duration="12895000" />
+      <workItem from="1558853159383" duration="14462000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12895000" />
+    <option name="totallyTimeSpent" value="14462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="127" y="23" width="2433" height="1336" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17951907" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17951907" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.2033762" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.2033762" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -232,8 +235,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="686" column="23" lean-forward="true" selection-start-line="686" selection-start-column="23" selection-end-line="686" selection-end-column="23" />
+        <state relative-caret-position="299">
+          <caret line="448" column="26" selection-start-line="448" selection-start-column="26" selection-end-line="448" selection-end-column="26" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />

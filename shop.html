@@ -446,7 +446,11 @@
         success: function(data){
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shadeCode="+data.data.ownShareCode;
-            $('#tx').attr('src',data.data.avatar);
+            if(data.data.avatar == ''){
+                $('#tx').attr('img/person.png');
+            }else{
+                $('#tx').attr('src',data.data.avatar);
+            }
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
             if(data.data.shareCode != null){
