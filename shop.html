@@ -76,7 +76,7 @@
             <div id="ref"></div>
             <p class="card-text">Your referral code：
                 <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                <button class="btn" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
+                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
             </p>
             <div style="margin-top: 20px;">
                 <p>Share your referral code or click the link below to invite your friends.</p>
@@ -87,7 +87,7 @@
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
                         <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
                     </a>
-                    <a class="col-4 copy-button" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
                         <input id="lj" type="hidden">
                         <img src="img/icon_ic_link.png">
                     </a>
@@ -640,16 +640,12 @@
 
 
     function copy(id){
-        if(id == 'lj'){
-            var clipboard = new ClipboardJS('.copy-button', {
-                text: function() {
-                    return lj;
-                }
-            });
-        }
-        var shareId = document.getElementById(id);
-        shareId.select();
-        document.execCommand('copy');
+        var copyVal = $('#'+id).val();
+        var clipboard = new ClipboardJS('.'+id, {
+            text: function() {
+                return copyVal;
+            }
+        });
         $('#tot').modal('show');
     }
 
