@@ -273,7 +273,7 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        $('#shareCode').val(theRequest.shareCode);
+        $('#shareCode').text(theRequest.shareCode);
         $('#copy').attr('data-clipboard-text',theRequest.shareCode);
         return theRequest;
     }
@@ -324,13 +324,6 @@
     }
 
     function copy(id){
-        if(id == 'lj'){
-            var clipboard = new ClipboardJS('.copy-button', {
-                text: function() {
-                    return lj;
-                }
-            });
-        }
         var shareId = document.getElementById(id);
         shareId.select();
         document.execCommand('copy');
