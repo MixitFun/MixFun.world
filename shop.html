@@ -219,6 +219,7 @@
             <span id="bt" style="color: red;margin-left: 10%;"></span>
             <div class="modal-body" align="center">
                 <input type="hidden" id="id"/>
+                <input type="hidden" id="commodity_id"/>
                 <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
@@ -332,11 +333,12 @@
 
         //baseUrl ="http://localhost:7001";
     }*/
-    function cj(it,name,sale,type){
+    function cj(it,name,sale,type,commodity_id){
         $('#ModalConf').modal('show');
         $('#it').val(it);
         $('#itname').val(name);
         $('#ittype').val(type);
+        $('#commodity_id').val(commodity_id);
         if(type == 1){
             $('#type2').css('display','none');
             $('#type1').css('display','block');
@@ -503,6 +505,7 @@
             dataType : 'json',
             data: {
                 id: id,
+                commodityId:commodity_id,
                 recipient:recipient,
                 phone: phone,
                 moblieLegend: moblieLegend,
@@ -593,7 +596,7 @@
                         '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Total：'+item.amount+'</span></h5></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot: '+item.count+'</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1,'+item.commodityId+')">&nbsp;Draw&nbsp;</button></p></div>'+
                         /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
                         '</div>'+
                         '</div>';
@@ -628,7 +631,7 @@
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0">' +
                         '<p style="width: 100%;text-align: left;"><span>Hourly Spot: '+item.glh+'</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2,'+item.commodityId+')">&nbsp;Redeem&nbsp;</button></p></div>'+
                         /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
                         '</div>'+
                         '</div>';
