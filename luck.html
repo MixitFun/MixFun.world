@@ -85,7 +85,7 @@
                         <img src="img/logo_whatsapp.png">
                     </a>-->
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
+                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win coins.">
                     </a>
                     <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
                         <input id="lj" type="hidden">
@@ -207,7 +207,7 @@
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header">
-                <h5 class="modal-title">Copied!
+                <h5 class="modal-title" id="copy_label">
                 </h5>
             </div>
         </div>
@@ -612,12 +612,18 @@
 
     function copy(id){
         var copyVal = $('#'+id).val();
-        var clipboard = new ClipboardJS('.'+id, {
-            text: function() {
-                return copyVal;
-            }
-        });
-        $('#tot').modal('show');
+        if(copyVal != ''){
+            var clipboard = new ClipboardJS('.'+id, {
+                text: function() {
+                    return copyVal;
+                }
+            });
+            $('#copy_label').text('Copied!');
+            $('#tot').modal('show');
+        }else{
+            $('#copy_label').text('Please login');
+            $('#tot').modal('show');
+        }
     }
 
     $('#tot').on('shown.bs.modal', function (e) {

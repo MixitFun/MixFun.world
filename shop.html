@@ -237,7 +237,7 @@
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header">
-                <h5 class="modal-title">Copied!
+                <h5 class="modal-title" id="copy_label">
                 </h5>
             </div>
         </div>
@@ -647,12 +647,18 @@
 
     function copy(id){
         var copyVal = $('#'+id).val();
-        var clipboard = new ClipboardJS('.'+id, {
-            text: function() {
-                return copyVal;
-            }
-        });
-        $('#tot').modal('show');
+        if(copyVal != ''){
+            var clipboard = new ClipboardJS('.'+id, {
+                text: function() {
+                    return copyVal;
+                }
+            });
+            $('#copy_label').text('Copied!');
+            $('#tot').modal('show');
+        }else{
+            $('#copy_label').text('Please login');
+            $('#tot').modal('show');
+        }
     }
 
     $('#tot').on('shown.bs.modal', function (e) {
