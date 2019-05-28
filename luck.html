@@ -102,35 +102,6 @@
         <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
 
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
-        <div class="media" style="padding: 2%;">
-            <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
-            <div class="media-body" >
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs">
-            <li class="nav-item" style="width: 50%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw </a>
-            </li>
-            <li class="nav-item" style="width: 50%">
-                <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
-            </li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active show commodity" id="draw">
-            </div>
-            <div class="tab-pane fade" id="buy">
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
     <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
@@ -424,7 +395,7 @@
             var ht = '';
             data.data.forEach(function (item,index) {
                 var img = "img/person.png";
-                if(item.avatar != ''){
+                if(item.avatar != ' '&& item.avatar != null){
                     img = item.avatar;
                 }
                 ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
@@ -446,7 +417,7 @@
         success: function(data){
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
-            if(data.data.avatar == ''){
+            if(data.data.avatar == ''||item.avatar == null){
                 $('#tx').attr('img/person.png');
             }else{
                 $('#tx').attr('src',data.data.avatar);
