@@ -395,7 +395,8 @@
             dataType: 'json',
             success: function(data) {
                 $('#zzd').modal('show');
-                $('#commodity_id').val(data.commodityId);
+                console.log(data.commodityId);
+                $('#commodity_id').val(it);
                 $('#zzd').on('shown.bs.modal',function () {
                     ss = null;
                     gmfh = data;
