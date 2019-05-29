@@ -368,7 +368,7 @@
             }
             $('#ModalExchange').modal('show');
             $('#id').val(data.data.id);
-        }else{
+        }else {
             $('#alert').html('<p>'+data.msg+'</p>');
             $('#ModalAlert').modal('show');
         }
@@ -394,15 +394,18 @@
             },
             dataType: 'json',
             success: function(data) {
-                $('#zzd').modal('show');
-                console.log(data.commodityId);
+                if(data.status == 1009 || data.status == 1010){
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }else{
+                    $('#zzd').modal('show');
+                }
                 $('#commodity_id').val(it);
                 $('#zzd').on('shown.bs.modal',function () {
-                    ss = null;
                     gmfh = data;
-                    var ss = setTimeout(function () {
+                    var timeout = setTimeout(function () {
                         $('#zzd').modal('hide');
-                    },2000);
+                    },1200);
                 });
             },
             error: function(){
