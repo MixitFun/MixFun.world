@@ -74,22 +74,22 @@
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
             <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
-            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px;">Mixcoin Reward</p>
+            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
             <table width="100%" style="margin-bottom: 0px">
                 <tr>
                     <td width="33%" align="center">
                         <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 0px">Watch Reward</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch Reward</p>
                         </p>
                     </td>
                     <td width="33%" align="center">
                         <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 0px">Upload Reward</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload Reward</p>
                         </p>
                     </td>
                     <td width="33%" align="center">
                         <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 0px">Referral Reward</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral Reward</p>
                         </p>
                     </td>
                 </tr>
@@ -503,7 +503,6 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            console.log(data.data);
             $('#totalCoins').text(data.data.totalCoin);
             $('#watchCoins').text(data.data.watchCoin);
             $('#uploadCoins').text(data.data.uploadCoin);
