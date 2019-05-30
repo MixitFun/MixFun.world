@@ -753,34 +753,37 @@
                 var ht = '';
                 data.data.forEach(function(item, index) {
                     var dat = item.createdTime.split("T");
-                    if(index == 0){
-                        ht+='<div  class="carousel-item active"><table style="width: 100%">\n' +
-                            '                        <tbody>\n' +
-                            '                        <tr>\n' +
-                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                            dat[0] +' '+
-                            dat[1].split(".")[0]+
-                            '                            </span></td>\n' +
-                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                            item.user.nickname +' just won the '+item.commodity.name+
-                            '                            </td>\n' +
-                            '                        </tr>\n' +
-                            '                        </tbody>\n' +
-                            '                    </table></div>';
-                    }else {
-                        ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
-                            '                        <tbody>\n' +
-                            '                        <tr>\n' +
-                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                            dat[0] +' '+
-                            dat[1].split(".")[0]+
-                            '                            </span></td>\n' +
-                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                            item.user.nickname + ' just won the ' + item.commodity.name+
-                            '                            </td>\n' +
-                            '                        </tr>\n' +
-                            '                        </tbody>\n' +
-                            '                    </table></div>';
+
+                    if(item.available == 1) {
+                        if (ht == '') {
+                            ht += '<div  class="carousel-item active"><table style="width: 100%">\n' +
+                                '                        <tbody>\n' +
+                                '                        <tr>\n' +
+                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                dat[0] + ' ' +
+                                dat[1].split(".")[0] +
+                                '                            </span></td>\n' +
+                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                item.user.nickname + ' just ' + type + ' the ' + item.commodity.name +
+                                '                            </td>\n' +
+                                '                        </tr>\n' +
+                                '                        </tbody>\n' +
+                                '                    </table></div>';
+                        } else {
+                            ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
+                                '                        <tbody>\n' +
+                                '                        <tr>\n' +
+                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                dat[0] + ' ' +
+                                dat[1].split(".")[0] +
+                                '                            </span></td>\n' +
+                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                item.user.nickname + ' just ' + type + ' the ' + item.commodity.name +
+                                '                            </td>\n' +
+                                '                        </tr>\n' +
+                                '                        </tbody>\n' +
+                                '                    </table></div>';
+                        }
                     }
                 });
                 $('.carousel-inner').html(ht);
