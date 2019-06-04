@@ -395,8 +395,11 @@
             var ht = '';
             data.data.forEach(function (item,index) {
                 var img = "img/person.png";
-                if(item.avatar != ' '&& item.avatar != null){
+                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
                     img = item.avatar;
+                }
+                if (index > 9) {
+                    return false;
                 }
                 ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
             });

@@ -435,7 +435,7 @@
             var ht = '';
             data.data.forEach(function (item,index) {
                 var img = "img/person.png";
-                if(item.avatar != ''){
+                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
                     img = item.avatar;
                 }
                 if (index > 9) {
