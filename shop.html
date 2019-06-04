@@ -325,7 +325,7 @@
 
     var token =  GetRequest().id;
 
-    baseUrl = "https://shop.mixit.fun";
+    baseUrl = "https://api.mixit.fun";
     /*if (token != '78b311bf271a41b4a494ad9d14847733'){
         baseUrl = "https://api.mixit.fun";
         stop();
@@ -444,7 +444,7 @@
     var lj;
     $.ajax({
         method: 'get',
-        url: "https://shop.mixit.fun"+'/user/profile',
+        url: "https://api.mixit.fun"+'/user/profile',
         headers:{
             authorization:token
         },
