@@ -116,7 +116,7 @@
     <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 50%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw </a>
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw</a>
             </li>
             <li class="nav-item" style="width: 50%">
                 <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
@@ -591,7 +591,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck, no guarantee to win! </p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck, no guarantee to win! (Philippines region ONLY).</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
@@ -625,7 +625,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
