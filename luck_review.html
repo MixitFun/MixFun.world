@@ -70,34 +70,7 @@
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc"></p>
     </div>
-
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 10px;">
-            <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
-            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
-            <table width="100%" style="margin-bottom: 0px">
-                <tr>
-                    <td width="33%" align="center">
-                        <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch Reward</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload Reward</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral Reward</p>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px">
         <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
             <div id="ref"></div>
@@ -112,7 +85,7 @@
                         <img src="img/logo_whatsapp.png">
                     </a>-->
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
+                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win coins.">
                     </a>
                     <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
                         <input id="lj" type="hidden">
@@ -128,35 +101,6 @@
         <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
         <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
-
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
-        <div class="media" style="padding: 2%;">
-            <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
-            <div class="media-body" >
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs">
-            <li class="nav-item" style="width: 50%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw</a>
-            </li>
-            <li class="nav-item" style="width: 50%">
-                <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
-            </li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active show commodity" id="draw">
-            </div>
-            <div class="tab-pane fade" id="buy">
-            </div>
-        </div>
-    </div>
-</div>
 
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
     <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
@@ -233,27 +177,25 @@
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Redeem
+                <h5 class="modal-title">Congratulations!
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="padding-bottom: 5px;">
-                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.
+                    <span> If you enjoy using MixFun, please leave a good review for us? Thank you for your support!
                     </span>
             </div>
             <span id="bt" style="color: red;margin-left: 10%;"></span>
             <div class="modal-body" align="center">
                 <input type="hidden" id="id"/>
-                <input type="hidden" id="commodity_id"/>
                 <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%"/>
-                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends user ID:12345678(1234)" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
+                <p>Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
             </div>
         </div>
@@ -361,12 +303,11 @@
 
         //baseUrl ="http://localhost:7001";
     }*/
-    function cj(it,name,sale,type,commodity_id){
+    function cj(it,name,sale,type){
         $('#ModalConf').modal('show');
         $('#it').val(it);
         $('#itname').val(name);
         $('#ittype').val(type);
-        $('#commodity_id').val(commodity_id);
         if(type == 1){
             $('#type2').css('display','none');
             $('#type1').css('display','block');
@@ -386,20 +327,17 @@
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','inline-block');
-                $('#moblieLegendExtra').css('display','inline-block')
+                $('#moblieLegend').css('display','block');
             }else{
                 $('#moblieLegend').val('');
-                $('#moblieLegendExtra').val('');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
                 $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display', 'none');
             }
             $('#ModalExchange').modal('show');
             $('#id').val(data.data.id);
-        }else {
+        }else{
             $('#alert').html('<p>'+data.msg+'</p>');
             $('#ModalAlert').modal('show');
         }
@@ -425,18 +363,13 @@
             },
             dataType: 'json',
             success: function(data) {
-                if(data.status == 1009 || data.status == 1010){
-                    $('#alert').html('<p>'+data.msg+'</p>');
-                    $('#ModalAlert').modal('show');
-                }else{
-                    $('#zzd').modal('show');
-                }
-                $('#commodity_id').val(it);
+                $('#zzd').modal('show');
                 $('#zzd').on('shown.bs.modal',function () {
+                    ss = null;
                     gmfh = data;
-                    var timeout = setTimeout(function () {
+                    var ss = setTimeout(function () {
                         $('#zzd').modal('hide');
-                    },1200);
+                    },2000);
                 });
             },
             error: function(){
@@ -445,7 +378,7 @@
             }
         });
         $('#zzd').on('hide.bs.modal', function () {
-            dde(gmname, gmfh);
+            dde(gmname, gmfh)
         })
     }
 
@@ -487,7 +420,7 @@
         success: function(data){
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
-            if(data.data.avatar == ''){
+            if(data.data.avatar == ''||data.data.avatar == null){
                 $('#tx').attr('src','img/person.png');
             }else{
                 $('#tx').attr('src',data.data.avatar);
@@ -504,32 +437,14 @@
         }
     });
 
-    $.ajax({
-        method: 'get',
-        url: "https://api.mixit.fun/"+'user/wallet',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#totalCoins').text(data.data.totalCoin);
-            $('#watchCoins').text(data.data.watchCoin);
-            $('#uploadCoins').text(data.data.uploadCoin);
-            $('#inviteCoins').text(data.data.inviteCoin);
-        }
-    });
-
     var pj;
     function buy(){
         var id = $('#id').val();
-        var commodity_id = $('#commodity_id').val();
         var name = $('#itname').val();
         var recipient = $('#recipient').val();
         if(name == 'Mobile Legends'){
             var moblieLegend = $('#moblieLegend').val();
-            var moblieLegendExtra = $('#moblieLegendExtra').val();
-            if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
+            if (moblieLegend == null || moblieLegend == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
@@ -562,10 +477,9 @@
             dataType : 'json',
             data: {
                 id: id,
-                commodityId:commodity_id,
                 recipient:recipient,
                 phone: phone,
-                moblieLegend: moblieLegend+"("+moblieLegendExtra+")",
+                moblieLegend: moblieLegend,
                 address: address,
                 phoneType: phoneType
             },
@@ -642,7 +556,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck, no guarantee to win! (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck, no guarantee to win! </p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
@@ -676,7 +590,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served.</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
@@ -761,38 +675,34 @@
                 var ht = '';
                 data.data.forEach(function(item, index) {
                     var dat = item.createdTime.split("T");
-
-                    if(item.available == 1) {
-                        var type = item.type == 1? 'won': 'redeemed';
-                        if (ht == '') {
-                            ht += '<div  class="carousel-item active"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        } else {
-                            ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        }
+                    if(index == 0){
+                        ht+='<div  class="carousel-item active"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                            dat[0] +' '+
+                            dat[1].split(".")[0]+
+                            '                            </span></td>\n' +
+                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                            item.user.nickname +' just won the '+item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
+                    }else {
+                        ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
+                            '                        <tbody>\n' +
+                            '                        <tr>\n' +
+                            '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                            dat[0] +' '+
+                            dat[1].split(".")[0]+
+                            '                            </span></td>\n' +
+                            '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                            item.user.nickname + ' just won the ' + item.commodity.name+
+                            '                            </td>\n' +
+                            '                        </tr>\n' +
+                            '                        </tbody>\n' +
+                            '                    </table></div>';
                     }
                 });
                 $('.carousel-inner').html(ht);
