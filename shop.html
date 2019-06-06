@@ -335,19 +335,25 @@
         //baseUrl ="http://localhost:7001";
     }*/
     function cj(it,name,sale,type,commodity_id){
-        $('#ModalConf').modal('show');
-        $('#it').val(it);
-        $('#itname').val(name);
-        $('#ittype').val(type);
-        $('#commodity_id').val(commodity_id);
-        if(type == 1){
-            $('#type2').css('display','none');
-            $('#type1').css('display','block');
-        }else{
-            $('#type1').css('display','none');
-            $('#type2').css('display','block');
+        if (isBlockUser) {
+            var msg = "We launched an algorithm to detect coin farming activities. Your account has been blocked from prized redeem due to suspected coin farming activities. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+            $('#alert').html('<p>'+msg+'</p>');
+            $('#ModalAlert').modal('show');
+        } else {
+            $('#ModalConf').modal('show');
+            $('#it').val(it);
+            $('#itname').val(name);
+            $('#ittype').val(type);
+            $('#commodity_id').val(commodity_id);
+            if(type == 1){
+                $('#type2').css('display','none');
+                $('#type1').css('display','block');
+            }else{
+                $('#type1').css('display','none');
+                $('#type2').css('display','block');
+            }
+            $('.hf').text(sale);
         }
-        $('.hf').text(sale);
     }
 
     function dde(name, data) {
@@ -451,6 +457,7 @@
         }
     });
 
+    var isBlockUser = false;
     var fc;
     var lj;
     $.ajax({
@@ -462,6 +469,9 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
+            if (data.data.status == -1) {
+                isBlockUser = true;
+            }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
             if(data.data.avatar == ''){
