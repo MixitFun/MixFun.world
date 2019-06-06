@@ -143,10 +143,10 @@
     <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 50%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Lucky Draw</a>
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
             </li>
             <li class="nav-item" style="width: 50%">
-                <a class="nav-link" href="#buy" data-toggle="tab">Redeem</a>
+                <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
             </li>
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -250,8 +250,8 @@
                 <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%"/>
-                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="8" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%;"/>
+                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
@@ -642,7 +642,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">It is all about luck, no guarantee to win! (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
@@ -650,10 +650,11 @@
                         '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
                         '</div>'+
                         '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><h5 style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: medium;">Total：'+item.amount+'</span></h5></div>'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                        '<div class="mt-0"><p style="width: 100%;text-align: left;"><span> Spot: '+item.count+'</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',1)">&nbsp;Draw&nbsp;</button></p></div>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Hourly Spot: '+item.glh+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
                         /*'<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="stop()">&nbsp;Draw&nbsp;</button></p></div>'+*/
                         '</div>'+
                         '</div>';
