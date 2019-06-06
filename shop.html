@@ -373,7 +373,11 @@
             $('#ModalExchange').modal('show');
             $('#id').val(data.data.id);
         }else {
-            $('#alert').html('<p>'+data.msg+'</p>');
+            var msg = data.msg;
+            if (msg == "The stock for this hour is out. Please come back next hour.") {
+                msg = "The stock is out today, please come back tomorrow!";
+            }
+            $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         }
     }
