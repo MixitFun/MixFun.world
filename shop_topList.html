@@ -90,8 +90,8 @@
         <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 15px; margin-bottom: 5px">Most Tipped Videos</p>
         <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
         <div style="width: 100%; display: inline-block;">
-            <button class="button" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black;" onclick="perTopList()">< Previous page</button>
-            <button class="button" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black;" onclick="nextTopList()">Next page ></button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="perTopList()">< Previous page</button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="nextTopList()">Next page ></button>
         </div>
     </div>
 
@@ -729,22 +729,23 @@
         });
     }
 
+    let topListPageSize = 5;
     function loadTopList(pageNum) {
         var topListDiv = '';
         var pageRecords = new Array();
-        let pages = parseInt(topList.length/10);
+        let pages = parseInt(topList.length/topListPageSize);
         var count = 0;
         if (pageNum <= pages) {
-            count = 10;
+            count = topListPageSize;
         } else {
-            count = topList.length%10;
+            count = topList.length%topListPageSize;
         }
         for (var i = 0; i < count; i++) {
-            let listIndex = Math.max(0, pageNum - 1) * 10 + i;
+            let listIndex = Math.max(0, pageNum - 1) * topListPageSize + i;
             pageRecords[i] = topList[listIndex];
         }
         pageRecords.forEach(function(item, index) {
-            var coverImg = "img/Video_Thumbnail.jpg";
+            var coverImg = "img/Video_Thumbnail.png";
             if(item.thumbnailUrl != null && item.thumbnailUrl != '' && item.thumbnailUrl != ' '){
                 coverImg = item.thumbnailUrl;
             }
@@ -763,7 +764,7 @@
                 avatar+='<img src="'+img+'" style="width: 24px;height: 24px;border-radius: 12px;margin: -3px;"/>';
             });
             var indexDiv = '';
-            var listIndex = index + Math.max(0, pageNum - 1) * 10;
+            var listIndex = index + Math.max(0, pageNum - 1) * topListPageSize;
             if ([0, 1, 2].includes(listIndex)) {
                 var img = "img/toplist_"+listIndex+".png";
                 indexDiv = '<img src="'+img+'" style="width: 40px;height: 18px; padding-left: 6px; padding-right: 6px; margin-top: 41px;"/>';
@@ -785,16 +786,22 @@
     }
 
     function perTopList() {
+        let tempTopListPage = toplistPage;
         let newPage = toplistPage-1;
         toplistPage = Math.max(1, newPage);
-        loadTopList(toplistPage)
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
     }
 
     function nextTopList() {
-        let maxPage = parseInt(topList.length/10);
+        let tempTopListPage = toplistPage;
+        let maxPage = parseInt(topList.length/topListPageSize);
         let newPage = toplistPage+1;
         toplistPage = Math.min(maxPage, newPage);
-        loadTopList(toplistPage)
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
     }
 </script>
 
