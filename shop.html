@@ -17,11 +17,12 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
-
+<!--<script src="js/wasap.js"></script>-->
 <style>
     .top{
         background-image: url("img/bg_new.png");
@@ -85,10 +86,19 @@
         </div>
     </div>
 
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-top: 20px">
+        <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 15px; margin-bottom: 5px">Most Tipped Videos</p>
+        <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
+        <div style="width: 100%; display: inline-block;">
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="perTopList()">< Previous page</button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="nextTopList()">Next page ></button>
+        </div>
+    </div>
+
     <div class="shade" align="center">
         <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
         <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
-        <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
+        <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
@@ -141,6 +151,61 @@
     </div>
 </div>
 
+<!-- alert -->
+<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Warning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
+                <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
+                <button class="btn btn-info" onclick="cjl()">Continue</button>
+                <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <input id="it" type="hidden"/>
+                <input id="itname" type="hidden"/>
+                <input id="ittype" type="hidden"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exchange -->
+<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Redeem
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;">
+                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.
+                    </span>
+            </div>
+            <span id="bt" style="color: red;margin-left: 10%;"></span>
+            <div class="modal-body" align="center">
+                <input type="hidden" id="id"/>
+                <input type="hidden" id="commodity_id"/>
+                <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%"/>
+                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%"/>
+                <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
+                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- tip -->
 <div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
@@ -153,35 +218,47 @@
     </div>
 </div>
 
-<!-- Stop -->
-<div class="modal fade" id="ModalStop" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+<!-- tip -->
+<div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    We are very sorry that MixFun is running a huge traffic at moment.
-                    We decided to suspend the Treasure Hunt again until our system is able to support that huge traffic! We will reopen it early next week. Stay tuned!
-                    <br/><br/>
-                    If you have any question, please message us on Facebook (<a href="https://www.facebook.com/groups/419649578852831/">MixFun.world</a>) or email us hello@mixfun.world .
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
 </body>
 
 <script type="text/javascript">
-    var baseUrl;
-    function stop(){
-        $('#ModalStop').modal('show');
-    }
+    var baseUrl = "https://api.mixit.fun";
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
     $('.d-block').css('height',clientHeight/4);
+    $('#ModalExchange').css('height',clientHeight);
+    $('#zzd').css('margin-top',clientHeight/2);
+
+    $('#tips').tooltip('show');
     $('.toast').toast('show');
 
     function GetRequest() {
@@ -198,144 +275,39 @@
     }
 
     var token =  GetRequest().id;
-    baseUrl = "https://api.mixit.fun";
+    var userAgentInfo = navigator.userAgent;
+    var type = 1;
 
-     var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：40</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 11 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(12,\'+Mobile Legends+\',500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">900 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：17</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 22 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(13,\'+Mobile Legends+\',900,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">1500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：8</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 56 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(14,\'+Mobile Legends+\',1500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">2500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：3</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 112 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(15,\'+Mobile Legends+\',2500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">4800 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：2</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 222 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(16,\'+Mobile Legends+\',4800,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        ht+= '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://storage.gra1.cloud.ovh.net/v1/AUTH_296c7803aa594af69d39b970927c8fb9/media/game_avatars/b5/b5z9wa28G9xMch4B.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">8500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Legends</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：2</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Legends 570 Diamonds</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(17,\'+Mobile Legends+\',8500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-
-    $('.commodity').html(ht);
-
-    var htl = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
-                        htl += '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://business.mb.com.ph/wp-content/uploads/2017/01/Globe-and-Smart-logo.jpg" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">1500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Loads</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：20</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Loads 50</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(19,\'+Mobile Loads+\',1500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        htl += '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://business.mb.com.ph/wp-content/uploads/2017/01/Globe-and-Smart-logo.jpg" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">2500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Loads</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：6</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Loads 100</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(20, \'+Mobile Loads+\',2500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        htl += '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://business.mb.com.ph/wp-content/uploads/2017/01/Globe-and-Smart-logo.jpg" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">5000 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Loads</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：3</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Loads 250</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(21, \'+Mobile Loads+\',5000,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-                        htl += '<div class="media"style="padding: 3%">'+
-                        '<div style="width: 25%;">' +
-                        '<img src="https://business.mb.com.ph/wp-content/uploads/2017/01/Globe-and-Smart-logo.jpg" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">8500 coin</div>'+
-                        '</div>'+
-                        '<div class="media-body" style="padding: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">Mobile Loads</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：1</span></p></div>'+
-                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">Mobile Loads 500</p>'+
-                        '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: 0</span>' +
-                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj(22, \'+Mobile Loads+\',8500,2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                        '</div>'+
-                        '</div>';
-        $('#buy').html(htl);
+    if (userAgentInfo.indexOf('iPhone') > 0) {
+        type = 2;
+    } else if (userAgentInfo.indexOf('Android') > 0) {
+        type = 3
+    }
+    if (type === 1) {
+        pj = "https://mixfun.world/index.html";
+    } else if (type === 2) {
+        $.ajax({
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
+            data: JSON.stringify({"considerIp": "true"}),
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'location': data.location}, function (results, status) {
+                    if (status === 'OK') {
+                        var code = 'ph';
+                        code = results[results.length - 1].address_components[0].short_name.toLowerCase();
+                        if (code == 'cn') {
+                            code = 'hk';
+                        }
+                        pj = "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
+                    }
+                });
+            }
+        });
+    } else if (type === 3) {
+        pj = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
+    }
 
     $.ajax({
         method: 'get',
@@ -396,6 +368,97 @@
         }
     });
 
+    var topList = new Array()
+    var toplistPage = 1;
+    $.ajax({
+        method: 'post',
+        url: "https://api.mixit.fun/dynamic/page/topPickList",
+        headers:{
+            authorization:token
+        },
+        data: JSON.stringify({
+            pageNum: 1,
+            pageSize: 50,
+            query: {
+                keyword: ""
+            }
+        }),
+        dataType: 'json',
+        contentType:'application/json',
+        success: function(data){
+                topList = data.data.records;
+                toplistPage = 1;
+                loadTopList(toplistPage);
+            }
+        });
+
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'/shop/list',
+        headers:{
+            authorization:token
+        },
+        data: {
+            type: 1
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
+                data.data.forEach(function(item, index) {
+                    ht+= '<div class="media"style="padding: 3%">'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: '+item.glh+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        '</div>'+
+                        '</div>';
+                });
+                $('.commodity').html(ht);
+
+            }
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'/shop/list',
+        headers:{
+            authorization:token
+        },
+        data: {
+            type: 2
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
+                data.data.forEach(function(item, index) {
+                    ht+= '<div class="media"style="padding: 3%">'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Daily Spot: '+item.glh+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        '</div>'+
+                        '</div>';
+                });
+                $('#buy').html(ht);
+            }
+        }
+    });
+
     $.ajax({
         method: 'post',
         url: baseUrl+'/shop/transactionList',
@@ -445,6 +508,175 @@
                 $('.carousel-inner').html(ht);
             }
         }
+    });
+
+    function cj(it,name,sale,type,commodity_id){
+        if (isBlockUser) {
+            var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+            $('#alert').html('<p>'+msg+'</p>');
+            $('#ModalAlert').modal('show');
+        } else {
+            $('#ModalConf').modal('show');
+            $('#it').val(it);
+            $('#itname').val(name);
+            $('#ittype').val(type);
+            $('#commodity_id').val(commodity_id);
+            if(type == 1){
+                $('#type2').css('display','none');
+                $('#type1').css('display','block');
+            }else{
+                $('#type1').css('display','none');
+                $('#type2').css('display','block');
+            }
+            $('.hf').text(sale);
+        }
+    }
+
+    function dde(name, data) {
+        if(name == 'Mobile Legends'){
+            $('#address').val('');
+            $('#phone').val('');
+            $('#phoneType').val('');
+            $('#address').css('display','none');
+            $('#phone').css('display','none');
+            $('#phoneType').css('display','none');
+            $('#moblieLegend').css('display','inline-block');
+            $('#moblieLegendExtra').css('display','inline-block')
+        }else{
+            $('#moblieLegend').val('');
+            $('#moblieLegendExtra').val('');
+            $('#address').css('display','block');
+            $('#phone').css('display','block');
+            $('#phoneType').css('display','block');
+            $('#moblieLegend').css('display','none');
+            $('#moblieLegendExtra').css('display', 'none');
+        }
+        $('#ModalExchange').modal('show');
+        $('#id').val(data.data.id);
+    }
+
+    var ss;
+    var gmfh;
+    function cjl(){
+        var it = $('#it').val();
+        var gmname = $('#itname').val();
+        var type = $('#ittype').val();
+        $('#ModalConf').modal('hide');
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'/shop/exchange',
+            headers:{
+                authorization:token
+            },
+            data: {
+                commodityId: it,
+                type: type
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.status == 0) {
+                    $('#zzd').modal('show');
+                } else {
+                    var msg = data.msg;
+                    if (msg == "The stock for this hour is out. Please come back next hour.") {
+                        msg = "The stock is out today, please come back tomorrow!";
+                        $('#alert').html('<p>'+msg+'</p>');
+                        $('#ModalAlert').modal('show');
+                    } else if(data.status == 1009 || data.status == 1010) {
+                        $('#alert').html('<p>'+data.msg+'</p>');
+                        $('#ModalAlert').modal('show');
+                    }
+                }
+                $('#commodity_id').val(it);
+                $('#zzd').on('shown.bs.modal',function () {
+                    gmfh = data;
+                    var timeout = setTimeout(function () {
+                        $('#zzd').modal('hide');
+                    },1200);
+                });
+            },
+            error: function(){
+                $('#alert').html('<p>Net Error!</p>');
+                $('#ModalAlert').modal('show');
+            }
+        });
+        $('#zzd').on('hide.bs.modal', function () {
+            dde(gmname, gmfh);
+        })
+    }
+
+    var pj;
+    function buy(){
+        var id = $('#id').val();
+        var commodity_id = $('#commodity_id').val();
+        var name = $('#itname').val();
+        var recipient = $('#recipient').val();
+        if(name == 'Mobile Legends'){
+            var moblieLegend = $('#moblieLegend').val();
+            var moblieLegendExtra = $('#moblieLegendExtra').val();
+            if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }else{
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var phone = $('#phone').val();
+            if (phone == null || phone == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var address = $('#address').val();
+            if (address == null || address == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var phoneType = $('#phoneType').val();
+            if (phoneType == null || phoneType == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }
+        $.ajax({
+            url : baseUrl+"/shop/buy",
+            type : 'post',
+            dataType : 'json',
+            data: {
+                id: id,
+                commodityId:commodity_id,
+                recipient:recipient,
+                phone: phone,
+                moblieLegend: moblieLegend+"("+moblieLegendExtra+")",
+                address: address,
+                phoneType: phoneType
+            },
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                $('#ModalExchange').modal('hide');
+                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                    '<a class="btn btn-info" id="pj"  href="'+pj+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding: 20%"  href="'+pj+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+            }
+        });
+    }
+
+
+    function exModelShow(){
+        $('#ModalExchange').modal('show');
+    }
+
+    $('#ModalExchange').on('hide.bs.modal',function(){
+        $('#ModalAlert').modal('show');
+        $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#ModalExchange').modal('show');
     });
 
     function copy(id){
@@ -497,17 +729,80 @@
         });
     }
 
-    function cj(it,name,sale,type,commodity_id) {
-        var msg = '';
-        if (isBlockUser) {
-            msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+    let topListPageSize = 5;
+    function loadTopList(pageNum) {
+        var topListDiv = '';
+        var pageRecords = new Array();
+        let pages = parseInt(topList.length/topListPageSize);
+        var count = 0;
+        if (pageNum <= pages) {
+            count = topListPageSize;
         } else {
-            msg = "The stock is out today, please come back tomorrow!";
+            count = topList.length%topListPageSize;
         }
-        $('#alert').html('<p>'+msg+'</p>');
-        $('#ModalAlert').modal('show');
+        for (var i = 0; i < count; i++) {
+            let listIndex = Math.max(0, pageNum - 1) * topListPageSize + i;
+            pageRecords[i] = topList[listIndex];
+        }
+        pageRecords.forEach(function(item, index) {
+            var coverImg = "img/Video_Thumbnail.png";
+            if(item.thumbnailUrl != null && item.thumbnailUrl != '' && item.thumbnailUrl != ' '){
+                coverImg = item.thumbnailUrl;
+            }
+            var avatar = '';
+            var userHasAvatarList = item.userAvatarList.filter(function(element) {
+                return (element != null && element != '' && element != ' ');
+            });
+            item.userAvatarList.forEach(function (item, index) {
+                var img = "img/person.png";
+                if (index < userHasAvatarList.length) {
+                    img = userHasAvatarList[index];
+                }
+                if (index > 2) {
+                    return false;
+                }
+                avatar+='<img src="'+img+'" style="width: 24px;height: 24px;border-radius: 12px;margin: -3px;"/>';
+            });
+            var indexDiv = '';
+            var listIndex = index + Math.max(0, pageNum - 1) * topListPageSize;
+            if ([0, 1, 2].includes(listIndex)) {
+                var img = "img/toplist_"+listIndex+".png";
+                indexDiv = '<img src="'+img+'" style="width: 40px;height: 18px; padding-left: 6px; padding-right: 6px; margin-top: 41px;"/>';
+            } else {
+                indexDiv = '<div style="font-size: 16px; width: 40px; margin-top: 41px;">'+(listIndex+1)+'.'+'</div>';
+            }
+            topListDiv+= '<div class="media" style="margin-bottom: 5%; padding-top: 5%; position: relative">'+
+                        indexDiv +
+                        '<div style="width: 100px; height: 100px;">' +
+                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/>' +
+                        '</div>'+
+                        '<div class="media-body" style="padding-left: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 100%; padding-right: 5px;">'+item.title+'</span></p></div>'+
+                        '<div style="position: absolute; right: 3%; bottom: 2%">'+avatar+'<span style="margin-left: 8px; font-size: 13px; font-weight: bold; color: #dcb336">'+item.totalContribute+'MixCoin</span></div>'+
+                        '</div>'+
+                        '</div>';
+        });
+        $('.topListDiv').html(topListDiv);
     }
 
+    function perTopList() {
+        let tempTopListPage = toplistPage;
+        let newPage = toplistPage-1;
+        toplistPage = Math.max(1, newPage);
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
+    }
+
+    function nextTopList() {
+        let tempTopListPage = toplistPage;
+        let maxPage = parseInt(topList.length/topListPageSize);
+        let newPage = toplistPage+1;
+        toplistPage = Math.min(maxPage, newPage);
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
+    }
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
