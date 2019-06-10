@@ -113,10 +113,19 @@
         </div>
     </div>
 
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-top: 20px">
+        <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 15px; margin-bottom: 5px">Most Tipped Videos</p>
+        <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
+        <div style="width: 100%; display: inline-block;">
+            <button class="button" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black;" onclick="perTopList()">< Previous page</button>
+            <button class="button" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black;" onclick="nextTopList()">Next page ></button>
+        </div>
+    </div>
+
     <div class="shade" align="center">
         <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
         <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
-        <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
+        <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
@@ -327,6 +336,47 @@
         pj = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
     }
 
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'/user/referralList',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#num').html(data.data.length);
+            var ht = '';
+            data.data.forEach(function (item,index) {
+                var img = "img/person.png";
+                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
+                    img = item.avatar;
+                }
+                if (index > 9) {
+                    return false;
+                }
+                ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
+            });
+            $('#ref').html(ht);
+        }
+    });
+    
+    $.ajax({
+        method: 'get',
+        url: "https://api.mixit.fun/"+'user/wallet',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#totalCoins').text(data.data.totalCoin);
+            $('#watchCoins').text(data.data.watchCoin);
+            $('#uploadCoins').text(data.data.uploadCoin);
+            $('#inviteCoins').text(data.data.inviteCoin);
+        }
+    });
+
     var isBlockUser = false;
     var fc;
     var lj;
@@ -361,97 +411,29 @@
         }
     });
 
-    $.ajax({
-        method: 'get',
-        url: "https://api.mixit.fun/"+'user/wallet',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#totalCoins').text(data.data.totalCoin);
-            $('#watchCoins').text(data.data.watchCoin);
-            $('#uploadCoins').text(data.data.uploadCoin);
-            $('#inviteCoins').text(data.data.inviteCoin);
-        }
-    });
-
-    $.ajax({
-        method: 'get',
-        url: baseUrl+'/user/referralList',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#num').html(data.data.length);
-            var ht = '';
-            data.data.forEach(function (item,index) {
-                var img = "img/person.png";
-                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
-                    img = item.avatar;
-                }
-                if (index > 9) {
-                    return false;
-                }
-                ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
-            });
-            $('#ref').html(ht);
-        }
-    });
-
+    var topList = new Array()
+    var toplistPage = 1;
     $.ajax({
         method: 'post',
-        url: baseUrl+'/shop/transactionList',
+        url: "https://api.mixit.fun/dynamic/page/topPickList",
         headers:{
             authorization:token
         },
-        dataType: 'json',
-        success: function(data){
-            if(data.status == 0) {
-                var ht = '';
-                data.data.forEach(function(item, index) {
-                    var dat = item.createdTime.split("T");
-
-                    if(item.available == 1) {
-                        var type = item.type == 1? 'won': 'redeemed';
-                        if (ht == '') {
-                            ht += '<div  class="carousel-item active"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        } else {
-                            ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        }
-                    }
-                });
-                $('.carousel-inner').html(ht);
+        data: JSON.stringify({
+            pageNum: 1,
+            pageSize: 50,
+            query: {
+                keyword: ""
             }
-        }
-    });
+        }),
+        dataType: 'json',
+        contentType:'application/json',
+        success: function(data){
+                topList = data.data.records;
+                toplistPage = 1;
+                loadTopList(toplistPage);
+            }
+        });
 
     $.ajax({
         method: 'post',
@@ -516,6 +498,57 @@
                         '</div>';
                 });
                 $('#buy').html(ht);
+            }
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'/shop/transactionList',
+        headers:{
+            authorization:token
+        },
+        dataType: 'json',
+        success: function(data){
+            if(data.status == 0) {
+                var ht = '';
+                data.data.forEach(function(item, index) {
+                    var dat = item.createdTime.split("T");
+
+                    if(item.available == 1) {
+                        var type = item.type == 1? 'won': 'redeemed';
+                        if (ht == '') {
+                            ht += '<div  class="carousel-item active"><table style="width: 100%">\n' +
+                                '                        <tbody>\n' +
+                                '                        <tr>\n' +
+                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                dat[0] + ' ' +
+                                dat[1].split(".")[0] +
+                                '                            </span></td>\n' +
+                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
+                                '                            </td>\n' +
+                                '                        </tr>\n' +
+                                '                        </tbody>\n' +
+                                '                    </table></div>';
+                        } else {
+                            ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
+                                '                        <tbody>\n' +
+                                '                        <tr>\n' +
+                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
+                                dat[0] + ' ' +
+                                dat[1].split(".")[0] +
+                                '                            </span></td>\n' +
+                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
+                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
+                                '                            </td>\n' +
+                                '                        </tr>\n' +
+                                '                        </tbody>\n' +
+                                '                    </table></div>';
+                        }
+                    }
+                });
+                $('.carousel-inner').html(ht);
             }
         }
     });
@@ -737,6 +770,74 @@
 
             }
         });
+    }
+
+    function loadTopList(pageNum) {
+        var topListDiv = '';
+        var pageRecords = new Array();
+        let pages = parseInt(topList.length/10);
+        var count = 0;
+        if (pageNum <= pages) {
+            count = 10;
+        } else {
+            count = topList.length%10;
+        }
+        for (var i = 0; i < count; i++) {
+            let listIndex = Math.max(0, pageNum - 1) * 10 + i;
+            pageRecords[i] = topList[listIndex];
+        }
+        pageRecords.forEach(function(item, index) {
+            var coverImg = "img/Video_Thumbnail.jpg";
+            if(item.thumbnailUrl != null && item.thumbnailUrl != '' && item.thumbnailUrl != ' '){
+                coverImg = item.thumbnailUrl;
+            }
+            var avatar = '';
+            var userHasAvatarList = item.userAvatarList.filter(function(element) {
+                return (element != null && element != '' && element != ' ');
+            });
+            item.userAvatarList.forEach(function (item, index) {
+                var img = "img/person.png";
+                if (index < userHasAvatarList.length) {
+                    img = userHasAvatarList[index];
+                }
+                if (index > 2) {
+                    return false;
+                }
+                avatar+='<img src="'+img+'" style="width: 24px;height: 24px;border-radius: 12px;margin: -3px;"/>';
+            });
+            var indexDiv = '';
+            var listIndex = index + Math.max(0, pageNum - 1) * 10;
+            if ([0, 1, 2].includes(listIndex)) {
+                var img = "img/toplist_"+listIndex+".png";
+                indexDiv = '<img src="'+img+'" style="width: 40px;height: 18px; padding-left: 6px; padding-right: 6px; margin-top: 41px;"/>';
+            } else {
+                indexDiv = '<div style="font-size: 16px; width: 40px; margin-top: 41px;">'+(listIndex+1)+'.'+'</div>';
+            }
+            topListDiv+= '<div class="media" style="margin-bottom: 5%; padding-top: 5%; position: relative">'+
+                        indexDiv +
+                        '<div style="width: 100px; height: 100px;">' +
+                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/>' +
+                        '</div>'+
+                        '<div class="media-body" style="padding-left: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 100%; padding-right: 5px;">'+item.title+'</span></p></div>'+
+                        '<div style="position: absolute; right: 3%; bottom: 2%">'+avatar+'<span style="margin-left: 8px; font-size: 13px; font-weight: bold; color: #dcb336">'+item.totalContribute+'MixCoin</span></div>'+
+                        '</div>'+
+                        '</div>';
+        });
+        $('.topListDiv').html(topListDiv);
+    }
+
+    function perTopList() {
+        let newPage = toplistPage-1;
+        toplistPage = Math.max(1, newPage);
+        loadTopList(toplistPage)
+    }
+
+    function nextTopList() {
+        let maxPage = parseInt(topList.length/10);
+        let newPage = toplistPage+1;
+        toplistPage = Math.min(maxPage, newPage);
+        loadTopList(toplistPage)
     }
 </script>
 
