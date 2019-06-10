@@ -114,11 +114,11 @@
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-top: 20px">
-        <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 15px; margin-bottom: 5px">Most Tipped Videos</p>
+        <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 15px; margin-bottom: 5px">Most Tipped Videos(Testing)</p>
         <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
         <div style="width: 100%; display: inline-block;">
-            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="perTopList()">< Previous page</button>
-            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0" onclick="nextTopList()">Next page ></button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="perTopList()">< Previous page</button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="nextTopList()">Next page ></button>
         </div>
     </div>
 
@@ -429,12 +429,13 @@
         dataType: 'json',
         contentType:'application/json',
         success: function(data){
-                topList = data.data.records;
-                toplistPage = 1;
-                loadTopList(toplistPage);
-            }
-        });
+            topList = data.data.records;
+            toplistPage = 1;
+            loadTopList(toplistPage);
+        }
+    });
 
+    var shopSpotDic = new Array();
     $.ajax({
         method: 'post',
         url: baseUrl+'/shop/list',
@@ -449,6 +450,7 @@
             if(data.status == 0) {
                 var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
+                    shopSpotDic[item.id] = item.glh;
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
                         '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
@@ -483,6 +485,7 @@
             if(data.status == 0) {
                 var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot, you can try every hour (11AM - 8PM), like 11AM, 12PM, 1PM… First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
+                    shopSpotDic[item.id] = item.glh;
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
                         '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
@@ -559,19 +562,25 @@
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         } else {
-            $('#ModalConf').modal('show');
-            $('#it').val(it);
-            $('#itname').val(name);
-            $('#ittype').val(type);
-            $('#commodity_id').val(commodity_id);
-            if(type == 1){
-                $('#type2').css('display','none');
-                $('#type1').css('display','block');
-            }else{
-                $('#type1').css('display','none');
-                $('#type2').css('display','block');
+            if (shopSpotDic[it] > 0) {
+                $('#ModalConf').modal('show');
+                $('#it').val(it);
+                $('#itname').val(name);
+                $('#ittype').val(type);
+                $('#commodity_id').val(commodity_id);
+                if(type == 1){
+                    $('#type2').css('display','none');
+                    $('#type1').css('display','block');
+                }else{
+                    $('#type1').css('display','none');
+                    $('#type2').css('display','block');
+                }
+                $('.hf').text(sale);
+            } else {
+                let msg = "The stock is out today, please come back tomorrow!";
+                $('#alert').html('<p>'+msg+'</p>');
+                $('#ModalAlert').modal('show');
             }
-            $('.hf').text(sale);
         }
     }
 
@@ -707,6 +716,8 @@
                     '<a class="btn btn-info" id="pj"  href="'+pj+'" target="_blank">YES</a>' +
                     '<a class="btn " id="pj" style="padding: 20%"  href="'+pj+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
+                let sopt = shopSpotDic[id];
+                shopSpotDic[id] = Math.max(0, sopt-1);
             }
         });
     }
