@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/font-awesome.css"/>
 </head>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
 <script type="text/javascript">
     function GetRequest() {
         var url = location.search;
@@ -57,28 +56,6 @@
             $('#content').attr('style', 'width:70%');
             var clientHeight = document.body.clientHeight/2;
             $('video').css('height',clientHeight);
-            $('.download').attr('href', "https://mixfun.world/index.html");
-        } else if (type === 2) {
-            $.ajax({
-                url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
-                data: JSON.stringify({"considerIp": "true"}),
-                type: 'POST',
-                contentType: 'application/json',
-                success: function (data) {
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({'location': data.location}, function (results, status) {
-                        if (status === 'OK') {
-                            var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
-                            if (code == 'cn') {
-                                code = 'hk';
-                            }
-                            $('.download').attr('href', "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8");
-                        }
-                    });
-                }
-            });
-        } else if (type === 3) {
-            $('.download').attr('href','https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun');
         }
 
         $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
@@ -138,7 +115,7 @@
             <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
         </div>
         <div class="col-4">
-            <a class="btn btn-info download" style="margin-top: 5%;margin-bottom: 5%;float: right;">Download</a>
+            <a class="btn btn-info" href="https://app.mixfun.world/open" style="margin-top: 5%;margin-bottom: 5%;float: right;">Download</a>
         </div>
     </div>
 </div>
@@ -171,7 +148,7 @@
         <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
         <span style="color: black">MixFun</span>
     </a>
-    <p style="color: white">To watch more interesting videos and pictures, please download the MixFun app<a class="btn btn-primary btn-sm download"  style="float: right;">Download</a></p>
+    <p style="color: white">To watch more interesting videos and pictures, please download the MixFun app<a class="btn btn-primary btn-sm" href="https://app.mixfun.world/open" style="float: right;">Download</a></p>
 </div>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
