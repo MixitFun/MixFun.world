@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MixFun</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Please help me to win the iPhone!📱Just click the link below😁" />
+    <meta property="og:description" content="Please help me to win the iPhone!📱Just click the link below😁" />
+    <meta property="og:image" content="images/share-logo.png" />
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
+
+<style>
+    .top{
+        background-image: url("img/bg_new.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    .tooltip-inner{
+        background-color: #b3d7ff;
+        color: #6974FF;
+        max-width: 300px;
+    }
+    .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before{
+        border-top-color: #b3d7ff;
+    }
+    .tooltip{
+        align-content: center;
+        z-index: -1;
+    }
+    input{
+        margin-top: 15px;
+    }
+    textarea{
+        margin-top: 15px;
+    }
+    li:hover{
+        background-color: #adb5bd;
+    }
+    .nav-link.active{
+        color: #007bff;
+    }
+    .shade{
+        margin-top: 30px;
+    }
+</style>
+
+<body>
+<div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
+    <div align="center">
+        <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
+        <p id="mc"></p>
+    </div>
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body" style="padding: 10px;">
+            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
+            <div id="ref"></div>
+            <p>We are very sorry to announce that we stopped the referral program at the moment because we found hackers attacked our system to earn coins. We are working hard to resolve the issue. Please be patient to wait for further notice. - MixFun Team</p>
+        </div>
+    </div>
+
+    <div class="shade" align="center">
+        <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
+        <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
+        <button class="btn btn-light" style="margin-top: 10px;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
+    </div>
+
+<div id="footer" style="width: 100%;margin-top: 30px;" align="center">
+    <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
+    <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
+</div>
+
+<!-- alert -->
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alert">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tip -->
+<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="copy_label">
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    var baseUrl = "https://api.mixit.fun";
+    var clientHeight = document.body.clientHeight;
+    var clientWidth = document.body.clientWidth;
+    $('.top').css('height',170/(375/clientWidth)+"px");
+    $('.d-block').css('height',clientHeight/4);
+
+    $('#tips').tooltip('show');
+    $('.toast').toast('show');
+
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+    var token =  GetRequest().id;
+    var fc;
+    var lj;
+    $.ajax({
+        method: 'get',
+        url: "https://api.mixit.fun"+'/user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
+            lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
+            if(data.data.avatar == ''||data.data.avatar == null){
+                $('#tx').attr('src','img/person.png');
+            }else{
+                $('#tx').attr('src',data.data.avatar);
+            }
+            $('#mc').text(data.data.nickname);
+            $('#shareId').val(data.data.ownShareCode);
+            if(data.data.shareCode != null){
+                $('.shade').css('display','none');
+            }
+            $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
+            $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
+            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
+        }
+    });
+
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'/user/referralList',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#num').html(data.data.length);
+            var ht = '';
+            data.data.forEach(function (item,index) {
+                var img = "img/person.png";
+                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
+                    img = item.avatar;
+                }
+                if (index > 9) {
+                    return false;
+                }
+                ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
+            });
+            $('#ref').html(ht);
+        }
+    });
+
+    function copy(id){
+        var copyVal = $('#'+id).val();
+        if(copyVal != ''){
+            var clipboard = new ClipboardJS('.'+id, {
+                text: function() {
+                    return copyVal;
+                }
+            });
+            $('#copy_label').text('Copied!');
+            $('#tot').modal('show');
+        }else{
+            $('#copy_label').text('Please login');
+            $('#tot').modal('show');
+        }
+    }
+
+    $('#tot').on('shown.bs.modal', function (e) {
+        setTimeout(function () {
+            $('#tot').modal('hide');
+        },500)
+    })
+
+    function setShadeCode(){
+        var shadeCode = $('#shadeCode').val();
+        $.ajax({
+            url : baseUrl+"/user/setFriendShareCode",
+            type : 'post',
+            dataType : 'json',
+            data: JSON.stringify({
+                share_code:shadeCode
+            }),
+            contentType:'application/json',
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                if(data.status == 0){
+                    $('#alert').html('<p>Congratulations!</p><p>Both of you and your friends are received the 50 coin.</p>');
+                    $('#ModalAlert').modal('show');
+                    $('.shade').css('display','none');
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+
+            }
+        });
+    }
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+         'page_title' : 'MixFun',
+         'page_path': '/luck_asr'
+    });
+</script>
+</html>
