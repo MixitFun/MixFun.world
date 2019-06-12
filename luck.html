@@ -62,7 +62,6 @@
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc"></p>
     </div>
-
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
             <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
@@ -88,27 +87,11 @@
             </table>
         </div>
     </div>
-
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px">
         <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
             <div id="ref"></div>
-            <p class="card-text">Your referral code：
-                <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
-            </p>
-            <div style="margin-top: 20px; margin-bottom: 10px;">
-                <p>Share your referral code or click the link below to invite your friends.</p>
-                <row>
-                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
-                    </a>
-                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
-                        <input id="lj" type="hidden">
-                        <img src="img/icon_ic_link.png">
-                    </a>
-                </row>
-            </div>
+            <p>We are very sorry to announce that we stopped the referral program at the moment because we found hackers attacked our system to earn coins. We are working hard to resolve the issue. Please be patient to wait for further notice. - MixFun Team</p>
         </div>
     </div>
 
@@ -122,24 +105,7 @@
         </div>
     </div>
 
-    <div class="shade" align="center">
-        <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
-        <input class="form-control" id="shadeCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
-        <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShadeCode()">Submit</button>
-    </div>
-
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
-        <div class="media" style="padding: 2%;">
-            <img src="img/icon／ic_announcement.png" class="align-self-center mr-sm-2">
-            <div class="media-body" >
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 50%">
                 <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
@@ -155,6 +121,13 @@
             </div>
         </div>
     </div>
+
+<!--     <div class="card" align="center" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+        <a href="https://sporti.page.link/yodo">
+            <img src="img/yodo_banner.jpg" style="width: 100%; border-radius: 10px;">
+        </a>
+    </div> -->
+
 </div>
 
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
@@ -471,57 +444,6 @@
         }
     });
 
-    $.ajax({
-        method: 'post',
-        url: baseUrl+'/shop/transactionList',
-        headers:{
-            authorization:token
-        },
-        dataType: 'json',
-        success: function(data){
-            if(data.status == 0) {
-                var ht = '';
-                data.data.forEach(function(item, index) {
-                    var dat = item.createdTime.split("T");
-
-                    if(item.available == 1) {
-                        var type = item.type == 1? 'won': 'redeemed';
-                        if (ht == '') {
-                            ht += '<div  class="carousel-item active"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        } else {
-                            ht += '<div  class="carousel-item"><table style="width: 100%">\n' +
-                                '                        <tbody>\n' +
-                                '                        <tr>\n' +
-                                '                            <td style="width: 30%;padding: 4px;"><span style="font-size: small">' +
-                                dat[0] + ' ' +
-                                dat[1].split(".")[0] +
-                                '                            </span></td>\n' +
-                                '                            <td style="width: 70%;padding: 4px;font-size: small;">\n' +
-                                item.user.nickname + ' just '+type+' the ' + item.commodity.name +
-                                '                            </td>\n' +
-                                '                        </tr>\n' +
-                                '                        </tbody>\n' +
-                                '                    </table></div>';
-                        }
-                    }
-                });
-                $('.carousel-inner').html(ht);
-            }
-        }
-    });
-
     function cj(it,name,sale,type,commodity_id){
         if (isBlockUser) {
             var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
@@ -623,7 +545,6 @@
         })
     }
 
-    var pj;
     function buy(){
         var id = $('#id').val();
         var commodity_id = $('#commodity_id').val();
