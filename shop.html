@@ -52,9 +52,6 @@
     .nav-link.active{
         color: #007bff;
     }
-    .shade{
-        margin-top: 30px;
-    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -62,11 +59,27 @@
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc" style="margin-top: 10px"></p>
     </div>
+
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
             <div id="ref"></div>
-            <p>We are very sorry to announce that we stopped the referral program at the moment because we found hackers attacked our system to earn coins. We are working hard to resolve the issue. Please be patient to wait for further notice. - MixFun Team</p>
+            <p class="card-text">Your referral code：
+                <input id="shareId" style="border: 0px;width: 100px;" readonly/>
+                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
+            </p>
+            <div style="margin-top: 20px; margin-bottom: 10px;">
+                <p>Share your referral code or click the link below to invite your friends.</p>
+                <row>
+                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
+                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
+                    </a>
+                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                        <input id="lj" type="hidden">
+                        <img src="img/icon_ic_link.png">
+                    </a>
+                </row>
+            </div>
         </div>
     </div>
 
@@ -304,9 +317,6 @@
             }
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
-            if(data.data.shareCode != null){
-                $('.shade').css('display','none');
-            }
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
@@ -612,34 +622,6 @@
             $('#tot').modal('hide');
         },500)
     })
-
-    function setShadeCode(){
-        var shadeCode = $('#shadeCode').val();
-        $.ajax({
-            url : baseUrl+"/user/setFriendShareCode",
-            type : 'post',
-            dataType : 'json',
-            data: JSON.stringify({
-                share_code:shadeCode
-            }),
-            contentType:'application/json',
-            headers:
-                {
-                    authorization: token
-                },
-            success: function(data){
-                if(data.status == 0){
-                    $('#alert').html('<p>Congratulations!</p><p>Both of you and your friends are received the 50 coin.</p>');
-                    $('#ModalAlert').modal('show');
-                    $('.shade').css('display','none');
-                }else{
-                    $('#alert').html('<p>'+data.msg+'</p>');
-                    $('#ModalAlert').modal('show');
-                }
-
-            }
-        });
-    }
 
     let topListPageSize = 5;
     function loadTopList(pageNum) {
