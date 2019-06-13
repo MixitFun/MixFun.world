@@ -60,7 +60,7 @@
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
     <div align="center">
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
-        <p id="mc"></p>
+        <p id="mc" style="margin-top: 10px"></p>
     </div>
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
@@ -378,10 +378,15 @@
             }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
-            if(data.data.avatar == ''){
-                $('#tx').attr('src','img/person.png');
-            }else{
-                $('#tx').attr('src',data.data.avatar);
+            if (data.data.avatar == null) {
+                $('#tx').attr('src','img/logo_midium.png');
+            } else {
+                let avatarStr = data.data.avatar.trim()
+                if (avatarStr == '') {
+                    $('#tx').attr('src','img/logo_midium.png');
+                } else {
+                    $('#tx').attr('src',avatarStr);
+                }
             }
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
