@@ -13,10 +13,9 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
@@ -101,13 +100,6 @@
             </div>
         </div>
     </div>
-
-
-        <form action="?" method="POST">
-      <div class="g-recaptcha" data-sitekey="6Leo6qgUAAAAANAw-6DA9ILib6u0-anhFMjrw5HM"></div>
-      <br/>
-      <input type="submit" value="Submit">
-    </form>
     <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 50%">
@@ -305,6 +297,13 @@
 
 
     $('.toast').toast('show');
+
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6Le366gUAAAAAP-0X2rwOhf4cUeohk2U7hB4ghfo', {action: 'shop'}).then(function(token) {
+         
+      });
+  });
+
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -520,24 +519,6 @@
     if (type === 1) {
         pj = "https://mixfun.world/index.html";
     } else if (type === 2) {
-        $.ajax({
-            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCFN8feP5sgxGdiFAZLlV_iI7olxxhHp7s',
-            data: JSON.stringify({"considerIp": "true"}),
-            type: 'POST',
-            contentType: 'application/json',
-            success: function (data) {
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({'location': data.location}, function (results, status) {
-                    if (status === 'OK') {
-                        var code = results[results.length - 1].address_components[0].short_name.toLowerCase();
-                        if (code == 'cn') {
-                            code = 'hk';
-                        }
-                        pj = "https://itunes.apple.com/" + code + "/app/id1450796214?mt=8";
-                    }
-                });
-            }
-        });
     } else if (type === 3) {
         pj = 'https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun';
     }
