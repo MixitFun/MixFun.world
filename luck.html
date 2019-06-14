@@ -56,9 +56,6 @@
         max-height: calc(100vh - 210px);
         overflow-y: auto;
     }
-    body.modal-open {
-        overflow: hidden;
-    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -775,11 +772,7 @@
     }
     
     function showTopListNotice() {
-        $("#myModal").on("show", function () {
-            $("body").addClass("modal-open");
-        }).on("hidden", function () {
-            $("body").removeClass("modal-open")
-        });
+        $("html").css({"overflow-y":"hidden"})
         $('#ModalNotice').modal('show');
     }
 </script>
