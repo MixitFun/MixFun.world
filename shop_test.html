@@ -207,7 +207,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id = "verify_box">
                 <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
                 <div class="g-recaptcha" data-sitekey="6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy"></div>
@@ -308,8 +308,16 @@
 
     $('#tips').tooltip('show');
     $('.toast').toast('show');
-    var onloadCallback = function() {
+
+    var verifyCallback = function(response) {
         cjl();
+      };
+    var onloadCallback = function() {
+        grecaptcha.render('verify_box', {
+          'sitekey' : '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
+          'callback' : verifyCallback,
+          'theme' : 'light'
+        });
       };
 
     function GetRequest() {
