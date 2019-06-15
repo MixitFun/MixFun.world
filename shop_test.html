@@ -308,6 +308,9 @@
 
     $('#tips').tooltip('show');
     $('.toast').toast('show');
+    var onloadCallback = function() {
+        cjl();
+      };
 
     function GetRequest() {
         var url = location.search;
