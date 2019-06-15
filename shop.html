@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
@@ -185,8 +186,9 @@
             <div class="modal-body">
                 <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <button class="btn btn-info" onclick="cjl()">Continue</button>
-                <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <div class="g-recaptcha" id="recaptcha"></div>
+                <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
+                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
                 <input id="it" type="hidden"/>
                 <input id="itname" type="hidden"/>
                 <input id="ittype" type="hidden"/>
@@ -281,6 +283,16 @@
 
     $('#tips').tooltip('show');
     $('.toast').toast('show');
+
+    var hasVerify = false;
+    var recaptchaCallback = function () {
+        grecaptcha.render("recaptcha", {
+            sitekey: '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
+            callback: function () {
+                hasVerify = true;
+            }
+        });
+    }
 
     function GetRequest() {
         var url = location.search;
@@ -505,51 +517,53 @@
     var ss;
     var gmfh;
     function cjl(){
-        var it = $('#it').val();
-        var gmname = $('#itname').val();
-        var type = $('#ittype').val();
-        $('#ModalConf').modal('hide');
-        $.ajax({
-            method: 'post',
-            url: baseUrl+'/shop/exchange',
-            headers:{
-                authorization:token
-            },
-            data: {
-                commodityId: it,
-                type: type
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.status == 0) {
-                    $('#zzd').modal('show');
-                } else {
-                    var msg = data.msg;
-                    if (msg == "The stock for this hour is out. Please come back next hour.") {
-                        msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
-                        $('#alert').html('<p>'+msg+'</p>');
-                        $('#ModalAlert').modal('show');
-                    } else if(data.status == 1009 || data.status == 1010) {
-                        $('#alert').html('<p>'+data.msg+'</p>');
-                        $('#ModalAlert').modal('show');
+        if (hasVerify) {
+            var it = $('#it').val();
+            var gmname = $('#itname').val();
+            var type = $('#ittype').val();
+            $('#ModalConf').modal('hide');
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/exchange',
+                headers:{
+                    authorization:token
+                },
+                data: {
+                    commodityId: it,
+                    type: type
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == 0) {
+                        $('#zzd').modal('show');
+                    } else {
+                        var msg = data.msg;
+                        if (msg == "The stock for this hour is out. Please come back next hour.") {
+                            msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
+                            $('#alert').html('<p>'+msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        } else if(data.status == 1009 || data.status == 1010) {
+                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        }
                     }
+                    $('#commodity_id').val(it);
+                    $('#zzd').on('shown.bs.modal',function () {
+                        gmfh = data;
+                        var timeout = setTimeout(function () {
+                            $('#zzd').modal('hide');
+                        },1200);
+                    });
+                },
+                error: function(){
+                    $('#alert').html('<p>Net Error!</p>');
+                    $('#ModalAlert').modal('show');
                 }
-                $('#commodity_id').val(it);
-                $('#zzd').on('shown.bs.modal',function () {
-                    gmfh = data;
-                    var timeout = setTimeout(function () {
-                        $('#zzd').modal('hide');
-                    },1200);
-                });
-            },
-            error: function(){
-                $('#alert').html('<p>Net Error!</p>');
-                $('#ModalAlert').modal('show');
-            }
-        });
-        $('#zzd').on('hide.bs.modal', function () {
-            dde(gmname, gmfh);
-        })
+            });
+            $('#zzd').on('hide.bs.modal', function () {
+                dde(gmname, gmfh);
+            })
+        }
     }
 
     function buy(){
