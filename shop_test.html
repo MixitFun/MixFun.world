@@ -207,11 +207,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id = "verify_box">
+            <div class="modal-body">
                 <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <div class="g-recaptcha" data-sitekey="6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy"></div>
+                <form action="javascript:alert(grecaptcha.getResponse(widgetId));">
+                <div id = "verify_box"></div>
+                <br>
                 <input type="submit" value="Submit">
+                </form>
+<!--                 <div class="g-recaptcha" data-sitekey="6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy"></div> -->
 <!--                 <button class="btn btn-info" onclick="cjl()">Continue</button> -->
                 <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: -7px">Cancel</button>
                 <input id="it" type="hidden"/>
@@ -312,8 +316,9 @@
     var verifyCallback = function(response) {
         cjl();
       };
+    var widgetId;
     var onloadCallback = function() {
-        grecaptcha.render('verify_box', {
+        widgetId = grecaptcha.render('verify_box', {
           'sitekey' : '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
           'callback' : verifyCallback,
           'theme' : 'light'
