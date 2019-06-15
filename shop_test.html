@@ -469,7 +469,7 @@
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         } else {
-            if (shopSpotDic[it] > 0) {
+            if (shopSpotDic[it] == 0) {
                 $('#ModalConf').modal('show');
                 $('#it').val(it);
                 $('#itname').val(name);
