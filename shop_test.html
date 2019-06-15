@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback" async defer></script>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
@@ -64,32 +64,8 @@
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc" style="margin-top: 10px"></p>
     </div>
+
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 10px;">
-            <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
-            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
-            <table width="100%" style="margin-bottom: 0px">
-                <tr>
-                    <td width="33%" align="center">
-                        <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch Reward</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload Reward</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral Reward</p>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px">
         <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
             <div id="ref"></div>
@@ -210,10 +186,9 @@
             <div class="modal-body">
                 <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
                 <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <div class="g-recaptcha"></div>
-                <input type="submit" id ="recaptcha" value="Submit">
-<!--                 <button class="btn btn-info" onclick="cjl()">Continue</button> -->
-                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: -7px">Cancel</button>
+                <div class="g-recaptcha" id="recaptcha"></div>
+                <button class="btn btn-info" onclick="cjl()">Continue</button>
+                <button class="btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                 <input id="it" type="hidden"/>
                 <input id="itname" type="hidden"/>
                 <input id="ittype" type="hidden"/>
@@ -309,11 +284,12 @@
     $('#tips').tooltip('show');
     $('.toast').toast('show');
 
+    var hasVerify = false;
     var recaptchaCallback = function () {
         grecaptcha.render("recaptcha", {
             sitekey: '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
             callback: function () {
-                cjl();
+                hasVerify = true;
             }
         });
     }
@@ -354,22 +330,6 @@
                 ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
             });
             $('#ref').html(ht);
-        }
-    });
-    
-    $.ajax({
-        method: 'get',
-        url: "https://api.mixit.fun/"+'user/wallet',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#totalCoins').text(data.data.totalCoin);
-            $('#watchCoins').text(data.data.watchCoin);
-            $('#uploadCoins').text(data.data.uploadCoin);
-            $('#inviteCoins').text(data.data.inviteCoin);
         }
     });
 
@@ -509,7 +469,7 @@
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         } else {
-            if (shopSpotDic[it] == 0) {
+            if (shopSpotDic[it] > 0) {
                 $('#ModalConf').modal('show');
                 $('#it').val(it);
                 $('#itname').val(name);
@@ -557,51 +517,57 @@
     var ss;
     var gmfh;
     function cjl(){
-        var it = $('#it').val();
-        var gmname = $('#itname').val();
-        var type = $('#ittype').val();
-        $('#ModalConf').modal('hide');
-        $.ajax({
-            method: 'post',
-            url: baseUrl+'/shop/exchange',
-            headers:{
-                authorization:token
-            },
-            data: {
-                commodityId: it,
-                type: type
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.status == 0) {
-                    $('#zzd').modal('show');
-                } else {
-                    var msg = data.msg;
-                    if (msg == "The stock for this hour is out. Please come back next hour.") {
-                        msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
-                        $('#alert').html('<p>'+msg+'</p>');
-                        $('#ModalAlert').modal('show');
-                    } else if(data.status == 1009 || data.status == 1010) {
-                        $('#alert').html('<p>'+data.msg+'</p>');
-                        $('#ModalAlert').modal('show');
+        if (hasVerify) {
+            hasVerify = false;
+            var it = $('#it').val();
+            var gmname = $('#itname').val();
+            var type = $('#ittype').val();
+            $('#ModalConf').modal('hide');
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/exchange',
+                headers:{
+                    authorization:token
+                },
+                data: {
+                    commodityId: it,
+                    type: type
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == 0) {
+                        $('#zzd').modal('show');
+                    } else {
+                        var msg = data.msg;
+                        if (msg == "The stock for this hour is out. Please come back next hour.") {
+                            msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
+                            $('#alert').html('<p>'+msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        } else if(data.status == 1009 || data.status == 1010) {
+                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        }
                     }
+                    $('#commodity_id').val(it);
+                    $('#zzd').on('shown.bs.modal',function () {
+                        gmfh = data;
+                        var timeout = setTimeout(function () {
+                            $('#zzd').modal('hide');
+                        },1200);
+                    });
+                },
+                error: function(){
+                    $('#alert').html('<p>Net Error!</p>');
+                    $('#ModalAlert').modal('show');
                 }
-                $('#commodity_id').val(it);
-                $('#zzd').on('shown.bs.modal',function () {
-                    gmfh = data;
-                    var timeout = setTimeout(function () {
-                        $('#zzd').modal('hide');
-                    },1200);
-                });
-            },
-            error: function(){
-                $('#alert').html('<p>Net Error!</p>');
-                $('#ModalAlert').modal('show');
-            }
-        });
-        $('#zzd').on('hide.bs.modal', function () {
-            dde(gmname, gmfh);
-        })
+            });
+            $('#zzd').on('hide.bs.modal', function () {
+                dde(gmname, gmfh);
+            })
+        } else {
+            $('#alert').html('<p>Need Veify</p>');
+            $('#ModalAlert').modal('show');
+        }
     }
 
     function buy(){
@@ -763,7 +729,7 @@
         });
         $('.topListDiv').html(topListDiv);
     }
-    
+
     function perTopList() {
         let tempTopListPage = toplistPage;
         let newPage = toplistPage-1;
@@ -782,7 +748,7 @@
             loadTopList(toplistPage);
         }
     }
-    
+
     function showTopListNotice() {
         $('#ModalNotice').modal('show');
     }
@@ -796,7 +762,7 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
          'page_title' : 'MixFun',
-         'page_path': '/shop_test'
+         'page_path': '/shop'
     });
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
