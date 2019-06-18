@@ -22,6 +22,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>  
 <!--<script src="js/wasap.js"></script>-->
 <style>
     .top{
@@ -283,7 +284,7 @@
 
     $('#tips').tooltip('show');
     $('.toast').toast('show');
-
+    let secretSign = "Wfy^%kdgfg)k!";
     var hasVerify = false;
     var recaptchaCallback = function () {
         grecaptcha.render("recaptcha", {
@@ -336,6 +337,7 @@
     var isBlockUser = false;
     var fc;
     var lj;
+    var uid;
     $.ajax({
         method: 'get',
         url: "https://api.mixit.fun"+'/user/profile',
@@ -360,6 +362,7 @@
                     $('#tx').attr('src',avatarStr);
                 }
             }
+            uid = data.data.uid;
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
@@ -521,6 +524,8 @@
             var it = $('#it').val();
             var gmname = $('#itname').val();
             var type = $('#ittype').val();
+            var time = new Date().getTime();
+            var key = md5(uid+secretSign+time);
             $('#ModalConf').modal('hide');
             $.ajax({
                 method: 'post',
@@ -530,7 +535,9 @@
                 },
                 data: {
                     commodityId: it,
-                    type: type
+                    type: type,
+                    requestTime: time,
+                    sign: key
                 },
                 dataType: 'json',
                 success: function(data) {
