@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
 </head>
 
 <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
@@ -310,15 +309,6 @@
 
     let baseUrl = "https://api.mixit.fun";
     let secretSign = "Wfy^%kdgfg)k!";
-    var hasVerify = false;
-    var recaptchaCallback = function () {
-        grecaptcha.render("recaptcha", {
-            sitekey: '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
-            callback: function () {
-                hasVerify = true;
-            }
-        });
-    }
 
     function GetRequest() {
         var url = location.search;
@@ -561,8 +551,7 @@
     var ss;
     var gmfh;
         function cjl(){
-        if (hasVerify) {
-            var it = $('#it').val();
+        var it = $('#it').val();
             var gmname = $('#itname').val();
             var type = $('#ittype').val();
             var time = new Date().getTime();
@@ -611,7 +600,6 @@
             $('#zzd').on('hide.bs.modal', function () {
                 dde(gmname, gmfh);
             })
-        }
     }
 
     function buy(){
