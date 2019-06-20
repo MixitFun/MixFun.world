@@ -399,7 +399,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
                 data.data.forEach(function(item, index) {
                     var spot = item.glh;
                     if (isBlockUser) {
@@ -438,7 +438,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
                     var spot = item.glh;
                     if (isBlockUser) {
@@ -465,12 +465,12 @@
     });
 
     function cj(it,name,sale,type,commodity_id){
-        if (isBlockUser) {
-            var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
-            $('#alert').html('<p>'+msg+'</p>');
-            $('#ModalAlert').modal('show');
-        } else {
-            if (shopSpotDic[it] > 0) {
+        if (shopSpotDic[it] > 0) {
+            if (isBlockUser) {
+                var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+                $('#alert').html('<p>'+msg+'</p>');
+                $('#ModalAlert').modal('show');
+            } else {
                 $('#ModalConf').modal('show');
                 $('#it').val(it);
                 $('#itname').val(name);
@@ -484,12 +484,12 @@
                     $('#type2').css('display','block');
                 }
                 $('.hf').text(sale);
-            } else {
-                let msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
-                $('#alert').html('<p>'+msg+'</p>');
-                $('#ModalAlert').modal('show');
             }
-        }
+        } else {
+            let msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
+            $('#alert').html('<p>'+msg+'</p>');
+            $('#ModalAlert').modal('show');
+        } 
     }
 
     function dde(name, data) {
