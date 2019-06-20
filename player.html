@@ -56,9 +56,6 @@
             $('#content').attr('style', 'width:70%');
             var clientHeight = document.body.clientHeight/2;
             $('video').css('height',clientHeight);
-        } else {
-            $('#header').css('display','none');
-            $('#footer').css('display','none');
         }
 
         $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
