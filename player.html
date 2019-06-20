@@ -49,13 +49,15 @@
         if (userAgentInfo.indexOf('iPhone') > 0) {
             type = 2;
         } else if (userAgentInfo.indexOf('Android') > 0) {
-            type = 3
+            type = 3;
         }
 
         if (type === 1) {
             $('#content').attr('style', 'width:70%');
             var clientHeight = document.body.clientHeight/2;
             $('video').css('height',clientHeight);
+        } else {
+            $('#footer').css('display','none');
         }
 
         $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
