@@ -527,7 +527,7 @@
                 $('.hf').text(sale);
             }
         } else {
-            let msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
+            let msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         } 
@@ -584,7 +584,7 @@
                     } else {
                         var msg = data.msg;
                         if (msg == "The stock for this hour is out. Please come back next hour.") {
-                            msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
+                            msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         } else if(data.status == 1009 || data.status == 1010) {
