@@ -378,7 +378,7 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            if (data.data.status == -1) {
+            if (data.data.status < 0) {
                 isBlockUser = true;
             }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
@@ -442,7 +442,11 @@
             if(data.status == 0) {
                 var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
-                    shopSpotDic[item.id] = item.glh;
+                    var spot = item.glh;
+                    if (isBlockUser) {
+                        spot = 0;
+                    }
+                    shopSpotDic[item.id] = spot;
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
                         '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
@@ -452,7 +456,7 @@
                         '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Spot: '+item.glh+'</span>' +
+                        '<p style="width: 100%;text-align: left;"><span>Spot: '+sopt+'</span>' +
                         '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
                         '</div>'+
                         '</div>';
@@ -477,7 +481,11 @@
             if(data.status == 0) {
                 var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
-                    shopSpotDic[item.id] = item.glh;
+                    var spot = item.glh;
+                    if (isBlockUser) {
+                        spot = 0;
+                    }
+                    shopSpotDic[item.id] = spot;
                     ht+= '<div class="media"style="padding: 3%">'+
                         '<div style="width: 25%;">' +
                         '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
@@ -487,7 +495,7 @@
                         '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                         '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                         '<div class="mt-0">' +
-                        '<p style="width: 100%;text-align: left;"><span>Spot: '+item.glh+'</span>' +
+                        '<p style="width: 100%;text-align: left;"><span>Spot: '+sopt+'</span>' +
                         '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
                         '</div>'+
                         '</div>';
