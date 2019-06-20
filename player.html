@@ -28,16 +28,15 @@
     function play() {
         var video = document.getElementById('player');
         var playPromise = video.play();
-        console.log(playPromise);
         if (playPromise !== undefined) {
             playPromise.then(_ => {
                 if (!video.palyed) {
                     video.play();
                 }
             })
-                .catch(error => {
+            .catch(error => {
 
-                });
+            });
         }
     }
 
@@ -88,11 +87,6 @@
 
 </script>
 <style>
-    .header{
-        background-color: #c8c8c8;
-        opacity:0.9;
-        padding: 2% 2% 2% 2%;
-    }
     .footer{
         background-color: #6c757d;
         opacity:0.8;
@@ -100,8 +94,7 @@
         position: fixed;
         width: 100%;
         bottom: 0;
-        height: 120px;
-        margin-top: -120px;
+        padding: 10px;
     }
     .content{
         position: relative;
@@ -109,21 +102,7 @@
     }
 </style>
 <body>
-<div id="header" class="header">
-    <div class="row" vertical-align>
-        <div class="col-8">
-            <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
-        </div>
-        <div class="col-4">
-            <a class="btn btn-info" href="https://app.mixfun.world/open" style="margin-top: 5%;margin-bottom: 5%;float: right;">Download</a>
-        </div>
-    </div>
-</div>
 <div id="content" class="container-fluid content" style="margin-top: 10px;min-height: 100%">
-    <!--<row>
-        <img id="avatar" src="img/mixit-logo.png" class="img-thumbnail" style="width: 30px;height: 30px;margin-top: 5%;margin-bottom: 5%;">
-        <a id="nickname" style="font-size: large">MixFun</a>
-    </row>-->
     <div id="video">
         <video id="player" style="width: 100%;" preload="auto">
             <source id="source" type="video/mp4"/>
@@ -143,13 +122,18 @@
         </p>
     </div>
 </div>
+
 <div id="footer" class="footer">
-    <a>
-        <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
-        <span style="color: black">MixFun</span>
-    </a>
-    <p style="color: white">To watch more interesting videos and pictures, please download the MixFun app<a class="btn btn-primary btn-sm" href="https://app.mixfun.world/open" style="float: right;">Download</a></p>
-</div>
+    <div class="row" vertical-align>
+        <div class="col-8" style="display: inline-flex; padding-right: 0px">
+            <img src="img/mixit-logo.png" style="height: 50px;width: 50px; margin: auto;">
+            <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
+        </div>
+        <div class="col-4" style="margin: auto">
+            <a class="btn btn-info" href="https://app.mixfun.world/open" style="float: right;">Download</a>
+        </div>
+    </div>
+ </div>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
