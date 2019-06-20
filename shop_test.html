@@ -15,13 +15,13 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>  
 <!--<script src="js/wasap.js"></script>-->
 <style>
     .top{
@@ -283,16 +283,7 @@
 
     $('#tips').tooltip('show');
     $('.toast').toast('show');
-
-    var hasVerify = false;
-    var recaptchaCallback = function () {
-        grecaptcha.render("recaptcha", {
-            sitekey: '6LdG-agUAAAAAOHWhGYEUqiBjHPrvL__KD4eSbOy',
-            callback: function () {
-                hasVerify = true;
-            }
-        });
-    }
+    let secretSign = "Wfy^%kdgfg)k!";
 
     function GetRequest() {
         var url = location.search;
@@ -336,6 +327,7 @@
     var isBlockUser = false;
     var fc;
     var lj;
+    var uid;
     $.ajax({
         method: 'get',
         url: "https://api.mixit.fun"+'/user/profile',
@@ -360,6 +352,7 @@
                     $('#tx').attr('src',avatarStr);
                 }
             }
+            uid = data.data.uid;
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
@@ -406,7 +399,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot. Restock time will be at 11am, 4pm & 9pm daily. First come first served. (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
                     shopSpotDic[item.id] = item.glh;
                     ht+= '<div class="media"style="padding: 3%">'+
@@ -441,7 +434,7 @@
         dataType: 'json',
         success: function(data) {
             if(data.status == 0) {
-                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Everyone can redeem once everyday if there is available spot. Restock time will be at 11am, 4pm & 9pm daily. First come first served. (Philippines region ONLY)</p>';
+                var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">A new game will be out this weekend… Save your power to the new game.<br />The redemption will be only available at 8PM daily now. First come first served. (Philippines region ONLY)</p>';
                 data.data.forEach(function(item, index) {
                     shopSpotDic[item.id] = item.glh;
                     ht+= '<div class="media"style="padding: 3%">'+
@@ -469,7 +462,7 @@
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         } else {
-            if (shopSpotDic[it] == 0) {
+            if (shopSpotDic[it] > 0) {
                 $('#ModalConf').modal('show');
                 $('#it').val(it);
                 $('#itname').val(name);
@@ -484,7 +477,7 @@
                 }
                 $('.hf').text(sale);
             } else {
-                let msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
+                let msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
                 $('#alert').html('<p>'+msg+'</p>');
                 $('#ModalAlert').modal('show');
             }
@@ -517,11 +510,11 @@
     var ss;
     var gmfh;
     function cjl(){
-        if (hasVerify) {
-            hasVerify = false;
-            var it = $('#it').val();
+        var it = $('#it').val();
             var gmname = $('#itname').val();
             var type = $('#ittype').val();
+            var time = new Date().getTime();
+            var key = md5(uid+secretSign+time);
             $('#ModalConf').modal('hide');
             $.ajax({
                 method: 'post',
@@ -531,7 +524,9 @@
                 },
                 data: {
                     commodityId: it,
-                    type: type
+                    type: type,
+                    requestTime: time,
+                    sign: key
                 },
                 dataType: 'json',
                 success: function(data) {
@@ -540,7 +535,7 @@
                     } else {
                         var msg = data.msg;
                         if (msg == "The stock for this hour is out. Please come back next hour.") {
-                            msg = "The stock is out now, the restock time will be at 11am, 4pm & 9pm daily. Please come back later.";
+                            msg = "The stock is out now, the restock time will be at 8pm daily. Please come back later.";
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         } else if(data.status == 1009 || data.status == 1010) {
@@ -564,10 +559,6 @@
             $('#zzd').on('hide.bs.modal', function () {
                 dde(gmname, gmfh);
             })
-        } else {
-            $('#alert').html('<p>Need Veify</p>');
-            $('#ModalAlert').modal('show');
-        }
     }
 
     function buy(){
@@ -716,10 +707,13 @@
             } else {
                 indexDiv = '<div style="font-size: 16px; width: 40px; margin-top: 41px;">'+(listIndex+1)+'.'+'</div>';
             }
+            console.log(item)
+            var videoURL = item.playUrl;
             topListDiv+= '<div class="media" style="margin-bottom: 5%; padding-top: 5%; position: relative">'+
                         indexDiv +
                         '<div style="width: 100px; height: 100px;">' +
-                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/>' +
+                        '<a class="col-4 fc" style="padding: 10%"  href="'+videoURL+'"target="_blank">'+
+                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/></a>' +
                         '</div>'+
                         '<div class="media-body" style="padding-left: 3%;">'+
                         '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 100%; padding-right: 5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden">'+item.title+'</span></p></div>'+
