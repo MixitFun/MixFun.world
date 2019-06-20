@@ -25,21 +25,6 @@
         return theRequest;
     }
 
-    function play() {
-        var video = document.getElementById('player');
-        var playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                if (!video.palyed) {
-                    video.play();
-                }
-            })
-            .catch(error => {
-
-            });
-        }
-    }
-
     vi = GetRequest().id;
     $(document).ready(function() {
         var type = 1;
@@ -113,12 +98,11 @@
         <img id="img" style="width: 100%;">
     </div>
     <div>
-        <row>
-            <a class="col-3" style="padding-left: 0px">claps <span id="claps" style="color: #7abaff"></span></a>
-            <a class="col-3">comments <span id="comments" style="color: #7abaff"></span></a>
-<!--             <a id="play" onclick="play()"><span class="btn badge-primary btn-sm" style="float: right">play</span></a> -->
+        <row style="text-align: center; display: block;">
+            <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
+            <a class="col-3" style="margin: auto;"><img src="img/icon_comment.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
         </row>
-        <p id="title" style="height: 150px; margin-top: 5px">
+        <p id="title" style="height: 150px; margin-top: 10px">
         </p>
     </div>
 </div>
