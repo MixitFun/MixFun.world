@@ -354,7 +354,7 @@
         dataType: 'json',
         success: function(data){
             if (data.data.status < 0) {
-                isBlockUser = true;
+                isBlockUser = false;
             }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
