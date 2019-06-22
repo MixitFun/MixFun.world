@@ -55,14 +55,15 @@
         color: #007bff;
     }
     body.modal-open {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+    overflow: hidden;
+    position: fixed;
 }
-//only on this platform does it need to be fixed as well
-body.platform-ios.modal-open {
-  position: fixed;
-  -webkit-overflow-scrolling: touch;
+body.viewport-lg {
+    position: absolute; 
+}
+body {
+    overflow-x: hidden;
+    overflow-y: scroll !important;
 }
 </style>
 <body>
