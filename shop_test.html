@@ -54,10 +54,6 @@
     .nav-link.active{
         color: #007bff;
     }
-    .modal-body {
-        max-height: calc(100vh - 210px);
-        overflow-y: auto;
-    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -113,6 +109,10 @@
         </div>
     </div>
 
+    <div class="card" align="center" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+        <img src="img/fun_draw_banner.png" style="width: 100%; border-radius: 10px;">
+    </div>
+
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 50%">
@@ -137,76 +137,76 @@
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
 </div>
 
-<!-- alert -->
-<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="border-radius: 20px; margin-top: 20%; margin-bottom: 20%">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">More information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <dl>
-                    <dt>WHAT IS THAT?</dt>
-                    <dd style="margin-top: 5px">Got funny videos in between friends and family, share with MixFun users around the world. </dd>
-                    <dd style="margin-bottom: 30px">The most tipped video will win PH10,000 cash reward.</dd>
-                    <dt>HOW TO JOIN?</dt>
-                    <dd style="margin-top: 5px">1. Upload funny original videos & tag #MixFunPinoy</dd>
-                    <dd>2. Invite users to tip the videos</dd>
-                    <dd style="margin-bottom: 30px">3. The most tipped video win the competition and cash reward</dd>
-                    <dt>PRIZES</dt>
-                    <dd style="margin-top: 5px">Champion: PHP 10,000</dd>
-                    <dd>1st runner up: PHP 7,500</dd>
-                    <dd>2nd runner up: PHP 5,000</dd>
-                    <dd>3rd runner up: PHP 2,500</dd>
-                    <dd style="margin-bottom: 30px">4th - 10th runner up: PHP 500</dd>
-                    <dt style="margin-top: 5px">Starts: June 12@11AM</dt>
-                    <dt>Ends: June 23 @8PM</dt>
-                </dl>
-            </div>
+<!-- Modal -->
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+        <h5 class="modal-title" id="ModalNoticeTitle">More information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <dl>
+                <dt>WHAT IS THAT?</dt>
+                <dd style="margin-top: 5px">Got funny videos in between friends and family, share with MixFun users around the world. </dd>
+                <dd style="margin-bottom: 30px">The most tipped video will win PH10,000 cash reward.</dd>
+                <dt>HOW TO JOIN?</dt>
+                <dd style="margin-top: 5px">1. Upload funny original videos & tag #MixFunPinoy</dd>
+                <dd>2. Invite users to tip the videos</dd>
+                <dd style="margin-bottom: 30px">3. The most tipped video win the competition and cash reward</dd>
+                <dt>PRIZES</dt>
+                <dd style="margin-top: 5px">Champion: PHP 10,000</dd>
+                <dd>1st runner up: PHP 7,500</dd>
+                <dd>2nd runner up: PHP 5,000</dd>
+                <dd>3rd runner up: PHP 2,500</dd>
+                <dd style="margin-bottom: 30px">4th - 10th runner up: PHP 500</dd>
+                <dt style="margin-top: 5px">Starts: June 12@11AM</dt>
+                <dt>Ends: June 23 @8PM</dt>
+            </dl>
         </div>
     </div>
+  </div>
 </div>
+
 <!-- alert -->
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
-            <div class="modal-body" id="alert">
-            </div>
+            <div class="modal-body" id="alert"></div>
         </div>
     </div>
 </div>
 
 <!-- alert -->
-<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Warning</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <h5 class="modal-title" id="ModalNoticeTitle">Warning</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
             <div class="modal-body">
-                <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
-                <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <div class="sliderBox">
-                    <div id="slider2" class="slider">
-                    </div>
+            <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
+            <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
+            <div class="sliderBox">
+                <div id="slider2" class="slider">
                 </div>
-                <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
-                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
-                <input id="it" type="hidden"/>
-                <input id="itname" type="hidden"/>
-                <input id="ittype" type="hidden"/>
+            </div>
+            <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
+            <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
+            <input id="it" type="hidden"/>
+            <input id="itname" type="hidden"/>
+            <input id="ittype" type="hidden"/>
             </div>
         </div>
     </div>
@@ -354,7 +354,7 @@
         dataType: 'json',
         success: function(data){
             if (data.data.status < 0) {
-                isBlockUser = false;
+                isBlockUser = true;
             }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
@@ -479,7 +479,7 @@
     });
 
     function cj(it,name,sale,type,commodity_id){
-        if (shopSpotDic[it] == 0) {
+        if (shopSpotDic[it] > 0) {
             if (isBlockUser) {
                 var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
                 $('#alert').html('<p>'+msg+'</p>');
@@ -562,7 +562,7 @@
                             msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
-                        } else if(data.status == 1009 || data.status == 1010) {
+                        } else {
                             $('#alert').html('<p>'+data.msg+'</p>');
                             $('#ModalAlert').modal('show');
                         }
