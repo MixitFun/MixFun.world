@@ -55,16 +55,16 @@
         color: #007bff;
     }
     body.modal-open {
-    overflow: hidden;
-    position: fixed;
-}
-body.viewport-lg {
-    position: absolute; 
-}
-body {
-    overflow-x: hidden;
-    overflow-y: scroll !important;
-}
+        overflow: hidden;
+        position: fixed;
+    }
+    body.viewport-lg {
+        position: absolute; 
+    }
+    body {
+        overflow-x: hidden;
+        overflow-y: scroll !important;
+    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -314,6 +314,23 @@ body {
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
 
+    var scrollTopPosition = 0;
+    var lastKnownScrollTopPosition = 0;
+    $(document).ready(function(){
+        if( navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            $(window).scroll(function () {
+                scrollTopPosition = $(document).scrollTop();
+            });
+            $('.modal').on('show.bs.modal', function () {
+                $('body').css('top', (scrollTopPosition * -1));
+                lastKnownScrollTopPosition = scrollTopPosition;
+            });
+            $('.modal').on('hidden.bs.modal', function () {
+                $('body').scrollTop(lastKnownScrollTopPosition);
+            });
+        }
+    });
+
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -326,42 +343,6 @@ body {
         }
         return theRequest;
     }
-
-    var scrollTopPosition = 0;
-var lastKnownScrollTopPosition = 0;
-
-//when the document loads
-$(document).ready(function(){
-
-  //this only runs on the right platform -- this step is not necessary, it should work on all platforms
-  if( navigator.userAgent.match(/iPhone|iPad|iPod/i) ) {
-
-    //There is some css below that applies here
-    $('body').addClass('platform-ios');
-
-    //As you scroll, record the scrolltop position in global variable
-    $(window).scroll(function () {
-      scrollTopPosition = $(document).scrollTop();
-    });
-
-    //when the modal displays, set the top of the (now fixed position) body to force it to the stay in the same place
-    $('.modal').on('show.bs.modal', function () {
-
-      //scroll position is position, but top is negative
-      $('body').css('top', (scrollTopPosition * -1));
-
-      //save this number for later
-      lastKnownScrollTopPosition = scrollTopPosition;
-    });
-
-    //on modal hide
-    $('.modal').on('hidden.bs.modal', function () {
-
-      //force scroll the body back down to the right spot (you cannot just use scrollTopPosition, because it gets set to zero when the position of the body is changed by bootstrap
-      $('body').scrollTop(lastKnownScrollTopPosition);
-    });
-  }
-});
 
     var token =  GetRequest().id;
     $.ajax({
