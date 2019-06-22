@@ -54,10 +54,6 @@
     .nav-link.active{
         color: #007bff;
     }
-    .modal-body {
-        max-height: calc(100vh - 210px);
-        overflow-y: auto;
-    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -303,6 +299,14 @@
     $('#tips').tooltip('show');
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
+
+    $('#modal').on('shown.bs.modal', function () {
+  $('.modal-dialog').css('height', $('.modal-dialog').height() );
+});
+
+$('#modal').on('hidden.bs.modal', function () {
+  $('.modal-dialog').css('height', 'auto');
+});
 
     function GetRequest() {
         var url = location.search;
