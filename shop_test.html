@@ -317,7 +317,7 @@
     var scrollTopPosition = 0;
     var lastKnownScrollTopPosition = 0;
     $(document).ready(function(){
-        if( navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+        if( navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
             $(window).scroll(function () {
                 scrollTopPosition = $(document).scrollTop();
             });
