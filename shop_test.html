@@ -54,6 +54,17 @@
     .nav-link.active{
         color: #007bff;
     }
+    body.modal-open {
+    overflow: hidden;
+    position: relative;
+}
+body.viewport-lg {
+    position: absolute; 
+}
+    body {
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+}
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -302,19 +313,6 @@
     $('#tips').tooltip('show');
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
-
-    $(document).ready(function() {
-        $('#trigger-overlay').click(function() {
-            $('html').css('overflow', 'hidden');
-            $('body').bind('touchmove', function(e) {
-                e.preventDefault()
-            });
-        });
-        $('.overlay-close').click(function() {
-            $('html').css('overflow', 'scroll');
-            $('body').unbind('touchmove');
-        });
-    });
 
     function GetRequest() {
         var url = location.search;
