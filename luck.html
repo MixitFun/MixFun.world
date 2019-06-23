@@ -15,13 +15,15 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.slider.css"/>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
-<!--<script src="js/wasap.js"></script>-->
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>  
+<script src="js/jquery.slider.min.js" type="text/javascript"></script>
 <style>
     .top{
         background-image: url("img/bg_new.png");
@@ -52,12 +54,48 @@
     .nav-link.active{
         color: #007bff;
     }
+    body.modal-open {
+        overflow: hidden;
+        position: fixed;
+    }
+    body.viewport-lg {
+        position: absolute; 
+    }
+    body {
+        overflow-x: hidden;
+        overflow-y: scroll !important;
+    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
     <div align="center">
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc" style="margin-top: 10px"></p>
+    </div>
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body" style="padding: 10px;">
+            <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
+            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
+            <table width="100%" style="margin-bottom: 0px">
+                <tr>
+                    <td width="33%" align="center">
+                        <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch Reward</p>
+                        </p>
+                    </td>
+                    <td width="33%" align="center">
+                        <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload Reward</p>
+                        </p>
+                    </td>
+                    <td width="33%" align="center">
+                        <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral Reward</p>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px">
         <div class="card-body" style="padding: 10px;">
@@ -79,8 +117,57 @@
                     </a>
                 </row>
             </div>
+            <div style="margin-top: 20px; margin-bottom: 10px; text-align:left;">
+            <p style="color: #9B9B9B;font-size: medium">Dear MixFun Users,</p>
+            <p>You are always asking us why are we adding captcha? Cutting the stocks? And banning you?</p> 
+            Here is the reason… <br><br> 
+            We just launched the redemption for 3 weeks only, but some users have been redeeming the prizes almost 60 times. Like what we announced, every user can redeem only once daily.
+    We questioned why they can have so many coins and be the first user to redeem every timeslot. Therefore, we have to implement different measures and algorithms to prevent these tricks and users who gaming our system, so that every user can enjoy MixFun and share the benefit fairly.  <br>
+           <img src='image/redeem.png'/><br><br>
+           We are a small team, so we need algorithms to process the massive video uploads filtering, coins calculating, farming and spam activities detection. Suspected accounts will be blocked from prize redemption. Each device should only register one account which considers as one user. If your referral coins didn’t count, please try to install and register on a new device.  <br><br>
+           Any inconvenience caused to you mistakenly, like your account, video is blocked or some coins are missing. Just write us an email or inbox us on Facebook. We are always here. We keep on improving the app and the algorithm.  <br><br>
+           To make it clear, tricks are not acceptable on MixFun. We are here to bring you happiness and value through the video sharing platform.  
+        </div>
         </div>
     </div>
+
+    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-top: 20px">
+        <img src="img/Fun_Creators_Banner.png" style="width: 100%; border-top-left-radius: inherit; border-top-right-radius: inherit;">
+        <div style="width: 100%; display: inline-block;">
+            <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 10px; display: inline-block;">Top Tipped Videos</p>
+            <button class="btn btn-sm" style="width: 20px; height: 20px; background-image: url(img/Fun_Creators_Notice.png); background-size: cover; border: 0; outline: none; margin-left: 10px; margin-bottom: 3.5px" onclick="showTopListNotice()"></button>
+        </div>
+        <div>
+            <p style="color: #6974FF">Congratulations to top 10 winners. Please contact us for the prize redemption at Hello@mixfun.world.</p>
+        </div>
+        <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
+        <div style="width: 100%; display: inline-block;">
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="perTopList()">< Previous </button>
+            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="nextTopList()">Next ></button>
+        </div>
+    </div>
+
+    <div class="card" align="center" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
+        <img src="img/fun_draw_banner.png" style="width: 100%; border-radius: 10px;">
+    </div>
+
+    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" style="width: 50%">
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
+            </li>
+            <li class="nav-item" style="width: 50%">
+                <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active show commodity" id="draw">
+            </div>
+            <div class="tab-pane fade" id="buy">
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
@@ -88,17 +175,108 @@
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+        <h5 class="modal-title" id="ModalNoticeTitle">More information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <dl>
+                <dt>WHAT IS THAT?</dt>
+                <dd style="margin-top: 5px">Got funny videos in between friends and family, share with MixFun users around the world. </dd>
+                <dd style="margin-bottom: 30px">The most tipped video will win PH10,000 cash reward.</dd>
+                <dt>HOW TO JOIN?</dt>
+                <dd style="margin-top: 5px">1. Upload funny original videos & tag #MixFunPinoy</dd>
+                <dd>2. Invite users to tip the videos</dd>
+                <dd style="margin-bottom: 30px">3. The most tipped video win the competition and cash reward</dd>
+                <dt>PRIZES</dt>
+                <dd style="margin-top: 5px">Champion: PHP 10,000</dd>
+                <dd>1st runner up: PHP 7,500</dd>
+                <dd>2nd runner up: PHP 5,000</dd>
+                <dd>3rd runner up: PHP 2,500</dd>
+                <dd style="margin-bottom: 30px">4th - 10th runner up: PHP 500</dd>
+                <dt style="margin-top: 5px">Starts: June 12@11AM</dt>
+                <dt>Ends: June 23 @8PM</dt>
+            </dl>
+        </div>
+    </div>
+  </div>
+</div>
+
 <!-- alert -->
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 40%;border-radius: 20px;">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;">
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Message</h5>
+            <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="alert"></div>
+        </div>
+    </div>
+</div>
+
+<!-- alert -->
+<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+            <h5 class="modal-title" id="ModalNoticeTitle">Warning</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
+            <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
+            <div class="sliderBox">
+                <div id="slider2" class="slider">
+                </div>
+            </div>
+            <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
+            <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
+            <input id="it" type="hidden"/>
+            <input id="itname" type="hidden"/>
+            <input id="ittype" type="hidden"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exchange -->
+<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Redeem
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="alert">
+            <div class="modal-body" style="padding-bottom: 5px;">
+                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.
+                    </span>
+            </div>
+            <span id="bt" style="color: red;margin-left: 10%;"></span>
+            <div class="modal-body" align="center">
+                <input type="hidden" id="id"/>
+                <input type="hidden" id="commodity_id"/>
+                <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%"/>
+                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%"/>
+                <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
+                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
             </div>
         </div>
     </div>
@@ -115,15 +293,68 @@
         </div>
     </div>
 </div>
+
+<!-- tip -->
+<div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
 </body>
 
 <script type="text/javascript">
+    var baseUrl = "https://api.mixit.fun";
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
     $('.d-block').css('height',clientHeight/4);
+    $('#ModalExchange').css('height',clientHeight);
+    $('#zzd').css('margin-top',clientHeight/2);
+
+    $('#tips').tooltip('show');
     $('.toast').toast('show');
-    let baseUrl = "https://api.mixit.fun";
+    let secretSign = "Wfy^%kdgfg)k!";
+
+    var scrollTopPosition = 0;
+    var lastKnownScrollTopPosition = 0;
+    $(document).ready(function(){
+        if( navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+            $(window).scroll(function () {
+                scrollTopPosition = $(document).scrollTop();
+            });
+            $('.modal').on('show.bs.modal', function () {
+                $('body').css('top', (scrollTopPosition * -1));
+                lastKnownScrollTopPosition = scrollTopPosition;
+            });
+            $('.modal').on('hidden.bs.modal', function () {
+                $('body').scrollTop(lastKnownScrollTopPosition);
+            });
+        }
+    });
+
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -136,6 +367,7 @@
         }
         return theRequest;
     }
+
     var token =  GetRequest().id;
     $.ajax({
         method: 'get',
@@ -161,7 +393,25 @@
             $('#ref').html(ht);
         }
     });
-   
+
+    $.ajax({
+        method: 'get',
+        url: "https://api.mixit.fun/"+'user/wallet',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#totalCoins').text(data.data.totalCoin);
+            $('#watchCoins').text(data.data.watchCoin);
+            $('#uploadCoins').text(data.data.uploadCoin);
+            $('#inviteCoins').text(data.data.inviteCoin);
+        }
+    });
+
+    var isBlockUser = false;
+    var shopSpotDic = new Array();
     var fc;
     var lj;
     var uid;
@@ -174,6 +424,9 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
+            if (data.data.status < 0) {
+                isBlockUser = true;
+            }
             fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
             lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
             if (data.data.avatar == null) {
@@ -193,9 +446,299 @@
             $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
             $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
+
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/list',
+                headers:{
+                    authorization:token
+                },
+                data: {
+                    type: 1
+                },
+                dataType: 'json',
+                success: function(data) {
+                if(data.status == 0) {
+                    var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
+                    data.data.forEach(function(item, index) {
+                        var spot = item.glh;
+                        if (isBlockUser) {
+                            spot = 0;
+                        }
+                        shopSpotDic[item.id] = spot;
+                        ht+= '<div class="media"style="padding: 3%">'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        '</div>'+
+                        '</div>';
+                    });
+                    $('.commodity').html(ht);
+                }
+                }
+            });
+
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/list',
+                headers:{
+                    authorization:token
+                },
+                data: {
+                    type: 2
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if(data.status == 0) {
+                        var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users. (Philippines region ONLY)</p>';
+                        data.data.forEach(function(item, index) {
+                        var spot = item.glh;
+                        if (isBlockUser) {
+                            spot = 0;
+                        }
+                        shopSpotDic[item.id] = spot;
+                        ht+= '<div class="media"style="padding: 3%">'+
+                        '<div style="width: 25%;">' +
+                        '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                        '</div>'+
+                        '<div class="media-body" style="padding: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                        '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                        '<div class="mt-0">' +
+                        '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                        '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                        '</div>'+
+                        '</div>';
+                        });
+                        $('#buy').html(ht);
+                    }
+                }
+            });
         }
     });
-    
+
+    var topList = new Array()
+    var toplistPage = 1;
+    $.ajax({
+        method: 'post',
+        url: "https://api.mixit.fun/dynamic/page/topPickList",
+        headers:{
+            authorization:token
+        },
+        data: JSON.stringify({
+            pageNum: 1,
+            pageSize: 50,
+            query: {
+                keyword: ""
+            }
+        }),
+        dataType: 'json',
+        contentType:'application/json',
+        success: function(data){
+            topList = data.data.records;
+            toplistPage = 1;
+            loadTopList(toplistPage);
+        }
+    });
+
+    function cj(it,name,sale,type,commodity_id){
+        if (shopSpotDic[it] > 0) {
+            if (isBlockUser) {
+                var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+                $('#alert').html('<p>'+msg+'</p>');
+                $('#ModalAlert').modal('show');
+            } else {
+                $('#ModalConf').modal('show');
+                $('#it').val(it);
+                $('#itname').val(name);
+                $('#ittype').val(type);
+                $('#commodity_id').val(commodity_id);
+                if(type == 1){
+                    $('#type2').css('display','none');
+                    $('#type1').css('display','block');
+                }else{
+                    $('#type1').css('display','none');
+                    $('#type2').css('display','block');
+                }
+                $('.hf').text(sale);
+            }
+        } else {
+            let msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
+            $('#alert').html('<p>'+msg+'</p>');
+            $('#ModalAlert').modal('show');
+        } 
+    }
+
+    function dde(name, data) {
+        if(name == 'Mobile Legends'){
+            $('#address').val('');
+            $('#phone').val('');
+            $('#phoneType').val('');
+            $('#address').css('display','none');
+            $('#phone').css('display','none');
+            $('#phoneType').css('display','none');
+            $('#moblieLegend').css('display','inline-block');
+            $('#moblieLegendExtra').css('display','inline-block')
+        }else{
+            $('#moblieLegend').val('');
+            $('#moblieLegendExtra').val('');
+            $('#address').css('display','block');
+            $('#phone').css('display','block');
+            $('#phoneType').css('display','block');
+            $('#moblieLegend').css('display','none');
+            $('#moblieLegendExtra').css('display', 'none');
+        }
+        $('#ModalExchange').modal('show');
+        $('#id').val(data.data.id);
+    }
+
+    var ss;
+    var gmfh;
+    var hasVerify = false;
+    function cjl(){
+        if (hasVerify) {
+            var it = $('#it').val();
+            var gmname = $('#itname').val();
+            var type = $('#ittype').val();
+            var time = new Date().getTime();
+            var key = md5(uid+secretSign+time);
+            $('#ModalConf').modal('hide');
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/exchange',
+                headers:{
+                    authorization:token
+                },
+                data: {
+                    commodityId: it,
+                    type: type,
+                    requestTime: time,
+                    sign: key
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == 0) {
+                        $('#zzd').modal('show');
+                    } else {
+                        var msg = data.msg;
+                        if (msg == "The stock for this hour is out. Please come back next hour.") {
+                            msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
+                            $('#alert').html('<p>'+msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        } else {
+                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        }
+                    }
+                    $('#commodity_id').val(it);
+                    $('#zzd').on('shown.bs.modal',function () {
+                        gmfh = data;
+                        var timeout = setTimeout(function () {
+                            $('#zzd').modal('hide');
+                        },1200);
+                    });
+                },
+                error: function(){
+                    $('#alert').html('<p>Net Error!</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            });
+            $('#zzd').on('hide.bs.modal', function () {
+                dde(gmname, gmfh);
+            })
+        }
+    }
+
+    function buy(){
+        var id = $('#id').val();
+        var commodity_id = $('#commodity_id').val();
+        var name = $('#itname').val();
+        var recipient = $('#recipient').val();
+        if(name == 'Mobile Legends'){
+            var moblieLegend = $('#moblieLegend').val();
+            var moblieLegendExtra = $('#moblieLegendExtra').val();
+            if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }else{
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var phone = $('#phone').val();
+            if (phone == null || phone == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var address = $('#address').val();
+            if (address == null || address == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+
+            var phoneType = $('#phoneType').val();
+            if (phoneType == null || phoneType == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+        }
+        $.ajax({
+            url : baseUrl+"/shop/buy",
+            type : 'post',
+            dataType : 'json',
+            data: {
+                id: id,
+                commodityId:commodity_id,
+                recipient:recipient,
+                phone: phone,
+                moblieLegend: moblieLegend+"("+moblieLegendExtra+")",
+                address: address,
+                phoneType: phoneType
+            },
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                var storeLink = 'https://mixfun.world/index.html';
+                var userAgentInfo = navigator.userAgent;
+                if (userAgentInfo.indexOf('iPhone') > 0) {
+                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
+                } else if (userAgentInfo.indexOf('Android') > 0) {
+                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
+                }
+                $('#ModalExchange').modal('hide');
+                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                    '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+                let sopt = shopSpotDic[id];
+                shopSpotDic[id] = Math.max(0, sopt-1);
+            }
+        });
+    }
+
+
+    function exModelShow(){
+        $('#ModalExchange').modal('show');
+    }
+
+    $('#ModalExchange').on('hide.bs.modal',function(){
+        $('#ModalAlert').modal('show');
+        $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#ModalExchange').modal('show');
+    });
+
     function copy(id){
         var copyVal = $('#'+id).val();
         if(copyVal != ''){
@@ -211,10 +754,111 @@
             $('#tot').modal('show');
         }
     }
+
     $('#tot').on('shown.bs.modal', function (e) {
         setTimeout(function () {
             $('#tot').modal('hide');
         },500)
+    })
+
+    let topListPageSize = 5;
+    function loadTopList(pageNum) {
+        var topListDiv = '';
+        var pageRecords = new Array();
+        let pages = parseInt(topList.length/topListPageSize);
+        var count = 0;
+        if (pageNum <= pages) {
+            count = topListPageSize;
+        } else {
+            count = topList.length%topListPageSize;
+        }
+        for (var i = 0; i < count; i++) {
+            let listIndex = Math.max(0, pageNum - 1) * topListPageSize + i;
+            pageRecords[i] = topList[listIndex];
+        }
+        pageRecords.forEach(function(item, index) {
+            var coverImg = "img/logo_midium.png";
+            if(item.thumbnailUrl != null && item.thumbnailUrl != '' && item.thumbnailUrl != ' '){
+                coverImg = item.thumbnailUrl;
+            }
+            var avatar = '';
+            var userHasAvatarList = item.userAvatarList.filter(function(element) {
+                return (element != null && element != '' && element != ' ');
+            });
+            item.userAvatarList.forEach(function (item, index) {
+                var img = "img/person.png";
+                if (index < userHasAvatarList.length) {
+                    img = userHasAvatarList[index];
+                }
+                if (index > 2) {
+                    return false;
+                }
+                avatar+='<img src="'+img+'" style="width: 24px;height: 24px;border-radius: 12px;margin: -3px;"/>';
+            });
+            var indexDiv = '';
+            var listIndex = index + Math.max(0, pageNum - 1) * topListPageSize;
+            if ([0, 1, 2].includes(listIndex)) {
+                var img = "img/toplist_"+listIndex+".png";
+                indexDiv = '<img src="'+img+'" style="width: 40px;height: 18px; padding-left: 6px; padding-right: 6px; margin-top: 41px;"/>';
+            } else {
+                indexDiv = '<div style="font-size: 16px; width: 40px; margin-top: 41px;">'+(listIndex+1)+'.'+'</div>';
+            }
+            let videoURL = 'https://mixfun.world/player.html?id='+item.id;
+            topListDiv+= '<div class="media" style="margin-bottom: 5%; padding-top: 5%; position: relative">'+
+                        indexDiv +
+                        '<div style="width: 100px; height: 100px;">' +
+                        '<a class="col-4 fc" style="padding: 10%"  href="'+videoURL+'"target="_blank">'+
+                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/></a>' +
+                        '</div>'+
+                        '<div class="media-body" style="padding-left: 3%;">'+
+                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 100%; padding-right: 5px; padding-left: 5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden">'+item.title+'</span></p></div>'+
+                        '<div style="position: absolute; right: 3%; bottom: 2%">'+avatar+'<span style="margin-left: 8px; font-size: 13px; font-weight: bold; color: #dcb336">'+item.totalContribute+'MixCoin</span></div>'+
+                        '</div>'+
+                        '</div>';
+        });
+        $('.topListDiv').html(topListDiv);
+    }
+
+    function perTopList() {
+        let tempTopListPage = toplistPage;
+        let newPage = toplistPage-1;
+        toplistPage = Math.max(1, newPage);
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
+    }
+
+    function nextTopList() {
+        let tempTopListPage = toplistPage;
+        let maxPage = parseInt(topList.length/topListPageSize);
+        let newPage = toplistPage+1;
+        toplistPage = Math.min(maxPage, newPage);
+        if (tempTopListPage != toplistPage) {
+            loadTopList(toplistPage);
+        }
+    }
+
+    function showTopListNotice() {
+        $('#ModalNotice').modal('show');
+    }
+
+    $(function() {
+        $("#slider2").slider({
+            width: this.width, // width
+            height: 40, // height
+            sliderBg: "rgb(205, 205, 205)", // 滑块背景颜色
+            color: "#FFFFFF", // 文字颜色
+            fontSize: 14, // 文字大小
+            bgColor: "#669900", // 背景颜色
+            textMsg: "Slide to the far right to verify", // 提示文字
+            successMsg: "Verify successfully", // 验证成功提示文字
+            successColor: "#FFFFFF", // 滑块验证成功提示文字颜色
+            time: 400, // 返回时间
+            callback: function(result) { // 回调函数，true(成功),false(失败)
+                hasVerify = result;
+            }
+        });
+        $('.ui-slider-btn').append('<i class="rightRow"></i>');
     })
 </script>
 
@@ -226,7 +870,14 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
          'page_title' : 'MixFun',
-         'page_path': '/luck_asr'
+         'page_path': '/shop'
     });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-8296699377234768",
+    enable_page_level_ads: true
+  });
 </script>
 </html>
