@@ -65,12 +65,6 @@
         overflow-x: hidden;
         overflow-y: scroll !important;
     }
-    .btn-pay{
-        background: rgba(236,236,236,1);
-    }
-    .btn-pay:active{
-        background: red;
-    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -182,8 +176,8 @@
             <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; margin-top: 3px; display: inline-block;"/>
             <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; margin-top: 3px; display: inline-block;"/>
             <p style="text-align: left; margin-top: 5%">Payment method</p>
-            <button class="btn-pay active" style="border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600;" onclick="buyAmount()" >Gcash</button>
-            <button class="btn-pay" style="border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="buyAmount()" >Send load</button>
+            <button class="btn" id="gcashBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 60%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGcash()" >Gcash</button>
+            <button class="btn" id="sloadBtn" style="background: #ECECEC;border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSload()" >Send load</button>
             <hr style="height:1px; margin: 20px 8%;"/>
             <button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 20px;border: 0px;color: white; width: 90%; height: 40px; font-size: 18px" onclick="buyAmount()" >Join</button>
         </div>
@@ -208,8 +202,32 @@
                     <dd style="margin-top: 5px">1. Pay 10PHP for 10 lucky tokens</dd>
                     <dd>2. Wait until the lucky pool is full</dd>
                     <dd style="margin-bottom: 30px">3. 1,002 Winners will win the prizes</dd>
-
                     <dd style="margin-top: 5px">The sooner the pool is full, the earlier the winner get the prize redemption.</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalSload" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center" style="padding-top: 0">
+                <dl style="text-align: left">
+                    <dt>Globe</dt>
+                    <dd style="margin-top: 10px">1. Put 2 as the first number. 2 replaces the 0. Ex: from 09558374793 you change it into 29558374793.</dd>
+                    <dd>2. Text the total amount you want to join the game. Like 10PHP for 10 Lucky Tokens.</dd>
+                    <dd>3. Receive confirmation SMS and reply “Yes".</dd>
+                    <dd style="margin-top: 5px">*Each Share-A-Load transaction is charged P1.</dd>
+                    <dt>Smart</dt>
+                    <dd style="margin-top: 10px">1. Text PASALOAD (space) mobile number of recipient (space) amount, then send to 808.</dd>
+                    <dd>2. Ex. Text PASALOAD 09191234567 10. Like 10PHP for 10 Lucky Tokens.</dd>
+                    <dd style="margin-top: 5px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>
                 </dl>
             </div>
         </div>
@@ -297,10 +315,12 @@
         $('.product').html(ht);
     }
 
+    var cashType = 'gcash';
     function Join() {
         $('#phone').val('');
         $('#moblieLegend').val('');
         $('#moblieLegendExtra').val('');
+        selectGcash();
         $('#ModalJoin').modal('show');
     }
 
@@ -308,10 +328,30 @@
         let phone = $('#phone').val();
         let moblieLegend = $('#moblieLegend').val();
         let moblieLegendExtra = $('#moblieLegendExtra').val();
+        if (cashType == 'sload') {
+            $('#ModalJoin').modal('hide');
+            $('#ModalSload').modal('show');
+        }
     }
 
     function ShowNotice() {
         $('#ModalNotice').modal('show');
+    }
+
+    function selectGcash() {
+        document.getElementById('gcashBtn').style.background = '#6C81F8';
+        document.getElementById('gcashBtn').style.color = 'white';
+        document.getElementById('sloadBtn').style.background = '#ECECEC';
+        document.getElementById('sloadBtn').style.color = '#262626';
+        cashType = 'gcash';
+    }
+
+    function selectSload() {
+        document.getElementById('sloadBtn').style.background = '#6C81F8';
+        document.getElementById('sloadBtn').style.color = 'white';
+        document.getElementById('gcashBtn').style.background = '#ECECEC';
+        document.getElementById('gcashBtn').style.color = '#262626';
+        cashType = 'sload';
     }
 
     var amountNum = 10;
