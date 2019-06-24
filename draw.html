@@ -169,28 +169,44 @@
                 <p style="width: 70%;" id="amountNum"></p>
                 <button class="btn" style="background-image: url(img/draw_add.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountAdd()"></button>
             </div>
-            <div style="margin-top: 10px">
-                 <p style="text-align: left;">Available extra lucky (Refer more, lucky more)</p>
-            </div>
-            <div style="display: inline-flex; width: 60%" align="center">
-                <button class="btn" style="background-image: url(img/draw_reduce.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="extraAmountReduce()"></button>
-                <p style="width: 70%;" id="extraAmountNum"></p>
-                <button class="btn" style="background-image: url(img/draw_add.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="extraAmountAdd()"></button>
-            </div>
-            <p style="color: #9B9B9B;font-size: medium; margin-bottom: 5px"><span id="totalExpense" style="color: #F76B1C"></span> PHP</p>
-            <div>
-                <p style="color: #9B9B9B;font-size: medium; display: inline-block;"><span id="amountNumShow" style="color: #F76B1C"></span> Shot + </p>
-                <p style="color: #9B9B9B;font-size: medium; display: inline-block;"><span id="extraAmountNumShow" style="color: #F76B1C"></span>  Extra lucky</p>
-            </div>
-            <p style="text-align: left;">Your information</p>
+            <p style="color: #9B9B9B;font-size: medium; margin-bottom: 0"><span id="totalExpense" style="color: #F76B1C"></span> PHP</p>
+            <p style="text-align: left; margin-top: 3%">Your information</p>
             <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-            <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
-            <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
-            <hr style="height:1px; margin-top: 20px; margin-bottom: 20px; margin-left: 8%; margin-right: 8%"/>
+            <p style="margin-top: 3px; margin-bottom: 0">or</p>
+            <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; margin-top: 3px; display: inline-block;"/>
+            <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; margin-top: 3px; display: inline-block;"/>
+            <p style="text-align: left; margin-top: 5%">Payment method</p>
+
+            <hr style="height:1px; margin: 20px 8%;"/>
             <button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 25px;border: 0px;color: white; width: 90%; height: 40px; font-size: 18px" onclick="buyAmount()" >Join</button>
         </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">More information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl>
+                    <dt>Lucky 10PHP</dt>
+                    <dd style="margin-top: 5px">Do you believe in luck? Spend 10PHP to exchange mobile loads/Mobile Legends diamonds or an iPhone. We have prepared more than 1000 prizes for you. </dd>
+                    <dt>How to win?</dt>
+                    <dd style="margin-top: 5px">1. Pay 10PHP for 10 lucky tokens</dd>
+                    <dd>2. Wait until the lucky pool is full</dd>
+                    <dd style="margin-bottom: 30px">3. 1,002 Winners will win the prizes</dd>
+
+                    <dd style="margin-top: 5px">The sooner the pool is full, the earlier the winner get the prize redemption.</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
@@ -240,80 +256,72 @@
     GetProduct();
     function GetProduct() {
         var joinNum = 1200;
-        var imageURL = 'img/draw_product_ml.png';
-        var name = 'iPhone 8';
-        var ht = '<div class="media" style="padding: 3%; width: 50%; display: inline-block;">'+
+        var imageURL = 'img/draw_product_iphone.png';
+        var name = 'Apple iPhone 8（1）';
+        var ht = '<div class="media" style="padding: 3%; display: inline-block;">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        ht += '<div class="media" style="padding: 3%; width: 50%; display: inline-block;">'+
+                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+        imageURL = 'img/draw_product_vivo.png';
+        name = 'Vivo Y53（1）';
+        ht += '<div class="media" style="padding: 3%; display: inline-block;">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        ht += '<div class="media" style="padding: 3%; width: 50%; display: inline-block;">'+
+                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+        imageURL = 'img/draw_product_ml.png';
+        name = 'MLBB 11 Dias（500）';
+        ht += '<div class="media" style="padding: 3%; display: inline-block;">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        ht += '<div class="media" style="padding: 3%; width: 50%; display: inline-block;">'+
+                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+        imageURL = 'img/draw_product_mload.png';
+        name = 'Mobile Loads 10PHP（500）';
+        ht += '<div class="media" style="padding: 3%; display: inline-block;">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
 
         ht += '<div class="progress" style="width: 60%; margin-top: 5%">'+
               '<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; background-color: #F76B1C">'+
               '<span class="sr-only"></span>'+
               '</div></div>';
         ht += '<p style="color: #9B9B9B;font-size: small; margin-top: 8px"><span style="color: #F76B1C">'+joinNum+'</span> lucky people in the pool</p>';
-        ht += '<button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 25px;border: 0px;color: white; width: 80%; height: 50px; font-size: 18px" onclick="Join()">Join</button>'
+        ht += '<button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 25px;border: 0px;color: white; width: 80%; height: 50px; font-size: 18px; margin-bottom: 5%;" onclick="Join()">Join</button>'
         $('.product').html(ht);
     }
 
     function Join() {
+        $('#phone').val('');
+        $('#moblieLegend').val('');
+        $('#moblieLegendExtra').val('');
         $('#ModalJoin').modal('show');
     }
 
     function buyAmount() {
-        
+        let phone = $('#phone').val();
+        let moblieLegend = $('#moblieLegend').val();
+        let moblieLegendExtra = $('#moblieLegendExtra').val();
+        console.log(phone, moblieLegend, moblieLegendExtra)
     }
 
     function ShowNotice() {
-
+        $('#ModalNotice').modal('show');
     }
 
-    var amountNum = 1;
+    var amountNum = 10;
     $('#amountNum').text(amountNum);
-    $('#amountNumShow').text(amountNum);
     function amountReduce() {
-        amountNum = Math.max(0, amountNum-1);
+        amountNum = Math.max(0, amountNum-10);
         $('#amountNum').text(amountNum);
-        $('#amountNumShow').text(amountNum);
-        $('#totalExpense').text(amountNum+extraAmountNum);
+        $('#totalExpense').text(amountNum);
     }
 
     function amountAdd() {
-        amountNum++;
+        amountNum = amountNum + 10;
         $('#amountNum').text(amountNum);
-        $('#amountNumShow').text(amountNum);
-        $('#totalExpense').text(amountNum+extraAmountNum);
+        $('#totalExpense').text(amountNum);
     }
-
-    var extraAmountNum = 1;
-    $('#extraAmountNum').text(extraAmountNum);
-    $('#extraAmountNumShow').text(extraAmountNum);
-    function extraAmountReduce() {
-        extraAmountNum = Math.max(0, extraAmountNum-1);
-        $('#extraAmountNum').text(extraAmountNum);
-        $('#extraAmountNumShow').text(extraAmountNum);
-        $('#totalExpense').text(amountNum+extraAmountNum);
-    }
-
-    function extraAmountAdd() {
-        extraAmountNum++;
-        $('#extraAmountNum').text(extraAmountNum);
-        $('#extraAmountNumShow').text(extraAmountNum);
-        $('#totalExpense').text(amountNum+extraAmountNum);
-    }
-    $('#totalExpense').text(amountNum+extraAmountNum);
+    $('#totalExpense').text(amountNum);
 
     getHistory();
     function getHistory() {

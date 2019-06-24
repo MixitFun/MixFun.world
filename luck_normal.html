@@ -131,22 +131,6 @@
         </div>
     </div>
 
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-top: 20px">
-        <img src="img/Fun_Creators_Banner.png" style="width: 100%; border-top-left-radius: inherit; border-top-right-radius: inherit;">
-        <div style="width: 100%; display: inline-block;">
-            <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 10px; display: inline-block;">Top Tipped Videos</p>
-            <button class="btn btn-sm" style="width: 20px; height: 20px; background-image: url(img/Fun_Creators_Notice.png); background-size: cover; border: 0; outline: none; margin-left: 10px; margin-bottom: 3.5px" onclick="showTopListNotice()"></button>
-        </div>
-        <div>
-            <p style="color: #6974FF">Congratulations to top 10 winners. Please contact us for the prize redemption at Hello@mixfun.world.</p>
-        </div>
-        <div class="tab-pane fade in active show topListDiv" id="topListDiv"></div>
-        <div style="width: 100%; display: inline-block;">
-            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="perTopList()">< Previous </button>
-            <button class="btn" style="margin-top: 10px; margin-bottom: 10px; width: 40%; color: black; border: 0; outline: none;" onclick="nextTopList()">Next ></button>
-        </div>
-    </div>
-
     <div class="card" align="center" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;margin-top: 20px;">
         <img src="img/fun_draw_banner.png" style="width: 100%; border-radius: 10px;">
     </div>
@@ -173,39 +157,6 @@
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
     <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-    <div class="modal-content" style="border-radius: 20px;">
-      <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-        <h5 class="modal-title" id="ModalNoticeTitle">More information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <dl>
-                <dt>WHAT IS THAT?</dt>
-                <dd style="margin-top: 5px">Got funny videos in between friends and family, share with MixFun users around the world. </dd>
-                <dd style="margin-bottom: 30px">The most tipped video will win PH10,000 cash reward.</dd>
-                <dt>HOW TO JOIN?</dt>
-                <dd style="margin-top: 5px">1. Upload funny original videos & tag #MixFunPinoy</dd>
-                <dd>2. Invite users to tip the videos</dd>
-                <dd style="margin-bottom: 30px">3. The most tipped video win the competition and cash reward</dd>
-                <dt>PRIZES</dt>
-                <dd style="margin-top: 5px">Champion: PHP 10,000</dd>
-                <dd>1st runner up: PHP 7,500</dd>
-                <dd>2nd runner up: PHP 5,000</dd>
-                <dd>3rd runner up: PHP 2,500</dd>
-                <dd style="margin-bottom: 30px">4th - 10th runner up: PHP 500</dd>
-                <dt style="margin-top: 5px">Starts: June 12@11AM</dt>
-                <dt>Ends: June 23 @8PM</dt>
-            </dl>
-        </div>
-    </div>
-  </div>
 </div>
 
 <!-- alert -->
@@ -525,30 +476,6 @@
         }
     });
 
-    var topList = new Array()
-    var toplistPage = 1;
-    $.ajax({
-        method: 'post',
-        url: "https://api.mixit.fun/dynamic/page/topPickList",
-        headers:{
-            authorization:token
-        },
-        data: JSON.stringify({
-            pageNum: 1,
-            pageSize: 50,
-            query: {
-                keyword: ""
-            }
-        }),
-        dataType: 'json',
-        contentType:'application/json',
-        success: function(data){
-            topList = data.data.records;
-            toplistPage = 1;
-            loadTopList(toplistPage);
-        }
-    });
-
     function cj(it,name,sale,type,commodity_id){
         if (shopSpotDic[it] > 0) {
             if (isBlockUser) {
@@ -760,87 +687,6 @@
             $('#tot').modal('hide');
         },500)
     })
-
-    let topListPageSize = 5;
-    function loadTopList(pageNum) {
-        var topListDiv = '';
-        var pageRecords = new Array();
-        let pages = parseInt(topList.length/topListPageSize);
-        var count = 0;
-        if (pageNum <= pages) {
-            count = topListPageSize;
-        } else {
-            count = topList.length%topListPageSize;
-        }
-        for (var i = 0; i < count; i++) {
-            let listIndex = Math.max(0, pageNum - 1) * topListPageSize + i;
-            pageRecords[i] = topList[listIndex];
-        }
-        pageRecords.forEach(function(item, index) {
-            var coverImg = "img/logo_midium.png";
-            if(item.thumbnailUrl != null && item.thumbnailUrl != '' && item.thumbnailUrl != ' '){
-                coverImg = item.thumbnailUrl;
-            }
-            var avatar = '';
-            var userHasAvatarList = item.userAvatarList.filter(function(element) {
-                return (element != null && element != '' && element != ' ');
-            });
-            item.userAvatarList.forEach(function (item, index) {
-                var img = "img/person.png";
-                if (index < userHasAvatarList.length) {
-                    img = userHasAvatarList[index];
-                }
-                if (index > 2) {
-                    return false;
-                }
-                avatar+='<img src="'+img+'" style="width: 24px;height: 24px;border-radius: 12px;margin: -3px;"/>';
-            });
-            var indexDiv = '';
-            var listIndex = index + Math.max(0, pageNum - 1) * topListPageSize;
-            if ([0, 1, 2].includes(listIndex)) {
-                var img = "img/toplist_"+listIndex+".png";
-                indexDiv = '<img src="'+img+'" style="width: 40px;height: 18px; padding-left: 6px; padding-right: 6px; margin-top: 41px;"/>';
-            } else {
-                indexDiv = '<div style="font-size: 16px; width: 40px; margin-top: 41px;">'+(listIndex+1)+'.'+'</div>';
-            }
-            let videoURL = 'https://mixfun.world/player.html?id='+item.id;
-            topListDiv+= '<div class="media" style="margin-bottom: 5%; padding-top: 5%; position: relative">'+
-                        indexDiv +
-                        '<div style="width: 100px; height: 100px;">' +
-                        '<a class="col-4 fc" style="padding: 10%"  href="'+videoURL+'"target="_blank">'+
-                        '<img class="align-self-start mr-sm-2" src="'+coverImg+'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"/></a>' +
-                        '</div>'+
-                        '<div class="media-body" style="padding-left: 3%;">'+
-                        '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 100%; padding-right: 5px; padding-left: 5px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden">'+item.title+'</span></p></div>'+
-                        '<div style="position: absolute; right: 3%; bottom: 2%">'+avatar+'<span style="margin-left: 8px; font-size: 13px; font-weight: bold; color: #dcb336">'+item.totalContribute+'MixCoin</span></div>'+
-                        '</div>'+
-                        '</div>';
-        });
-        $('.topListDiv').html(topListDiv);
-    }
-
-    function perTopList() {
-        let tempTopListPage = toplistPage;
-        let newPage = toplistPage-1;
-        toplistPage = Math.max(1, newPage);
-        if (tempTopListPage != toplistPage) {
-            loadTopList(toplistPage);
-        }
-    }
-
-    function nextTopList() {
-        let tempTopListPage = toplistPage;
-        let maxPage = parseInt(topList.length/topListPageSize);
-        let newPage = toplistPage+1;
-        toplistPage = Math.min(maxPage, newPage);
-        if (tempTopListPage != toplistPage) {
-            loadTopList(toplistPage);
-        }
-    }
-
-    function showTopListNotice() {
-        $('#ModalNotice').modal('show');
-    }
 
     $(function() {
         $("#slider2").slider({
