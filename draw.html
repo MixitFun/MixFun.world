@@ -176,10 +176,10 @@
             <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; margin-top: 3px; display: inline-block;"/>
             <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; margin-top: 3px; display: inline-block;"/>
             <p style="text-align: left; margin-top: 5%">Payment method</p>
-            <button class="btn" id="gcashBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 60%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGcash()" >Gcash</button>
-            <button class="btn" id="sloadBtn" style="background: #ECECEC;border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSload()" >Send load</button>
+            <button class="btn" id="sloadBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 60%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectSload()">Send load</button>
+            <button class="btn" id="gcashBtn" style="background: #ECECEC;border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectGcash()">Gcash</button>
             <hr style="height:1px; margin: 20px 8%;"/>
-            <button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 20px;border: 0px;color: white; width: 90%; height: 40px; font-size: 18px" onclick="buyAmount()" >Join</button>
+            <button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 20px;border: 0px;color: white; width: 90%; height: 40px; font-size: 18px" onclick="buyAmount()" >Next</button>
         </div>
     </div>
   </div>
@@ -223,12 +223,31 @@
                     <dd style="margin-top: 10px">1. Put 2 as the first number. 2 replaces the 0. Ex: from 09558374793 you change it into 29558374793.</dd>
                     <dd>2. Text the total amount you want to join the game. Like 10PHP for 10 Lucky Tokens.</dd>
                     <dd>3. Receive confirmation SMS and reply “Yes".</dd>
-                    <dd style="margin-top: 5px">*Each Share-A-Load transaction is charged P1.</dd>
+                    <dd style="margin-top: 5px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>
                     <dt>Smart</dt>
                     <dd style="margin-top: 10px">1. Text PASALOAD (space) mobile number of recipient (space) amount, then send to 808.</dd>
                     <dd>2. Ex. Text PASALOAD 09191234567 10. Like 10PHP for 10 Lucky Tokens.</dd>
                     <dd style="margin-top: 5px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>
                 </dl>
+            </div>
+            <div align="right">
+                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-bottom: 5%; margin-top: -10px; display: inline-block">Cancel</button>
+                <button class="btn btn-info" onclick="haveCash()" style="margin: -10px 20px 5%;display: inline-block">I Have Sent</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCashResult" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center" style="padding-top: 0">
+                <p><img style="width: 28px; height: 28px; margin-right: 20px" src="img/draw_success.png">SUCCESSFUL</p>
             </div>
         </div>
     </div>
@@ -286,25 +305,25 @@
         var ht = '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+                        '<div style="width: 100%;color: #000000e6; opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
         imageURL = 'img/draw_product_vivo.png';
         name = 'Vivo Y53（1）';
         ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+                        '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
         imageURL = 'img/draw_product_ml.png';
         name = 'MLBB 11 Dias（500）';
         ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+                        '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
         imageURL = 'img/draw_product_mload.png';
         name = 'Mobile Loads 10PHP（500）';
         ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
                         '<div style="width: 100%;">' +
                         '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-                        '<div style="width: 100%;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -24px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+                        '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
 
         ht += '<div class="progress" style="width: 60%; margin-top: 5%">'+
               '<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; background-color: #F76B1C">'+
@@ -315,23 +334,29 @@
         $('.product').html(ht);
     }
 
-    var cashType = 'gcash';
+    var cashType = 'sload';
     function Join() {
         $('#phone').val('');
         $('#moblieLegend').val('');
         $('#moblieLegendExtra').val('');
-        selectGcash();
+        selectSload();
         $('#ModalJoin').modal('show');
     }
 
     function buyAmount() {
+        var buttonTap = true;
         let phone = $('#phone').val();
         let moblieLegend = $('#moblieLegend').val();
         let moblieLegendExtra = $('#moblieLegendExtra').val();
-        if (cashType == 'sload') {
-            $('#ModalJoin').modal('hide');
-            $('#ModalSload').modal('show');
-        }
+        $('#ModalJoin').modal('hide');
+        $('#ModalJoin').on('hidden.bs.modal', function () {
+            if (buttonTap) {
+                buttonTap = false;
+                if (cashType == 'sload') {
+                    $('#ModalSload').modal('show');
+                }
+            }
+        })
     }
 
     function ShowNotice() {
@@ -372,12 +397,13 @@
     getHistory();
     function getHistory() {
         var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-        ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Date</th>';
-        ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Code</th>';
-        ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
-        ht += '<tr><td>a</td><td>a</td><td>a</td></tr>';
-        ht += '<tr><td>b</td><td>b</td><td>b</td></tr>';
-        ht += '<tr><td>c</td><td>c</td><td>c</td></tr>';
+        ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Date</th>';
+        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Code</th>';
+        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Channel</th>';
+        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
+        ht += '<tr><td>a</td><td>a</td><td>a</td><td>a</td></tr>';
+        ht += '<tr><td>b</td><td>b</td><td>b</td><td>b</td></tr>';
+        ht += '<tr><td>c</td><td>c</td><td>c</td><td>c</td></tr>';
         ht += '</table>';
         $('#History').html(ht);
     }
@@ -392,6 +418,17 @@
         ht += '<tr><td>c</td><td>c</td></tr>';
         ht += '</table>';
         $('#Result').html(ht);
+    }
+
+    function haveCash() {
+        var buttonTap = true;
+        $('#ModalSload').modal('hide');
+        $('#ModalSload').on('hidden.bs.modal', function () {
+            if (buttonTap) {
+                buttonTap = false;
+                $('#ModalCashResult').modal('show');
+            }
+        })
     }
 </script>
 
