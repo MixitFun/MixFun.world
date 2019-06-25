@@ -65,15 +65,6 @@
         overflow-x: hidden;
         overflow-y: scroll !important;
     }
-    select {
-        border: solid 1px #000;
-        appearance:none;
-        -moz-appearance:none;
-        -webkit-appearance:none;
-        padding-right: 20px;
-        background: url("https://raw.githubusercontent.com/ourjs/static/gh-pages/2015/arrow.png") no-repeat scroll right center transparent;
-    }
-    select::-ms-expand { display: none; }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -85,7 +76,7 @@
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 33%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Product</a>
+                <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Product</a>
             </li>
             <li class="nav-item" style="width: 33%">
                 <a class="nav-link" href="#History" data-toggle="tab">History</a>
@@ -95,7 +86,7 @@
             </li>
         </ul>
         <div id="myTabContent" class="tab-content" style="background-color: white">
-            <div class="tab-pane fade in active show product" id="draw" style="padding-top: 3%"></div>
+            <div class="tab-pane fade in active show product" id="draw2" style="padding-top: 3%"></div>
             <div class="tab-pane fade" id="History"></div>
             <div class="tab-pane fade" id="Result"></div>
         </div>
@@ -345,7 +336,7 @@
         success: function(data) {
             if(data.status == 0) {
                 let tokenNum = data.data.tokenNum;
-                let userNum = data.data.userNum;
+                let userNum = Math.max(100, data.data.userNum);
                 $('#joinNum').text(userNum);
                 let persent = Math.max(0.1, tokenNum/100000);
                 var persentStr = Number(persent*100).toFixed(2);
@@ -397,6 +388,22 @@
         $('#moblieLegendExtra').val('');
         $('#bt').text('');
         $('#ModalJoin').modal('show');
+    }
+
+    function copy(id){
+        var copyVal = $('#'+id).val();
+        if(copyVal != ''){
+            var clipboard = new ClipboardJS('.'+id, {
+                text: function() {
+                    return copyVal;
+                }
+            });
+            $('#copy_label').text('Copied!');
+            // $('#tot').modal('show');
+        }else{
+            $('#copy_label').text('Please login');
+            // $('#tot').modal('show');
+        }
     }
 
     var orderCode = '';
@@ -667,13 +674,13 @@
     var amountNum = 10;
     $('#amountNum').text(amountNum);
     function amountReduce() {
-        amountNum = Math.max(0, amountNum-10);
+        amountNum = Math.max(10, amountNum-10);
         $('#amountNum').text(amountNum);
         $('#totalExpense').text(amountNum);
     }
 
     function amountAdd() {
-        amountNum = amountNum + 10;
+        amountNum = Math.min(100, amountNum + 10);
         $('#amountNum').text(amountNum);
         $('#totalExpense').text(amountNum);
     }
