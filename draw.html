@@ -65,6 +65,15 @@
         overflow-x: hidden;
         overflow-y: scroll !important;
     }
+    select {
+        border: solid 1px #000;
+        appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        padding-right: 20px;
+        background: url("https://raw.githubusercontent.com/ourjs/static/gh-pages/2015/arrow.png") no-repeat scroll right center transparent;
+    }
+    select::-ms-expand { display: none; }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -150,6 +159,34 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="zzdr" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="ModalJoin" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
@@ -170,16 +207,15 @@
                 <button class="btn" style="background-image: url(img/draw_add.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountAdd()"></button>
             </div>
             <p style="color: #9B9B9B;font-size: medium; margin-bottom: 0"><span id="totalExpense" style="color: #F76B1C"></span> PHP</p>
-            <p style="text-align: left; margin-top: 3%">Your information</p>
+            <p style="margin-top: 3%; margin-bottom: 0; text-align: left">Your information</p>
+            <span id="bt" style="color: red;"></span>
             <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-            <p style="margin-top: 3px; margin-bottom: 0">or</p>
+            <p style="margin-top: 10px; margin-bottom: 0; text-align: left">*optional</p>
             <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; margin-top: 3px; display: inline-block;"/>
             <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; margin-top: 3px; display: inline-block;"/>
             <p style="text-align: left; margin-top: 5%">Payment method</p>
-            <button class="btn" id="sloadBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 60%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectSload()">Send Load</button>
-            <button class="btn" id="gcashBtn" style="background: #ECECEC;border-radius: 20px;border: 0;color: #262626; width: 60%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectGcash()">Gcash</button>
-            <hr style="height:1px; margin: 20px 8%;"/>
-            <button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 20px;border: 0px;color: white; width: 90%; height: 40px; font-size: 18px" onclick="buyAmount()" >Next</button>
+            <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGlobe()">Send load with Globe</button>
+            <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSmart()">Send load with Smart</button>
         </div>
     </div>
   </div>
@@ -209,7 +245,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalSload" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalCash" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div>
@@ -217,18 +253,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" align="center" style="padding-top: 0">
-                <dl style="text-align: left">
-                    <dt>Globe</dt>
-                    <dd style="margin-top: 10px">1. Put 2 as the first number. 2 replaces the 0. Ex: from 09558374793 you change it into 29558374793.</dd>
-                    <dd>2. Text the total amount you want to join the game. Like 10PHP for 10 Lucky Tokens.</dd>
-                    <dd>3. Receive confirmation SMS and reply “Yes".</dd>
-                    <dd style="margin-top: 5px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>
-                    <dt>Smart</dt>
-                    <dd style="margin-top: 10px">1. Text PASALOAD (space) mobile number of recipient (space) amount, then send to 808.</dd>
-                    <dd>2. Ex. Text PASALOAD 09191234567 10. Like 10PHP for 10 Lucky Tokens.</dd>
-                    <dd style="margin-top: 5px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>
-                </dl>
+            <div class="modal-body" id="CashMethod" align="center" style="padding-top: 0">
             </div>
             <div align="right">
                 <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-bottom: 5%; margin-top: -10px; display: inline-block">Cancel</button>
@@ -239,7 +264,7 @@
 </div>
 
 <div class="modal fade" id="ModalCashResult" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
@@ -248,6 +273,20 @@
             </div>
             <div class="modal-body" align="center" style="padding-top: 0">
                 <p><img style="width: 28px; height: 28px; margin-right: 20px" src="img/draw_success.png">SUCCESSFUL</p>
+                <p style="text-align: center; margin-top: 20px; margin-bottom: 10px; font-size: 17px; font-weight: 700">Lucky Code</p>
+                <table id="resultTable" style="width: 100%; text-align: center; line-height: 24px;">
+                </table>
+                <hr style="height:1px; margin: 20px 8%;"/>
+                <p style="text-align: left; margin-top: 20px; margin-bottom: 10px; font-size: 14px; font-weight: 600">Refer to a friend to get a extra lucky</p>
+                <row>
+                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
+                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
+                    </a>
+                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
+                        <input id="lj" type="hidden">
+                        <img src="img/icon_ic_link.png">
+                    </a>
+                </row>
             </div>
         </div>
     </div>
@@ -295,11 +334,29 @@
         }
         return theRequest;
     }
-
     var token =  GetRequest().id;
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'/treasury/token/num',
+        headers:{
+            authorization:token
+        },
+        dataType: 'json',
+        success: function(data) {
+            if(data.status == 0) {
+                let tokenNum = data.data.tokenNum;
+                let userNum = data.data.userNum;
+                $('#joinNum').text(userNum);
+                let persent = Math.max(0.1, tokenNum/100000);
+                var persentStr = Number(persent*100).toFixed(2);
+                persentStr += '%';
+                document.getElementById('progressbar').style.width = persentStr;
+            }
+        }
+    });
+
     GetProduct();
     function GetProduct() {
-        var joinNum = 1200;
         var imageURL = 'img/draw_product_iphone.png';
         var name = 'iPhone 8';
         var ht = '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
@@ -326,57 +383,285 @@
                         '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
 
         ht += '<div class="progress" style="width: 60%; margin-top: 5%">'+
-              '<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; background-color: #F76B1C">'+
+              '<div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #F76B1C">'+
               '<span class="sr-only"></span>'+
               '</div></div>';
-        ht += '<p style="color: #9B9B9B;font-size: small; margin-top: 8px"><span style="color: #F76B1C">'+joinNum+'</span> lucky people in the pool</p>';
+        ht += '<p style="color: #9B9B9B;font-size: small; margin-top: 8px"><span id="joinNum" style="color: #F76B1C"></span> lucky people in the pool</p>';
         ht += '<button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 25px;border: 0px;color: white; width: 80%; height: 50px; font-size: 18px; margin-bottom: 5%;" onclick="Join()">Join</button>'
         $('.product').html(ht);
     }
 
-    var cashType = 'sload';
     function Join() {
         $('#phone').val('');
         $('#moblieLegend').val('');
         $('#moblieLegendExtra').val('');
-        selectSload();
+        $('#bt').text('');
         $('#ModalJoin').modal('show');
     }
 
-    function buyAmount() {
+    var orderCode = '';
+    function buyAmount(cashType) {
         var buttonTap = true;
         let phone = $('#phone').val();
         let moblieLegend = $('#moblieLegend').val();
         let moblieLegendExtra = $('#moblieLegendExtra').val();
+        var mlinfo = moblieLegend;
+        let totalExpense = $('#totalExpense').text();
+        if (phone == null || phone == '') {
+            $('#bt').text('Please fill up your Phone Number.');
+            return;
+        }
+        if (moblieLegendExtra.length > 0) {
+            mlinfo += "("+moblieLegendExtra+")";
+        }
         $('#ModalJoin').modal('hide');
         $('#ModalJoin').on('hidden.bs.modal', function () {
-            if (buttonTap) {
-                buttonTap = false;
-                if (cashType == 'sload') {
-                    $('#ModalSload').modal('show');
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#zzd').modal('show');
+            var isError = false;
+            var errorMsg = '';
+            $.ajax({
+                method: 'post',
+                url: baseUrl + '/treasury/order/token/create',
+                headers: {
+                    authorization: token
+                },
+                data: JSON.stringify({
+                    pnum: amountNum,
+                    amount: totalExpense,
+                    mobile: phone,
+                    legends: mlinfo,
+                }),
+                contentType:'application/json',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        orderCode = data.data;
+                    } else {
+                        isError = true;
+                        errorMsg = data.msg;
+                    }
+                },
+                error: function () {
+                    isError = true;
+                    errorMsg = 'Net Error!';
+                }
+            });
+            $('#zzd').on('shown.bs.modal',function () {
+                var timeout = setTimeout(function () {
+                    $('#zzd').modal('hide');
+                },300);
+            });
+            $('#zzd').on('hidden.bs.modal', function () {
+                if (isError) {
+                    $('#alert').html('<p>' + errorMsg + '</p>');
+                    $('#ModalAlert').modal('show');
+                } else {
+                    if (cashType == 'globe') {
+                        var notice = '<dl style="text-align: left"><dt>Globe</dt>';
+                        notice += '<dd style="margin-top: 10px">1. Copy 29754740270.</dd>';
+                        notice += '<dd>2. Text '+totalExpense+' PHP.</dd>';
+                        notice += '<dd>3. Receive confirmation SMS and reply “Yes".</dd>';
+                        notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>';
+                        notice += '</dl>';
+                        $('#CashMethod').html(notice);
+                    } else {
+                        var notice = '<dl style="text-align: left"><dt>Smart</dt>';
+                        notice += '<dd style="margin-top: 10px">1. Send to 808</dd>';
+                        notice += '<dd>2. Copy PASALOAD 09611457667 '+totalExpense+' PHP.</dd>';
+                        notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>';
+                        notice += '</dl>';
+                        $('#CashMethod').html(notice);
+                    }
+                    $('#ModalCash').modal('show');
+                }
+            })
+        })
+    }
+
+    getHistory();
+    function getHistory() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl + '/treasury/user/token/list',
+            headers: {
+                authorization: token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 0) {
+                    var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
+                    ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Date</th>';
+                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Code</th>';
+                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Type</th>';
+                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
+                    data.data.forEach(function (item,index) {
+                        item.tokenInfoList.forEach(function (data, row) {
+                            ht += '<tr>';
+                            var time = data.createdTime;
+                            ht += '<td style="font-size: 14px">'+time+'</td>';
+                            let code = data.tokenCode;
+                            ht += '<td style="font-size: 14px">'+code+'</td>';
+                            var type = '';
+                            if (data.type == 1) {
+                                type = 'Purchase';
+                            } else {
+                                type = 'Referral';
+                            }
+                            ht += '<td style="font-size: 14px">'+type+'</td>';
+                            var status = '';
+                            if (data.status == 0) {
+                                status = 'Pending';
+                                ht += '<td style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
+                            } else if (data.status == 1) {
+                                status = 'Waiting';
+                                ht += '<td style="font-size: 14px">'+status+'</td>';
+                            } else if (data.status == 2) {
+                                status = 'Win';
+                                ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
+                            } else {
+                                status = 'Loss';
+                                ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
+                            }
+                            ht += '</tr>';
+                        });
+                    });
+                    ht += '</table>';
+                    $('#History').html(ht);
+                } else {
                 }
             }
-        })
+        });
+    }
+
+    getResult();
+    function getResult() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl + '/treasury/result/list',
+            headers: {
+                authorization: token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 0) {
+                    var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
+                    ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Item</th>';
+                    ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Winner Lucky Code</th>';
+                    data.data.forEach(function (item,index) {
+                        item.infoList.forEach(function (data, row) {
+                            // ht += '<tr>';
+                            // var time = data.createdTime;
+                            // ht += '<td style="font-size: 14px">'+time+'</td>';
+                            // let code = data.tokenCode;
+                            // ht += '<td style="font-size: 14px">'+code+'</td>';
+                            // var type = '';
+                            // if (data.type == 1) {
+                            //     type = 'Purchase';
+                            // } else {
+                            //     type = 'Referral';
+                            // }
+                            // ht += '<td style="font-size: 14px">'+type+'</td>';
+                            // var status = '';
+                            // if (data.status == 0) {
+                            //     status = 'Pending';
+                            //     ht += '<td style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
+                            // } else if (data.status == 1) {
+                            //     status = 'Waiting';
+                            //     ht += '<td style="font-size: 14px">'+status+'</td>';
+                            // } else if (data.status == 2) {
+                            //     status = 'Win';
+                            //     ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
+                            // } else {
+                            //     status = 'Loss';
+                            //     ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
+                            // }
+                            // ht += '</tr>';
+                        });
+                    });
+                    ht += '</table>';
+                    $('#Result').html(ht);
+                } else {
+                }
+            }
+        });
+    }
+
+    function haveCash() {
+        var buttonTap = true;
+        $('#ModalCash').modal('hide');
+        $('#ModalCash').on('hidden.bs.modal', function () {
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#zzdr').modal('show');
+            var isError = false;
+            var errorMsg = '';
+            var codeList;
+            $.ajax({
+                method: 'post',
+                url: baseUrl + '/treasury/order/token/list',
+                headers: {
+                    authorization: token
+                },
+                data: JSON.stringify({
+                    orderCode: orderCode,
+                }),
+                contentType:'application/json',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        codeList = data.data;
+                    } else {
+                        isError = true;
+                        errorMsg = data.msg;
+                    }
+                },
+                error: function () {
+                    isError = true;
+                    errorMsg = 'Net Error!';
+                }
+            });
+            $('#zzdr').on('shown.bs.modal',function () {
+                var timeout = setTimeout(function () {
+                    $('#zzdr').modal('hide');
+                },300);
+            });
+            $('#zzdr').on('hidden.bs.modal', function () {
+                if (isError) {
+                    $('#alert').html('<p>' + errorMsg + '</p>');
+                    $('#ModalAlert').modal('show');
+                } else {
+                    var ht = '';
+                    codeList.forEach(function (data, row) {
+                        ht += '<tr><td>'+data.tokenCode+'</td></tr>';
+                    });
+                    $('#resultTable').html(ht);
+                    $('#ModalCashResult').modal('show');
+                }
+            });
+            $('#ModalCashResult').on('hidden.bs.modal', function () {
+                getHistory();
+            });
+        });
     }
 
     function ShowNotice() {
         $('#ModalNotice').modal('show');
     }
 
-    function selectGcash() {
-        document.getElementById('gcashBtn').style.background = '#6C81F8';
-        document.getElementById('gcashBtn').style.color = 'white';
-        document.getElementById('sloadBtn').style.background = '#ECECEC';
-        document.getElementById('sloadBtn').style.color = '#262626';
-        cashType = 'gcash';
+    function selectGlobe() {
+        buyAmount('globe');
     }
 
-    function selectSload() {
-        document.getElementById('sloadBtn').style.background = '#6C81F8';
-        document.getElementById('sloadBtn').style.color = 'white';
-        document.getElementById('gcashBtn').style.background = '#ECECEC';
-        document.getElementById('gcashBtn').style.color = '#262626';
-        cashType = 'sload';
+    function selectSmart() {
+        buyAmount('smart');
     }
 
     var amountNum = 10;
@@ -394,42 +679,6 @@
     }
     $('#totalExpense').text(amountNum);
 
-    getHistory();
-    function getHistory() {
-        var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-        ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Date</th>';
-        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Code</th>';
-        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Channel</th>';
-        ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
-        ht += '<tr><td>a</td><td>a</td><td>a</td><td>a</td></tr>';
-        ht += '<tr><td>b</td><td>b</td><td>b</td><td>b</td></tr>';
-        ht += '<tr><td>c</td><td>c</td><td>c</td><td>c</td></tr>';
-        ht += '</table>';
-        $('#History').html(ht);
-    }
-
-    getResult();
-    function getResult() {
-        var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-        ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Item</th>';
-        ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Winner Lucky Code</th>';
-        ht += '<tr><td>a</td><td>a</td></tr>';
-        ht += '<tr><td>b</td><td>b</td></tr>';
-        ht += '<tr><td>c</td><td>c</td></tr>';
-        ht += '</table>';
-        $('#Result').html(ht);
-    }
-
-    function haveCash() {
-        var buttonTap = true;
-        $('#ModalSload').modal('hide');
-        $('#ModalSload').on('hidden.bs.modal', function () {
-            if (buttonTap) {
-                buttonTap = false;
-                $('#ModalCashResult').modal('show');
-            }
-        })
-    }
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
