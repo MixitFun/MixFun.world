@@ -121,19 +121,25 @@
         </div>
     </div>
 
+    <img src="img/fun_mini_banner.png" style="width: 100%; margin-top: 20px; margin-bottom: -10px">
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
-            <li class="nav-item" style="width: 50%">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
+            <li class="nav-item" style="width: 33%; font-size: 13px">
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">MLBB</a>
             </li>
-            <li class="nav-item" style="width: 50%">
+            <li class="nav-item" style="width: 33%; font-size: 13px">
                 <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
+            </li>
+            <li class="nav-item" style="width: 33%; font-size: 13px">
+                <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
             </li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active show commodity" id="draw">
             </div>
             <div class="tab-pane fade" id="buy">
+            </div>
+            <div class="tab-pane fade" id="miniworld">
             </div>
         </div>
     </div>
@@ -267,6 +273,23 @@
                     <dd style="margin-bottom: 30px">4. Invite friends to join to get free tokens.</dd>
                     <dd style="margin-top: 5px">The sooner the pool is full, the earlier the winners get the prize.</dd>
                 </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalMiniworld" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center" style="padding-top: 0">
+                <p style="text-align: left">Here is your code, please copy and activate it in your Mini World account.</p>
+                <p id="miniworldID" style="text-align: center; font-size: 18px; font-weight: 500"></p>
+                <button class="btn" id="miniworldIDBtn" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('miniworldID')" >&nbsp;Copy&nbsp;</button>
             </div>
         </div>
     </div>
@@ -518,7 +541,7 @@
     var uid;
     $.ajax({
         method: 'get',
-        url: "https://api.mixit.fun"+'/user/profile',
+        url: baseUrl+'/user/profile',
         headers:{
             authorization:token
         },
@@ -623,6 +646,44 @@
                     }
                 }
             });
+
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'/shop/list',
+                headers:{
+                    authorization:token
+                },
+                data:{
+                    type: 3
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if(data.status == 0) {
+                        var ht = '<p style="margin-top: 5px"></p>';
+                        data.data.forEach(function(item, index) {
+                            var spot = item.glh;
+                            if (isBlockUser) {
+                                spot = 0;
+                            }
+                            shopSpotDic[item.id] = spot;
+                            ht+= '<div class="media"style="padding: 3%">'+
+                                '<div style="width: 25%;">' +
+                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                                '</div>'+
+                                '<div class="media-body" style="padding: 3%;">'+
+                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                                '<div class="mt-0">' +
+                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
+                                '</div>'+
+                                '</div>';
+                        });
+                        $('#miniworld').html(ht);
+                    }
+                }
+            });
         }
     });
 
@@ -675,26 +736,31 @@
     }
 
     function dde(name, data) {
-        if(name == 'Mobile Legends'){
-            $('#address').val('');
-            $('#phone').val('');
-            $('#phoneType').val('');
-            $('#address').css('display','none');
-            $('#phone').css('display','none');
-            $('#phoneType').css('display','none');
-            $('#moblieLegend').css('display','inline-block');
-            $('#moblieLegendExtra').css('display','inline-block')
-        }else{
-            $('#moblieLegend').val('');
-            $('#moblieLegendExtra').val('');
-            $('#address').css('display','block');
-            $('#phone').css('display','block');
-            $('#phoneType').css('display','block');
-            $('#moblieLegend').css('display','none');
-            $('#moblieLegendExtra').css('display', 'none');
+        if(name == 'Mini Beans') {
+            $('#miniworldID').text(data.data.recipient);
+            $('#ModalMiniworld').modal('show');
+        } else {
+            if(name == 'Mobile Legends'){
+                $('#address').val('');
+                $('#phone').val('');
+                $('#phoneType').val('');
+                $('#address').css('display','none');
+                $('#phone').css('display','none');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','inline-block');
+                $('#moblieLegendExtra').css('display','inline-block')
+            }else{
+                $('#moblieLegend').val('');
+                $('#moblieLegendExtra').val('');
+                $('#address').css('display','block');
+                $('#phone').css('display','block');
+                $('#phoneType').css('display','block');
+                $('#moblieLegend').css('display','none');
+                $('#moblieLegendExtra').css('display', 'none');
+            }
+            $('#ModalExchange').modal('show');
+            $('#id').val(data.data.id);
         }
-        $('#ModalExchange').modal('show');
-        $('#id').val(data.data.id);
     }
 
     var ss;
@@ -707,10 +773,14 @@
             var type = $('#ittype').val();
             var time = new Date().getTime();
             var key = md5(uid+secretSign+time);
+            var url = baseUrl+'/shop/exchange';
+            if (gmname == 'Mini Beans') {
+                url = baseUrl+'/shop/exchangeGameCode';
+            }
             $('#ModalConf').modal('hide');
             $.ajax({
                 method: 'post',
-                url: baseUrl+'/shop/exchange',
+                url: url,
                 headers:{
                     authorization:token
                 },
@@ -837,9 +907,15 @@
     });
 
     function copy(id){
-        var copyVal = $('#'+id).val();
+        var copyVal;
+        if (id == 'miniworldID') {
+            copyVal = $('#'+id).text();
+            $('#miniworldIDBtn').attr('data-clipboard-text',copyVal);
+        } else {
+            copyVal = $('#'+id).val();
+        }
         if(copyVal != ''){
-            var clipboard = new ClipboardJS('.'+id, {
+            var clipboard = new ClipboardJS('.btn', {
                 text: function() {
                     return copyVal;
                 }
@@ -1067,7 +1143,7 @@
         });
     }
 
-    getResult();
+   // getResult();
     function getResult() {
         $.ajax({
             method: 'post',
