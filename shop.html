@@ -289,7 +289,7 @@
             <div class="modal-body" align="center" style="padding-top: 0">
                 <p style="text-align: left">Here is your code, please copy and activate it in your Mini World account.</p>
                 <p id="miniworldID" style="text-align: center; font-size: 18px; font-weight: 500"></p>
-                <button class="btn" id="miniworldIDBtn" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('miniworldID')" >&nbsp;Copy&nbsp;</button>
+                <button class="btn" id="miniworldIDBtn" data-clipboard-action="copy" data-clipboard-target="#miniworldID" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy2()">&nbsp;Copy&nbsp;</button>
             </div>
         </div>
     </div>
@@ -915,10 +915,13 @@
             copyVal = $('#'+id).val();
         }
         if(copyVal != ''){
-            var clipboard = new ClipboardJS('.btn', {
+            var clipboard = new ClipboardJS('.'+id, {
                 text: function() {
                     return copyVal;
                 }
+            });
+            clipboard.on('successfully', function(e){
+            	clip.destroy();
             });
             $('#copy_label').text('Copied!');
             $('#tot').modal('show');
@@ -926,6 +929,15 @@
             $('#copy_label').text('Please login');
             $('#tot').modal('show');
         }
+    }
+
+    var clip = new ClipboardJS('.btn');
+    clip.on('successfully', function(e){
+    	 clip.destroy();
+    });
+    function copy2(){
+    	$('#copy_label').text('Copied!');
+        $('#tot').modal('show');
     }
 
     $('#tot').on('shown.bs.modal', function (e) {
@@ -1266,7 +1278,7 @@
     }
 
     function ShowNotice() {
-        $('#ModalNotice2').modal('show');
+   		$('#ModalNotice2').modal('show');
     }
 
     function selectGlobe() {
