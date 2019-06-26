@@ -907,13 +907,7 @@
     });
 
     function copy(id){
-        var copyVal;
-        if (id == 'miniworldID') {
-            copyVal = $('#'+id).text();
-            $('#miniworldIDBtn').attr('data-clipboard-text',copyVal);
-        } else {
-            copyVal = $('#'+id).val();
-        }
+        var copyVal = $('#'+id).val();
         if(copyVal != ''){
             var clipboard = new ClipboardJS('.'+id, {
                 text: function() {
