@@ -900,7 +900,11 @@
         let phone = $('#phonenum').val();
         let totalExpense = $('#totalExpense').text();
         if (phone == null || phone == '') {
-            $('#btt').text('Please fill up your Phone Number.');
+            $('#btt').text('Please Fill Up Your Phone Number.');
+            return;
+        }
+        if (phone.length < 11) {
+            $('#btt').text('Please Enter Valid Phone Number.');
             return;
         }
         $('#ModalJoin').modal('hide');
