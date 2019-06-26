@@ -299,9 +299,8 @@
             </div>
             <div class="modal-body" align="center" style="padding-top: 0">
                 <p><img style="width: 28px; height: 28px; margin-right: 20px" src="img/draw_success.png">SUCCESSFUL</p>
-                <p style="text-align: center; margin-top: 20px; margin-bottom: 10px; font-size: 17px; font-weight: 700">Lucky Code</p>
-                <table id="resultTable" style="width: 100%; text-align: center; line-height: 24px;">
-                </table>
+                <div id="resultTable">
+                </div>
                 <hr style="height:1px; margin: 20px 8%;"/>
                 <p style="text-align: left; margin-top: 20px; margin-bottom: 10px; font-size: 14px; font-weight: 600">Refer to friends to get free lucky tokens.</p>
                 <row>
@@ -313,6 +312,25 @@
                         <img src="img/icon_ic_link.png">
                     </a>
                 </row>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalPending" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Pending</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <p style="text-align: left">1. Paid: Your status will be changed to “Waiting" in 2hours.</p>
+                <p style="text-align: left; margin-bottom: 30px">2. Haven’t paid: You should pay to verify your tokens.</p>
+                <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="showGlobe()">Send Load With Globe</button>
+                <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px; margin-bottom: 10px" onclick="showSmart()">Send Load With Smart</button>
             </div>
         </div>
     </div>
@@ -1019,7 +1037,9 @@
                             var status = '';
                             if (data.status == 0) {
                                 status = 'Pending';
-                                ht += '<td style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
+                                let phoneNum = data.mobile;
+                                let totalExpense = data.pnum;
+                                ht += '<td onclick="pendingClik(\'' + phoneNum + '\', \'' + totalExpense + '\')" style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
                             } else if (data.status == 1) {
                                 status = 'Waiting';
                                 ht += '<td style="font-size: 14px">'+status+'</td>';
@@ -1142,14 +1162,22 @@
                 },1200);
             });
             $('#zzds').on('hidden.bs.modal', function () {
+                orderCode = '';
                 if (isError) {
                     $('#alert').html('<p>' + errorMsg + '</p>');
                     $('#ModalAlert').modal('show');
                 } else {
                     var ht = '';
-                    codeList.forEach(function (data, row) {
-                        ht += '<tr><td>'+data.tokenCode+'</td></tr>';
-                    });
+                    if (codeList.length > 0) {
+                        ht += '<p style="text-align: center; margin-top: 20px; margin-bottom: 10px; font-size: 17px; font-weight: 700">Lucky Code</p>';
+                        ht += '<table style="width: 100%; text-align: center; line-height: 24px;">';
+                        codeList.forEach(function (data, row) {
+                            ht += '<tr><td>'+data.tokenCode+'</td></tr>';
+                        });
+                        ht += ' </table>';
+                    } else {
+
+                    }
                     $('#resultTable').html(ht);
                     $('#ModalCashResult').modal('show');
                 }
@@ -1172,6 +1200,45 @@
         buyAmount('smart');
     }
 
+    function showGlobe() {
+        var buttonTap = true;
+        $('#ModalPending').modal('hide');
+        $('#ModalPending').on('hidden.bs.modal', function () {
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            let phone = $('#phonenum').val();
+            let totalExpense = $('#totalExpense').text();
+            var notice = '<dl style="text-align: left"><dt>Globe</dt>';
+            notice += '<dd style="margin-top: 10px">1. Use the '+phone+' number to text '+totalExpense+' to 29754740270.</dd>';
+            notice += '<dd>2. Receive confirmation SMS and reply “YES".</dd>';
+            notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>';
+            notice += '</dl>';
+            $('#CashMethod').html(notice);
+            $('#ModalCash').modal('show');
+        })
+    }
+
+    function showSmart() {
+        var buttonTap = true;
+        $('#ModalPending').modal('hide');
+        $('#ModalPending').on('hidden.bs.modal', function () {
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            let phone = $('#phonenum').val();
+            let totalExpense = $('#totalExpense').text();
+            var notice = '<dl style="text-align: left"><dt>Smart</dt>';
+            notice += '<dd style="margin-top: 10px">Use the '+phone+' number to text "PASALOAD 09611457667 '+totalExpense+'." to 808.</dd>';
+            notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>';
+            notice += '</dl>';
+            $('#CashMethod').html(notice);
+            $('#ModalCash').modal('show');
+        })
+    }
+
     var amountNum = 10;
     $('#amountNum').text(amountNum);
     function amountReduce() {
@@ -1186,6 +1253,12 @@
         $('#totalExpense').text(amountNum);
     }
     $('#totalExpense').text(amountNum);
+
+    function pendingClik(phone, totalExpense) {
+        $('#phonenum').val(phone);
+        $('#totalExpense').text(totalExpense);
+        $('#ModalPending').modal('show');
+    }
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
