@@ -76,13 +76,13 @@
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs">
             <li class="nav-item" style="width: 33%">
-                <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Product</a>
+                <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Treasury</a>
             </li>
             <li class="nav-item" style="width: 33%">
-                <a class="nav-link" href="#History" data-toggle="tab">History</a>
+                <a class="nav-link" href="#History" data-toggle="tab">Token</a>
             </li>
             <li class="nav-item" style="width: 33%">
-                <a class="nav-link" href="#Result" data-toggle="tab">Result</a>
+                <a class="nav-link" href="#Result" data-toggle="tab">Winners</a>
             </li>
         </ul>
         <div id="myTabContent" class="tab-content" style="background-color: white">
@@ -190,7 +190,7 @@
         </div>
         <div class="modal-body" align="center" style="padding-top: 0">
             <div>
-            	<p style="text-align: left;">Please select the lucky token amount</p>
+            	<p style="text-align: left;">Please Select The Lucky Token Amount</p>
             </div>
             <div style="display: inline-flex; width: 60%" align="center">
                 <button class="btn" style="background-image: url(img/draw_reduce.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountReduce()"></button>
@@ -198,15 +198,11 @@
                 <button class="btn" style="background-image: url(img/draw_add.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountAdd()"></button>
             </div>
             <p style="color: #9B9B9B;font-size: medium; margin-bottom: 0"><span id="totalExpense" style="color: #F76B1C"></span> PHP</p>
-            <p style="margin-top: 3%; margin-bottom: 0; text-align: left">Your information</p>
+            <p style="margin-top: 3%; margin-bottom: 0; text-align: left">Your Information</p>
             <span id="bt" style="color: red;"></span>
-            <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-            <p style="margin-top: 10px; margin-bottom: 0; text-align: left">*Optional</p>
-            <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; margin-top: 3px; display: inline-block;"/>
-            <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; margin-top: 3px; display: inline-block;"/>
-            <p style="text-align: left; margin-top: 5%">Payment method</p>
-            <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGlobe()">Send load with Globe</button>
-            <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSmart()">Send load with Smart</button>
+            <input class="form-control" type="text" id="phone" placeholder="Enter Your Phone Number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-bottom: 35px"/>
+            <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGlobe()">Send Load With Globe</button>
+            <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSmart()">Send Load With Smart</button>
         </div>
     </div>
   </div>
@@ -216,7 +212,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">More information</h5>
+                <h5 class="modal-title" id="ModalNoticeTitle"> Do you want to win an iPhone? Spend 10PHP to try your lucky to win an iPhone and 1000 prizes.</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -226,9 +222,10 @@
                     <dt>Lucky 10PHP</dt>
                     <dd style="margin-top: 5px">Do you believe in luck? Spend 10PHP to exchange mobile loads/Mobile Legends diamonds or an iPhone. We have prepared more than 1000 prizes for you. </dd>
                     <dt>How to win?</dt>
-                    <dd style="margin-top: 5px">1. Pay 10PHP for 10 lucky tokens</dd>
-                    <dd>2. Wait until the lucky pool is full</dd>
-                    <dd style="margin-bottom: 30px">3. 1,002 Winners will win the prizes</dd>
+                    <dd style="margin-top: 5px">1. Pay 10PHP for 10 lucky tokens.</dd>
+                    <dd>2. Wait until the pool is full (100000 tokens).</dd>
+                    <dd>3. 1000 Winners will win.</dd>
+                    <dd style="margin-bottom: 30px">4. Invite friends to join to get extra token.</dd>
                     <dd style="margin-top: 5px">The sooner the pool is full, the earlier the winner get the prize redemption.</dd>
                 </dl>
             </div>
@@ -384,8 +381,6 @@
 
     function Join() {
         $('#phone').val('');
-        $('#moblieLegend').val('');
-        $('#moblieLegendExtra').val('');
         $('#bt').text('');
         $('#ModalJoin').modal('show');
     }
@@ -410,16 +405,10 @@
     function buyAmount(cashType) {
         var buttonTap = true;
         let phone = $('#phone').val();
-        let moblieLegend = $('#moblieLegend').val();
-        let moblieLegendExtra = $('#moblieLegendExtra').val();
-        var mlinfo = moblieLegend;
         let totalExpense = $('#totalExpense').text();
         if (phone == null || phone == '') {
             $('#bt').text('Please fill up your Phone Number.');
             return;
-        }
-        if (moblieLegendExtra.length > 0) {
-            mlinfo += "("+moblieLegendExtra+")";
         }
         $('#ModalJoin').modal('hide');
         $('#ModalJoin').on('hidden.bs.modal', function () {
@@ -440,7 +429,7 @@
                     pnum: amountNum,
                     amount: totalExpense,
                     mobile: phone,
-                    legends: mlinfo,
+                    legends: '',
                 }),
                 contentType:'application/json',
                 dataType: 'json',
@@ -469,16 +458,14 @@
                 } else {
                     if (cashType == 'globe') {
                         var notice = '<dl style="text-align: left"><dt>Globe</dt>';
-                        notice += '<dd style="margin-top: 10px">1. Copy 29754740270.</dd>';
-                        notice += '<dd>2. Text '+totalExpense+' PHP.</dd>';
-                        notice += '<dd>3. Receive confirmation SMS and reply “Yes".</dd>';
+                        notice += '<dd style="margin-top: 10px">1. Use the '+phone+' number to text '+totalExpense+'PHP to 29754740270.</dd>';
+                        notice += '<dd>2. Receive confirmation SMS and reply “YES".</dd>';
                         notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>';
                         notice += '</dl>';
                         $('#CashMethod').html(notice);
                     } else {
                         var notice = '<dl style="text-align: left"><dt>Smart</dt>';
-                        notice += '<dd style="margin-top: 10px">1. Send to 808</dd>';
-                        notice += '<dd>2. Copy PASALOAD 09611457667 '+totalExpense+' PHP.</dd>';
+                        notice += '<dd style="margin-top: 10px">Use the '+phone+' number to text "PASALOAD 09611457667 '+totalExpense+'PHP." to 808.</dd>';
                         notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>';
                         notice += '</dl>';
                         $('#CashMethod').html(notice);
@@ -502,15 +489,12 @@
             success: function (data) {
                 if (data.status == 0) {
                     var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-                    ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Date</th>';
-                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Code</th>';
+                    ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Token</th>';
                     ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Type</th>';
                     ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
                     data.data.forEach(function (item,index) {
                         item.tokenInfoList.forEach(function (data, row) {
                             ht += '<tr>';
-                            var time = data.createdTime;
-                            ht += '<td style="font-size: 14px">'+time+'</td>';
                             let code = data.tokenCode;
                             ht += '<td style="font-size: 14px">'+code+'</td>';
                             var type = '';
@@ -559,8 +543,8 @@
             success: function (data) {
                 if (data.status == 0) {
                     var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-                    ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Item</th>';
-                    ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Winner Lucky Code</th>';
+                    ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Token</th>';
+                    ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Treasure</th>';
                     data.data.forEach(function (item,index) {
                         item.infoList.forEach(function (data, row) {
                             // ht += '<tr>';
