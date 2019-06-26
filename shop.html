@@ -303,7 +303,7 @@
                 <table id="resultTable" style="width: 100%; text-align: center; line-height: 24px;">
                 </table>
                 <hr style="height:1px; margin: 20px 8%;"/>
-                <p style="text-align: left; margin-top: 20px; margin-bottom: 10px; font-size: 14px; font-weight: 600">Refer to a friend to get a extra lucky</p>
+                <p style="text-align: left; margin-top: 20px; margin-bottom: 10px; font-size: 14px; font-weight: 600">Refer to friends to get free lucky tokens.</p>
                 <row>
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
                         <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
@@ -903,7 +903,16 @@
             $('#btt').text('Please Fill Up Your Phone Number.');
             return;
         }
-        if (phone.length < 11) {
+        var isValid = true;
+        var match = new RegExp("^(0[0-9]*)$").test(phone);
+        if(match){
+            if (phone.length < 11) {
+                isValid = false;
+            }
+        } else {
+            isValid = false;
+        }
+        if (!isValid) {
             $('#btt').text('Please Enter Valid Phone Number.');
             return;
         }
