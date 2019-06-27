@@ -128,14 +128,14 @@
     </div>
 
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs">
-            <li class="nav-item" style="width: 33%">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Treasury</a>
             </li>
-            <li class="nav-item" style="width: 33%">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#History" data-toggle="tab">Token</a>
             </li>
-            <li class="nav-item" style="width: 33%">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#Result" data-toggle="tab">Winners</a>
             </li>
         </ul>
@@ -146,16 +146,16 @@
         </div>
     </div>
 
-    <img src="img/fun_mini_banner.png" style="width: 100%; margin-top: 20px; margin-bottom: -10px">
+    <a href="https://go.onelink.me/x5E9/Mixfun"><img src="img/fun_mini_banner.png" style="width: 100%; margin-top: 20px; margin-bottom: -10px"></a>
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs">
-            <li class="nav-item" style="width: 33%; font-size: 13px">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">MLBB</a>
             </li>
-            <li class="nav-item" style="width: 33%; font-size: 13px">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
             </li>
-            <li class="nav-item" style="width: 33%; font-size: 13px">
+            <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
             </li>
         </ul>
@@ -517,6 +517,24 @@
             $('.modal').on('hidden.bs.modal', function () {
                 $('body').scrollTop(lastKnownScrollTopPosition);
             });
+        }
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        let target = $(e.target).attr("href")
+        switch (target) {
+            case '#History':
+                if ($('#History').html().length == 0) {
+                    getHistory();
+                }
+                break;
+            case '#Result':
+                if ($('#Result').html().length == 0) {
+                    getResult();
+                }
+                break;
+            default:
+                break;
         }
     });
 
@@ -968,7 +986,7 @@
 
     var clip = new ClipboardJS('.btn');
     clip.on('successfully', function(e){
-         clip.destroy();
+        clip.destroy();
     });
     function copy2(){
         $('#copy_label').text('Copied!');
@@ -1130,7 +1148,6 @@
         })
     }
 
-    getHistory();
     function getHistory() {
         $.ajax({
             method: 'post',
@@ -1190,7 +1207,6 @@
         });
     }
 
-    // getResult();
     function getResult() {
         $.ajax({
             method: 'post',
@@ -1383,24 +1399,5 @@
         $('#totalExpense').text(totalExpense);
         $('#ModalPending').modal('show');
     }
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-138276305-1', {
-        'page_title' : 'MixFun',
-        'page_path': '/luck'
-    });
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8296699377234768",
-        enable_page_level_ads: true
-    });
 </script>
 </html>
