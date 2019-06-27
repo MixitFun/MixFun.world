@@ -839,6 +839,9 @@
             $('#zzd').on('hide.bs.modal', function () {
                 dde(gmname, gmfh);
             })
+        } else {
+            $('#copy_label').text('Please verify first');
+            $('#tot').modal('show');
         }
     }
 
