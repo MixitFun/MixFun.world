@@ -50,23 +50,24 @@
         margin-top: 15px;
     }
     li:hover{
-        background-color: #adb5bd;
+        background-color: white;
     }
     .nav-link.active{
         color: #007bff;
     }
-    body.modal-open {
-        overflow: hidden;
-        position: fixed;
-    }
+    .modal { overflow: auto !important; }
+    /*body.modal-open {*/
+    /*    overflow: hidden;*/
+    /*    position: fixed;*/
+    /*}*/
 
-    body.viewport-lg {
-        position: absolute;
-    }
-    body {
-        overflow-x: hidden;
-        overflow-y: scroll !important;
-    }
+    /*body.viewport-lg {*/
+    /*    position: absolute;*/
+    /*}*/
+    /*body {*/
+    /*    overflow-x: hidden;*/
+    /*    overflow-y: scroll !important;*/
+    /*}*/
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -126,13 +127,16 @@
     <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">MLBB</a>
+                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
             </li>
             <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
             </li>
             <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
+            </li>
+            <li class="nav-item" style="font-size: 13px">
+                <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
             </li>
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -141,6 +145,8 @@
             <div class="tab-pane fade" id="buy">
             </div>
             <div class="tab-pane fade" id="miniworld">
+            </div>
+            <div class="tab-pane fade" id="rulesofsurvival">
             </div>
         </div>
     </div>
@@ -219,6 +225,7 @@
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
                 <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
+                <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
@@ -463,6 +470,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun";
+    //    var baseUrl = 'http://192.168.0.113:7001/';
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -474,20 +482,34 @@
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
 
-    var scrollTopPosition = 0;
-    var lastKnownScrollTopPosition = 0;
-    $(document).ready(function(){
-        if (platform.os.family.match(/iOS|Android/i)) {
-            $(window).scroll(function () {
-                scrollTopPosition = $(document).scrollTop();
-            });
-            $('.modal').on('show.bs.modal', function () {
-                $('body').css('top', (scrollTopPosition * -1));
-                lastKnownScrollTopPosition = scrollTopPosition;
-            });
-            $('.modal').on('hidden.bs.modal', function () {
-                $('body').scrollTop(lastKnownScrollTopPosition);
-            });
+    // var scrollTopPosition = 0;
+    // var lastKnownScrollTopPosition = 0;
+    // $(document).ready(function(){
+    //     if (platform.os.family.match(/iOS|Android/i)) {
+    //         $(window).scroll(function () {
+    //             scrollTopPosition = $(document).scrollTop();
+    //         });
+    //         $('.modal').on('show.bs.modal', function () {
+    //             $('body').css('top', (scrollTopPosition * -1));
+    //             lastKnownScrollTopPosition = scrollTopPosition;
+    //         });
+    //         $('.modal').on('hidden.bs.modal', function () {
+    //             $('body').scrollTop(lastKnownScrollTopPosition);
+    //         });
+    //     }
+    // });
+
+    $('.modal').on("hidden.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
         }
     });
 
@@ -502,6 +524,16 @@
             case '#Result':
                 if ($('#Result').html().length == 0) {
                     getResult();
+                }
+                break;
+            case '#miniworld':
+                if ($('#miniworld').html().length == 0) {
+                    GetRedeem('miniworld');
+                }
+                break;
+            case '#rulesofsurvival':
+                if ($('#rulesofsurvival').html().length == 0) {
+                    GetRedeem('rulesofsurvival');
                 }
                 break;
             default:
@@ -522,7 +554,7 @@
         return theRequest;
     }
 
-    var token = 'c61b7f6af4d84d4aa50a7806ef69c596';
+    var token =  GetRequest().id;
     $.ajax({
         method: 'get',
         url: baseUrl+'/user/referralList',
@@ -553,6 +585,8 @@
     var fc;
     var lj;
     var uid;
+    $('#miniworld').html('');
+    $('#rulesofsurvival').html('');
     $.ajax({
         method: 'get',
         url: baseUrl+'/user/profile',
@@ -660,44 +694,6 @@
                     }
                 }
             });
-
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'/shop/list',
-                headers:{
-                    authorization:token
-                },
-                data:{
-                    type: 3
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="margin-top: 5px"></p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('#miniworld').html(ht);
-                    }
-                }
-            });
         }
     });
 
@@ -754,18 +750,28 @@
             $('#miniworldID').text(data.data.recipient);
             $('#ModalMiniworld').modal('show');
         } else {
-            if(name == 'Mobile Legends'){
-                $('#address').val('');
-                $('#phone').val('');
-                $('#phoneType').val('');
+            $('#address').val('');
+            $('#phone').val('');
+            $('#phoneType').val('');
+            $('#moblieLegend').val('');
+            $('#moblieLegendExtra').val('');
+            $('#rosInput').val('');
+            if(name == 'Mobile Legends') {
+                $('#rosInput').css('display', 'none');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
-            }else{
-                $('#moblieLegend').val('');
-                $('#moblieLegendExtra').val('');
+            } else if(name == 'Rules of Survival') {
+                $('#address').css('display','none');
+                $('#phone').css('display','none');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','none');
+                $('#moblieLegendExtra').css('display','none');
+                $('#rosInput').css('display', 'block');
+            } else {
+                $('#rosInput').css('display', 'none');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
@@ -809,13 +815,13 @@
                     if (data.status == 0) {
                         $('#zzd').modal('show');
                     } else {
-                        var msg = data.msg;
+                        let msg = data.msg;
                         if (msg == "The stock for this hour is out. Please come back next hour.") {
                             msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         } else {
-                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         }
                     }
@@ -846,14 +852,23 @@
         var commodity_id = $('#commodity_id').val();
         var name = $('#itname').val();
         var recipient = $('#recipient').val();
-        if(name == 'Mobile Legends'){
+        var playerID;
+        if(name == 'Mobile Legends') {
             var moblieLegend = $('#moblieLegend').val();
             var moblieLegendExtra = $('#moblieLegendExtra').val();
             if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
-        }else{
+            playerID = moblieLegend+"("+moblieLegendExtra+")";
+        } else if(name == 'Rules of Survival') {
+            var rosID = $('#rosInput').val();
+            if (rosID == null || rosID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = rosID;
+        } else{
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
@@ -885,7 +900,7 @@
                 commodityId:commodity_id,
                 recipient:recipient,
                 phone: phone,
-                moblieLegend: moblieLegend+"("+moblieLegendExtra+")",
+                moblieLegend: playerID,
                 address: address,
                 phoneType: phoneType
             },
@@ -904,7 +919,7 @@
                 $('#ModalExchange').modal('hide');
                 $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
                     '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
-                    '<a class="btn " id="pj" style="padding: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
                 let sopt = shopSpotDic[id];
                 shopSpotDic[id] = Math.max(0, sopt-1);
@@ -914,13 +929,20 @@
 
 
     function exModelShow(){
-        $('#ModalExchange').modal('show');
+        var buttonTap = true;
+        $('#ModalAlert').modal('hide');
+        $('#ModalAlert').on('hidden.bs.modal', function () {
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#ModalExchange').modal('show');
+        });
     }
 
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
         $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
-        $('#ModalExchange').modal('show');
     });
 
     function copy(id){
@@ -964,6 +986,52 @@
         slider.init();
     })
 
+    function GetRedeem(name) {
+        let type;
+        let redeemType;
+        if (name == 'miniworld') {
+            type = 3;
+            redeemType = 2;
+        } else if (name == 'rulesofsurvival') {
+            type = 4;
+            redeemType = 4;
+        }
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'/shop/list',
+            headers:{
+                authorization:token
+            },
+            data:{
+                type: type
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0) {
+                    var ht = '<p style="margin-top: 5px"></p>';
+                    data.data.forEach(function(item, index) {
+                        var spot = item.glh;
+                        shopSpotDic[item.id] = spot;
+                        ht+= '<div class="media"style="padding: 3%">'+
+                            '<div style="width: 25%;">' +
+                            '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                            '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                            '</div>'+
+                            '<div class="media-body" style="padding: 3%;">'+
+                            '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                            '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                            '<div class="mt-0">' +
+                            '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                            '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
+                            '</div>'+
+                            '</div>';
+                    });
+                    $('#'+name).html(ht);
+                }
+            }
+        });
+    }
+
     GetProduct();
     function GetProduct() {
         var imageURL = 'img/draw_product_iphone.png';
@@ -986,6 +1054,12 @@
             '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
         imageURL = 'img/draw_product_mload.png';
         name = '500 Mobile Loads (10PHP)';
+        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
+            '<div style="width: 100%;">' +
+            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
+            '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+        imageURL = 'img/draw_product_ros.png';
+        name = 'Rules of Survival 60 Diamonds';
         ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
             '<div style="width: 100%;">' +
             '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
@@ -1169,36 +1243,41 @@
                     ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Treasure</th>';
                     data.data.forEach(function (item,index) {
                         item.infoList.forEach(function (data, row) {
-                            // ht += '<tr>';
-                            // var time = data.createdTime;
-                            // ht += '<td style="font-size: 14px">'+time+'</td>';
-                            // let code = data.tokenCode;
-                            // ht += '<td style="font-size: 14px">'+code+'</td>';
-                            // var type = '';
-                            // if (data.type == 1) {
-                            //     type = 'Purchase';
-                            // } else {
-                            //     type = 'Referral';
-                            // }
-                            // ht += '<td style="font-size: 14px">'+type+'</td>';
-                            // var status = '';
-                            // if (data.status == 0) {
-                            //     status = 'Pending';
-                            //     ht += '<td style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
-                            // } else if (data.status == 1) {
-                            //     status = 'Waiting';
-                            //     ht += '<td style="font-size: 14px">'+status+'</td>';
-                            // } else if (data.status == 2) {
-                            //     status = 'Win';
-                            //     ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
-                            // } else {
-                            //     status = 'Loss';
-                            //     ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
-                            // }
-                            // ht += '</tr>';
+                            let code = data.tokenCode;
+                            if (code == null || code == '') {
+                                return;
+                            }
+                            ht += '<tr>';
+                            ht += '<td style="font-size: 14px">'+code+'</td>';
+                            var item = '';
+                            switch (data.pid) {
+                                case 1:
+                                    item = 'iPhone 8';
+                                    break;
+                                case 2:
+                                    item = 'Vivo Y53';
+                                    break;
+                                case 3:
+                                    item = 'MLBB 11 Dias';
+                                    break;
+                                case 4:
+                                    item = 'Mobile Loads 10PHP';
+                                    break;
+                                case 5:
+                                    item = 'Mini Beans';
+                                    break;
+                                case 6:
+                                    item = 'RoS 60 Dias';
+                                    break;
+                                default:
+                                    break;
+                            }
+                            ht += '<td style="font-size: 14px">'+item+'</td>';
+                            ht += '</tr>';
                         });
                     });
                     ht += '</table>';
+                    ht += '<div style="height: 10px"></div>';
                     $('#Result').html(ht);
                 } else {
                 }
