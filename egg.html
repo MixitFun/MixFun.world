@@ -48,24 +48,22 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            let totalCoin = Number(data.data.totalCoin).toFixed(2);
-        	let watchCoin = Number(data.data.viewCoin);
+        	let watchCoin = Number(data.data.watchCoin);
         	let uploadCoin = Number(data.data.uploadCoin);
         	let inviteCoin = Number(data.data.inviteCoin);
-        	let contributionCoin = Number(data.data.contributeCoin).toFixed(2);
-        	let tippedIDCoin = Number(data.data.tippedCoin).toFixed(2);
-        	let expenseCoin = Number(data.data.expend).toFixed(2);
-        	let balanceCoin = (watchCoin+uploadCoin+inviteCoin).toFixed(2);
+        	let contributionCoin = Number(data.data.contributeCoin);
+        	let tippedIDCoin = Number(data.data.tippedCoin);
+        	let expenseCoin = Number(data.data.expend);
+        	let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
+            let balanceCoin = rewardCoin + contributionCoin - tippedIDCoin - expenseCoin;
 
-            $('#BalanceID').text(totalCoin);
-            $('#RewardID').text(balanceCoin);
-            $('#ContributionID').text(contributionCoin);
-            $('#TippedID').text(tippedIDCoin);
-            $('#ExpenseID').text(expenseCoin);
+            $('#BalanceID').text(balanceCoin.toFixed(2));
+            $('#RewardID').text(rewardCoin.toFixed(2));
+            $('#ContributionID').text(contributionCoin.toFixed(2));
+            $('#TippedID').text(tippedIDCoin.toFixed(2));
+            $('#ExpenseID').text(expenseCoin.toFixed(2));
         }
     });
-    var url = 'shop.html?id='+token;
-    window.location.replace(url);
 
 </script>
 <body>
