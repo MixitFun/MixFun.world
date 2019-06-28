@@ -57,13 +57,15 @@
         	let expenseCoin = Number(data.data.expend).toFixed(2);
         	let balanceCoin = (watchCoin+uploadCoin+inviteCoin).toFixed(2);
 
-            $('#BalanceID').text(balanceCoin);
-            $('#RewardID').text(totalCoin);
+            $('#BalanceID').text(totalCoin);
+            $('#RewardID').text(balanceCoin);
             $('#ContributionID').text(contributionCoin);
             $('#TippedID').text(tippedIDCoin);
             $('#ExpenseID').text(expenseCoin);
         }
     });
+    var url = 'shop.html?id='+token;
+    window.location.replace(url);
 
 </script>
 <body>
