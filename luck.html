@@ -56,8 +56,6 @@
         color: #007bff;
     }
 
-    .modal { overflow: auto !important; }
-
     body.modal-open {
         overflow: hidden;
         position: fixed;
@@ -78,7 +76,7 @@
     </div>
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
-            <p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p>
+            <a id="coinLink" style="text-decoration: none"><p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p></a>
             <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
             <table width="100%" style="margin-bottom: 0px">
                 <tr>
@@ -601,10 +599,18 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            $('#totalCoins').text(data.data.totalCoin);
-            $('#watchCoins').text(data.data.watchCoin);
-            $('#uploadCoins').text(data.data.uploadCoin);
-            $('#inviteCoins').text(data.data.inviteCoin);
+            let watchCoin = Number(data.data.watchCoin);
+            let uploadCoin = Number(data.data.uploadCoin);
+            let inviteCoin = Number(data.data.inviteCoin);
+            let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
+
+            $('#totalCoins').text(rewardCoin.toFixed(2));
+            $('#watchCoins').text(watchCoin.toFixed(2));
+            $('#uploadCoins').text(uploadCoin.toFixed(2));
+            $('#inviteCoins').text(inviteCoin.toFixed(2));
+
+            var coinLink = document.getElementById('coinLink');
+            coinLink.href = "https://mixfun.world/egg.html?id="+token;
         }
     });
 
