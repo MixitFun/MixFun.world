@@ -55,6 +55,18 @@
     .nav-link.active{
         color: #007bff;
     }
+
+    body.modal-open {
+        overflow: hidden;
+        position: fixed;
+    }
+    body.viewport-lg {
+        position: absolute;
+    }
+    body {
+        overflow-x: hidden;
+        overflow-y: scroll !important;
+    }
 </style>
 <body>
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
@@ -494,17 +506,20 @@
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
 
-    $('.modal').on("hidden.bs.modal", function (e) {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
-            $('body').addClass('modal-open');
-        }
-    }).on("show.bs.modal", function (e) {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
-            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+    var scrollTopPosition = 0;
+    var lastKnownScrollTopPosition = 0;
+    $(document).ready(function(){
+        if (platform.os.family.match(/iOS|Android/i)) {
+            $(window).scroll(function () {
+                scrollTopPosition = $(document).scrollTop();
+            });
+            $('.modal').on('show.bs.modal', function () {
+                $('body').css('top', (scrollTopPosition * -1));
+                lastKnownScrollTopPosition = scrollTopPosition;
+            });
+            $('.modal').on('hidden.bs.modal', function () {
+                $('body').scrollTop(lastKnownScrollTopPosition);
+            });
         }
     });
 
@@ -1283,7 +1298,7 @@
                                     item = 'Mobile Loads 10PHP';
                                     break;
                                 case 5:
-                                    item = 'Mini Beans';
+                                    item = '500 Mini Beans';
                                     break;
                                 case 6:
                                     item = 'RoS 60 Dias';
