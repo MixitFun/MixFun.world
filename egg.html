@@ -48,49 +48,55 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
+            let totalCoin = data.data.totalCoin;
         	let watchCoin = Number(data.data.viewCoin);
         	let uploadCoin = Number(data.data.uploadCoin);
-            $('#BalanceID').text(watchCoin+uploadCoin);
-            $('#RewardID').text(data.data.totalCoin);
-            $('#ContributionID').text(data.data.contributeCoin);
-            $('#TippedID').text(data.data.inviteCoin);
-            $('#ExpenseID').text(data.data.expend);
+        	let inviteCoin = Number(data.data.inviteCoin);
+        	let contributionCoin = data.data.contributeCoin;
+        	let tippedIDCoin = data.data.tippedCoin;
+        	let expenseCoin = data.data.expend;
+
+            $('#BalanceID').text(watchCoin+uploadCoin+inviteCoin);
+            $('#RewardID').text(totalCoin);
+            $('#ContributionID').text(contributionCoin);
+            $('#TippedID').text(tippedIDCoin);
+            $('#ExpenseID').text(expenseCoin);
         }
     });
-    var url = 'shop.html?id='+token;
-	window.location.replace(url);
 
 </script>
 <body>
 	<div class="container" align="center">
-		<p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px; margin-top: 10%"></p>
+        <div style="margin-top: 8%">
+            <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px;"></p>
             <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Balance</p>
             <table width="100%" style="line-height: 25px">
                 <tr>
                     <td width="50%" align="center">
                         <p id="RewardID" style="color: #1ca83c; font-size: medium; margin-bottom: -5px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Reward</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Reward</p>
                         </p>
                     </td>
                     <td width="50%" align="center">
                         <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: -5px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Contribution</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Contribution</p>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <td width="50%" align="center">
                         <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: -5px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Tipped</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Tipped</p>
                         </p>
                     </td>
                     <td width="50%" align="center">
                         <p id="ExpenseID" style="color: #e10c20; font-size: medium; margin-bottom: -5px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Expense</p>
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Expense</p>
                         </p>
                     </td>
                 </tr>
             </table>
+        </div>
 	</div>
 </body>
 </html>
