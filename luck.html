@@ -158,6 +158,9 @@
             <li class="nav-item" style="font-size: 13px">
                 <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
             </li>
+            <li class="nav-item" style="font-size: 13px">
+                <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">RoS</a>
+            </li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active show commodity" id="draw">
@@ -165,6 +168,8 @@
             <div class="tab-pane fade" id="buy">
             </div>
             <div class="tab-pane fade" id="miniworld">
+            </div>
+            <div class="tab-pane fade" id="rulesofsurvival">
             </div>
         </div>
     </div>
@@ -243,6 +248,7 @@
                 <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
                 <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
+                <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
@@ -401,91 +407,85 @@
 <!-- tip -->
 <div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-body" align="center" style="padding-top: 0">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
 <div class="modal fade" id="zzds" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-body" align="center" style="padding-top: 0">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
 <div class="modal fade" id="zzdr" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-body" align="center" style="padding-top: 0">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
@@ -493,6 +493,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun";
+    // var baseUrl = 'http://192.168.0.113:7001/';
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -532,6 +533,16 @@
             case '#Result':
                 if ($('#Result').html().length == 0) {
                     getResult();
+                }
+                break;
+            case '#miniworld':
+                if ($('#miniworld').html().length == 0) {
+                    GetRedeem('miniworld');
+                }
+                break;
+            case '#rulesofsurvival':
+                if ($('#rulesofsurvival').html().length == 0) {
+                    GetRedeem('rulesofsurvival');
                 }
                 break;
             default:
@@ -599,6 +610,8 @@
     var fc;
     var lj;
     var uid;
+    $('#miniworld').html('');
+    $('#rulesofsurvival').html('');
     $.ajax({
         method: 'get',
         url: baseUrl+'/user/profile',
@@ -706,44 +719,6 @@
                     }
                 }
             });
-
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'/shop/list',
-                headers:{
-                    authorization:token
-                },
-                data:{
-                    type: 3
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="margin-top: 5px"></p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('#miniworld').html(ht);
-                    }
-                }
-            });
         }
     });
 
@@ -800,18 +775,28 @@
             $('#miniworldID').text(data.data.recipient);
             $('#ModalMiniworld').modal('show');
         } else {
-            if(name == 'Mobile Legends'){
-                $('#address').val('');
-                $('#phone').val('');
-                $('#phoneType').val('');
+            $('#address').val('');
+            $('#phone').val('');
+            $('#phoneType').val('');
+            $('#moblieLegend').val('');
+            $('#moblieLegendExtra').val('');
+            $('#rosInput').val('');
+            if(name == 'Mobile Legends') {
+                $('#rosInput').css('display', 'none');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
-            }else{
-                $('#moblieLegend').val('');
-                $('#moblieLegendExtra').val('');
+            } else if(name == 'Rules of Survival') {
+                $('#address').css('display','none');
+                $('#phone').css('display','none');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','none');
+                $('#moblieLegendExtra').css('display','none');
+                $('#rosInput').css('display', 'block');
+            } else {
+                $('#rosInput').css('display', 'none');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
@@ -892,14 +877,23 @@
         var commodity_id = $('#commodity_id').val();
         var name = $('#itname').val();
         var recipient = $('#recipient').val();
-        if(name == 'Mobile Legends'){
+        var playerID;
+        if(name == 'Mobile Legends') {
             var moblieLegend = $('#moblieLegend').val();
             var moblieLegendExtra = $('#moblieLegendExtra').val();
             if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
-        }else{
+            playerID = moblieLegend+"("+moblieLegendExtra+")";
+        } else if(name == 'Rules of Survival') {
+            var rosID = $('#rosInput').val();
+            if (rosID == null || rosID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = rosID;
+        } else{
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
@@ -931,7 +925,7 @@
                 commodityId:commodity_id,
                 recipient:recipient,
                 phone: phone,
-                moblieLegend: moblieLegend+"("+moblieLegendExtra+")",
+                moblieLegend: playerID,
                 address: address,
                 phoneType: phoneType
             },
@@ -950,7 +944,7 @@
                 $('#ModalExchange').modal('hide');
                 $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
                     '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
-                    '<a class="btn " id="pj" style="padding: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
                 let sopt = shopSpotDic[id];
                 shopSpotDic[id] = Math.max(0, sopt-1);
@@ -1010,6 +1004,52 @@
         slider.init();
     })
 
+    function GetRedeem(name) {
+        let type;
+        let redeemType;
+        if (name == 'miniworld') {
+            type = 3;
+            redeemType = 2;
+        } else if (name == 'rulesofsurvival') {
+            type = 4;
+            redeemType = 4;
+        }
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'/shop/list',
+            headers:{
+                authorization:token
+            },
+            data:{
+                type: type
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0) {
+                    var ht = '<p style="margin-top: 5px"></p>';
+                    data.data.forEach(function(item, index) {
+                        var spot = item.glh;
+                        shopSpotDic[item.id] = spot;
+                        ht+= '<div class="media"style="padding: 3%">'+
+                            '<div style="width: 25%;">' +
+                            '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                            '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                            '</div>'+
+                            '<div class="media-body" style="padding: 3%;">'+
+                            '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                            '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                            '<div class="mt-0">' +
+                            '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                            '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
+                            '</div>'+
+                            '</div>';
+                    });
+                    $('#'+name).html(ht);
+                }
+            }
+        });
+    }
+
     GetProduct();
     function GetProduct() {
         var imageURL = 'img/draw_product_iphone.png';
@@ -1032,6 +1072,12 @@
             '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
         imageURL = 'img/draw_product_mload.png';
         name = '500 Mobile Loads (10PHP)';
+        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
+            '<div style="width: 100%;">' +
+            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
+            '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
+        imageURL = 'img/draw_product_ros.png';
+        name = 'Rules of Survival 60 Diamonds';
         ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
             '<div style="width: 100%;">' +
             '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
