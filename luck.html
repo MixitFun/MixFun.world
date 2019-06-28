@@ -55,6 +55,9 @@
     .nav-link.active{
         color: #007bff;
     }
+
+    .modal { overflow: auto !important; }
+
     body.modal-open {
         overflow: hidden;
         position: fixed;
@@ -493,7 +496,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun";
-    // var baseUrl = 'http://192.168.0.113:7001/';
+    //    var baseUrl = 'http://192.168.0.113:7001/';
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -954,13 +957,20 @@
 
 
     function exModelShow(){
-        $('#ModalExchange').modal('show');
+        var buttonTap = true;
+        $('#ModalAlert').modal('hide');
+        $('#ModalAlert').on('hidden.bs.modal', function () {
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#ModalExchange').modal('show');
+        });
     }
 
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
         $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
-        $('#ModalExchange').modal('show');
     });
 
     function copy(id){
@@ -1261,36 +1271,41 @@
                     ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Treasure</th>';
                     data.data.forEach(function (item,index) {
                         item.infoList.forEach(function (data, row) {
-                            // ht += '<tr>';
-                            // var time = data.createdTime;
-                            // ht += '<td style="font-size: 14px">'+time+'</td>';
-                            // let code = data.tokenCode;
-                            // ht += '<td style="font-size: 14px">'+code+'</td>';
-                            // var type = '';
-                            // if (data.type == 1) {
-                            //     type = 'Purchase';
-                            // } else {
-                            //     type = 'Referral';
-                            // }
-                            // ht += '<td style="font-size: 14px">'+type+'</td>';
-                            // var status = '';
-                            // if (data.status == 0) {
-                            //     status = 'Pending';
-                            //     ht += '<td style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
-                            // } else if (data.status == 1) {
-                            //     status = 'Waiting';
-                            //     ht += '<td style="font-size: 14px">'+status+'</td>';
-                            // } else if (data.status == 2) {
-                            //     status = 'Win';
-                            //     ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
-                            // } else {
-                            //     status = 'Loss';
-                            //     ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
-                            // }
-                            // ht += '</tr>';
+                            let code = data.tokenCode;
+                            if (code == null || code == '') {
+                                return;
+                            }
+                            ht += '<tr>';
+                            ht += '<td style="font-size: 14px">'+code+'</td>';
+                            var item = '';
+                            switch (data.pid) {
+                                case 1:
+                                    item = 'iPhone 8';
+                                    break;
+                                case 2:
+                                    item = 'Vivo Y53';
+                                    break;
+                                case 3:
+                                    item = 'MLBB 11 Dias';
+                                    break;
+                                case 4:
+                                    item = 'Mobile Loads 10PHP';
+                                    break;
+                                case 5:
+                                    item = 'Mini Beans';
+                                    break;
+                                case 6:
+                                    item = 'RoS 60 Dias';
+                                    break;
+                                default:
+                                    break;
+                            }
+                            ht += '<td style="font-size: 14px">'+item+'</td>';
+                            ht += '</tr>';
                         });
                     });
                     ht += '</table>';
+                    ht += '<div style="height: 10px"></div>';
                     $('#Result').html(ht);
                 } else {
                 }
