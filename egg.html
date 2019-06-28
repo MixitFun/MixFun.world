@@ -48,15 +48,16 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            let totalCoin = data.data.totalCoin;
+            let totalCoin = Number(data.data.totalCoin).toFixed(2);
         	let watchCoin = Number(data.data.viewCoin);
         	let uploadCoin = Number(data.data.uploadCoin);
         	let inviteCoin = Number(data.data.inviteCoin);
-        	let contributionCoin = data.data.contributeCoin;
-        	let tippedIDCoin = data.data.tippedCoin;
-        	let expenseCoin = data.data.expend;
+        	let contributionCoin = Number(data.data.contributeCoin).toFixed(2);
+        	let tippedIDCoin = Number(data.data.tippedCoin).toFixed(2);
+        	let expenseCoin = Number(data.data.expend).toFixed(2);
+        	let balanceCoin = (watchCoin+uploadCoin+inviteCoin).toFixed(2);
 
-            $('#BalanceID').text(watchCoin+uploadCoin+inviteCoin);
+            $('#BalanceID').text(balanceCoin);
             $('#RewardID').text(totalCoin);
             $('#ContributionID').text(contributionCoin);
             $('#TippedID').text(tippedIDCoin);
