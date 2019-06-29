@@ -258,6 +258,38 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalFillInfo" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title">Congratulations!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;">
+                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.
+                    </span>
+            </div>
+            <span id="bta" style="color: red;margin-left: 10%;"></span>
+            <div class="modal-body" align="center">
+                <input type="hidden" id="winPidInfo"/>
+                <input type="hidden" id="winTokenCodeInfo"/>
+                <input class="form-control" type="text" id="winName" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="winPhoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                <input class="form-control" type="text" id="winPhoneNum" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="winMoblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
+                <input class="form-control" type="text" id="winMoblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
+                <input class="form-control" type="text" id="winRosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <textarea class="form-control" id="winAddress" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
+                <button onclick="winSubmit()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="ModalJoin" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
@@ -490,11 +522,39 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="zzdt" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
 </body>
 
 <script type="text/javascript">
-    var baseUrl = "https://api.mixit.fun";
-    //    var baseUrl = 'http://192.168.0.113:7001/';
+    var baseUrl = "https://api.mixit.fun/";
+ //   var baseUrl = 'http://192.168.0.113:7001/';
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -567,7 +627,7 @@
     var token =  GetRequest().id;
     $.ajax({
         method: 'get',
-        url: baseUrl+'/user/referralList',
+        url: baseUrl+'user/referralList',
         headers:{
             authorization:token
         },
@@ -592,7 +652,7 @@
 
     $.ajax({
         method: 'get',
-        url: "https://api.mixit.fun/"+'user/wallet',
+        url: baseUrl+'user/wallet',
         headers:{
             authorization:token
         },
@@ -623,7 +683,7 @@
     $('#rulesofsurvival').html('');
     $.ajax({
         method: 'get',
-        url: baseUrl+'/user/profile',
+        url: baseUrl+'user/profile',
         headers:{
             authorization:token
         },
@@ -655,7 +715,7 @@
 
             $.ajax({
                 method: 'post',
-                url: baseUrl+'/shop/list',
+                url: baseUrl+'shop/list',
                 headers:{
                     authorization:token
                 },
@@ -693,7 +753,7 @@
 
             $.ajax({
                 method: 'post',
-                url: baseUrl+'/shop/list',
+                url: baseUrl+'shop/list',
                 headers:{
                     authorization:token
                 },
@@ -733,7 +793,7 @@
 
     $.ajax({
         method: 'post',
-        url: baseUrl+'/treasury/token/num',
+        url: baseUrl+'treasury/token/num',
         headers:{
             authorization:token
         },
@@ -827,9 +887,9 @@
             var type = $('#ittype').val();
             var time = new Date().getTime();
             var key = md5(uid+secretSign+time);
-            var url = baseUrl+'/shop/exchange';
+            var url = baseUrl+'shop/exchange';
             if (gmname == 'Mini Beans') {
-                url = baseUrl+'/shop/exchangeGameCode';
+                url = baseUrl+'shop/exchangeGameCode';
             }
             $('#ModalConf').modal('hide');
             $.ajax({
@@ -926,7 +986,7 @@
             }
         }
         $.ajax({
-            url : baseUrl+"/shop/buy",
+            url : baseUrl+"shop/buy",
             type : 'post',
             dataType : 'json',
             data: {
@@ -966,6 +1026,7 @@
         var buttonTap = true;
         $('#ModalAlert').modal('hide');
         $('#ModalAlert').on('hidden.bs.modal', function () {
+            $('#ModalAlert').off('hidden.bs.modal');
             if (!buttonTap) {
                 return;
             }
@@ -976,7 +1037,7 @@
 
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
-        $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
     });
 
     function copy(id){
@@ -1032,7 +1093,7 @@
         }
         $.ajax({
             method: 'post',
-            url: baseUrl+'/shop/list',
+            url: baseUrl+'shop/list',
             headers:{
                 authorization:token
             },
@@ -1138,6 +1199,7 @@
         }
         $('#ModalJoin').modal('hide');
         $('#ModalJoin').on('hidden.bs.modal', function () {
+            $('#ModalJoin').off('hidden.bs.modal');
             if (!buttonTap) {
                 return;
             }
@@ -1147,7 +1209,7 @@
             var errorMsg = '';
             $.ajax({
                 method: 'post',
-                url: baseUrl + '/treasury/order/token/create',
+                url: baseUrl + 'treasury/order/token/create',
                 headers: {
                     authorization: token
                 },
@@ -1178,6 +1240,7 @@
                 },1200);
             });
             $('#zzdr').on('hidden.bs.modal', function () {
+                $('#zzdr').off('hidden.bs.modal');
                 if (isError) {
                     $('#alert').html('<p>' + errorMsg + '</p>');
                     $('#ModalAlert').modal('show');
@@ -1205,7 +1268,7 @@
     function getHistory() {
         $.ajax({
             method: 'post',
-            url: baseUrl + '/treasury/user/token/list',
+            url: baseUrl + 'treasury/user/token/list',
             headers: {
                 authorization: token
             },
@@ -1240,10 +1303,19 @@
                                 ht += '<td style="font-size: 14px">'+status+'</td>';
                             } else if (data.status == 2) {
                                 status = 'Win';
-                                ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
-                            } else {
+                                let winPid = data.pid;
+                                let winTokenCode = data.tokenCode;
+                                let winInfo = data.userInfo;
+                                ht += '<td onclick="winClik(\'' + winPid + '\', \'' + winTokenCode + '\', \'' + winInfo + '\')" style="font-size: 14px; color: gold">'+status+'</td>';
+                            } else if (data.status == 3) {
                                 status = 'Loss';
                                 ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
+                            } else if (data.status == 4) {
+                                status = 'Delivering';
+                                ht += '<td style="font-size: 14px;">'+status+'</td>';
+                            } else if (data.status == 5) {
+                                status = 'Delivered';
+                                ht += '<td style="font-size: 14px;">'+status+'</td>';
                             }
                             ht += '</tr>';
                         });
@@ -1264,7 +1336,7 @@
     function getResult() {
         $.ajax({
             method: 'post',
-            url: baseUrl + '/treasury/result/list',
+            url: baseUrl + 'treasury/result/list',
             headers: {
                 authorization: token
             },
@@ -1323,6 +1395,7 @@
         var buttonTap = true;
         $('#ModalCash').modal('hide');
         $('#ModalCash').on('hidden.bs.modal', function () {
+            $('#ModalCash').off('hidden.bs.modal');
             if (!buttonTap) {
                 return;
             }
@@ -1333,7 +1406,7 @@
             var codeList;
             $.ajax({
                 method: 'post',
-                url: baseUrl + '/treasury/order/token/list',
+                url: baseUrl + 'treasury/order/token/list',
                 headers: {
                     authorization: token
                 },
@@ -1361,6 +1434,7 @@
                 },1200);
             });
             $('#zzds').on('hidden.bs.modal', function () {
+                $('#zzds').off('hidden.bs.modal');
                 orderCode = '';
                 if (isError) {
                     $('#alert').html('<p>' + errorMsg + '</p>');
@@ -1382,6 +1456,7 @@
                 }
             });
             $('#ModalCashResult').on('hidden.bs.modal', function () {
+                $('#ModalCashResult').off('hidden.bs.modal');
                 getHistory();
             });
         });
@@ -1403,6 +1478,7 @@
         var buttonTap = true;
         $('#ModalPending').modal('hide');
         $('#ModalPending').on('hidden.bs.modal', function () {
+            $('#ModalPending').off('hidden.bs.modal');
             if (!buttonTap) {
                 return;
             }
@@ -1423,6 +1499,7 @@
         var buttonTap = true;
         $('#ModalPending').modal('hide');
         $('#ModalPending').on('hidden.bs.modal', function () {
+            $('#ModalPending').off('hidden.bs.modal');
             if (!buttonTap) {
                 return;
             }
@@ -1438,16 +1515,16 @@
         })
     }
 
-    var amountNum = 10;
+    var amountNum = 1;
     $('#amountNum').text(amountNum);
     function amountReduce() {
-        amountNum = Math.max(10, amountNum-10);
+        amountNum = Math.max(10, amountNum-1);
         $('#amountNum').text(amountNum);
         $('#totalExpense').text(amountNum);
     }
 
     function amountAdd() {
-        amountNum = Math.min(100, amountNum + 10);
+        amountNum = Math.min(100, amountNum + 1);
         $('#amountNum').text(amountNum);
         $('#totalExpense').text(amountNum);
     }
@@ -1457,6 +1534,191 @@
         $('#phonenum').val(phone);
         $('#totalExpense').text(totalExpense);
         $('#ModalPending').modal('show');
+    }
+
+    function winClik(winPid, winTokenCode, winInfo) {
+        $('#winPidInfo').val(winPid);
+        $('#winTokenCodeInfo').val(winTokenCode);
+        var infos = [''];
+        $('#winName').val('');
+        $('#winRosInput').val('');
+        $('#winAddress').val('');
+        $('#winPhoneNum').val('');
+        $('#winPhoneType').val('');
+        $('#winMoblieLegend').val('');
+        $('#winMoblieLegendExtra').val('');
+        if (winInfo == null || winInfo == 'null') {
+            winInfo = '';
+        } else {
+            infos = winInfo.split(";;");
+        }
+        $('#winName').css('display','block');
+        if ([1, 2].indexOf(winPid) != -1) {
+            let name = infos[0];
+            let phone = infos[1];
+            let address = infos[2];
+            $('#winName').val(name);
+            $('#winPhoneNum').val(phone);
+            $('#winAddress').val(address);
+            $('#winAddress').css('display','block');
+            $('#winPhoneNum').css('display','block');
+            $('#winPhoneType').css('display','none');
+            $('#winMoblieLegend').css('display','none');
+            $('#winMoblieLegendExtra').css('display', 'none');
+            $('#winRosInput').css('display', 'none');
+        } else if (winPid == 3) {
+            let name = infos[0];
+            let id = infos[1];
+            let extraID = infos[2];
+            $('#winName').val(name);
+            $('#winMoblieLegend').val(id);
+            $('#winMoblieLegendExtra').val(extraID);
+            $('#winRosInput').css('display', 'none');
+            $('#winAddress').css('display','none');
+            $('#winPhoneNum').css('display','none');
+            $('#winPhoneType').css('display','none');
+            $('#winMoblieLegend').css('display','inline-block');
+            $('#winMoblieLegendExtra').css('display','inline-block');
+        } else if (winPid == 4) {
+            let name = infos[0];
+            let phoneType = infos[1];
+            let phone = infos[2];
+            $('#winName').val(name);
+            $('#winPhoneType').val(phoneType);
+            $('#winPhoneNum').val(phone);
+            $('#winRosInput').css('display', 'none');
+            $('#winAddress').css('display','none');
+            $('#winPhoneNum').css('display','block');
+            $('#winPhoneType').css('display','block');
+            $('#winMoblieLegend').css('display','none');
+            $('#winMoblieLegendExtra').css('display', 'none');
+        } else if (winPid == 5) {
+            $('#winName').css('display','none');
+            $('#winAddress').css('display','none');
+            $('#winPhoneNum').css('display','none');
+            $('#winPhoneType').css('display','none');
+            $('#winMoblieLegend').css('display','none');
+            $('#winMoblieLegendExtra').css('display','none');
+            $('#winRosInput').css('display', 'none');
+        } else if (winPid == 6) {
+            let name = infos[0];
+            let id = infos[1];
+            $('#winName').val(name);
+            $('#winRosInput').val(id);
+            $('#winAddress').css('display','none');
+            $('#winPhoneNum').css('display','none');
+            $('#winPhoneType').css('display','none');
+            $('#winMoblieLegend').css('display','none');
+            $('#winMoblieLegendExtra').css('display','none');
+            $('#winRosInput').css('display', 'block');
+        }
+        $('#ModalFillInfo').modal('show');
+    }
+
+    function winSubmit() {
+        let winPid = $('#winPidInfo').val();
+        let tokenCode = $('#winTokenCodeInfo').val();
+        var userInfo = '';
+        var isValid = true;
+        if ([1, 2].indexOf(winPid) != -1) {
+            let name = $('#winName').val();
+            let phone = $('#winPhoneNum').val();
+            let address = $('#winAddress').val();
+            userInfo = [name, phone, address].join(";;");
+            if (name == '' || phone == '' || address == '') {
+                isValid = false;
+            }
+        } else if (winPid == 3) {
+            let name = $('#winName').val();
+            let id = $('#winMoblieLegend').val();
+            let extraID = $('#winMoblieLegendExtra').val();
+            userInfo = [name, id, extraID].join(";;");
+            if (name == '' || id == '' || extraID == '') {
+                isValid = false;
+            }
+        } else if (winPid == 4) {
+            let name = $('#winName').val();
+            let phoneType = $('#winPhoneType').val();
+            let phone = $('#winPhoneNum').val();
+            userInfo = [name, phoneType, phone].join(";;");
+            if (name == '' || phoneType == '' || phone == '') {
+                isValid = false;
+            }
+        } else if (winPid == 5) {
+
+        } else if (winPid == 6) {
+            let name = $('#winName').val();
+            let id = $('#winRosInput').val();
+            userInfo = [name, id].join(";;");
+            if (name == '' || id == '') {
+                isValid = false;
+            }
+        }
+        var buttonTap = true;
+        if (!isValid) {
+            $('#bta').text('Please Fill Up Your Info.');
+            return;
+        }
+        $('#ModalFillInfo').modal('hide');
+        $('#ModalFillInfo').on('hidden.bs.modal', function () {
+            $('#ModalFillInfo').off('hidden.bs.modal');
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#zzdt').modal('show');
+            var isError = false;
+            var errorMsg = '';
+            var winMiniWorldCode = '';
+            $.ajax({
+                method: 'post',
+                url: baseUrl + 'treasury/result/userInfo/create',
+                headers: {
+                    authorization: token
+                },
+                data: JSON.stringify({
+                    pid: winPid,
+                    tokenCode: tokenCode,
+                    userInfo: userInfo,
+                }),
+                contentType:'application/json',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 0) {
+                        if (winPid == 5) {
+                            winMiniWorldCode = data.data;
+                        }
+                    } else {
+                        isError = true;
+                        errorMsg = data.msg;
+                    }
+                },
+                error: function () {
+                    isError = true;
+                    errorMsg = 'Net Error!';
+                }
+            });
+            $('#zzdt').on('shown.bs.modal',function () {
+                var timeout = setTimeout(function () {
+                    $('#zzdt').modal('hide');
+                },1200);
+            });
+            $('#zzdt').on('hidden.bs.modal', function () {
+                $('#zzdt').off('hidden.bs.modal');
+                if (isError) {
+                    $('#alert').html('<p>' + errorMsg + '</p>');
+                    $('#ModalAlert').modal('show');
+                } else {
+                    if (winPid == 5) {
+                        $('#miniworldID').text(winMiniWorldCode);
+                        $('#ModalMiniworld').modal('show');
+                    } else {
+                        $('#copy_label').text('Submitted successfully!');
+                        $('#tot').modal('show');
+                    }
+                }
+            })
+        })
     }
 </script>
 
