@@ -554,7 +554,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun/";
- //   var baseUrl = 'http://192.168.0.113:7001/';
+    //    var baseUrl = 'http://192.168.0.113:7001/';
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -741,7 +741,7 @@
                                 '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
                                 '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
                                 '</div>'+
                                 '</div>';
@@ -779,7 +779,7 @@
                                 '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
                                 '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
                                 '</div>'+
                                 '</div>';
@@ -841,6 +841,11 @@
 
     function dde(name, data) {
         if(name == 'Mini Beans') {
+            let it = $('#it').val();
+            let sopt = shopSpotDic[it];
+            let subSopt = Math.max(0, sopt-1);
+            shopSpotDic[id] = subSopt;
+            $('#shop'+it).html('Spot: '+subSopt);
             $('#miniworldID').text(data.data.recipient);
             $('#ModalMiniworld').modal('show');
         } else {
@@ -1016,7 +1021,9 @@
                     '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
                 let sopt = shopSpotDic[id];
-                shopSpotDic[id] = Math.max(0, sopt-1);
+                let subSopt = Math.max(0, sopt-1);
+                shopSpotDic[id] = subSopt;
+                $('#shop'+commodity_id).html('Spot: '+subSopt);
             }
         });
     }
@@ -1116,7 +1123,7 @@
                             '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
                             '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                             '<div class="mt-0">' +
-                            '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
+                            '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
                             '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
                             '</div>'+
                             '</div>';
@@ -1306,7 +1313,7 @@
                                 let winPid = data.pid;
                                 let winTokenCode = data.tokenCode;
                                 let winInfo = data.userInfo;
-                                ht += '<td onclick="winClik(\'' + winPid + '\', \'' + winTokenCode + '\', \'' + winInfo + '\')" style="font-size: 14px; color: gold">'+status+'</td>';
+                                ht += '<td id='+ winTokenCode +' onclick="winClik(\'' + winPid + '\', \'' + winTokenCode + '\', \'' + winInfo + '\')" style="font-size: 14px; color: gold">'+status+'</td>';
                             } else if (data.status == 3) {
                                 status = 'Loss';
                                 ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
@@ -1709,6 +1716,9 @@
                     $('#alert').html('<p>' + errorMsg + '</p>');
                     $('#ModalAlert').modal('show');
                 } else {
+                    $('#'+tokenCode).css('color', '#212529');
+                    $('#'+tokenCode).html('Delivering');
+                    $('#'+tokenCode).prop("onclick", null).off("click");
                     if (winPid == 5) {
                         $('#miniworldID').text(winMiniWorldCode);
                         $('#ModalMiniworld').modal('show');
