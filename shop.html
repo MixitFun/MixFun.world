@@ -52,8 +52,11 @@
     li:hover{
         background-color: white;
     }
-    .nav-link.active{
+    .nav-link.active {
         color: #007bff;
+    }
+    .shade {
+        margin-top: 30px;
     }
 </style>
 <body>
@@ -84,6 +87,12 @@
                 </row>
             </div>
         </div>
+    </div>
+
+    <div class="shade" align="center">
+        <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
+        <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
+        <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
 
     <div align="center" style="position: relative; margin-top: 20px">
@@ -645,6 +654,9 @@
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
+            if(data.data.shareCode != null){
+                $('.shade').css('display','none');
+            }
             $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
             $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
@@ -746,6 +758,34 @@
             }
         }
     });
+
+    function setShareCode(){
+        var shareCode = $('#shareCode').val();
+        $.ajax({
+            url : baseUrl+"/user/setFriendShareCode",
+            type : 'post',
+            dataType : 'json',
+            data: JSON.stringify({
+                share_code:shareCode
+            }),
+            contentType:'application/json',
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data){
+                if(data.status == 0){
+                    $('#alert').html('<p>Congratulations!</p><p>Both of you and your friends are received the 50 coin.</p>');
+                    $('#ModalAlert').modal('show');
+                    $('.shade').css('display','none');
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+
+            }
+        });
+    }
 
     function cj(it,name,sale,type,commodity_id){
         if (shopSpotDic[it] > 0) {
