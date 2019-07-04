@@ -52,19 +52,26 @@
             $('#comments').text(data.data.myComments);
             $('#title').text(data.data.title);
             if (data.data.type == 1){
+                $('#video').css('display','block');
                 $('#source').attr('src', data.data.playUrl);
                 $('video').attr('poster', data.data.thumbnailUrl);
                 $('video').attr('atuoplay', true);
                 $('video').css('background-color', 'black');
                 document.getElementById('player').load();
                 $('#image').css('display','none');
+                $('#contentDiv').css('display','none');
                 $('#play').click();
             } else if(data.data.type == 3){
                 $('#img').attr('src', data.data.thumbnailUrl);
                 $('#video').css('display','none');
-                $('#play').css('display','none');
+                $('#contentDiv').css('display','none');
                 $('#img').css('src', data.data.thumbnailWidth);
                 $('#img').css('src', data.data.thumbnailheight);
+            } else if (data.data.type == 4) {
+                $('#video').css('display','none');
+                $('#image').css('display','none');
+                $('#contentString').text(data.data.content);
+                $('#title').css('display','none');
             }
 
         });
@@ -86,18 +93,21 @@
         min-height: 100%;
     }
 </style>
-<body>
-<div id="content" class="container-fluid content" style="margin-top: 10px;min-height: 100%">
-    <div id="video">
+<body style="background-color: #f9f9f9">
+<div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
+    <div id="video" style="display: none; margin-bottom: 10px">
         <video id="player" style="width: 100%;" preload="auto" controls="controls">
             <source id="source" type="video/mp4"/>
             <track>
         </video>
     </div>
-    <div id="image">
+    <div id="image" style="margin-bottom: 15px">
         <img id="img" style="width: 100%;">
     </div>
-    <div>
+    <div id="contentDiv">
+        <p id="contentString" style="white-space: pre-wrap"></p>
+    </div>
+    <div style="padding-bottom: 10px">
         <row style="text-align: center; display: block;">
             <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
             <a class="col-3" style="margin: auto;"><img src="img/icon_comment.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
