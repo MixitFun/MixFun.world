@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MixCoin</title>
+    <title>Mixcoin Balance</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -59,6 +59,10 @@
 
             $('#BalanceID').text(balanceCoin.toFixed(2));
             $('#RewardID').text(rewardCoin.toFixed(2));
+            $('#UploadID').text(uploadCoin.toFixed(2));
+            $('#WatchID').text(watchCoin.toFixed(2));
+            $('#InviteID').text(inviteCoin.toFixed(2));
+
             $('#ContributionID').text(contributionCoin.toFixed(2));
             $('#TippedID').text(tippedIDCoin.toFixed(2));
             $('#ExpenseID').text(expenseCoin.toFixed(2));
@@ -67,37 +71,66 @@
 
 </script>
 <body>
-	<div class="container" align="center">
+	<div class="container" align="left">
         <div style="margin-top: 8%">
-            <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px;"></p>
-            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 15px; font-size: 15px">Balance</p>
-            <table width="100%" style="line-height: 25px">
-                <tr>
-                    <td width="50%" align="center">
-                        <p id="RewardID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 18px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px; font-size: 15px">Reward</p>
-                        </p>
-                    </td>
-                    <td width="50%" align="center">
-                        <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 18px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px; font-size: 15px">Tip Received</p>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="50%" align="center">
-                        <p id="ExpenseID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; margin-top: 15px; font-size: 18px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px; font-size: 15px">Spent</p>
-                        </p>
-                    </td>
-                    <td width="50%" align="center">
-                        <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; margin-top: 15px; font-size: 18px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px; font-size: 15px">Tip Giveaway</p>
-                        </p>
-                    </td>
-
-                </tr>
-            </table>
+            <div style="margin-bottom: 3%">
+                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 15px; margin-right: 15px; margin-left: 10px; font-size: 15px; display: inline-block">Balance:</p>
+                <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
+            </div>
+            <div class="card" style="width: 100%; margin-bottom: 5%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+                <div class="card-body" style="padding: 10px;">
+                    <div>
+                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 8px; margin-right: 15px; font-size: 15px; display: inline-block">Reward:</p>
+                        <p id="RewardID" style="color: #1ca83c; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0px; display: inline-block"></p>
+                        <table width="100%" style="line-height: 25px; margin-top: 10px">
+                            <tr>
+                                <td width="33%" align="center">
+                                    <p id="UploadID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: -10px; font-size: 13px">Upload</p>
+                                    </p>
+                                </td>
+                                <td width="33%" align="center">
+                                    <p id="WatchID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: -10px; font-size: 13px">Watch</p>
+                                    </p>
+                                </td>
+                                <td width="33%" align="center">
+                                    <p id="InviteID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: -10px; font-size: 13px">Referral</p>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="width: 100%; margin-bottom: 5%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+                <div class="card-body" style="padding: 10px;">
+                    <div>
+                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Tip:</p>
+                        <table width="100%" style="line-height: 25px;">
+                            <tr>
+                                <td width="50%" align="center">
+                                    <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: -10px; font-size: 13px">Received</p>
+                                    </p>
+                                </td>
+                                <td width="50%" align="center">
+                                    <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: -10px; font-size: 13px">Giveaway</p>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="width: 100%; margin-bottom: 10%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+                <div class="card-body" style="padding: 10px;">
+                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 5px; font-size: 15px; display: inline-block">Spent:</p>
+                    <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+                </div>
+            </div>
         </div>
         <div>
             <p style="color: #9B9B9B;font-size: small; margin: 15px 3% 0;text-align: left;">Negative balance? Don't panic! An algorithm is applied to detect spamming activities and the abnormal received coins have been deducted from reward / tip coins. You can continue earning coins by referring friends, watching and uploading videos.</p>
