@@ -1293,10 +1293,22 @@
                                 ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
                             } else if (data.status == 4) {
                                 status = 'Delivering';
-                                ht += '<td style="font-size: 14px;">'+status+'</td>';
+                                let winPid = data.pid;
+                                if (winPid == 5) {
+                                    let winTokenCode = data.userInfo;
+                                    ht += '<td onclick="deliverClick(\'' + winPid + '\', \'' + winTokenCode + '\')" style="font-size: 14px">'+status+'</td>';
+                                } else {
+                                    ht += '<td style="font-size: 14px;">'+status+'</td>';
+                                }
                             } else if (data.status == 5) {
                                 status = 'Delivered';
-                                ht += '<td style="font-size: 14px;">'+status+'</td>';
+                                let winPid = data.pid;
+                                if (winPid == 5) {
+                                    let winTokenCode = data.userInfo;
+                                    ht += '<td onclick="deliverClick(\'' + winPid + '\', \'' + winTokenCode + '\')" style="font-size: 14px">'+status+'</td>';
+                                } else {
+                                    ht += '<td style="font-size: 14px;">'+status+'</td>';
+                                }
                             }
                             ht += '</tr>';
                         });
@@ -1515,6 +1527,13 @@
         $('#phonenum').val(phone);
         $('#totalExpense').text(totalExpense);
         $('#ModalPending').modal('show');
+    }
+
+    function deliverClick(winPid, winMiniworldCode) {
+        if (winPid == 5) {
+            $('#miniworldID').text(winMiniworldCode);
+            $('#ModalMiniworld').modal('show');
+        }
     }
 
     function winClik(winPid, winTokenCode, winInfo) {
