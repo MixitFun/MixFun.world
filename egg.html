@@ -21,10 +21,30 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <style>
-
+	li:hover{
+        background-color: white;
+    }
+    .nav-link.active {
+        color: #007bff;
+    }
 </style>
 <script>
-	var baseUrl = "https://api.mixit.fun/";
+	var baseUrl = "https://api.mixit.fun";
+
+	$('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
 	function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -41,7 +61,7 @@
     var token =  GetRequest().id;
     $.ajax({
         method: 'get',
-        url: baseUrl+'user/wallet',
+        url: baseUrl+'/user/wallet',
         headers:{
             authorization:token
         },
@@ -69,10 +89,50 @@
         }
     });
 
+    $.ajax({
+        url : baseUrl+"/interaction/invite/leaderBoard",
+        method : 'post',
+        dataType : 'json',
+        contentType:'application/json',
+        headers:
+        {
+            authorization: token
+        },
+        success: function(data){
+        	data.data.forEach(function(item, index) {
+        		if (index > 6) {
+        			return;
+        		}
+        		var htStr = '<table style="width: 100%; text-align: center; line-height: 26px">'
+                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User NickName</th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Referral Amount</th>';
+        		item.boardDataList.forEach(function(user, dindex) {
+        			let indexStr = dindex+1;
+        			let userName = user.nickname;
+        			let amount = user.num;
+                    htStr += '<tr>';
+                    htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                    htStr += '<td style="font-size: 14px">'+userName+'</td>';     
+                    htStr += '<td style="font-size: 14px">'+amount+'</td>';
+                   	htStr += '</tr>';
+        		});
+        		htStr += '</table>';
+                htStr += '<div style="height: 10px"></div>';
+        		$('#item'+index+'').html(item.date);
+        		$('#day'+index+'').html(htStr);
+        	});
+        }
+    });
+
+    function ShowNotice() {
+        $('#ModalNotice').modal('show');
+    }
+
 </script>
 <body>
-	<div class="container" align="left">
-        <div style="margin-top: 8%">
+	<div class="container" style="padding: 0">
+        <div style="margin-top: 8%; padding: 0 15px" align="left">
             <div style="margin-bottom: 3%">
                 <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 15px; margin-right: 15px; margin-left: 10px; font-size: 15px; display: inline-block">Balance:</p>
                 <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
@@ -132,10 +192,71 @@
                 </div>
             </div>
         </div>
-        <div>
-            <p style="color: #9B9B9B;font-size: small; margin: 15px 3% 0;text-align: left;">Negative balance? Don't panic! An algorithm is applied to detect spamming activities and the abnormal received coins have been deducted from reward / tip coins. You can continue earning coins by referring friends, watching and uploading videos.</p>
+
+        <div align="center" style="position: relative; margin-top: 20px">
+        	<img src="img/fun_leader_banner.png" style="width: 100%;">
+        	<button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice()"></button>
+    	</div>
+
+    	<div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+        	<ul class="nav nav-tabs nav-justified">
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn"><span id="item0"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day1" data-toggle="tab"><span id="item1"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day2" data-toggle="tab"><span id="item2"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day3" data-toggle="tab"><span id="item3"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day4" data-toggle="tab"><span id="item4"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day5" data-toggle="tab"><span id="item5"></span></a>
+            	</li>
+            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
+                	<a class="nav-link" href="#day6" data-toggle="tab"><span id="item6"></span></a>
+            	</li>
+        	</ul>
+        	<div id="myTabContent" class="tab-content" style="background-color: white">
+            	<div class="tab-pane fade in active show product" id="day0"></div>
+            	<div class="tab-pane fade" id="day1"></div>
+            	<div class="tab-pane fade" id="day2"></div>
+            	<div class="tab-pane fade" id="day3"></div>
+            	<div class="tab-pane fade" id="day4"></div>
+            	<div class="tab-pane fade" id="day5"></div>
+            	<div class="tab-pane fade" id="day6"></div>
+        	</div>
+    	</div>
+
+	</div> 
+
+	<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Daily Referral Leaderboard</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl>
+                    <dt style="margin-bottom: 20px">Date:July 7 - 14</dt>
+                    <dt>How it works:</dt>
+                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>
+                    <dt style="margin-bottom: 20px">Cut off time: 6PM daily</dt>
+                    <dd style="margin-top: 5px">Please contact Hello@mixfun.world to redeem your prizes.</dd>
+                </dl>
+            </div>
         </div>
+    </div>
 	</div>
+
 </body>
 </html>
 
