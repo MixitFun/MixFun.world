@@ -135,6 +135,11 @@
             authorization: token
         },
         success: function(data){
+            if (data.data.length > 0) {
+                $('#luckDefault').css('display', 'none');
+            } else {
+                $('#luckDefault').css('display', 'block');
+            }
             data.data.forEach(function(item, index) {
                 if (index > 0) {
                     return;
@@ -310,6 +315,9 @@
             </div>
         </div>
 
+        <div>
+            <p id="luckDefault" style="text-align: center; margin-top: 10px; display: none;">Announce Soon</p>
+        </div>
 	</div> 
 
 	<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
