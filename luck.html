@@ -1203,7 +1203,9 @@
     function Join() {
         $('#phonenum').val('');
         $('#btt').text('');
-        $('#ModalJoin').modal('show');
+        let message = 'The Lucky 10PHP has ended. See you soon!';
+        $('#alert').html('<p>'+message+'</p>');
+        $('#ModalAlert').modal('show');
     }
 
     var orderCode = '';
