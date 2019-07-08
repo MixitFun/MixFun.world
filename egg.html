@@ -30,6 +30,7 @@
 </style>
 <script>
 	var baseUrl = "https://api.mixit.fun";
+//    var baseUrl = "http://10.125.54.75:7001";
 
 	$('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
@@ -103,24 +104,28 @@
         		if (index > 6) {
         			return;
         		}
-        		var htStr = '<table style="width: 100%; text-align: center; line-height: 26px">'
+                $('#item'+index+'').html(item.date);
+                if (item.boardDataList.length > 0) {
+                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
                     htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
                     htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
                     htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Referral Amount</th>';
-        		item.boardDataList.forEach(function(user, dindex) {
-        			let indexStr = dindex+1;
-        			let userName = user.nickname;
-        			let amount = user.num;
-                    htStr += '<tr>';
-                    htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                    htStr += '<td style="font-size: 14px">'+userName+'</td>';     
-                    htStr += '<td style="font-size: 14px">'+amount+'</td>';
-                   	htStr += '</tr>';
-        		});
-        		htStr += '</table>';
-                htStr += '<div style="height: 10px"></div>';
-        		$('#item'+index+'').html(item.date);
-        		$('#day'+index+'').html(htStr);
+                    item.boardDataList.forEach(function(user, dindex) {
+                        let indexStr = dindex+1;
+                        let userName = user.nickname;
+                        let amount = user.num;
+                        htStr += '<tr>';
+                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
+                        htStr += '<td style="font-size: 14px">'+amount+'</td>';
+                        htStr += '</tr>';
+                    });
+                    htStr += '</table>';
+                    $('#day'+index+'').html(htStr);
+                } else {
+                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+                    $('#day'+index+'').html(htStr);
+                }
         	});
         }
     });
@@ -135,30 +140,29 @@
             authorization: token
         },
         success: function(data){
-            if (data.data.length > 0) {
-                $('#luckDefault').css('display', 'none');
-            } else {
-                $('#luckDefault').css('display', 'block');
-            }
             data.data.forEach(function(item, index) {
-                if (index > 0) {
+                if (index > 6) {
                     return;
                 }
-                var htStr = '<table style="width: 100%; text-align: center; line-height: 26px">'
+                $('#luckItem'+index+'').html(item.date);
+                if (item.userList.length > 0) {
+                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
                     htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
                     htStr += '<th style="width: 90%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
-                item.userList.forEach(function(user, dindex) {
-                    let indexStr = dindex+1;
-                    let userName = user.nickname;
-                    htStr += '<tr>';
-                    htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                    htStr += '<td style="font-size: 14px">'+userName+'</td>';     
-                    htStr += '</tr>';
-                });
-                htStr += '</table>';
-                htStr += '<div style="height: 10px"></div>';
-                $('#luckItem'+index+'').html(item.date);
-                $('#luckDay'+index+'').html(htStr);
+                    item.userList.forEach(function(user, dindex) {
+                        let indexStr = dindex+1;
+                        let userName = user.nickname;
+                        htStr += '<tr>';
+                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
+                        htStr += '</tr>';
+                    });
+                    htStr += '</table>';
+                    $('#luckDay'+index+'').html(htStr);
+                } else {
+                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+                    $('#luckDay'+index+'').html(htStr);
+                }
             });
         }
     });
@@ -227,7 +231,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" style="width: 100%; margin-bottom: 10%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card" style="width: 100%; margin-bottom: 6%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
                 <div class="card-body" style="padding: 10px;">
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 5px; font-size: 15px; display: inline-block">Spent:</p>
                     <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
@@ -235,91 +239,95 @@
             </div>
         </div>
 
-        <div align="center" style="position: relative; margin-top: 20px">
-        	<img src="img/fun_leader_banner.png" style="width: 100%;">
-        	<button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
-    	</div>
+        <div class="card" style="width: 98%; margin-left: 1%; margin-bottom: 6%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card-body" style="padding: 0;">
+                <div align="center" style="position: relative;">
+                    <img src="img/fun_leader_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                    <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
+                </div>
 
-    	<div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-        	<ul class="nav nav-tabs nav-justified">
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn"><span id="item0"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day1" data-toggle="tab"><span id="item1"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day2" data-toggle="tab"><span id="item2"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day3" data-toggle="tab"><span id="item3"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day4" data-toggle="tab"><span id="item4"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day5" data-toggle="tab"><span id="item5"></span></a>
-            	</li>
-            	<li class="nav-item" style="font-size: 12px; width: 14.28%">
-                	<a class="nav-link" href="#day6" data-toggle="tab"><span id="item6"></span></a>
-            	</li>
-        	</ul>
-        	<div id="myTabContent" class="tab-content" style="background-color: white">
-            	<div class="tab-pane fade in active show product" id="day0"></div>
-            	<div class="tab-pane fade" id="day1"></div>
-            	<div class="tab-pane fade" id="day2"></div>
-            	<div class="tab-pane fade" id="day3"></div>
-            	<div class="tab-pane fade" id="day4"></div>
-            	<div class="tab-pane fade" id="day5"></div>
-            	<div class="tab-pane fade" id="day6"></div>
-        	</div>
-    	</div>
-
-        <div align="center" style="position: relative; margin-top: 30px">
-            <img src="img/fun_welcome_banner.png" style="width: 100%;">
-            <button class="btn" style="position: absolute; border: 0; outline: none; top: 7%; right: 0; height: 25px; width: 65px; background-color: #ffffff00" onclick="ShowNotice('luck')"></button>
-        </div>
-
-        <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-            <ul class="nav nav-tabs nav-justified">
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link active" href="#luckDay0" data-toggle="tab" id="tabI1"><span id="luckItem0"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDa1" data-toggle="tab"><span id="luckItem1"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDa2" data-toggle="tab"><span id="luckItem2"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDay3" data-toggle="tab"><span id="luckItem3"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDay4" data-toggle="tab"><span id="luckItem4"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDay5" data-toggle="tab"><span id="luckItem5"></span></a>
-                </li>
-                <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                    <a class="nav-link" href="#luckDay6" data-toggle="tab"><span id="luckItem6"></span></a>
-                </li>
-            </ul>
-            <div id="myTabConten1" class="tab-content" style="background-color: white">
-                <div class="tab-pane fade in active show product" id="luckDay0"></div>
-                <div class="tab-pane fade" id="luckDay1"></div>
-                <div class="tab-pane fade" id="luckDay2"></div>
-                <div class="tab-pane fade" id="luckDay3"></div>
-                <div class="tab-pane fade" id="luckDay4"></div>
-                <div class="tab-pane fade" id="luckDay5"></div>
-                <div class="tab-pane fade" id="luckDay6"></div>
+                <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="item0"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day1" data-toggle="tab" style="padding: 10px"><span id="item1"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day2" data-toggle="tab" style="padding: 10px"><span id="item2"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day3" data-toggle="tab" style="padding: 10px"><span id="item3"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day4" data-toggle="tab" style="padding: 10px"><span id="item4"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day5" data-toggle="tab" style="padding: 10px"><span id="item5"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#day6" data-toggle="tab" style="padding: 10px"><span id="item6"></span></a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content" style="background-color: white">
+                        <div class="tab-pane fade in active show product" id="day0"></div>
+                        <div class="tab-pane fade" id="day1"></div>
+                        <div class="tab-pane fade" id="day2"></div>
+                        <div class="tab-pane fade" id="day3"></div>
+                        <div class="tab-pane fade" id="day4"></div>
+                        <div class="tab-pane fade" id="day5"></div>
+                        <div class="tab-pane fade" id="day6"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div>
-            <p id="luckDefault" style="text-align: center; margin-top: 10px; display: none;">Announce Soon</p>
-        </div>
-	</div> 
+        <div class="card" style="width: 98%; margin-left: 1%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card-body" style="padding: 0;">
+                <div align="center" style="position: relative;">
+                    <img src="img/fun_welcome_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                    <button class="btn" style="position: absolute; border: 0; outline: none; top: 7%; right: 0; height: 25px; width: 65px; background-color: #ffffff00" onclick="ShowNotice('luck')"></button>
+                </div>
 
+                <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link active" href="#luckDay0" data-toggle="tab" id="tabI1" style="padding: 10px"><span id="luckItem0"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay1" data-toggle="tab" style="padding: 10px"><span id="luckItem1"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay2" data-toggle="tab" style="padding: 10px"><span id="luckItem2"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay3" data-toggle="tab" style="padding: 10px"><span id="luckItem3"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay4" data-toggle="tab" style="padding: 10px"><span id="luckItem4"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay5" data-toggle="tab" style="padding: 10px"><span id="luckItem5"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#luckDay6" data-toggle="tab" style="padding: 10px"><span id="luckItem6"></span></a>
+                        </li>
+                    </ul>
+                    <div id="myTabConten1" class="tab-content" style="background-color: white">
+                        <div class="tab-pane fade in active show product" id="luckDay0"></div>
+                        <div class="tab-pane fade" id="luckDay1"></div>
+                        <div class="tab-pane fade" id="luckDay2"></div>
+                        <div class="tab-pane fade" id="luckDay3"></div>
+                        <div class="tab-pane fade" id="luckDay4"></div>
+                        <div class="tab-pane fade" id="luckDay5"></div>
+                        <div class="tab-pane fade" id="luckDay6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+     
 	<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
