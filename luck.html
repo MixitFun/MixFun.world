@@ -1044,9 +1044,9 @@
                     '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
                     '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
-                let sopt = shopSpotDic[id];
+                let sopt = shopSpotDic[commodity_id];
                 let subSopt = Math.max(0, sopt-1);
-                shopSpotDic[id] = subSopt;
+                shopSpotDic[commodity_id] = subSopt;
                 $('#shop'+commodity_id).html('Spot: '+subSopt);
             }
         });
