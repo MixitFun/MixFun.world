@@ -59,11 +59,37 @@
         margin-top: 30px;
     }
 </style>
-<body>
+<body onload="showSurprise()">
 <div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
     <div align="center">
         <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
         <p id="mc" style="margin-top: 10px"></p>
+    </div>
+
+    <div id="coinDiv" class="card" style="display: none; width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-bottom: 20px">
+        <div class="card-body" style="padding: 10px;">
+            <a id="coinLink" style="text-decoration: none"><p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p></a>
+            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Mixcoin Reward</p>
+            <table width="100%" style="margin-bottom: 0px">
+                <tr>
+                    <td width="33%" align="center">
+                        <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch Reward</p>
+                        </p>
+                    </td>
+                    <td width="33%" align="center">
+                        <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload Reward</p>
+                        </p>
+                    </td>
+                    <td width="33%" align="center">
+                        <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
+                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral Reward</p>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
@@ -584,6 +610,37 @@
             }
         }
         return theRequest;
+    }
+
+    function showSurprise() {
+        if (platform.os.toString().indexOf('iOS') > -1) {
+            $('#coinDiv').show();
+            $.ajax({
+                method: 'get',
+                url: baseUrl+'user/wallet',
+                headers:{
+                    authorization:token
+                },
+                contentType:'application/json',
+                dataType: 'json',
+                success: function(data){
+                    let watchCoin = Number(data.data.watchCoin);
+                    let uploadCoin = Number(data.data.uploadCoin);
+                    let inviteCoin = Number(data.data.inviteCoin);
+                    let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
+
+                    $('#totalCoins').text(rewardCoin.toFixed(2));
+                    $('#watchCoins').text(watchCoin.toFixed(2));
+                    $('#uploadCoins').text(uploadCoin.toFixed(2));
+                    $('#inviteCoins').text(inviteCoin.toFixed(2));
+
+                    var coinLink = document.getElementById('coinLink');
+                    coinLink.href = "https://mixfun.world/egg.html?id="+token;
+                }
+            });
+        }  else {
+            $('#coinDiv').hide();
+        }
     }
 
     var token =  GetRequest().id;

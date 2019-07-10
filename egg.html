@@ -46,6 +46,7 @@
         }
     });
 
+    var platform = "0";
 	function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -56,7 +57,16 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
+        platform = theRequest.platform;
         return theRequest;
+    }
+    
+    function showSurprise() {
+        if (platform == "1") {
+            $('#coinDiv').hide();
+        } else {
+            $('#coinDiv').show();
+        }
     }
 
     var token =  GetRequest().id;
@@ -198,9 +208,9 @@
     }
 
 </script>
-<body>
+<body onload="showSurprise()">
 	<div class="container" style="padding: 0">
-        <div class="card" style="width: 98%; margin-left: 1%; margin-bottom: 6%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-bottom: 6%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body" style="padding: 10px;">
                 <div align="center">
                     <img id="avatar" style="width: 50px;height: 50px;border-radius: 25px;">
