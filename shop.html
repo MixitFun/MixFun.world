@@ -120,58 +120,58 @@
         <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
-
-    <div align="center" style="position: relative; margin-top: 20px">
-        <img src="img/fun_draw_banner.png" style="width: 100%;">
-        <button class="btn" style="position: absolute; background-image: url(img/btn_treasury_hunt.png); background-size: cover; border: 0; outline: none; top: 10%; right: 0; height: 27px; width: 135px" onclick="ShowNotice()"></button>
-    </div>
-
-    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Treasury</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#History" data-toggle="tab">Token</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#Result" data-toggle="tab">Winners</a>
-            </li>
-        </ul>
-        <div id="myTabContent2" class="tab-content" style="background-color: white">
-            <div class="tab-pane fade in active show product" id="draw2" style="padding-top: 3%"></div>
-            <div class="tab-pane fade" id="History"></div>
-            <div class="tab-pane fade" id="Result"></div>
+    <div id="activityList" style="display: none">
+        <div align="center" style="position: relative; margin-top: 20px">
+            <img src="img/fun_draw_banner.png" style="width: 100%;">
+            <button class="btn" style="position: absolute; background-image: url(img/btn_treasury_hunt.png); background-size: cover; border: 0; outline: none; top: 10%; right: 0; height: 27px; width: 135px" onclick="ShowNotice()"></button>
         </div>
-    </div>
 
-    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
-            </li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active show commodity" id="draw">
-            </div>
-            <div class="tab-pane fade" id="buy">
-            </div>
-            <div class="tab-pane fade" id="miniworld">
-            </div>
-            <div class="tab-pane fade" id="rulesofsurvival">
+        <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Treasury</a>
+                </li>
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link" href="#History" data-toggle="tab">Token</a>
+                </li>
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link" href="#Result" data-toggle="tab">Winners</a>
+                </li>
+            </ul>
+            <div id="myTabContent2" class="tab-content" style="background-color: white">
+                <div class="tab-pane fade in active show product" id="draw2" style="padding-top: 3%"></div>
+                <div class="tab-pane fade" id="History"></div>
+                <div class="tab-pane fade" id="Result"></div>
             </div>
         </div>
-    </div>
 
+        <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
+                </li>
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
+                </li>
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
+                </li>
+                <li class="nav-item" style="font-size: 13px">
+                    <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active show commodity" id="draw">
+                </div>
+                <div class="tab-pane fade" id="buy">
+                </div>
+                <div class="tab-pane fade" id="miniworld">
+                </div>
+                <div class="tab-pane fade" id="rulesofsurvival">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="footer" style="width: 100%;margin-top: 30px;" align="center">
@@ -599,6 +599,7 @@
         }
     });
 
+    var newPlatform = "0";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -609,37 +610,44 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
+        newPlatform = theRequest.platform;
         return theRequest;
     }
 
     function showSurprise() {
-        if (platform.os.toString().indexOf('iOS') > -1) {
-            $('#coinDiv').show();
-            $.ajax({
-                method: 'get',
-                url: baseUrl+'user/wallet',
-                headers:{
-                    authorization:token
-                },
-                contentType:'application/json',
-                dataType: 'json',
-                success: function(data){
-                    let watchCoin = Number(data.data.watchCoin);
-                    let uploadCoin = Number(data.data.uploadCoin);
-                    let inviteCoin = Number(data.data.inviteCoin);
-                    let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
-
-                    $('#totalCoins').text(rewardCoin.toFixed(2));
-                    $('#watchCoins').text(watchCoin.toFixed(2));
-                    $('#uploadCoins').text(uploadCoin.toFixed(2));
-                    $('#inviteCoins').text(inviteCoin.toFixed(2));
-
-                    var coinLink = document.getElementById('coinLink');
-                    coinLink.href = "https://mixfun.world/egg.html?id="+token;
-                }
-            });
-        }  else {
+        if (newPlatform == "1") {
             $('#coinDiv').hide();
+            $('#activityList').hide();
+        } else {
+            $('#activityList').show();
+            if (platform.os.toString().indexOf('iOS') > -1) {
+                $('#coinDiv').show();
+                $.ajax({
+                    method: 'get',
+                    url: baseUrl+'user/wallet',
+                    headers:{
+                        authorization:token
+                    },
+                    contentType:'application/json',
+                    dataType: 'json',
+                    success: function(data){
+                        let watchCoin = Number(data.data.watchCoin);
+                        let uploadCoin = Number(data.data.uploadCoin);
+                        let inviteCoin = Number(data.data.inviteCoin);
+                        let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
+
+                        $('#totalCoins').text(rewardCoin.toFixed(2));
+                        $('#watchCoins').text(watchCoin.toFixed(2));
+                        $('#uploadCoins').text(uploadCoin.toFixed(2));
+                        $('#inviteCoins').text(inviteCoin.toFixed(2));
+
+                        var coinLink = document.getElementById('coinLink');
+                        coinLink.href = "https://mixfun.world/egg.html?id="+token;
+                    }
+                });
+            } else {
+                $('#coinDiv').hide();
+            }
         }
     }
 
