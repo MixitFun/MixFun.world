@@ -323,11 +323,9 @@
     $('.d-block').css('height',clientHeight/4);
     $('#ModalExchange').css('height',clientHeight);
     $('#zzd').css('margin-top',clientHeight/2);
-
     $('#tips').tooltip('show');
     $('.toast').toast('show');
     let secretSign = "Wfy^%kdgfg)k!";
-
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
         {
@@ -341,7 +339,6 @@
             $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
         }
     });
-
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         let target = $(e.target).attr("href")
         switch (target) {
@@ -359,7 +356,6 @@
                 break;
         }
     });
-
     var newPlatform = "0";
     function GetRequest() {
         var url = location.search;
@@ -374,7 +370,6 @@
         newPlatform = theRequest.platform;
         return theRequest;
     }
-
     function showSurprise() {
         if (newPlatform == "1") {
             $('#coinDiv').hide();
@@ -396,12 +391,10 @@
                         let uploadCoin = Number(data.data.uploadCoin);
                         let inviteCoin = Number(data.data.inviteCoin);
                         let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
-
                         $('#totalCoins').text(rewardCoin.toFixed(2));
                         $('#watchCoins').text(watchCoin.toFixed(2));
                         $('#uploadCoins').text(uploadCoin.toFixed(2));
                         $('#inviteCoins').text(inviteCoin.toFixed(2));
-
                         var coinLink = document.getElementById('coinLink');
                         coinLink.href = "https://mixfun.world/egg.html?id="+token;
                     }
@@ -411,7 +404,6 @@
             }
         }
     }
-
     var token =  GetRequest().id;
     $.ajax({
         method: 'get',
@@ -437,7 +429,6 @@
             $('#ref').html(ht);
         }
     });
-
     var isBlockUser = false;
     var shopSpotDic = new Array();
     var fc;
@@ -524,7 +515,6 @@
                     }
                 }
             });
-
             $.ajax({
                 method: 'post',
                 url: baseUrl+'shop/list',
@@ -564,7 +554,6 @@
             });
         }
     });
-
     function setShareCode(){
         var shareCode = $('#shareCode').val();
         $.ajax({
@@ -588,11 +577,9 @@
                     $('#alert').html('<p>'+data.msg+'</p>');
                     $('#ModalAlert').modal('show');
                 }
-
             }
         });
     }
-
     function cj(it,name,sale,type,commodity_id){
         if (shopSpotDic[it] > 0) {
             if (isBlockUser) {
@@ -624,7 +611,6 @@
             $('#ModalAlert').modal('show');
         }
     }
-
     function exchangeGCash() {
         $('#ModalDownloadGCash').modal('hide');
         $('#ModalDownloadGCash').on('hidden.bs.modal', function () {
@@ -632,7 +618,6 @@
             $('#ModalConf').modal('show');
         });
     }
-
     function dde(name, data) {
         if(name == 'Mini Beans') {
             let it = $('#it').val();
@@ -687,7 +672,6 @@
             $('#id').val(data.data.id);
         }
     }
-
     var ss;
     var gmfh;
     var hasVerify = true;
@@ -751,7 +735,6 @@
             $('#tot').modal('show');
         }
     }
-
     function buy(){
         var id = $('#id').val();
         var commodity_id = $('#commodity_id').val();
@@ -790,13 +773,11 @@
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
-
             var address = $('#address').val();
             if (address == null || address == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
-
             var phoneType = $('#phoneType').val();
             if (phoneType == null || phoneType == ''){
                 $('#bt').text('Please fill up all your details.');
@@ -846,8 +827,6 @@
             }
         });
     }
-
-
     function exModelShow(){
         var buttonTap = true;
         $('#ModalAlert').modal('hide');
@@ -860,12 +839,10 @@
             $('#ModalExchange').modal('show');
         });
     }
-
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
         $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
     });
-
     function copy(id){
         var copyVal = $('#'+id).val();
         if(copyVal != ''){
@@ -884,7 +861,6 @@
             $('#tot').modal('show');
         }
     }
-
     var clip = new ClipboardJS('.btn');
     clip.on('successfully', function(e){
         clip.destroy();
@@ -893,20 +869,17 @@
         $('#copy_label').text('Copied!');
         $('#tot').modal('show');
     }
-
     $('#tot').on('shown.bs.modal', function (e) {
         setTimeout(function () {
             $('#tot').modal('hide');
         },500)
     })
-
     $(function () {
         let slider = new SliderUnlock("#slider", {}, function () {
             hasVerify = true;
         });
         slider.init();
     })
-
     function GetRedeem(name) {
         let type;
         let redeemType;
@@ -933,8 +906,7 @@
                     var imageURL = '';
                     if (name == 'gcash') {
                         imageURL = 'img/shop_gcash.png';
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">
-			Only available for the newly downloaded and registered GCash user (*ONCE ONLY*).<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user (*ONCE ONLY*).<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
                     } else {
                         ht = '<p style="margin-top: 5px"></p>';
                     }
@@ -977,3 +949,4 @@
     });
 </script>
 </html>
+
