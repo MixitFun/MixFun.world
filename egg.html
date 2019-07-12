@@ -79,17 +79,18 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            if (data.data.avatar == null) {
-                $('#avatar').attr('src','img/logo_midium.png');
-            } else {
-                let avatarStr = data.data.avatar.trim()
-                if (avatarStr == '') {
-                    $('#avatar').attr('src','img/logo_midium.png');
-                } else {
-                    $('#avatar').attr('src',avatarStr);
-                }
-            }
-            $('#nickname').text(data.data.nickname);
+            // if (data.data.avatar == null) {
+            //     $('#avatar').attr('src','img/logo_midium.png');
+            // } else {
+            //     let avatarStr = data.data.avatar.trim()
+            //     if (avatarStr == '') {
+            //         $('#avatar').attr('src','img/logo_midium.png');
+            //     } else {
+            //         $('#avatar').attr('src',avatarStr);
+            //     }
+            // }
+            // $('#nickname').text(data.data.nickname);
+            $('#androidKwagoURL').attr('href', 'https://clk.omgt3.com/?PID=36423&AID=1980884&UID='+data.data.ownShareCode);
         }
     });
 
@@ -212,10 +213,6 @@
 	<div class="container" style="padding: 0">
         <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body" style="padding: 10px;">
-                <div align="center">
-                    <img id="avatar" style="width: 50px;height: 50px;border-radius: 25px;">
-                    <p id="nickname" style="margin-top: 10px; margin-bottom: 10px"></p>
-                </div>
                 <div>
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 5px; margin-right: 15px; font-size: 15px; display: inline-block">Balance:</p>
                     <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
@@ -269,7 +266,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body" style="padding: 0;">
                 <div align="center" style="position: relative;">
@@ -313,7 +309,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
             <div class="card-body" style="padding: 0;">
                 <div align="center" style="position: relative;">
@@ -356,6 +351,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div align="center" style="margin-top: 4%">
+            <a id="androidKwagoURL" target="_blank">
+                <img src="img/banner_Kwago.png" style="width: 98%">
+            </a>
         </div>
 	</div>
      
