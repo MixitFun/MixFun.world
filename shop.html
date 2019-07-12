@@ -468,10 +468,10 @@
             uid = data.data.uid;
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
-            iosGCashURL = 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode;
-            androidGCashURL = 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode;
-            $('#iOSGCash').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
-            $('#AndroidGCash').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
+            iosGCashURL = 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.uid+'&UID2='+data.data.ownShareCode;
+            androidGCashURL = 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.uid+'&UID2='+data.data.ownShareCode;
+            $('#iOSGCash').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.uid+'&UID2='+data.data.ownShareCode);
+            $('#AndroidGCash').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.uid+'&UID2='+data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             if(data.data.shareCode != null){
                 $('.shade').css('display','none');
