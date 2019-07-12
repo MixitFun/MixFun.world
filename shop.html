@@ -101,7 +101,7 @@
                 <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
             </p>
             <div style="margin-top: 20px; margin-bottom: 10px;">
-                <p>Share your referral code or click the link below to invite your friends, and get free tokens for Lucky 10 PHP!</p>
+                <p>Share your referral code or click the link below to invite your friends!</p>
                 <row>
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
                         <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
@@ -150,7 +150,13 @@
     </div>
 </div>
 
-<div id="footer" style="width: 100%;margin-top: 30px;" align="center">
+<div align="center" style="margin-top: 4%">
+    <a id="androidAtomeURL" target="_blank">
+        <img src="img/banner_Atome.png" style="width: 98%">
+    </a>
+</div>
+
+<div id="footer" style="width: 100%;margin-top: 20px;" align="center">
     <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
 </div>
@@ -472,6 +478,7 @@
             androidGCashURL = 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode;
             $('#iOSGCash').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
             $('#AndroidGCash').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
+            $('#androidAtomeURL').attr('href', 'https://clk.omgt3.com/?PID=35545&AID=1980884&UID='+data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             if(data.data.shareCode != null){
                 $('.shade').css('display','none');
