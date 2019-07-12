@@ -130,7 +130,7 @@
                     <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
                 </li>
                 <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
+                    <a class="nav-link" href="#gcash" data-toggle="tab">GCash</a>
                 </li>
                 <li class="nav-item" style="font-size: 13px">
                     <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="tab-pane fade" id="buy">
                 </div>
-                <div class="tab-pane fade" id="miniworld">
+                <div class="tab-pane fade" id="gcash">
                 </div>
                 <div class="tab-pane fade" id="rulesofsurvival">
                 </div>
@@ -214,10 +214,11 @@
                 <input type="hidden" id="commodity_id"/>
                 <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
-                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
                 <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
                 <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="gcashAccount" placeholder="Enter your GCash account" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
@@ -316,9 +317,9 @@
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         let target = $(e.target).attr("href")
         switch (target) {
-            case '#miniworld':
-                if ($('#miniworld').html().length == 0) {
-                    GetRedeem('miniworld');
+            case '#gcash':
+                if ($('#gcash').html().length == 0) {
+                    GetRedeem('gcash');
                 }
                 break;
             case '#rulesofsurvival':
@@ -414,7 +415,7 @@
     var fc;
     var lj;
     var uid;
-    $('#miniworld').html('');
+    $('#gcash').html('');
     $('#rulesofsurvival').html('');
     $.ajax({
         method: 'get',
@@ -601,7 +602,9 @@
             $('#moblieLegend').val('');
             $('#moblieLegendExtra').val('');
             $('#rosInput').val('');
+            $('#gcashAccount').val('');
             if(name == 'Mobile Legends') {
+                $('#gcashAccount').css('display', 'none');
                 $('#rosInput').css('display', 'none');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
@@ -609,13 +612,23 @@
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
             } else if(name == 'Rules of Survival') {
+                $('#gcashAccount').css('display', 'none');
                 $('#address').css('display','none');
                 $('#phone').css('display','none');
                 $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','none');
                 $('#moblieLegendExtra').css('display','none');
                 $('#rosInput').css('display', 'block');
+            } else if (name == 'GCash') {
+                $('#address').css('display','none');
+                $('#phone').css('display','none');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','none');
+                $('#moblieLegendExtra').css('display','none');
+                $('#rosInput').css('display', 'none');
+                $('#gcashAccount').css('display', 'block');
             } else {
+                $('#gcashAccount').css('display', 'none');
                 $('#rosInput').css('display', 'none');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
@@ -713,6 +726,13 @@
                 return;
             }
             playerID = rosID;
+        } else  if(name == 'GCash') {
+            var gcashID = $('#gcashAccount').val();
+            if (gcashID == null || gcashID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = gcashID;
         } else{
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
@@ -762,9 +782,15 @@
                     storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
                 }
                 $('#ModalExchange').modal('hide');
-                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
-                    '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
-                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                if(name == 'GCash') {
+                    $('#alert').html('<br>MixFun & GCash will review your registration as soon as possible. Once confirmed you are new users, you will receive money in 3 days.</br></br>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                        '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                        '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                } else {
+                    $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                        '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                        '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                }
                 $('#ModalAlert').modal('show');
                 let sopt = shopSpotDic[commodity_id];
                 let subSopt = Math.max(0, sopt-1);
@@ -837,8 +863,8 @@
     function GetRedeem(name) {
         let type;
         let redeemType;
-        if (name == 'miniworld') {
-            type = 3;
+        if (name == 'gcash') {
+            type = 5;
             redeemType = 2;
         } else if (name == 'rulesofsurvival') {
             type = 4;
@@ -856,7 +882,12 @@
             dataType: 'json',
             success: function(data) {
                 if(data.status == 0) {
-                    var ht = '<p style="margin-top: 5px"></p>';
+                    var ht;
+                    if (name == 'gcash') {
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user.<br>Download now:<a href="https://clk.omgt3.com/?PID=36035&AID=1980884">&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a href="https://clk.omgt3.com/?PID=36032&AID=1980884">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+                    } else {
+                        ht = '<p style="margin-top: 5px"></p>';
+                    }
                     data.data.forEach(function(item, index) {
                         var spot = item.glh;
                         shopSpotDic[item.id] = spot;
