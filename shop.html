@@ -255,7 +255,7 @@
             <div class="modal-body" align="center" style="padding-top: 0">
                 <dl style="text-align: left">
                     <dd style="margin-top: 10px">Please download GCash with below link and register first:</dd>
-                    <dd style="margin-top: 20px; margin-bottom: 20px"><a id="iOSGCash">iOS&nbsp;&nbsp;</a><a id="AndroidGCash">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></dd>
+                    <dd style="margin-top: 20px; margin-bottom: 20px"><a id="iOSGCash" target="_blank">iOS&nbsp;&nbsp;</a><a id="AndroidGCash" target="_blank">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></dd>
                 </dl>
             </div>
             <div align="right">
@@ -437,9 +437,10 @@
     var fc;
     var lj;
     var uid;
+    var iosGCashURL;
+    var androidGCashURL;
     $('#gcash').html('');
     $('#rulesofsurvival').html('');
-    GetRedeem('gcash');
     $.ajax({
         method: 'get',
         url: baseUrl+'user/profile',
@@ -467,10 +468,10 @@
             uid = data.data.uid;
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
+            iosGCashURL = 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode;
+            androidGCashURL = 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode;
             $('#iOSGCash').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
             $('#AndroidGCash').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
-            $('#iOSGCash1').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
-            $('#AndroidGCash1').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             if(data.data.shareCode != null){
                 $('.shade').css('display','none');
@@ -478,7 +479,7 @@
             $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
             $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
-
+            GetRedeem('gcash');
             $.ajax({
                 method: 'post',
                 url: baseUrl+'shop/list',
@@ -925,7 +926,7 @@
                     var imageURL = '';
                     if (name == 'gcash') {
                         imageURL = 'img/shop_gcash.png';
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user.<br>Download now:<a id="iOSGCash1">&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a id="AndroidGCash1">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user.<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
                     } else {
                         ht = '<p style="margin-top: 5px"></p>';
                     }
