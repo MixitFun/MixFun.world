@@ -255,7 +255,7 @@
             <div class="modal-body" align="center" style="padding-top: 0">
                 <dl style="text-align: left">
                     <dd style="margin-top: 10px">Please download GCash with below link and register first:</dd>
-                    <dd style="margin-top: 20px; margin-bottom: 20px"><a href="https://clk.omgt3.com/?PID=36035&AID=1980884">iOS&nbsp;&nbsp;</a><a href="https://clk.omgt3.com/?PID=36032&AID=1980884">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></dd>
+                    <dd style="margin-top: 20px; margin-bottom: 20px"><a id="iOSGCash">iOS&nbsp;&nbsp;</a><a id="AndroidGCash">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></dd>
                 </dl>
             </div>
             <div align="right">
@@ -467,6 +467,10 @@
             uid = data.data.uid;
             $('#mc').text(data.data.nickname);
             $('#shareId').val(data.data.ownShareCode);
+            $('#iOSGCash').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
+            $('#AndroidGCash').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
+            $('#iOSGCash1').attr('href', 'https://clk.omgt3.com/?PID=36035&AID=1980884&UID='+data.data.ownShareCode);
+            $('#AndroidGCash1').attr('href', 'https://clk.omgt3.com/?PID=36032&AID=1980884&UID='+data.data.ownShareCode);
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
             if(data.data.shareCode != null){
                 $('.shade').css('display','none');
@@ -921,7 +925,7 @@
                     var imageURL = '';
                     if (name == 'gcash') {
                         imageURL = 'img/shop_gcash.png';
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user.<br>Download now:<a href="https://clk.omgt3.com/?PID=36035&AID=1980884">&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a href="https://clk.omgt3.com/?PID=36032&AID=1980884">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the newly downloaded and registered GCash user.<br>Download now:<a id="iOSGCash1">&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a id="AndroidGCash1">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
                     } else {
                         ht = '<p style="margin-top: 5px"></p>';
                     }
