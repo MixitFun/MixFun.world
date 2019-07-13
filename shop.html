@@ -150,7 +150,7 @@
     </div>
 </div>
 
-<div align="center" style="margin-top: 4%">
+<div align="center" id="adsDiv" style="margin-top: 4%; display: none">
     <a id="androidAtomeURL" target="_blank">
         <img src="img/banner_Atome.png" style="width: 98%">
     </a>
@@ -374,8 +374,10 @@
         if (newPlatform == "1") {
             $('#coinDiv').hide();
             $('#activityList').hide();
+            $('#adsDiv').hide();
         } else {
             $('#activityList').show();
+            $('#adsDiv').show();
             if (platform.os.toString().indexOf('iOS') > -1) {
                 $('#coinDiv').show();
                 $.ajax({

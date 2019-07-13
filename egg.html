@@ -64,8 +64,10 @@
     function showSurprise() {
         if (platform == "1") {
             $('#coinDiv').hide();
+            $('#adsDiv').hide();
         } else {
             $('#coinDiv').show();
+            $('#adsDiv').show();
         }
     }
 
@@ -352,7 +354,7 @@
                 </div>
             </div>
         </div>
-        <div align="center" style="margin-top: 4%">
+        <div align="center" id="adsDiv" style="margin-top: 4%; display: none">
             <a id="androidKwagoURL" target="_blank">
                 <img src="img/banner_Kwago.png" style="width: 98%">
             </a>
