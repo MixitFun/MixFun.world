@@ -142,7 +142,7 @@
     }
     let token = GetRequest().id;
 
-    let clientHeight = $(window).height();
+    let clientHeight = document.body.clientHeight;
     $('#backgroudID').css('height', clientHeight+"px");
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
