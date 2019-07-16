@@ -13,98 +13,165 @@
     <meta property="og:image" content="images/share-logo.png" />
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="js/awardRotate.js"></script>
+<script type="text/javascript" src="js/platform.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
 
 <body>
-    <img src="img/1.png" id="shan-img" style="display:none;" />
-    <div class="banner">
-        <div class="turnplate" style="background-image:url(img/turnplate-bg.png);background-size:100% 100%;">
-            <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
-            <img class="pointer" src="img/turnplate-pointer.png" />
+    <div id="backgroudID" style="background-color: darkslateblue" align="center">
+        <img src="img/Lucky_Spinning_banner.png" style="width: 100%;">
+
+        <div class="banner" align="center" style="padding-top: 8%">
+            <div class="turnplate" style="background-image:url(img/turnplate-bg.png);background-size:100% 100%; width: 95%">
+                <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+                <img class="pointer" src="img/turnplate-pointer.png" />
+            </div>
+        </div>
+
+        <button class="btn" style="margin-top: 8%; width: 40%; text-align: center; background-color: goldenrod; color: white; font-family: PingFangSC-Regular, sans-serif; font-size: 20px; font-weight: bold; outline: none" onclick="tapToSpin()">Spin</button>
+    </div>
+
+    <!-- alert -->
+    <div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
+        <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="copy_label"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alert"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title" id="ModalNoticeTitle">Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>100coins will be deducted. Confirm to spin?</p>
+                    <button class="btn btn-info" onclick="doSpin()" style="margin-top: 20px">Continue</button>
+                    <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalResult" tabindex="-1" role="dialog" aria-labelledby="ModalResultTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title" id="ModalResultTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <p id="ModalResultMessage" style="text-align: left"></p>
+                    <p id="codeName" style="text-align: center; font-size: 18px; font-weight: 500; display: none"></p>
+                    <p id="codeID" style="text-align: center; font-size: 18px; font-weight: 500; display: none"></p>
+                    <div id="stepOneDiv">
+                        <p id="stepOne" style="text-align: center; font-size: 16px; font-weight: 500; display: none">Step 1:&nbsp;&nbsp;&nbsp;</p>
+                        <button class="btn" id="codeIDBtn" data-clipboard-action="copy" data-clipboard-target="#codeID" style="display: none; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy()">&nbsp;Copy&nbsp;</button>
+                    </div>
+                    <div id="stepTwoDiv" style="display: none; margin-top: 15px; margin-left: 30px; text-align: left;">
+                        <p style="text-align: center; font-size: 16px; font-weight: 500; display: inline-block">Step 2:&nbsp;&nbsp;&nbsp;</p>
+                        <button class="btn" id="stepTwoBtn" style="display: inline-block; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Go to website&nbsp;</button>
+                    </div>
+                    <p id="resultNotice" style="color: red;"></p>
+                    <input class="form-control" type="text" id="userName" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; display: none"/>
+                    <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 20px; display: none">
+                    <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"/>
+                    <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: none; margin-top: 20px"/>
+                    <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: none; margin-top: 20px"/>
+                    <button onclick="buy()" id="submitBtn" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; margin-top: 20px; display: none">Submit</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 
+<style>
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+</style>
+
 <script type="text/javascript">
+    var baseUrl = "https://api.mixit.fun/";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    let token = GetRequest().id;
+
+    let clientHeight = $(window).height();
+    $('#backgroudID').css('height', clientHeight+"px");
+    $('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
     var turnplate = {
         restaraunts: [], //大转盘奖品名称
         colors: [], //大转盘奖品区块对应背景颜色
         gailv: [],  //各奖品概率
         outsideRadius: 192, //大转盘外圆的半径
-        textRadius: 155, //大转盘奖品位置距离圆心的距离
+        textRadius: 160, //大转盘奖品位置距离圆心的距离
         insideRadius: 68, //大转盘内圆的半径
         startAngle: 0, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
+    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher ", "Next Time", "MLLB diamonds 11", "50 Coins", "Ellana Mineral Cosmetics Voucher", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
+    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6"];
+    let itemCode = [35, 34, 32, 38, 33, 37, 40, 39, 36];
 
-    $(document).ready(function() {
-        //动态添加大转盘的奖品与奖品区域背景颜色
-        turnplate.restaraunts = ["10M免费流量包", "20M免费流量包", "20闪币 ", "30M免费流量包", "100M免费流量包", "2闪币"];
-        turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
-        turnplate.gailv = [0, 0, 0.2, 0.3, 0.5, 0];
-
-        var rotateTimeOut = function() {
-            $('#wheelcanvas').rotate({
-                angle: 0,
-                animateTo: 2160,
-                duration: 8000,
-                callback: function() {
-                    alert('网络超时，请检查您的网络设置！');
-                }
-            });
-        };
-
-        //旋转转盘 item:奖品位置; txt：提示语;
-        var rotateFn = function(item, txt) {
-            var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length * 2));
-            if (angles < 270) {
-                angles = 270 - angles;
-            } else {
-                angles = 360 - angles + 270;
-            }
-            $('#wheelcanvas').stopRotate();
-            $('#wheelcanvas').rotate({
-                angle: 0,
-                animateTo: angles + 1800,
-                duration: 8000,
-                callback: function() {
-                    alert(txt);
-                    turnplate.bRotate = !turnplate.bRotate;
-                }
-            });
-        };
-
-        $('.pointer').click(function() {
-            if (turnplate.bRotate) return;
-            turnplate.bRotate = !turnplate.bRotate;
-            //获取随机数(奖品个数范围内)
-            var item;
-            var fanwei = [0];
-            for (var i = 1; i < turnplate.restaraunts.length + 1; i++) {
-                fanwei[i] = fanwei[i - 1] + turnplate.gailv[i - 1];
-            }
-            console.log(fanwei);
-            var ran = rnd();
-            for (var i = 0; i < turnplate.restaraunts.length; i++) {
-                if ((ran >= fanwei[i] * 10000 && ran <= fanwei[i + 1] * 10000)) {
-                    item = i + 1;
-                    break;
-                }
-            }
-            //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
-            rotateFn(item, turnplate.restaraunts[item - 1]);
-            console.log(item);
-        });
-    });
-
-    function rnd() {
-        var random = Math.floor(Math.random() * 10000 + 1);
-        return random;
-    }
-
-    //页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
     window.onload = function() {
         drawRouletteWheel();
     };
@@ -112,72 +179,313 @@
     function drawRouletteWheel() {
         var canvas = document.getElementById("wheelcanvas");
         if (canvas.getContext) {
-            //根据奖品个数计算圆周角度
             var arc = Math.PI / (turnplate.restaraunts.length / 2);
             var ctx = canvas.getContext("2d");
-            //在给定矩形内清空一个矩形
             ctx.clearRect(0, 0, 422, 422);
-            //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
             ctx.strokeStyle = "#FFBE04";
-            //font 属性设置或返回画布上文本内容的当前字体属性
             ctx.font = '16px Microsoft YaHei';
             for (var i = 0; i < turnplate.restaraunts.length; i++) {
                 var angle = turnplate.startAngle + i * arc;
                 ctx.fillStyle = turnplate.colors[i];
                 ctx.beginPath();
-                //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）
                 ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);
                 ctx.arc(211, 211, turnplate.insideRadius, angle + arc, angle, true);
                 ctx.stroke();
                 ctx.fill();
-                //锁画布(为了保存之前的画布状态)
                 ctx.save();
-
-                //----绘制奖品开始----
                 ctx.fillStyle = "#E5302F";
                 var text = turnplate.restaraunts[i];
-                var line_height = 17;
-                //translate方法重新映射画布上的 (0,0) 位置
+                var line_height = 20;
                 ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
-
-                //rotate方法旋转当前的绘图
                 ctx.rotate(angle + arc / 2 + Math.PI / 2);
-
-                /** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
-                if (text.indexOf("M") > 0) { //流量包
-                    var texts = text.split("M");
-                    for (var j = 0; j < texts.length; j++) {
-                        ctx.font = j == 0 ? 'bold 20px Microsoft YaHei' : '16px Microsoft YaHei';
-                        if (j == 0) {
-                            ctx.fillText(texts[j] + "M", -ctx.measureText(texts[j] + "M").width / 2, j * line_height);
-                        } else {
-                            ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
-                        }
-                    }
-                } else if (text.indexOf("M") == -1 && text.length > 6) { //奖品名称长度超过一定范围
-                    text = text.substring(0, 6) + "||" + text.substring(6);
-                    var texts = text.split("||");
-                    for (var j = 0; j < texts.length; j++) {
-                        ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
-                    }
-                } else {
-                    //在画布上绘制填色的文本。文本的默认颜色是黑色
-                    //measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
-                    ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+                var texts = text.split(" ");
+                for (var j = 0; j < texts.length; j++) {
+                    ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
                 }
-
-                //添加对应图标
-                var img = document.getElementById("shan-img");
-                img.onload = function() {
-                    ctx.drawImage(img, -15, 20);
-                };
-                ctx.drawImage(img, -15, 20);
-
-                //把当前画布返回（调整）到上一个save()状态之前
                 ctx.restore();
-                //----绘制奖品结束----
             }
         }
     }
+
+    var rotateTimeOut = function() {
+        $('#wheelcanvas').rotate({
+            angle: 0,
+            animateTo: 1970,
+            duration: 8000,
+            callback: function() {
+                $('#alert').html('<p>Net Error!</p>');
+                $('#ModalAlert').modal('show');
+            }
+        });
+    };
+
+    var rotateFunc = function(item) {
+        var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length * 2));
+        if (angles < 270) {
+            angles = 270 - angles;
+        } else {
+            angles = 360 - angles + 270;
+        }
+        $('#wheelcanvas').stopRotate();
+        $('#wheelcanvas').rotate({
+            angle: turnplate.getRotateAngle,
+            animateTo: angles + 1800,
+            duration: 8000,
+            callback: function() {
+                turnplate.bRotate = !turnplate.bRotate;
+                dealSpinResult(item-1);
+            }
+        });
+    };
+
+    $('.pointer').click(function() {
+        $('#ModalConf').modal('show');
+    });
+
+    function tapToSpin() {
+        $('#ModalConf').modal('show');
+    }
+
+    var transactionID;
+    function doSpin() {
+        $('#ModalConf').modal('hide');
+        if (turnplate.bRotate) return;
+        turnplate.bRotate = !turnplate.bRotate;
+        var doRequst = false;
+        $('#wheelcanvas').stopRotate();
+        $('#wheelcanvas').rotate({
+            angle: 0,
+            animateTo: 1970,
+            duration: 15000,
+            callback: function () {
+                if (!doRequst) {
+                    $('#alert').html('<p>Net Error!</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+        rotateFunc(1);
+        // $.ajax({
+        //     method: 'post',
+        //     url: baseUrl+'shop/spin/start',
+        //     headers:{
+        //         authorization:token
+        //     },
+        //     contentType:'application/json',
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         doRequst = true;
+        //         $('#codeID').text(data.data.luckCode);
+        //         let item = data.data.commodityId;
+        //         transactionID = data.data.transactionId;
+        //         let itemIndex = itemCode.indexOf(item, 0);
+        //         if (itemIndex == -1) {
+        //             itemIndex = 2;
+        //         }
+        //         rotateFunc(itemIndex+1);
+        //     }
+        // });
+    }
+
+    var prizeCode;
+    function dealSpinResult(itemIndex) {
+        prizeCode = itemCode[itemIndex];
+        var title = "Congratulations!";
+        var message;
+        $('#codeID').css('display', 'none');
+        $('#codeName').css('display', 'none');
+        $('#codeIDBtn').css('display', 'none');
+        $('#userName').css('display', 'none');
+        $('#phoneType').css('display', 'none');
+        $('#phone').css('display', 'none');
+        $('#moblieLegend').css('display', 'none');
+        $('#moblieLegendExtra').css('display', 'none');
+        $('#submitBtn').css('display', 'none');
+        $('#stepOne').css('display', 'none');
+        $('#stepTwoDiv').css('display', 'none');
+        $('#stepOneDiv').css('text-align', 'center');
+        $('#stepOneDiv').css('margin-left', 'auto');
+
+        $('#codeID').val('');
+        $('#codeName').val('');
+        $('#userName').val('');
+        $('#phoneType').val('');
+        $('#phone').val('');
+        $('#moblieLegend').val('');
+        $('#moblieLegendExtra').val('');
+        switch (prizeCode) {
+            case 32:
+                title = "Message";
+                message = "Oh... nothing for you this time. Would you like to try it again?";
+                break;
+            case 33:
+                message = "You have won 50 coins! Congrats! Would you like to try again?";
+                break;
+            case 34:
+                message = "Wow! You have won the Zalora 25% for New Customers Sitewide, P1800 min spend.";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepTwoBtn').click(function () {
+                    alert(34);
+                });
+                break;
+            case 35:
+                message = "Wow! You have won the Digital Voucher 100PHP";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#stepTwoBtn').click(function () {
+                    window.open("http://baidu.com", "_blank");
+                });
+                break;
+            case 36:
+                message = "Wow! You have won the Mini Beans 50Beans";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Redeem Code:&nbsp;");
+                break;
+            case 37:
+                message = "Wow! You have won the Ellana Mineral Cosmetics PHP350 off your 1st purchase. Minimum purchase of ₱1,650.00.";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#stepTwoBtn').click(function () {
+                    alert(37);
+                });
+                break;
+            case 38:
+                message = "Wow! You have won MLBB 11 Dimonds!";
+                $('#userName').css('display', 'block');
+                $('#moblieLegend').css('display', 'inline-block');
+                $('#moblieLegendExtra').css('display', 'inline-block');
+                $('#submitBtn').css('display', 'block');
+                break;
+            case 39:
+                message = "Wow! You have won 10PHP mobile loads!";
+                $('#userName').css('display', 'block');
+                $('#phoneType').css('display', 'block');
+                $('#phone').css('display', 'block');
+                $('#submitBtn').css('display', 'block');
+                break;
+            case 40:
+                message = "Wow! You have won iPhone 8!";
+                break;
+            default:
+                break;
+        }
+        $('#ModalResultTitle').html(title);
+        $('#ModalResultMessage').html(message);
+        $('#ModalResult').modal('show');
+    }
+
+    $('#ModalResult').on('hidden.bs.modal',function(){
+        $('#ModalResult').off('hidden.bs.modal');
+        if (prizeCode == 38 || prizeCode == 39)
+        $('#ModalAlert').modal('show');
+        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+    });
+
+    function exModelShow() {
+        var buttonTap = true;
+        $('#ModalAlert').modal('hide');
+        $('#ModalAlert').on('hidden.bs.modal', function () {
+            $('#ModalAlert').off('hidden.bs.modal');
+            if (!buttonTap) {
+                return;
+            }
+            buttonTap = false;
+            $('#ModalResult').modal('show');
+        });
+    }
+
+    let clip = new ClipboardJS('.btn');
+    clip.on('successfully', function(e){
+        clip.destroy();
+    });
+    function copy(){
+        $('#copy_label').text('Copied!');
+        $('#tot').modal('show');
+    }
+    $('#tot').on('shown.bs.modal', function (e) {
+        setTimeout(function () {
+            $('#tot').modal('hide');
+        },500)
+    })
+
+function buy(){
+    let name = $('#userName').val();
+    var playerID;
+    if(prizeCode == 38) {
+        var moblieLegend = $('#moblieLegend').val();
+        var moblieLegendExtra = $('#moblieLegendExtra').val();
+        if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
+            $('#resultNotice').text('Please fill up all your details.');
+            return;
+        }
+        playerID = moblieLegend+"("+moblieLegendExtra+")";
+    } else {
+        var phone = $('#phone').val();
+        var phoneType = $('#phoneType').val();
+        if (phone == null || phone == '' || phoneType == null || phoneType == ''){
+            $('#resultNotice').text('Please fill up all your details.');
+            return;
+        }
+    }
+    $.ajax({
+        url : baseUrl+"shop/buy",
+        type : 'post',
+        dataType : 'json',
+        data: {
+            id: transactionID,
+            commodityId:prizeCode,
+            recipient:name,
+            phone: phone,
+            moblieLegend: playerID,
+            address: '',
+            phoneType: phoneType
+        },
+        headers:
+            {
+                authorization: token
+            },
+        success: function(data) {
+            $('#ModalResult').modal('hide');
+            if (data.status == 0) {
+                var storeLink = 'https://mixfun.world/index.html';
+                var userAgentInfo = navigator.userAgent;
+                if (userAgentInfo.indexOf('iPhone') > 0) {
+                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
+                } else if (userAgentInfo.indexOf('Android') > 0) {
+                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
+                }
+                $('#alert').html('We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.</br></br>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                    '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                    '<a class="btn"  style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+            } else {
+                $('#alert').html('<p>'+data.msg+'</p>');
+                $('#ModalAlert').modal('show');
+            }
+        }
+    });
+}
+
 </script>
 </html>
