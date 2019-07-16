@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <button class="btn" style="margin-top: 5%; margin-bottom: 10%; width: 40%; text-align: center; background-color: #fab41e; color: white; font-family: PingFangSC-Regular, sans-serif; font-size: 20px; font-weight: bold; outline: none" onclick="tapToSpin()">Spin</button>
+        <button class="btn" style="margin-top: 3%; margin-bottom: 10%; width: 40%; text-align: center; background-color: #fab41e; color: white; font-family: PingFangSC-Regular, sans-serif; font-size: 20px; font-weight: bold; outline: none" onclick="tapToSpin()">Spin</button>
     </div>
 
     <!-- alert -->
@@ -212,7 +212,7 @@
         $('#wheelcanvas').rotate({
             angle: 0,
             animateTo: 1957.5,
-            duration: 8000,
+            duration: 12000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
                 $('#ModalAlert').modal('show');
@@ -231,7 +231,7 @@
         $('#wheelcanvas').rotate({
             angle: turnplate.getRotateAngle,
             animateTo: angles + 1800,
-            duration: 8000,
+            duration: 12000,
             callback: function() {
                 turnplate.bRotate = !turnplate.bRotate;
                 dealSpinResult(item-1);
