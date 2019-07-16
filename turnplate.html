@@ -125,6 +125,12 @@
     .btn.active.focus {
         box-shadow:none;
     }
+
+    html,body{
+        height:100%;
+        width:100%;
+        background-color: darkslateblue;
+    }
 </style>
 
 <script type="text/javascript">
@@ -142,7 +148,7 @@
         return theRequest;
     }
     let token = GetRequest().id;
-    
+
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
         {
