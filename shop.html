@@ -115,6 +115,12 @@
         </div>
     </div>
 
+    <div align="center" style="margin-top: 4%;">
+        <a id="spinURL" target="_blank">
+            <img src="img/Lucky_Spin_banner.png" style="width: 98%">
+        </a>
+    </div>
+
     <div class="shade" align="center">
         <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
         <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
@@ -368,6 +374,8 @@
             }
         }
         newPlatform = theRequest.platform;
+        let spinLink = document.getElementById('spinURL');
+        spinLink.href = "https://mixfun.world/turnplate.html?id="+theRequest.id;
         return theRequest;
     }
     function showSurprise() {
@@ -397,8 +405,9 @@
                         $('#watchCoins').text(watchCoin.toFixed(2));
                         $('#uploadCoins').text(uploadCoin.toFixed(2));
                         $('#inviteCoins').text(inviteCoin.toFixed(2));
-                        var coinLink = document.getElementById('coinLink');
+                        let coinLink = document.getElementById('coinLink');
                         coinLink.href = "https://mixfun.world/egg.html?id="+token;
+
                     }
                 });
             } else {
