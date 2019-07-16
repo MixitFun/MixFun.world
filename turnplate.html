@@ -129,7 +129,7 @@
     html,body{
         height:100%;
         width:100%;
-        background-color: darkslateblue;
+        background-color: white;
     }
 </style>
 
@@ -162,6 +162,8 @@
             $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
         }
     });
+    let clientHeight = document.body.clientHeight;
+    $('#backgroudID').css('height', clientHeight+"px");
 
     var turnplate = {
         restaraunts: [], //大转盘奖品名称
