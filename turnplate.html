@@ -265,27 +265,26 @@
                 }
             }
         });
-        rotateFunc(1);
-        // $.ajax({
-        //     method: 'post',
-        //     url: baseUrl+'shop/spin/start',
-        //     headers:{
-        //         authorization:token
-        //     },
-        //     contentType:'application/json',
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         doRequst = true;
-        //         $('#codeID').text(data.data.luckCode);
-        //         let item = data.data.commodityId;
-        //         transactionID = data.data.transactionId;
-        //         let itemIndex = itemCode.indexOf(item, 0);
-        //         if (itemIndex == -1) {
-        //             itemIndex = 2;
-        //         }
-        //         rotateFunc(itemIndex+1);
-        //     }
-        // });
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'shop/spin/start',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                doRequst = true;
+                $('#codeID').text(data.data.luckCode);
+                let item = data.data.commodityId;
+                transactionID = data.data.transactionId;
+                let itemIndex = itemCode.indexOf(item, 0);
+                if (itemIndex == -1) {
+                    itemIndex = 2;
+                }
+                rotateFunc(itemIndex+1);
+            }
+        });
     }
 
     var prizeCode;
@@ -388,6 +387,8 @@
                 break;
             case 40:
                 message = "Wow! You have won iPhone 8!";
+                $('#userName').css('display', 'block');
+                $('#phone').css('display', 'block');
                 break;
             default:
                 break;
