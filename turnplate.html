@@ -100,6 +100,7 @@
                     </div>
                     <div id="stepTwoDiv" style="display: none; margin-top: 15px; margin-left: 30px; text-align: left;">
                         <p style="text-align: center; font-size: 16px; font-weight: 500; display: inline-block">Step 2:&nbsp;&nbsp;&nbsp;</p>
+                        <a id="websiteID" style="display: none"></a>
                         <button class="btn" id="stepTwoBtn" style="display: inline-block; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">&nbsp;Go to website&nbsp;</button>
                     </div>
                     <p id="resultNotice" style="color: red;"></p>
@@ -168,9 +169,9 @@
         startAngle: 0, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
-    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher ", "Next Time", "MLLB diamonds 11", "50 Coins", "Ellana Mineral Cosmetics Voucher", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
-    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6"];
-    let itemCode = [35, 34, 32, 38, 33, 37, 40, 39, 36];
+    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher ", "Next Time", "MLLB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
+    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
+    let itemCode = [35, 34, 32, 38, 33, 40, 39, 36];
 
     window.onload = function() {
         drawRouletteWheel();
@@ -210,7 +211,7 @@
     var rotateTimeOut = function() {
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1970,
+            animateTo: 1957.5,
             duration: 8000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
@@ -255,7 +256,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1970,
+            animateTo: 1957.5,
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
@@ -332,7 +333,8 @@
                 $('#codeIDBtn').css('display', 'inline-block');
                 $('#codeName').html("Voucher Code:&nbsp;");
                 $('#stepTwoBtn').click(function () {
-                    window.location.href = "https://clk.omgt3.com/?PID=12219&AID=1980884";
+                    document.getElementById('websiteID').href = "https://clk.omgt3.com/?PID=12219&AID=1980884";
+                    $('#websiteID')[0].click();
                 });
                 break;
             case 35:
@@ -346,7 +348,8 @@
                 $('#stepOneDiv').css('margin-left', '30px');
                 $('#stepTwoDiv').css('display', 'block');
                 $('#stepTwoBtn').click(function () {
-                    window.open("https://shopee.ph/gadgethunterph");
+                    document.getElementById('websiteID').href = "https://shopee.ph/gadgethunterph";
+                    $('#websiteID')[0].click();
                 });
                 break;
             case 36:
