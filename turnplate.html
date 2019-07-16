@@ -162,8 +162,13 @@
             $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
         }
     });
-    let clientHeight = document.body.clientHeight;
-    $('#backgroudID').css('height', clientHeight+"px");
+
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    $('#backgroudID').css('height', height+"px");
 
     var turnplate = {
         restaraunts: [], //大转盘奖品名称
