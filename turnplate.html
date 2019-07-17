@@ -286,14 +286,20 @@
             dataType: 'json',
             success: function(data) {
                 doRequst = true;
-                $('#codeID').text(data.data.luckCode);
-                let item = data.data.commodityId;
-                transactionID = data.data.transactionId;
-                let itemIndex = itemCode.indexOf(item, 0);
-                if (itemIndex == -1) {
-                    itemIndex = 2;
+                if (data.status == 0) {
+                    $('#codeID').text(data.data.luckCode);
+                    let item = data.data.commodityId;
+                    transactionID = data.data.transactionId;
+                    let itemIndex = itemCode.indexOf(item, 0);
+                    if (itemIndex == -1) {
+                        itemIndex = 2;
+                    }
+                    rotateFunc(itemIndex+1);
+                } else {
+                    $('#wheelcanvas').stopRotate();
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
                 }
-                rotateFunc(itemIndex+1);
             }
         });
     }
