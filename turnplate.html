@@ -301,7 +301,9 @@
                     }
                     rotateFunc(itemIndex+1);
                 } else {
-                    canSpin = false;
+                    if (data.status == 1010) {
+                        canSpin = false;
+                    }
                     $('#wheelcanvas').stopRotate();
                     $('#alert').html('<p>'+data.msg+'</p>');
                     $('#ModalAlert').modal('show');
