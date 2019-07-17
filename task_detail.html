@@ -23,8 +23,20 @@
 <script src="js/clipboard.min.js"></script>
 
 <body>
+<div style="width: 100%; height: 30%; background-color: #e0a800">
+    <img id="taskImage">
+    <p id="taskName"></p>
+</div>
 <div>
-
+    <p style="color: black; margin-top: 3%; padding: 0; margin-left: 5%">Description</p>
+    <ul>
+        <li>New users only</li>
+        <li>Register or complete tutorial, if asked so</li>
+        <li>Don’t change between network</li>
+    </ul>
+    <div align="center">
+        <button class="btn" style="width: 60%; height: 44px; margin-top: 20px; background-color: #e0a800; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
+    </div>
 </div>
 
 <!-- alert -->
@@ -69,6 +81,22 @@
         background-color: white;
     }
 
+    div img {
+        float: left;
+        margin: 15% 0 0 20px;
+        border-radius: 6px 6px 6px 6px;
+        width: 25%;
+        vertical-align: middle;
+    }
+
+    div p {
+        vertical-align: middle;
+        padding-top: 22%;
+        margin-left: 35%;
+        font: bold 18px PingFangSC-Regular, sans-serif;
+        color: white;
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -101,8 +129,21 @@
         return theRequest;
     }
     let downloadURL = GetRequest().url;
+    let taskCode = GetRequest().code;
+    let taskName = GetRequest().name;
 
+    createContext()
+    function createContext() {
+        document.getElementById('taskImage').src = 'img/'+taskCode+'_img.png';
+        taskName = taskName.substr(1);
+        taskName = taskName.substr(0, taskName.length-1);
 
+        $('#taskName').html(taskName);
+    }
+
+    function downloadAction() {
+        window.location.href = downloadURL;
+    }
 
 </script>
 </html>
