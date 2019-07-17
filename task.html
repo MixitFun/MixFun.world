@@ -1,1 +1,268 @@
-coming soon...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="images/share-logo.png" />
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script type="text/javascript" src="js/platform.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
+
+<body>
+<div>
+    <ul id="tasklist"></ul>
+</div>
+
+<!-- alert -->
+<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%; z-index: 9999">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-body">
+                <h5 class="modal-title" id="copy_label"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alert"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+</body>
+
+<style>
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+
+    html,body{
+        height:100%;
+        width:100%;
+        background-color: white;
+    }
+
+    * {margin: 0; padding: 0;}
+
+    ul {
+        list-style-type: none;
+    }
+
+    h6 {
+        font: bold 15px PingFangSC-Regular, sans-serif;
+        margin-top: 15px;
+    }
+
+    li img {
+        float: left;
+        margin: auto 10px;
+        border-radius: 6px 6px 6px 6px;
+        width: 20%;
+        vertical-align: middle;
+    }
+
+    li p {
+        font: 200 14px PingFangSC-Regular, serif;
+        margin: 0 8px 5px 23%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    li .btn-sm {
+        float: right;
+        background: linear-gradient(to right, #F45D82, #6C81F8);
+        border-radius: 20px;
+        border: 0px;
+        color: white;
+        margin: 18px 8px 0 8px;
+    }
+
+    li {
+        padding: 0px;
+        overflow: auto;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    $('#zzd').css('margin-top',height/2);
+    $('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
+    var baseUrl = "https://api.mixit.fun/";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    let token = GetRequest().id;
+    var userCode;
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            userCode = data.data.ownShareCode;
+            getTaskList();
+        }
+    });
+
+    function getTaskList() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'task/list',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                var listHT = "";
+                data.data.forEach(function(item, index) {
+                    var btnTitle;
+                    var status = item.status;
+                    if (status == 0) {
+                        btnTitle = "+"+item.coin;
+                    } else if (status == 1) {
+                        btnTitle = "Pending";
+                    } else {
+                        btnTitle = "Complete";
+                    }
+                    listHT += "<li><div>";
+                    listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += "<h6>"+item.taskName+"</h6>";
+                    listHT += "<p>"+item.taskDesc+"</p>";
+                    listHT += "<hr style='margin-bottom: 0'>";
+                    listHT += "</div></li>";
+
+
+                });
+                $('#tasklist').html(listHT);
+            }
+        });
+    }
+
+    function goDownLoad(type, code, url, name) {
+        if (type == 0 || type == 1) {
+            $.ajax({
+                method: 'post',
+                url: baseUrl+'task/start',
+                headers:{
+                    authorization:token
+                },
+                data: JSON.stringify({
+                    code:code
+                }),
+                contentType:'application/json',
+                dataType: 'json',
+                success: function(data) {
+                    if(data.status == 0){
+                        $('#zzd').modal('show');
+                    }else{
+                        $('#alert').html('<p>'+data.msg+'</p>');
+                        $('#ModalAlert').modal('show');
+                    }
+                    $('#zzd').on('shown.bs.modal',function () {
+                        let timeout = setTimeout(function () {
+                            $('#zzd').modal('hide');
+                        },1200);
+                    });
+                }
+            });
+            $('#zzd').on('hide.bs.modal', function () {
+                let validURL = url+"&UID="+userCode;
+                window.location.href = 'https://mixfun.world/task_detail.html?url=\"'+validURL+'\"'+'&code='+code+'&name='+name;
+            })
+        }
+
+    }
+
+</script>
+</html>
