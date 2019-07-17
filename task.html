@@ -106,7 +106,7 @@
 
     h6 {
         font: bold 15px PingFangSC-Regular, sans-serif;
-        margin-top: 15px;
+        margin-top: 20px;
     }
 
     li img {
@@ -119,7 +119,7 @@
 
     li p {
         font: 200 14px PingFangSC-Regular, serif;
-        margin: 0 8px 5px 23%;
+        margin: 0 10px 15px 23%;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -214,13 +214,13 @@
                     } else {
                         btnTitle = "Complete";
                     }
-                    listHT += "<li><div>";
+                    listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
                     listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
                     listHT += "<h6>"+item.taskName+"</h6>";
-                    listHT += "<p>"+item.taskDesc+"</p>";
+                    listHT += "<p>"+item.taskDesc+"</p></div>";
                     listHT += "<hr style='margin-bottom: 0'>";
-                    listHT += "</div></li>";
+                    listHT += "</li>";
 
 
                 });
