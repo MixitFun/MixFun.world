@@ -301,7 +301,7 @@
                     }
                     rotateFunc(itemIndex+1);
                 } else {
-                    if (data.status == 1010) {
+                    if (data.status == 1010 || data.status == 413) {
                         canSpin = false;
                     }
                     $('#wheelcanvas').stopRotate();
