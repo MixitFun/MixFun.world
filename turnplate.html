@@ -250,12 +250,17 @@
         });
     };
 
+    var canSpin = true;
     $('.pointer').click(function() {
-        $('#ModalConf').modal('show');
+        if (canSpin) {
+            $('#ModalConf').modal('show');
+        }
     });
 
     function tapToSpin() {
-        $('#ModalConf').modal('show');
+        if (canSpin) {
+            $('#ModalConf').modal('show');
+        }
     }
 
     var transactionID;
@@ -296,6 +301,7 @@
                     }
                     rotateFunc(itemIndex+1);
                 } else {
+                    canSpin = false;
                     $('#wheelcanvas').stopRotate();
                     $('#alert').html('<p>'+data.msg+'</p>');
                     $('#ModalAlert').modal('show');
