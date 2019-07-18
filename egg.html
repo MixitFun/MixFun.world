@@ -81,18 +81,7 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            // if (data.data.avatar == null) {
-            //     $('#avatar').attr('src','img/logo_midium.png');
-            // } else {
-            //     let avatarStr = data.data.avatar.trim()
-            //     if (avatarStr == '') {
-            //         $('#avatar').attr('src','img/logo_midium.png');
-            //     } else {
-            //         $('#avatar').attr('src',avatarStr);
-            //     }
-            // }
-            // $('#nickname').text(data.data.nickname);
-            $('#androidKwagoURL').attr('href', 'https://clk.omgt3.com/?PID=36423&AID=1980884&UID='+data.data.ownShareCode);
+            $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
         }
     });
 
@@ -355,8 +344,8 @@
             </div>
         </div>
         <div align="center" id="adsDiv" style="margin-top: 4%; display: none">
-            <a id="androidKwagoURL" target="_blank">
-                <img src="img/banner_Kwago.png" style="width: 98%">
+            <a id="androidzaloraURL" target="_blank">
+                <img src="http://track.omguk.com/i/?CRID=134034&AID=1980884&PID=12219&WID=98417" style="width: 98%">
             </a>
         </div>
 	</div>
