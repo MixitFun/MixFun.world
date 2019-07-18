@@ -275,7 +275,7 @@
 
     $('.pointer').click(function() {
         if (balanceCoin < 100) {
-            $('#alert').html('<p>You don\'t have enough coin!</p>');
+            $('#alert').html('<p>You don\'t have enough coins!</p>');
             $('#ModalAlert').modal('show');
         } else {
             $('#ModalConf').modal('show');
@@ -284,7 +284,7 @@
 
     function tapToSpin() {
         if (balanceCoin < 100) {
-            $('#alert').html('<p>You don\'t have enough coin!</p>');
+            $('#alert').html('<p>You don\'t have enough coins!</p>');
             $('#ModalAlert').modal('show');
         } else {
             $('#ModalConf').modal('show');
@@ -334,9 +334,6 @@
                     }
                     $('#wheelcanvas').stopRotate();
                     var message = data.msg;
-                    if (message == "You don't have enough coins!") {
-                        message = "You don't have enough coin!"
-                    }
                     $('#alert').html('<p>'+message+'</p>');
                     $('#ModalAlert').modal('show');
                 }
