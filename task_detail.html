@@ -28,7 +28,7 @@
     <p class="TaskName" id="taskName"></p>
 </div>
 <div style="position: absolute; width: 100%">
-    <h6 style="margin-top: 8%; margin-left: 5%; font-size: 16px;">Description</h6>
+    <h6 style="margin-top: 8%; margin-left: 6%; font-size: 16px;">Description</h6>
     <ul>
         <li>New users only</li>
         <li>Register or complete tutorial, if asked so</li>
@@ -85,7 +85,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 20px;
+        left: 6%;
         margin: auto;
         border-radius: 6px 6px 6px 6px;
         width: 20%;
@@ -95,8 +95,11 @@
     }
 
      .TaskName {
-        padding-top: 14%;
-        margin-left: 30%;
+         position: absolute;
+         top: 30%;
+         bottom: 0;
+         left: 30%;
+         margin: auto;
         font-weight: 400;
          font-size: 18px;
         color: white;
@@ -147,7 +150,7 @@
         document.getElementById('taskImage').src = 'img/'+taskCode+'_img.png';
         taskName = taskName.substr(1);
         taskName = taskName.substr(0, taskName.length-1);
-        taskName += "&nbsp;100 Mixcoin"
+        taskName += "&nbsp;100Mixcoin"
 
         $('#taskName').html(taskName);
     }
