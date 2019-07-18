@@ -273,12 +273,16 @@
         });
     };
 
+    var hasSpinning = false;
     $('.pointer').click(function() {
         if (balanceCoin < 100) {
             $('#alert').html('<p>You don\'t have enough coins!</p>');
             $('#ModalAlert').modal('show');
         } else {
-            $('#ModalConf').modal('show');
+            if (!hasSpinning) {
+                hasSpinning = true;
+                $('#ModalConf').modal('show');
+            }
         }
     });
 
@@ -287,7 +291,10 @@
             $('#alert').html('<p>You don\'t have enough coins!</p>');
             $('#ModalAlert').modal('show');
         } else {
-            $('#ModalConf').modal('show');
+            if (!hasSpinning) {
+                hasSpinning = true;
+                $('#ModalConf').modal('show');
+            }
         }
     }
 
@@ -304,6 +311,7 @@
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
+                    hasSpinning = false;
                     $('#alert').html('<p>Net Error!</p>');
                     $('#ModalAlert').modal('show');
                 }
@@ -332,6 +340,7 @@
                     if (data.status == 1010 || data.status == 413) {
                         balanceCoin = 0;
                     }
+                    hasSpinning = false;
                     $('#wheelcanvas').stopRotate();
                     var message = data.msg;
                     $('#alert').html('<p>'+message+'</p>');
@@ -343,6 +352,7 @@
 
     var prizeCode;
     function dealSpinResult(itemIndex) {
+        hasSpinning = false;
         balanceCoin -= 100;
         prizeCode = itemCode[itemIndex];
         var title = "Congratulations!";
