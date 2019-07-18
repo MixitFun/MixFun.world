@@ -173,22 +173,15 @@
 
     var balanceCoin = 0;
     $.ajax({
-        method: 'get',
-        url: baseUrl+'user/wallet',
+        method: 'post',
+        url: baseUrl+'user/wallet/balance',
         headers:{
             authorization:token
         },
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            let watchCoin = Number(data.data.watchCoin);
-            let uploadCoin = Number(data.data.uploadCoin);
-            let inviteCoin = Number(data.data.inviteCoin);
-            let contributionCoin = Number(data.data.contributeCoin);
-            let tippedIDCoin = Number(data.data.tippedCoin);
-            let expenseCoin = Number(data.data.expend);
-            let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
-            balanceCoin = rewardCoin + contributionCoin - tippedIDCoin - expenseCoin;
+            balanceCoin = Number(data.data);
         }
     });
 

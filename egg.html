@@ -86,30 +86,30 @@
     });
 
     $.ajax({
-        method: 'get',
-        url: baseUrl+'user/wallet',
+        method: 'post',
+        url: baseUrl+'user/wallet/info',
         headers:{
             authorization:token
         },
         contentType:'application/json',
         dataType: 'json',
-        success: function(data){
-        	let watchCoin = Number(data.data.watchCoin);
-        	let uploadCoin = Number(data.data.uploadCoin);
-        	let inviteCoin = Number(data.data.inviteCoin);
-        	let contributionCoin = Number(data.data.contributeCoin);
-        	let tippedIDCoin = Number(data.data.tippedCoin);
-        	let expenseCoin = Number(data.data.expend);
-        	let rewardCoin = (watchCoin+uploadCoin+inviteCoin);
-            let balanceCoin = rewardCoin + contributionCoin - tippedIDCoin - expenseCoin;
+        success: function(data) {
+        	let watchCoin = Number(data.data.watchReward);
+        	let uploadCoin = Number(data.data.uploadReward);
+        	let inviteCoin = Number(data.data.inviteReward);
+        	let contributionCoin = Number(data.data.receivedTip);
+        	let tempTippedCoin = Number(data.data.giveAwayTip);
+            let expendCoin = Number(data.data.expend);
+        	let expenseCoin = Math.abs(expendCoin - tempTippedCoin);
+        	let tippedCoin = Math.abs(tempTippedCoin);
+            let balanceCoin = Number(data.data.balance);
 
             $('#BalanceID').text(balanceCoin.toFixed(2));
             $('#UploadID').text(uploadCoin.toFixed(2));
             $('#WatchID').text(watchCoin.toFixed(2));
             $('#InviteID').text(inviteCoin.toFixed(2));
-
             $('#ContributionID').text(contributionCoin.toFixed(2));
-            $('#TippedID').text(tippedIDCoin.toFixed(2));
+            $('#TippedID').text(tippedCoin.toFixed(2));
             $('#ExpenseID').text(expenseCoin.toFixed(2));
         }
     });
