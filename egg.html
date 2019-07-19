@@ -197,7 +197,8 @@
         } else if (type == 'luck') {
             $('#ModalNotice1').modal('show');
         } else if (type == 'balance') {
-            $('#ModalCoin').modal('show');
+            $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
+            $('#ModalAlert').modal('show');
         }
     }
 
@@ -209,7 +210,7 @@
                 <div>
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 5px; margin-right: 15px; font-size: 15px; display: inline-block">Balance:</p>
                     <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
-                    <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: cover" onclick="ShowNotice('balance')"></button>
+                    <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('balance')"></button>
                 </div>
                 <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: 0 0 1%;"/>
                 <div>
@@ -395,17 +396,16 @@
     </div>
     </div>
 
-    <div class="modal fade" id="ModalCoin" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
-                <div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
+                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                    <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" align="center" style="padding-top: 0">
-                    <p style="text-align: left">Balance is not updated in real time, some coins may be held for spam analysis.</p>
-                </div>
+                <div class="modal-body" id="alert"></div>
             </div>
         </div>
     </div>
