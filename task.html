@@ -29,7 +29,7 @@
         <img src="img/Task_banner.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
         <button class="btn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover" onclick="showNotcie()"></button>
     </div>
-    <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
+    <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
     <ul id="tasklist"></ul>
 </div>
 
@@ -251,7 +251,7 @@
                     } else if (status == 1) {
                         btnTitle = "Pending";
                     } else {
-                        btnTitle = "Complete";
+                        btnTitle = "Completed";
                     }
                     listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
