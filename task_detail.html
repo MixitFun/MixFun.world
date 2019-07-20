@@ -42,10 +42,16 @@
 <div id="referDiv" style="width: 100%; display: none;">
     <p style="margin: 6% 5% 0 5%; font-size: 15px;">Send this referral code to your friends or share below links to get reward.</p>
     <div align="center">
-        <p id="referCode" style="margin-top: 6%; font-size: 27px; font-weight: 630; color: #d84024"></p>
+        <p id="referCode" style="margin-top: 6%; font-size: 27px; font-weight: 630; color: #F45D90"></p>
         <div>
-            <button class="btn shareBtn" style="background-image: url(img/icon_facebook.png); margin-right: 20%" onclick="shareToFackbook()"></button>
-            <button class="btn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copy()"></button>
+            <div style="display: inline-block; margin-top: 5%; margin-right: 20%">
+                <button class="btn shareBtn" style="background-image: url(img/icon_facebook.png);" onclick="shareToFackbook()"></button>
+                <p class="shareBtnTitle">Facebook</p>
+            </div>
+            <div style="display: inline-block; margin-top: 5%">
+                <button class="btn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copy()"></button>
+                <p class="shareBtnTitle">Link</p>
+            </div>
         </div>
     </div>
 </div>
@@ -121,11 +127,16 @@
         margin-right: 5%;
     }
 
+    .shareBtnTitle {
+        font-size: 11px;
+        color: gray;
+        margin-top: 5px;
+    }
+
     .shareBtn, .copyBtn {
         margin-top: 5%; 
         padding: 16px;
         background-size: cover;
-        display: inline-block;
     }
 
 </style>
