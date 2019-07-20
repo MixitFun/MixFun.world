@@ -21,13 +21,14 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v3.3"></script>
 
 <body>
 <div style="width: 100%; height: 25%; background-color: #FEC444; position: relative">
     <img id="taskImage">
     <p class="TaskName" id="taskName"></p>
 </div>
-<div style="position: absolute; width: 100%">
+<div id="taskDiv" style="position: absolute; width: 100%; display: none">
     <h6 style="margin-top: 8%; margin-left: 6%; font-size: 16px;">Description</h6>
     <ul>
         <li>New users only</li>
@@ -36,6 +37,16 @@
     </ul>
     <div align="center">
         <button class="btn" style="width: 70%; height: 44px; margin-top: 8%; background-color: #FEC444; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
+    </div>
+</div>
+<div id="referDiv" style="width: 100%; display: none;">
+    <p style="margin: 6% 5% 0 5%; font-size: 15px;">Send this referral code to your friends or share below links to get reward.</p>
+    <div align="center">
+        <p id="referCode" style="margin-top: 6%; font-size: 27px; font-weight: 630; color: #d84024"></p>
+        <div>
+            <button class="btn shareBtn" style="background-image: url(img/icon_facebook.png); margin-right: 20%" onclick="shareToFackbook()"></button>
+            <button class="btn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copy()"></button>
+        </div>
     </div>
 </div>
 
@@ -110,6 +121,13 @@
         margin-right: 5%;
     }
 
+    .shareBtn, .copyBtn {
+        margin-top: 5%; 
+        padding: 16px;
+        background-size: cover;
+        display: inline-block;
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -128,6 +146,12 @@
         }
     });
 
+    $('#tot').on('shown.bs.modal', function (e) {
+        setTimeout(function () {
+            $('#tot').modal('hide');
+        },500)
+    })
+
     var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
@@ -144,19 +168,48 @@
     let downloadURL = GetRequest().url;
     let taskCode = GetRequest().code;
     let taskName = GetRequest().name;
+    let taskCoin = GetRequest().coin;
 
     createContext()
     function createContext() {
+        if (taskCode == 'refer') {
+            $('#referDiv').css('display', 'block');
+            let strArr = downloadURL.split('shareCode=');
+            if (strArr.length > 1) {
+                let shareCode = strArr.slice(-1);
+                $('#referCode').html(shareCode);
+            }
+            $('#shareURL').html(downloadURL);
+        } else {
+            $('#taskDiv').css('display', 'block');
+        }
         document.getElementById('taskImage').src = 'img/'+taskCode+'_img.png';
         taskName = taskName.substr(1);
         taskName = taskName.substr(0, taskName.length-1);
-        taskName += "&nbsp;100Mixcoin"
-
+        taskName += "&nbsp;"+taskCoin+"Mixcoin";
         $('#taskName').html(taskName);
     }
 
     function downloadAction() {
         window.location.href = downloadURL;
+    }
+
+    let clip = new ClipboardJS('.copyBtn', {
+        text: function(trigger) {
+            return downloadURL;
+        }
+    });
+    clip.on('successfully', function(e){
+        clip.destroy();
+    });
+
+    function copy() {
+        $('#copy_label').text('Copied!');
+        $('#tot').modal('show');
+    }
+
+    function shareToFackbook() {
+        window.location.href = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
     }
 
 </script>

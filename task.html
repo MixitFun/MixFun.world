@@ -243,6 +243,14 @@
             dataType: 'json',
             success: function(data) {
                 var listHT = "";
+                listHT += "<li><div style='height: 100%'>";
+                listHT += "<img src='img/refer_img.png'/>";
+                listHT += '<button class= "btn-sm" onclick="goDownLoad(0, \'refer\', 10, \'\', \'Refer a friend\')">&nbsp;+10&nbsp;</button>';
+                listHT += "<h6>Refer a friend</h6>";
+                listHT += "<p>Refer a friend to get 10 Mixcoin</p></div>";
+                listHT += "</li>";
+                listHT += "<hr style='margin-bottom: 0'>";
+
                 data.data.forEach(function(item, index) {
                     var btnTitle;
                     var status = item.status;
@@ -255,51 +263,55 @@
                     }
                     listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
-                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
                     listHT += "<h6>"+item.taskName+"</h6>";
                     listHT += "<p>"+item.taskDesc+"</p></div>";
                     listHT += "</li>";
                     listHT += "<hr style='margin-bottom: 0'>";
-
-
                 });
                 $('#tasklist').html(listHT);
             }
         });
     }
 
-    function goDownLoad(type, code, url, name) {
-        if (type == 0 || type == 1) {
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'task/start',
-                headers:{
-                    authorization:token
-                },
-                data: JSON.stringify({
-                    code:code
-                }),
-                contentType:'application/json',
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0){
-                        $('#zzd').modal('show');
-                    }else{
-                        $('#alert').html('<p>'+data.msg+'</p>');
-                        $('#ModalAlert').modal('show');
+    function goDownLoad(type, code, coin, url, name) {
+        if (code == 'refer') {
+            let validURL = "https://mixfun.world/openbox.html?shareCode="+userCode;
+            let encodeURL = escape(validURL);
+            window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+        } else {
+            if (type == 0 || type == 1) {
+                $.ajax({
+                    method: 'post',
+                    url: baseUrl+'task/start',
+                    headers:{
+                        authorization:token
+                    },
+                    data: JSON.stringify({
+                        code:code
+                    }),
+                    contentType:'application/json',
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status == 0){
+                            $('#zzd').modal('show');
+                        }else{
+                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        }
+                        $('#zzd').on('shown.bs.modal',function () {
+                            let timeout = setTimeout(function () {
+                                $('#zzd').modal('hide');
+                            },1200);
+                        });
                     }
-                    $('#zzd').on('shown.bs.modal',function () {
-                        let timeout = setTimeout(function () {
-                            $('#zzd').modal('hide');
-                        },1200);
-                    });
-                }
-            });
-            $('#zzd').on('hide.bs.modal', function () {
-                let validURL = url+"&UID="+userCode;
-                let encodeURL = escape(validURL);
-                window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&name=\"'+name+'\"';
-            })
+                });
+                $('#zzd').on('hide.bs.modal', function () {
+                    let validURL = url+"&UID="+userCode;
+                    let encodeURL = escape(validURL);
+                    window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+                })
+            }
         }
     }
 

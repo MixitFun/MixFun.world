@@ -66,32 +66,6 @@
         <p id="mc" style="margin-top: 10px"></p>
     </div>
 
-    <div id="coinDiv" class="card" style="display: none; width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; margin-bottom: 20px">
-        <div class="card-body" style="padding: 10px;">
-            <a id="coinLink" style="text-decoration: none"><p id="totalCoins" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 30px; font-weight: bold; margin-bottom: 0px"></p></a>
-            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: 15px">Balance</p>
-            <table width="100%" style="margin-bottom: 0px">
-                <tr>
-                    <td width="33%" align="center">
-                        <p id="watchCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Watch</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="uploadCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Upload</p>
-                        </p>
-                    </td>
-                    <td width="33%" align="center">
-                        <p id="inviteCoins" style="color: #353535; font-size: medium; margin-bottom: 0px">
-                        <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 12px; margin-bottom: -10px">Referral</p>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
             <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
@@ -379,38 +353,12 @@
     }
     function showSurprise() {
         if (newPlatform == "1") {
-            $('#coinDiv').hide();
             $('#activityList').hide();
             $('#adsDiv').hide();
         } else {
             $('#activityList').show();
             $('#adsDiv').show();
             if (platform.os.toString().indexOf('iOS') > -1) {
-                $('#coinDiv').show();
-                $.ajax({
-                    method: 'post',
-                    url: baseUrl+'user/wallet/info',
-                    headers:{
-                        authorization:token
-                    },
-                    contentType:'application/json',
-                    dataType: 'json',
-                    success: function(data){
-                        let watchCoin = Number(data.data.watchReward);
-                        let uploadCoin = Number(data.data.uploadReward);
-                        let inviteCoin = Number(data.data.inviteReward);
-                        let balanceCoin = Number(data.data.balance);
-                        $('#totalCoins').text(balanceCoin.toFixed(2));
-                        $('#watchCoins').text(watchCoin.toFixed(2));
-                        $('#uploadCoins').text(uploadCoin.toFixed(2));
-                        $('#inviteCoins').text(inviteCoin.toFixed(2));
-                        let coinLink = document.getElementById('coinLink');
-                        coinLink.href = "https://mixfun.world/egg.html?id="+token;
-
-                    }
-                });
-            } else {
-                $('#coinDiv').hide();
             }
         }
     }
