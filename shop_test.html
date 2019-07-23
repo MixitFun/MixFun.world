@@ -26,7 +26,7 @@
 
 <div>
     <div align="center" style="margin-top: 30%">
-        <button class="btn" style="border: 0; outline: none; height: 30%; width: 60%; background-color: antiquewhite">Test JSBridge</button>
+        <button id="noticeBtn" class="btn" style="border: 0; outline: none; height: 30%; width: 60%; background-color: antiquewhite">Test JSBridge</button>
     </div>
 </div>
 
@@ -84,6 +84,8 @@
             if (platform.os.toString().indexOf('iOS') > -1) {
                 bridge.callHandler('openURL', {'url': 'http://www.baidu.com'}, function(response) {
                 });
+            } else if (platform.os.toString().indexOf('Android') > -1) {
+                window.android.BackToAndroid('http://www.baidu.com');
             }
         };
     })
