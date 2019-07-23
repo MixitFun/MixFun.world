@@ -85,9 +85,6 @@
             if (platform.os.toString().indexOf('iOS') > -1) {
                 bridge.callHandler('openURL', {'url': 'http://www.baidu.com'}, function(response) {
                 });
-            } else if (platform.os.toString().indexOf('Android') > -1) {
-                alert('Android');
-                window.android.BackToAndroid('http://www.baidu.com');
             }
         };
         document.getElementById('noticeBtn2').onclick = function () {
@@ -98,6 +95,11 @@
             }
         };
     })
+
+    document.getElementById('noticeBtn').onclick = function () {
+        alert('Android');
+        window.android.BackToAndroid('http://www.baidu.com');
+    };
 
 </script>
 </html>
