@@ -2,163 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MixFun</title>
+    <title>Task</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Please help me to win the iPhone!📱Just click the link below😁" />
-    <meta property="og:description" content="Please help me to win the iPhone!📱Just click the link below😁" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
     <meta property="og:image" content="images/share-logo.png" />
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <link rel="stylesheet" type="text/css" href="css/slide-unlock.css"/>
 </head>
-
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
-<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
-<script src="js/jquery.slideunlock.js" type="text/javascript"></script>
-<script src="js/platform.js" type="text/javascript"></script>
-<style>
-    .top{
-        background-image: url("img/bg_new.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-    }
-    .tooltip-inner{
-        background-color: #b3d7ff;
-        color: #6974FF;
-        max-width: 300px;
-    }
-    .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before{
-        border-top-color: #b3d7ff;
-    }
-    .tooltip{
-        align-content: center;
-        z-index: -1;
-    }
-    input{
-        margin-top: 15px;
-    }
-    textarea{
-        margin-top: 15px;
-    }
-    li:hover{
-        background-color: white;
-    }
-    .nav-link.active{
-        color: #007bff;
-    }
-    .modal { overflow: auto !important; }
-    /*body.modal-open {*/
-    /*    overflow: hidden;*/
-    /*    position: fixed;*/
-    /*}*/
 
-    /*body.viewport-lg {*/
-    /*    position: absolute;*/
-    /*}*/
-    /*body {*/
-    /*    overflow-x: hidden;*/
-    /*    overflow-y: scroll !important;*/
-    /*}*/
-</style>
 <body>
-<div class="container" style="padding:0;background-color: #f7f7fb;" align="center">
-    <div align="center">
-        <img id="tx" style="width: 50px;height: 50px;border-radius: 25px;position: inherit;z-index: 9999;margin-top: 25px;">
-        <p id="mc" style="margin-top: 10px"></p>
+
+<div>
+    <div align="center" style="margin-top: 15px">
+        <img src="img/Task_banner.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
+        <button class="btn" id="noticeBtn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover"></button>
     </div>
-
-    <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 10px;">
-            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
-            <div id="ref"></div>
-            <p class="card-text">Your referral code：
-                <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
-            </p>
-            <div style="margin-top: 20px; margin-bottom: 10px;">
-                <p>Share your referral code or click the link below to invite your friends, and get free tokens for Lucky 10 PHP!</p>
-                <row>
-                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
-                    </a>
-                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
-                        <input id="lj" type="hidden">
-                        <img src="img/icon_ic_link.png">
-                    </a>
-                </row>
-            </div>
-        </div>
-    </div>
-
-    <div align="center" style="position: relative; margin-top: 20px">
-        <img src="img/fun_draw_banner.png" style="width: 100%;">
-        <button class="btn" style="position: absolute; background-image: url(img/btn_treasury_hunt.png); background-size: cover; border: 0; outline: none; top: 10%; right: 0; height: 27px; width: 135px" onclick="ShowNotice()"></button>
-    </div>
-
-    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link active" href="#draw2" data-toggle="tab" id="tabIn2">Treasury</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#History" data-toggle="tab">Token</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#Result" data-toggle="tab">Winners</a>
-            </li>
-        </ul>
-        <div id="myTabContent2" class="tab-content" style="background-color: white">
-            <div class="tab-pane fade in active show product" id="draw2" style="padding-top: 3%"></div>
-            <div class="tab-pane fade" id="History"></div>
-            <div class="tab-pane fade" id="Result"></div>
-        </div>
-    </div>
-
-    <a href="https://go.onelink.me/x5E9/Mixfun"><img src="img/fun_mini_banner.png" style="width: 100%; margin-top: 20px; margin-bottom: -10px"></a>
-    <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link active" href="#draw" data-toggle="tab" id="tabIn">Mobile Legends</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#miniworld" data-toggle="tab">Mini World</a>
-            </li>
-            <li class="nav-item" style="font-size: 13px">
-                <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
-            </li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active show commodity" id="draw">
-            </div>
-            <div class="tab-pane fade" id="buy">
-            </div>
-            <div class="tab-pane fade" id="miniworld">
-            </div>
-            <div class="tab-pane fade" id="rulesofsurvival">
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div id="footer" style="width: 100%;margin-top: 30px;" align="center">
-    <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
-    <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
+    <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
+    <ul id="tasklist"></ul>
 </div>
 
 <!-- alert -->
+<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%; z-index: 9999">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-body">
+                <h5 class="modal-title" id="copy_label"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
@@ -173,272 +58,30 @@
     </div>
 </div>
 
-<!-- alert -->
-<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Warning</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
-                <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <div id="slider">
-                    <div id="slider_bg"></div>
-                    <span id="label">>></span>
-                    <span id="labelTip">Slide to the far right to verify</span>
-                </div>
-                <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
-                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
-                <input id="it" type="hidden"/>
-                <input id="itname" type="hidden"/>
-                <input id="ittype" type="hidden"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Exchange -->
-<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Redeem
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="padding-bottom: 5px;">
-                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.
-                    </span>
-            </div>
-            <span id="bt" style="color: red;margin-left: 10%;"></span>
-            <div class="modal-body" align="center">
-                <input type="hidden" id="id"/>
-                <input type="hidden" id="commodity_id"/>
-                <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
-                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
-                <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
-                <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                <p style="margin-top: 10px;">Should you have any questions, please inbox us on MixFun Facebook</p>
-                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalJoin" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center" style="padding-top: 0">
-                <div>
-                    <p style="text-align: left;">Please Select The Lucky Token Amount</p>
-                </div>
-                <div style="display: inline-flex; width: 60%" align="center">
-                    <button class="btn" style="background-image: url(img/draw_reduce.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountReduce()"></button>
-                    <p style="width: 70%;" id="amountNum"></p>
-                    <button class="btn" style="background-image: url(img/draw_add.png); background-size: cover; border: 0; outline: none; height: 28px; width: 28px" onclick="amountAdd()"></button>
-                </div>
-                <p style="color: #9B9B9B;font-size: medium; margin-bottom: 0"><span id="totalExpense" style="color: #F76B1C"></span> PHP</p>
-                <p style="margin-top: 3%; margin-bottom: 0; text-align: left">Your Information</p>
-                <span id="btt" style="color: red;"></span>
-                <input class="form-control" type="text" id="phonenum" placeholder="Enter Your Phone Number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-bottom: 35px"/>
-                <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="selectGlobe()">Send Load with Globe</button>
-                <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px" onclick="selectSmart()">Send Load with Smart</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalNotice2" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">How to Play?</h5>
+                <h5 class="modal-title" id="ModalNoticeTitle">Instruction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <dl>
-                    <dt>Lucky 10PHP</dt>
-                    <dd style="margin-top: 5px">Do you want to win an iPhone? Spend 10PHP to try your lucky to win an iPhone and 1000 prizes.</dd>
-                    <dt>How to win?</dt>
-                    <dd style="margin-top: 5px">1. Pay 10PHP for 10 lucky tokens.</dd>
-                    <dd>2. Wait until the pool is full (100000 tokens).</dd>
-                    <dd>3. 1000 Winners will win.</dd>
-                    <dd style="margin-bottom: 30px">4. Invite friends to join to get free tokens.</dd>
-                    <dd style="margin-top: 5px">The sooner the pool is full, the earlier the winners get the prize.</dd>
+                    <dd style="margin-bottom: 20px">Please follow the instruction to download the app and you will get coin.</dd>
+                    <ul class="noticeul">
+                        <li class="noticeli">Pending: System is reviewing your download status.</li>
+                        <li class="noticeli">Completed:  You have received 100 Mixcoin.</li>
+                        <li class="noticeli">Failed: Your application is invalid because you are not new download/register user or not finished the whole download process.</li>
+                    </ul>
                 </dl>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="ModalMiniworld" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center" style="padding-top: 0">
-                <p style="text-align: left">Here is your code, please copy and activate it in your Mini World account.</p>
-                <p id="miniworldID" style="text-align: center; font-size: 18px; font-weight: 500"></p>
-                <button class="btn" id="miniworldIDBtn" data-clipboard-action="copy" data-clipboard-target="#miniworldID" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy2()">&nbsp;Copy&nbsp;</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalCash" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="CashMethod" align="center" style="padding-top: 0">
-            </div>
-            <div align="right">
-                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-bottom: 5%; margin-top: -10px; display: inline-block">Cancel</button>
-                <button class="btn btn-info" onclick="haveCash()" style="margin: -10px 20px 5%;display: inline-block">I Have Sent</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalCashResult" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center" style="padding-top: 0">
-                <p><img style="width: 28px; height: 28px; margin-right: 20px" src="img/draw_success.png">SUCCESSFUL</p>
-                <div id="resultTable">
-                </div>
-                <hr style="height:1px; margin: 20px 8%;"/>
-                <p style="text-align: left; margin-top: 20px; margin-bottom: 10px; font-size: 14px; font-weight: 600">Refer to friends to get free lucky tokens.</p>
-                <row>
-                    <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
-                        <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
-                    </a>
-                    <a class="col-4 lj" style="padding: 10%" target="_blank" onclick="copy('lj')">
-                        <input id="lj" type="hidden">
-                        <img src="img/icon_ic_link.png">
-                    </a>
-                </row>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalPending" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Pending</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="text-align: center">
-                <p style="text-align: left">1. Paid: Your status will be changed to “Waiting" in 2hours.</p>
-                <p style="text-align: left; margin-bottom: 30px">2. Haven’t paid: You should pay to verify your tokens.</p>
-                <button class="btn" id="globeBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600;" onclick="showGlobe()">Send Load with Globe</button>
-                <button class="btn" id="smartBtn" style="background: #6C81F8;border-radius: 20px;border: 0;color: white; width: 80%; height: 40px; font-size: 14px; font-weight: 600; margin-top: 20px; margin-bottom: 10px" onclick="showSmart()">Send Load with Smart</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- tip -->
-<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="copy_label">
-                </h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- tip -->
 <div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-danger" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-warning" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-info" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-light" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-dark" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="zzds" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-danger" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-warning" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-info" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-light" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-dark" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="zzdr" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
         <div class="spinner-grow text-primary" role="status">
             <span class="sr-only">Loading...</span>
@@ -468,38 +111,85 @@
 </div>
 </body>
 
+<style>
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+
+    html,body{
+        height:100%;
+        width:100%;
+        background-color: white;
+    }
+
+    * {margin: 0; padding: 0;}
+
+    ul {
+        list-style-type: none;
+    }
+
+    h6 {
+        font: bold 15px PingFangSC-Regular, sans-serif;
+        margin-top: 15px;
+    }
+
+    li img {
+        float: left;
+        margin: auto 10px;
+        border-radius: 6px 6px 6px 6px;
+        width: 20%;
+        vertical-align: middle;
+    }
+
+    li p {
+        font-size: 12px;
+        margin: 0 10px 5px 23%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    li .btn-sm {
+        float: right;
+        background: linear-gradient(to right, #F45D82, #6C81F8);
+        border-radius: 20px;
+        border: 0px;
+        color: white;
+        margin: 18px 8px 0 8px;
+    }
+
+    li {
+        padding: 0px;
+        overflow: auto;
+    }
+
+    .noticeli{
+        font-size: 14px;
+        margin-right: 5%;
+    }
+
+    .noticeul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+
+</style>
+
 <script type="text/javascript">
-    var baseUrl = "https://api.mixit.fun";
-    //    var baseUrl = 'http://192.168.0.113:7001/';
-    var clientHeight = document.body.clientHeight;
-    var clientWidth = document.body.clientWidth;
-    $('.top').css('height',170/(375/clientWidth)+"px");
-    $('.d-block').css('height',clientHeight/4);
-    $('#ModalExchange').css('height',clientHeight);
-    $('#zzd').css('margin-top',clientHeight/2);
 
-    $('#tips').tooltip('show');
-    $('.toast').toast('show');
-    let secretSign = "Wfy^%kdgfg)k!";
+    var body = document.body,
+        html = document.documentElement;
 
-    // var scrollTopPosition = 0;
-    // var lastKnownScrollTopPosition = 0;
-    // $(document).ready(function(){
-    //     if (platform.os.family.match(/iOS|Android/i)) {
-    //         $(window).scroll(function () {
-    //             scrollTopPosition = $(document).scrollTop();
-    //         });
-    //         $('.modal').on('show.bs.modal', function () {
-    //             $('body').css('top', (scrollTopPosition * -1));
-    //             lastKnownScrollTopPosition = scrollTopPosition;
-    //         });
-    //         $('.modal').on('hidden.bs.modal', function () {
-    //             $('body').scrollTop(lastKnownScrollTopPosition);
-    //         });
-    //     }
-    // });
-
-    $('.modal').on("hidden.bs.modal", function (e) {
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    $('#zzd').css('margin-top',height/2);
+    $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
         {
             $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
@@ -513,34 +203,7 @@
         }
     });
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        let target = $(e.target).attr("href")
-        switch (target) {
-            case '#History':
-                if ($('#History').html().length == 0) {
-                    getHistory();
-                }
-                break;
-            case '#Result':
-                if ($('#Result').html().length == 0) {
-                    getResult();
-                }
-                break;
-            case '#miniworld':
-                if ($('#miniworld').html().length == 0) {
-                    GetRedeem('miniworld');
-                }
-                break;
-            case '#rulesofsurvival':
-                if ($('#rulesofsurvival').html().length == 0) {
-                    GetRedeem('rulesofsurvival');
-                }
-                break;
-            default:
-                break;
-        }
-    });
-
+    var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -553,888 +216,127 @@
         }
         return theRequest;
     }
-
-    var token =  GetRequest().id;
+    let token = GetRequest().id;
+    var userCode;
     $.ajax({
         method: 'get',
-        url: baseUrl+'/user/referralList',
+        url: baseUrl+'user/profile',
         headers:{
             authorization:token
         },
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            $('#num').html(data.data.length);
-            var ht = '';
-            data.data.forEach(function (item,index) {
-                var img = "img/person.png";
-                if(item.avatar != null && item.avatar != '' && item.avatar != ' '){
-                    img = item.avatar;
-                }
-                if (index > 9) {
-                    return false;
-                }
-                ht+='<img src="'+img+'" style="width: 40px;height: 40px;border-radius: 20px;margin: 2px;"/>';
-            });
-            $('#ref').html(ht);
+            userCode = data.data.ownShareCode;
+            getTaskList();
         }
     });
 
-    var isBlockUser = false;
-    var shopSpotDic = new Array();
-    var fc;
-    var lj;
-    var uid;
-    $('#miniworld').html('');
-    $('#rulesofsurvival').html('');
-    $.ajax({
-        method: 'get',
-        url: baseUrl+'/user/profile',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            if (data.data.status < 0) {
-                isBlockUser = true;
-            }
-            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
-            lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
-            if (data.data.avatar == null) {
-                $('#tx').attr('src','img/logo_midium.png');
-            } else {
-                let avatarStr = data.data.avatar.trim()
-                if (avatarStr == '') {
-                    $('#tx').attr('src','img/logo_midium.png');
-                } else {
-                    $('#tx').attr('src',avatarStr);
-                }
-            }
-            uid = data.data.uid;
-            $('#mc').text(data.data.nickname);
-            $('#shareId').val(data.data.ownShareCode);
-            $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
-            $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
-            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
-            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
-
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'/shop/list',
-                headers:{
-                    authorization:token
-                },
-                data: {
-                    type: 1
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('.commodity').html(ht);
-                    }
-                }
-            });
-
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'/shop/list',
-                headers:{
-                    authorization:token
-                },
-                data: {
-                    type: 2
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users. (Philippines region ONLY)</p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('#buy').html(ht);
-                    }
-                }
-            });
-        }
-    });
-
-    $.ajax({
-        method: 'post',
-        url: baseUrl+'/treasury/token/num',
-        headers:{
-            authorization:token
-        },
-        dataType: 'json',
-        success: function(data) {
-            if(data.status == 0) {
-                let tokenNum = data.data.tokenNum;
-                let userNum = Math.max(100, data.data.userNum);
-                $('#joinNum').text(userNum);
-                let persent = Math.max(0.1, tokenNum/100000);
-                var persentStr = Number(persent*100).toFixed(2);
-                persentStr += '%';
-                document.getElementById('progressbar').style.width = persentStr;
-            }
-        }
-    });
-
-    function cj(it,name,sale,type,commodity_id){
-        if (shopSpotDic[it] > 0) {
-            if (isBlockUser) {
-                var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
-                $('#alert').html('<p>'+msg+'</p>');
-                $('#ModalAlert').modal('show');
-            } else {
-                $('#ModalConf').modal('show');
-                $('#it').val(it);
-                $('#itname').val(name);
-                $('#ittype').val(type);
-                $('#commodity_id').val(commodity_id);
-                if(type == 1){
-                    $('#type2').css('display','none');
-                    $('#type1').css('display','block');
-                }else{
-                    $('#type1').css('display','none');
-                    $('#type2').css('display','block');
-                }
-                $('.hf').text(sale);
-            }
-        } else {
-            let msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
-            $('#alert').html('<p>'+msg+'</p>');
-            $('#ModalAlert').modal('show');
-        }
-    }
-
-    function dde(name, data) {
-        if(name == 'Mini Beans') {
-            $('#miniworldID').text(data.data.recipient);
-            $('#ModalMiniworld').modal('show');
-        } else {
-            $('#address').val('');
-            $('#phone').val('');
-            $('#phoneType').val('');
-            $('#moblieLegend').val('');
-            $('#moblieLegendExtra').val('');
-            $('#rosInput').val('');
-            if(name == 'Mobile Legends') {
-                $('#rosInput').css('display', 'none');
-                $('#address').css('display','none');
-                $('#phone').css('display','none');
-                $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','inline-block');
-                $('#moblieLegendExtra').css('display','inline-block')
-            } else if(name == 'Rules of Survival') {
-                $('#address').css('display','none');
-                $('#phone').css('display','none');
-                $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display','none');
-                $('#rosInput').css('display', 'block');
-            } else {
-                $('#rosInput').css('display', 'none');
-                $('#address').css('display','block');
-                $('#phone').css('display','block');
-                $('#phoneType').css('display','block');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display', 'none');
-            }
-            $('#ModalExchange').modal('show');
-            $('#id').val(data.data.id);
-        }
-    }
-
-    var ss;
-    var gmfh;
-    var hasVerify = false;
-    function cjl(){
-        if (hasVerify) {
-            var it = $('#it').val();
-            var gmname = $('#itname').val();
-            var type = $('#ittype').val();
-            var time = new Date().getTime();
-            var key = md5(uid+secretSign+time);
-            var url = baseUrl+'/shop/exchange';
-            if (gmname == 'Mini Beans') {
-                url = baseUrl+'/shop/exchangeGameCode';
-            }
-            $('#ModalConf').modal('hide');
-            $.ajax({
-                method: 'post',
-                url: url,
-                headers:{
-                    authorization:token
-                },
-                data: {
-                    commodityId: it,
-                    type: type,
-                    requestTime: time,
-                    sign: key
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data.status == 0) {
-                        $('#zzd').modal('show');
-                    } else {
-                        let msg = data.msg;
-                        if (msg == "The stock for this hour is out. Please come back next hour.") {
-                            msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
-                            $('#alert').html('<p>'+msg+'</p>');
-                            $('#ModalAlert').modal('show');
-                        } else {
-                            $('#alert').html('<p>'+msg+'</p>');
-                            $('#ModalAlert').modal('show');
-                        }
-                    }
-                    $('#commodity_id').val(it);
-                    $('#zzd').on('shown.bs.modal',function () {
-                        gmfh = data;
-                        var timeout = setTimeout(function () {
-                            $('#zzd').modal('hide');
-                        },1200);
-                    });
-                },
-                error: function(){
-                    $('#alert').html('<p>Net Error!</p>');
-                    $('#ModalAlert').modal('show');
-                }
-            });
-            $('#zzd').on('hide.bs.modal', function () {
-                dde(gmname, gmfh);
-            })
-        } else {
-            $('#copy_label').text('Please verify first');
-            $('#tot').modal('show');
-        }
-    }
-
-    function buy(){
-        var id = $('#id').val();
-        var commodity_id = $('#commodity_id').val();
-        var name = $('#itname').val();
-        var recipient = $('#recipient').val();
-        var playerID;
-        if(name == 'Mobile Legends') {
-            var moblieLegend = $('#moblieLegend').val();
-            var moblieLegendExtra = $('#moblieLegendExtra').val();
-            if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-            playerID = moblieLegend+"("+moblieLegendExtra+")";
-        } else if(name == 'Rules of Survival') {
-            var rosID = $('#rosInput').val();
-            if (rosID == null || rosID == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-            playerID = rosID;
-        } else{
-            if (recipient == null || recipient == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-            var phone = $('#phone').val();
-            if (phone == null || phone == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-
-            var address = $('#address').val();
-            if (address == null || address == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-
-            var phoneType = $('#phoneType').val();
-            if (phoneType == null || phoneType == ''){
-                $('#bt').text('Please fill up all your details.');
-                return;
-            }
-        }
-        $.ajax({
-            url : baseUrl+"/shop/buy",
-            type : 'post',
-            dataType : 'json',
-            data: {
-                id: id,
-                commodityId:commodity_id,
-                recipient:recipient,
-                phone: phone,
-                moblieLegend: playerID,
-                address: address,
-                phoneType: phoneType
-            },
-            headers:
-                {
-                    authorization: token
-                },
-            success: function(data){
-                var storeLink = 'https://mixfun.world/index.html';
-                var userAgentInfo = navigator.userAgent;
-                if (userAgentInfo.indexOf('iPhone') > 0) {
-                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
-                } else if (userAgentInfo.indexOf('Android') > 0) {
-                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
-                }
-                $('#ModalExchange').modal('hide');
-                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
-                    '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
-                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
-                $('#ModalAlert').modal('show');
-                let sopt = shopSpotDic[id];
-                shopSpotDic[id] = Math.max(0, sopt-1);
-            }
-        });
-    }
-
-
-    function exModelShow(){
-        var buttonTap = true;
-        $('#ModalAlert').modal('hide');
-        $('#ModalAlert').on('hidden.bs.modal', function () {
-            if (!buttonTap) {
-                return;
-            }
-            buttonTap = false;
-            $('#ModalExchange').modal('show');
-        });
-    }
-
-    $('#ModalExchange').on('hide.bs.modal',function(){
-        $('#ModalAlert').modal('show');
-        $('#alert').html('<p style="color: red;">Confirm to quit?  If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
-    });
-
-    function copy(id){
-        var copyVal = $('#'+id).val();
-        if(copyVal != ''){
-            var clipboard = new ClipboardJS('.'+id, {
-                text: function() {
-                    return copyVal;
-                }
-            });
-            clipboard.on('successfully', function(e){
-                clip.destroy();
-            });
-            $('#copy_label').text('Copied!');
-            $('#tot').modal('show');
-        }else{
-            $('#copy_label').text('Please login');
-            $('#tot').modal('show');
-        }
-    }
-
-    var clip = new ClipboardJS('.btn');
-    clip.on('successfully', function(e){
-        clip.destroy();
-    });
-    function copy2(){
-        $('#copy_label').text('Copied!');
-        $('#tot').modal('show');
-    }
-
-    $('#tot').on('shown.bs.modal', function (e) {
-        setTimeout(function () {
-            $('#tot').modal('hide');
-        },500)
-    })
-
-    $(function () {
-        let slider = new SliderUnlock("#slider", {}, function () {
-            hasVerify = true;
-        });
-        slider.init();
-    })
-
-    function GetRedeem(name) {
-        let type;
-        let redeemType;
-        if (name == 'miniworld') {
-            type = 3;
-            redeemType = 2;
-        } else if (name == 'rulesofsurvival') {
-            type = 4;
-            redeemType = 4;
-        }
+    function getTaskList() {
         $.ajax({
             method: 'post',
-            url: baseUrl+'/shop/list',
+            url: baseUrl+'task/list',
             headers:{
                 authorization:token
             },
-            data:{
-                type: type
-            },
+            contentType:'application/json',
             dataType: 'json',
             success: function(data) {
-                if(data.status == 0) {
-                    var ht = '<p style="margin-top: 5px"></p>';
-                    data.data.forEach(function(item, index) {
-                        var spot = item.glh;
-                        shopSpotDic[item.id] = spot;
-                        ht+= '<div class="media"style="padding: 3%">'+
-                            '<div style="width: 25%;">' +
-                            '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                            '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                            '</div>'+
-                            '<div class="media-body" style="padding: 3%;">'+
-                            '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                            '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                            '<div class="mt-0">' +
-                            '<p style="width: 100%;text-align: left;"><span>Spot: '+spot+'</span>' +
-                            '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
-                            '</div>'+
-                            '</div>';
-                    });
-                    $('#'+name).html(ht);
-                }
+                var listHT = "";
+                listHT += "<li><div style='height: 100%'>";
+                listHT += "<img src='img/refer_img.png'/>";
+                listHT += '<button class= "btn-sm" onclick="goDownLoad(0, \'refer\', 50, \'\', \'Refer a friend\')">&nbsp;+50&nbsp;</button>';
+                listHT += "<h6>Refer a friend</h6>";
+                listHT += "<p>Refer a friend to get 50 Mixcoin</p></div>";
+                listHT += "</li>";
+                listHT += "<hr style='margin-bottom: 0'>";
+
+                data.data.forEach(function(item, index) {
+                    var btnTitle;
+                    var status = item.status;
+                    if (status == 0) {
+                        btnTitle = "+"+item.coin;
+                    } else if (status == 1) {
+                        btnTitle = "Pending";
+                    } else {
+                        btnTitle = "Completed";
+                    }
+                    listHT += "<li><div style='height: 100%'>";
+                    listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += "<h6>"+item.taskName+"</h6>";
+                    listHT += "<p>"+item.taskDesc+"</p></div>";
+                    listHT += "</li>";
+                    listHT += "<hr style='margin-bottom: 0'>";
+                });
+                $('#tasklist').html(listHT);
             }
         });
     }
 
-    GetProduct();
-    function GetProduct() {
-        var imageURL = 'img/draw_product_iphone.png';
-        var name = 'iPhone 8';
-        var ht = '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
-            '<div style="width: 100%;">' +
-            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-            '<div style="width: 100%;color: #000000e6; opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        imageURL = 'img/draw_product_vivo.png';
-        name = 'Vivo Y53';
-        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
-            '<div style="width: 100%;">' +
-            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-            '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        imageURL = 'img/draw_product_ml.png';
-        name = '500 MLBB (11 Dias)';
-        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
-            '<div style="width: 100%;">' +
-            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-            '<div style="width: 100%;color: #000000e6;opacity: 0.6; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        imageURL = 'img/draw_product_mload.png';
-        name = '500 Mobile Loads (10PHP)';
-        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
-            '<div style="width: 100%;">' +
-            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-            '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-        imageURL = 'img/draw_product_ros.png';
-        name = 'Rules of Survival 60 Diamonds';
-        ht += '<div class="media" style="padding: 3%; display: inline-block; width: 90%">'+
-            '<div style="width: 100%;">' +
-            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 10px;"/>' +
-            '<div style="width: 100%;color: #000000e6;opacity: 0.6;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">'+name+'</div></div></div>';
-
-        ht += '<div class="progress" style="width: 60%; margin-top: 5%">'+
-            '<div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #F76B1C">'+
-            '<span class="sr-only"></span>'+
-            '</div></div>';
-        ht += '<p style="color: #9B9B9B;font-size: small; margin-top: 8px"><span id="joinNum" style="color: #F76B1C"></span> lucky people in the pool</p>';
-        ht += '<button class="btn" style="background: linear-gradient(270deg,rgba(244,93,130,1) 0%,rgba(108,129,248,1) 100%); box-shadow:0px 4px 8px 0px rgba(146,64,236,0.25);border-radius: 25px;border: 0px;color: white; width: 80%; height: 50px; font-size: 18px; margin-bottom: 5%;" onclick="Join()">Join</button>'
-        $('.product').html(ht);
-    }
-
-    function Join() {
-        $('#phonenum').val('');
-        $('#btt').text('');
-        $('#ModalJoin').modal('show');
-    }
-
-    var orderCode = '';
-    function buyAmount(cashType) {
-        var buttonTap = true;
-        let phone = $('#phonenum').val();
-        let totalExpense = $('#totalExpense').text();
-        if (phone == null || phone == '') {
-            $('#btt').text('Please Fill Up Your Phone Number.');
-            return;
-        }
-        var isValid = true;
-        var match = new RegExp("^(0[0-9]*)$").test(phone);
-        if(match){
-            if (phone.length < 11) {
-                isValid = false;
-            }
+    function goDownLoad(type, code, coin, url, name) {
+        if (code == 'refer') {
+            let validURL = "https://mixfun.world/openbox.html?shareCode="+userCode;
+            let encodeURL = escape(validURL);
+            window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
         } else {
-            isValid = false;
+            if (type == 0 || type == 1) {
+                $.ajax({
+                    method: 'post',
+                    url: baseUrl+'task/start',
+                    headers:{
+                        authorization:token
+                    },
+                    data: JSON.stringify({
+                        code:code
+                    }),
+                    contentType:'application/json',
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status == 0){
+                            $('#zzd').modal('show');
+                        }else{
+                            $('#alert').html('<p>'+data.msg+'</p>');
+                            $('#ModalAlert').modal('show');
+                        }
+                        $('#zzd').on('shown.bs.modal',function () {
+                            let timeout = setTimeout(function () {
+                                $('#zzd').modal('hide');
+                            },1200);
+                        });
+                    }
+                });
+                $('#zzd').on('hide.bs.modal', function () {
+                    let validURL = url+"&UID="+userCode;
+                    let encodeURL = escape(validURL);
+                    window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+                })
+            }
         }
-        if (!isValid) {
-            $('#btt').text('Please Enter Valid Phone Number.');
-            return;
-        }
-        $('#ModalJoin').modal('hide');
-        $('#ModalJoin').on('hidden.bs.modal', function () {
-            if (!buttonTap) {
-                return;
-            }
-            buttonTap = false;
-            $('#zzdr').modal('show');
-            var isError = false;
-            var errorMsg = '';
-            $.ajax({
-                method: 'post',
-                url: baseUrl + '/treasury/order/token/create',
-                headers: {
-                    authorization: token
-                },
-                data: JSON.stringify({
-                    pnum: amountNum,
-                    amount: totalExpense,
-                    mobile: phone,
-                    legends: '',
-                }),
-                contentType:'application/json',
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status == 0) {
-                        orderCode = data.data;
-                    } else {
-                        isError = true;
-                        errorMsg = data.msg;
-                    }
-                },
-                error: function () {
-                    isError = true;
-                    errorMsg = 'Net Error!';
-                }
+    }
+
+    function showNotcie() {
+        $('#ModalNotice').modal('show');
+    }
+
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'https://__bridge_loaded__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+    }
+
+    setupWebViewJavascriptBridge(function(bridge) {
+        /* Initialize your app here */
+        document.getElementById('noticeBtn').onclick = function () {
+            bridge.callHandler('openURL', {'blogURL': 'http://www.baidu.com'}, function(response) {
             });
-            $('#zzdr').on('shown.bs.modal',function () {
-                var timeout = setTimeout(function () {
-                    $('#zzdr').modal('hide');
-                },1200);
-            });
-            $('#zzdr').on('hidden.bs.modal', function () {
-                if (isError) {
-                    $('#alert').html('<p>' + errorMsg + '</p>');
-                    $('#ModalAlert').modal('show');
-                } else {
-                    if (cashType == 'globe') {
-                        var notice = '<dl style="text-align: left"><dt>Globe</dt>';
-                        notice += '<dd style="margin-top: 10px">1. Use the '+phone+' number to text '+totalExpense+' to 29754740270.</dd>';
-                        notice += '<dd>2. Receive confirmation SMS and reply “YES".</dd>';
-                        notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>';
-                        notice += '</dl>';
-                        $('#CashMethod').html(notice);
-                    } else {
-                        var notice = '<dl style="text-align: left"><dt>Smart</dt>';
-                        notice += '<dd style="margin-top: 10px">Use the '+phone+' number to text "PASALOAD 09611457667 '+totalExpense+'." to 808.</dd>';
-                        notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>';
-                        notice += '</dl>';
-                        $('#CashMethod').html(notice);
-                    }
-                    $('#ModalCash').modal('show');
-                }
-            })
-        })
-    }
+        };
+    })
 
-    function getHistory() {
-        $.ajax({
-            method: 'post',
-            url: baseUrl + '/treasury/user/token/list',
-            headers: {
-                authorization: token
-            },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                if (data.status == 0) {
-                    var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-                    ht += '<tr><th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Token</th>';
-                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Type</th>';
-                    ht += '<th style="width: 25%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Status</th></tr>';
-                    data.data.forEach(function (item,index) {
-                        item.tokenInfoList.forEach(function (data, row) {
-                            ht += '<tr>';
-                            let code = data.tokenCode;
-                            ht += '<td style="font-size: 14px">'+code+'</td>';
-                            var type = '';
-                            if (data.type == 1) {
-                                type = 'Purchase';
-                            } else {
-                                type = 'Referral';
-                            }
-                            ht += '<td style="font-size: 14px">'+type+'</td>';
-                            var status = '';
-                            if (data.status == 0) {
-                                status = 'Pending';
-                                let phoneNum = data.mobile;
-                                let totalExpense = data.pnum;
-                                ht += '<td onclick="pendingClik(\'' + phoneNum + '\', \'' + totalExpense + '\')" style="font-size: 14px; color: cornflowerblue">'+status+'</td>';
-                            } else if (data.status == 1) {
-                                status = 'Waiting';
-                                ht += '<td style="font-size: 14px">'+status+'</td>';
-                            } else if (data.status == 2) {
-                                status = 'Win';
-                                ht += '<td style="font-size: 14px; color: gold">'+status+'</td>';
-                            } else {
-                                status = 'Loss';
-                                ht += '<td style="font-size: 14px; color: red;">'+status+'</td>';
-                            }
-                            ht += '</tr>';
-                        });
-                    });
-                    ht += '</table>';
-                    ht += '<p style="color: #9B9B9B;font-size: small; margin: 15px 3% 0;text-align: left;">Status</p>';
-                    ht += '<p style="color: #9B9B9B;font-size: small; margin-left: 3%; margin-right: 3%; text-align: left; margin-bottom: 0;">* Pending: wait for payment verification</p>';
-                    ht += '<p style="color: #9B9B9B;font-size: small; margin-left: 3%; margin-right: 3%; text-align: left; margin-bottom: 0;">* Waiting: wait until the pool is full</p>';
-                    ht += '<p style="color: #9B9B9B;font-size: small; margin-left: 3%; margin-right: 3%; text-align: left;">* Win/Loss</p>';
-                    ht += '<p style="color: #9B9B9B;font-size: small; margin-left: 3%; margin-right: 3%; padding-bottom: 3%; text-align: left;">More friends you\'re referred, more free lucky tokens you will get.</p>';
-                    $('#History').html(ht);
-                } else {
-                }
-            }
-        });
-    }
-
-    function getResult() {
-        $.ajax({
-            method: 'post',
-            url: baseUrl + '/treasury/result/list',
-            headers: {
-                authorization: token
-            },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                if (data.status == 0) {
-                    var ht = '<table style="width: 100%; text-align: center; padding-top: 20px; line-height: 26px">'
-                    ht += '<tr><th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Lucky Token</th>';
-                    ht += '<th style="width: 33%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 15px">Treasure</th>';
-                    data.data.forEach(function (item,index) {
-                        item.infoList.forEach(function (data, row) {
-                            let code = data.tokenCode;
-                            if (code == null || code == '') {
-                                return;
-                            }
-                            ht += '<tr>';
-                            ht += '<td style="font-size: 14px">'+code+'</td>';
-                            var item = '';
-                            switch (data.pid) {
-                                case 1:
-                                    item = 'iPhone 8';
-                                    break;
-                                case 2:
-                                    item = 'Vivo Y53';
-                                    break;
-                                case 3:
-                                    item = 'MLBB 11 Dias';
-                                    break;
-                                case 4:
-                                    item = 'Mobile Loads 10PHP';
-                                    break;
-                                case 5:
-                                    item = 'Mini Beans';
-                                    break;
-                                case 6:
-                                    item = 'RoS 60 Dias';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ht += '<td style="font-size: 14px">'+item+'</td>';
-                            ht += '</tr>';
-                        });
-                    });
-                    ht += '</table>';
-                    ht += '<div style="height: 10px"></div>';
-                    $('#Result').html(ht);
-                } else {
-                }
-            }
-        });
-    }
-
-    function haveCash() {
-        var buttonTap = true;
-        $('#ModalCash').modal('hide');
-        $('#ModalCash').on('hidden.bs.modal', function () {
-            if (!buttonTap) {
-                return;
-            }
-            buttonTap = false;
-            $('#zzds').modal('show');
-            var isError = false;
-            var errorMsg = '';
-            var codeList;
-            $.ajax({
-                method: 'post',
-                url: baseUrl + '/treasury/order/token/list',
-                headers: {
-                    authorization: token
-                },
-                data: JSON.stringify({
-                    orderCode: orderCode,
-                }),
-                contentType:'application/json',
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status == 0) {
-                        codeList = data.data;
-                    } else {
-                        isError = true;
-                        errorMsg = data.msg;
-                    }
-                },
-                error: function () {
-                    isError = true;
-                    errorMsg = 'Net Error!';
-                }
-            });
-            $('#zzds').on('shown.bs.modal',function () {
-                var timeout = setTimeout(function () {
-                    $('#zzds').modal('hide');
-                },1200);
-            });
-            $('#zzds').on('hidden.bs.modal', function () {
-                orderCode = '';
-                if (isError) {
-                    $('#alert').html('<p>' + errorMsg + '</p>');
-                    $('#ModalAlert').modal('show');
-                } else {
-                    var ht = '';
-                    if (codeList.length > 0) {
-                        ht += '<p style="text-align: center; margin-top: 20px; margin-bottom: 10px; font-size: 17px; font-weight: 700">Lucky Code</p>';
-                        ht += '<table style="width: 100%; text-align: center; line-height: 24px;">';
-                        codeList.forEach(function (data, row) {
-                            ht += '<tr><td>'+data.tokenCode+'</td></tr>';
-                        });
-                        ht += ' </table>';
-                    } else {
-
-                    }
-                    $('#resultTable').html(ht);
-                    $('#ModalCashResult').modal('show');
-                }
-            });
-            $('#ModalCashResult').on('hidden.bs.modal', function () {
-                getHistory();
-            });
-        });
-    }
-
-    function ShowNotice() {
-        $('#ModalNotice2').modal('show');
-    }
-
-    function selectGlobe() {
-        buyAmount('globe');
-    }
-
-    function selectSmart() {
-        buyAmount('smart');
-    }
-
-    function showGlobe() {
-        var buttonTap = true;
-        $('#ModalPending').modal('hide');
-        $('#ModalPending').on('hidden.bs.modal', function () {
-            if (!buttonTap) {
-                return;
-            }
-            buttonTap = false;
-            let phone = $('#phonenum').val();
-            let totalExpense = $('#totalExpense').text();
-            var notice = '<dl style="text-align: left"><dt>Globe</dt>';
-            notice += '<dd style="margin-top: 10px">1. Use the '+phone+' number to text '+totalExpense+' to 29754740270.</dd>';
-            notice += '<dd>2. Receive confirmation SMS and reply “YES".</dd>';
-            notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*Each Share-A-Load transaction is charged P1.</dd>';
-            notice += '</dl>';
-            $('#CashMethod').html(notice);
-            $('#ModalCash').modal('show');
-        })
-    }
-
-    function showSmart() {
-        var buttonTap = true;
-        $('#ModalPending').modal('hide');
-        $('#ModalPending').on('hidden.bs.modal', function () {
-            if (!buttonTap) {
-                return;
-            }
-            buttonTap = false;
-            let phone = $('#phonenum').val();
-            let totalExpense = $('#totalExpense').text();
-            var notice = '<dl style="text-align: left"><dt>Smart</dt>';
-            notice += '<dd style="margin-top: 10px">Use the '+phone+' number to text "PASALOAD 09611457667 '+totalExpense+'." to 808.</dd>';
-            notice += '<dd style="margin-top: 15px; margin-bottom: 15px">*The amount transferred plus the P1 SMS fee will be charged on top of your Monthly Service Fee (MSF).</dd>';
-            notice += '</dl>';
-            $('#CashMethod').html(notice);
-            $('#ModalCash').modal('show');
-        })
-    }
-
-    var amountNum = 10;
-    $('#amountNum').text(amountNum);
-    function amountReduce() {
-        amountNum = Math.max(10, amountNum-10);
-        $('#amountNum').text(amountNum);
-        $('#totalExpense').text(amountNum);
-    }
-
-    function amountAdd() {
-        amountNum = Math.min(100, amountNum + 10);
-        $('#amountNum').text(amountNum);
-        $('#totalExpense').text(amountNum);
-    }
-    $('#totalExpense').text(amountNum);
-
-    function pendingClik(phone, totalExpense) {
-        $('#phonenum').val(phone);
-        $('#totalExpense').text(totalExpense);
-        $('#ModalPending').modal('show');
-    }
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-138276305-1', {
-        'page_title' : 'MixFun',
-        'page_path': '/shop'
-    });
 </script>
 </html>
