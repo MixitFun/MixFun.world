@@ -27,6 +27,7 @@
 <div>
     <div align="center" style="margin-top: 30%">
         <button id="noticeBtn" class="btn" style="border: 0; outline: none; height: 30%; width: 60%; background-color: antiquewhite">Test JSBridge</button>
+        <button id="noticeBtn2" class="btn" style="border: 0; outline: none; height: 30%; width: 60%; background-color: antiquewhite; margin-top: 30%">Test JSBridge2</button>
     </div>
 </div>
 
@@ -86,6 +87,13 @@
                 });
             } else if (platform.os.toString().indexOf('Android') > -1) {
                 window.android.BackToAndroid('http://www.baidu.com');
+            }
+        };
+        document.getElementById('noticeBtn2').onclick = function () {
+            if (platform.os.toString().indexOf('iOS') > -1) {
+                bridge.callHandler("getVersion", null, function(response) {
+                    alert('version:' + response);
+                })
             }
         };
     })
