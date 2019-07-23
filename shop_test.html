@@ -68,38 +68,36 @@
     }
     let token = GetRequest().id;
 
-    function setupWebViewJavascriptBridge(callback) {
-        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-        window.WVJBCallbacks = [callback];
-        var WVJBIframe = document.createElement('iframe');
-        WVJBIframe.style.display = 'none';
-        WVJBIframe.src = 'https://__bridge_loaded__';
-        document.documentElement.appendChild(WVJBIframe);
-        setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
-    }
+    if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
 
-    setupWebViewJavascriptBridge(function(bridge) {
-        /* Initialize your app here */
-        document.getElementById('noticeBtn').onclick = function () {
-            if (platform.os.toString().indexOf('iOS') > -1) {
+        setupWebViewJavascriptBridge(function(bridge) {
+            /* Initialize your app here */
+            document.getElementById('noticeBtn').onclick = function () {
                 bridge.callHandler('openURL', {'url': 'http://www.baidu.com'}, function(response) {
                 });
-            }
-        };
-        document.getElementById('noticeBtn2').onclick = function () {
-            if (platform.os.toString().indexOf('iOS') > -1) {
+            };
+            document.getElementById('noticeBtn2').onclick = function () {
                 bridge.callHandler("getVersion", null, function(response) {
                     alert('version:' + response);
-                })
-            }
+                });
+            };
+        })
+    } else if (platform.os.toString().indexOf('Android') > -1) {
+        document.getElementById('noticeBtn').onclick = function () {
+            alert('Android');
+            window.android.BackToAndroid('http://www.baidu.com');
         };
-    })
-
-    document.getElementById('noticeBtn').onclick = function () {
-        alert('Android');
-        window.android.BackToAndroid('http://www.baidu.com');
-    };
+    }
 
 </script>
 </html>
