@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Task</title>
+    <title>Test</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -20,106 +20,19 @@
 <script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
-<script src="js/clipboard.min.js"></script>
+<script src="js/platform.js" type="text/javascript"></script>
 
 <body>
 
 <div>
-    <div align="center" style="margin-top: 15px">
-        <img src="img/Task_banner.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
-        <button class="btn" id="noticeBtn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover"></button>
-    </div>
-    <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
-    <ul id="tasklist"></ul>
-</div>
-
-<!-- alert -->
-<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%; z-index: 9999">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-body">
-                <h5 class="modal-title" id="copy_label"></h5>
-            </div>
-        </div>
+    <div align="center" style="margin-top: 30%">
+        <button class="btn" style="border: 0; outline: none; height: 30%; width: 60%; background-color: antiquewhite">Test JSBridge</button>
     </div>
 </div>
 
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="alert"></div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Instruction</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <dl>
-                    <dd style="margin-bottom: 20px">Please follow the instruction to download the app and you will get coin.</dd>
-                    <ul class="noticeul">
-                        <li class="noticeli">Pending: System is reviewing your download status.</li>
-                        <li class="noticeli">Completed:  You have received 100 Mixcoin.</li>
-                        <li class="noticeli">Failed: Your application is invalid because you are not new download/register user or not finished the whole download process.</li>
-                    </ul>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="zzd" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%;" align="center">
-    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-success" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-danger" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-warning" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-info" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-light" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-dark" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-</div>
 </body>
 
 <style>
-    .btn:focus,
-    .btn:active:focus,
-    .btn.active:focus,
-    .btn.focus,
-    .btn:active.focus,
-    .btn.active.focus {
-        box-shadow:none;
-    }
 
     html,body{
         height:100%;
@@ -128,56 +41,6 @@
     }
 
     * {margin: 0; padding: 0;}
-
-    ul {
-        list-style-type: none;
-    }
-
-    h6 {
-        font: bold 15px PingFangSC-Regular, sans-serif;
-        margin-top: 15px;
-    }
-
-    li img {
-        float: left;
-        margin: auto 10px;
-        border-radius: 6px 6px 6px 6px;
-        width: 20%;
-        vertical-align: middle;
-    }
-
-    li p {
-        font-size: 12px;
-        margin: 0 10px 5px 23%;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-    }
-
-    li .btn-sm {
-        float: right;
-        background: linear-gradient(to right, #F45D82, #6C81F8);
-        border-radius: 20px;
-        border: 0px;
-        color: white;
-        margin: 18px 8px 0 8px;
-    }
-
-    li {
-        padding: 0px;
-        overflow: auto;
-    }
-
-    .noticeli{
-        font-size: 14px;
-        margin-right: 5%;
-    }
-
-    .noticeul {
-        list-style-type: disc;
-        list-style-position: inside;
-    }
 
 </style>
 
@@ -188,20 +51,6 @@
 
     var height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
-    $('#zzd').css('margin-top',height/2);
-    $('.modal').on("hidden.bs.modal", function () {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
-            $('body').addClass('modal-open');
-        }
-    }).on("show.bs.modal", function (e) {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
-            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
-        }
-    });
 
     var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
@@ -217,107 +66,6 @@
         return theRequest;
     }
     let token = GetRequest().id;
-    var userCode;
-    $.ajax({
-        method: 'get',
-        url: baseUrl+'user/profile',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            userCode = data.data.ownShareCode;
-            getTaskList();
-        }
-    });
-
-    function getTaskList() {
-        $.ajax({
-            method: 'post',
-            url: baseUrl+'task/list',
-            headers:{
-                authorization:token
-            },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function(data) {
-                var listHT = "";
-                listHT += "<li><div style='height: 100%'>";
-                listHT += "<img src='img/refer_img.png'/>";
-                listHT += '<button class= "btn-sm" onclick="goDownLoad(0, \'refer\', 50, \'\', \'Refer a friend\')">&nbsp;+50&nbsp;</button>';
-                listHT += "<h6>Refer a friend</h6>";
-                listHT += "<p>Refer a friend to get 50 Mixcoin</p></div>";
-                listHT += "</li>";
-                listHT += "<hr style='margin-bottom: 0'>";
-
-                data.data.forEach(function(item, index) {
-                    var btnTitle;
-                    var status = item.status;
-                    if (status == 0) {
-                        btnTitle = "+"+item.coin;
-                    } else if (status == 1) {
-                        btnTitle = "Pending";
-                    } else {
-                        btnTitle = "Completed";
-                    }
-                    listHT += "<li><div style='height: 100%'>";
-                    listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
-                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
-                    listHT += "<h6>"+item.taskName+"</h6>";
-                    listHT += "<p>"+item.taskDesc+"</p></div>";
-                    listHT += "</li>";
-                    listHT += "<hr style='margin-bottom: 0'>";
-                });
-                $('#tasklist').html(listHT);
-            }
-        });
-    }
-
-    function goDownLoad(type, code, coin, url, name) {
-        if (code == 'refer') {
-            let validURL = "https://mixfun.world/openbox.html?shareCode="+userCode;
-            let encodeURL = escape(validURL);
-            window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
-        } else {
-            if (type == 0 || type == 1) {
-                $.ajax({
-                    method: 'post',
-                    url: baseUrl+'task/start',
-                    headers:{
-                        authorization:token
-                    },
-                    data: JSON.stringify({
-                        code:code
-                    }),
-                    contentType:'application/json',
-                    dataType: 'json',
-                    success: function(data) {
-                        if(data.status == 0){
-                            $('#zzd').modal('show');
-                        }else{
-                            $('#alert').html('<p>'+data.msg+'</p>');
-                            $('#ModalAlert').modal('show');
-                        }
-                        $('#zzd').on('shown.bs.modal',function () {
-                            let timeout = setTimeout(function () {
-                                $('#zzd').modal('hide');
-                            },1200);
-                        });
-                    }
-                });
-                $('#zzd').on('hide.bs.modal', function () {
-                    let validURL = url+"&UID="+userCode;
-                    let encodeURL = escape(validURL);
-                    window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
-                })
-            }
-        }
-    }
-
-    function showNotcie() {
-        $('#ModalNotice').modal('show');
-    }
 
     function setupWebViewJavascriptBridge(callback) {
         if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
@@ -333,8 +81,10 @@
     setupWebViewJavascriptBridge(function(bridge) {
         /* Initialize your app here */
         document.getElementById('noticeBtn').onclick = function () {
-            bridge.callHandler('openURL', {'blogURL': 'http://www.baidu.com'}, function(response) {
-            });
+            if (platform.os.toString().indexOf('iOS') > -1) {
+                bridge.callHandler('openURL', {'url': 'http://www.baidu.com'}, function(response) {
+                });
+            }
         };
     })
 
