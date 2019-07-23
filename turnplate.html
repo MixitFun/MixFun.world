@@ -361,6 +361,7 @@
         $('#submitBtn').css('display', 'none');
         $('#stepOne').css('display', 'none');
         $('#stepTwoDiv').css('display', 'none');
+        $('#stepTwoBtn').html('&nbsp;Go to website&nbsp;');
         $('#stepOneDiv').css('text-align', 'center');
         $('#stepOneDiv').css('margin-left', 'auto');
 
@@ -389,6 +390,7 @@
                 $('#stepTwoDiv').css('display', 'block');
                 $('#codeIDBtn').css('display', 'inline-block');
                 $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepTwoBtn').html('&nbsp;Go to Zalora&nbsp;');
                 $('#stepTwoBtn').click(function () {
                     document.getElementById('websiteID').href = "https://clk.omgt3.com/?PID=12219&AID=1980884";
                     $('#websiteID')[0].click();
@@ -404,6 +406,7 @@
                 $('#stepOneDiv').css('text-align', 'left');
                 $('#stepOneDiv').css('margin-left', '30px');
                 $('#stepTwoDiv').css('display', 'block');
+                $('#stepTwoBtn').html('&nbsp;Go to Shopee&nbsp;');
                 $('#stepTwoBtn').click(function () {
                     document.getElementById('websiteID').href = "https://shopee.ph/gadgethunterph";
                     $('#websiteID')[0].click();
@@ -415,6 +418,15 @@
                 $('#codeName').css('display', 'inline-block');
                 $('#codeIDBtn').css('display', 'inline-block');
                 $('#codeName').html("Redeem Code:&nbsp;");
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#stepTwoBtn').html('&nbsp;Go to Mini World&nbsp;');
+                $('#stepTwoBtn').click(function () {
+                    document.getElementById('websiteID').href = "https://go.onelink.me/x5E9/Mixfun";
+                    $('#websiteID')[0].click();
+                });
                 break;
             case 37:
                 message = "Wow! You have won the Ellana Mineral Cosmetics PHP350 off your 1st purchase. Minimum purchase of ₱1,650.00.";
