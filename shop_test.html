@@ -97,6 +97,10 @@
             alert('Android');
             window.android.BackToAndroid('http://www.baidu.com');
         };
+        document.getElementById('noticeBtn2').onclick = function () {
+            let versionCode = window.android.getAndroidVersion();
+            alert(versionCode);
+        };
     }
 
 </script>
