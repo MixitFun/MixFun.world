@@ -196,9 +196,9 @@
         startAngle: 0, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
-    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher ", "Next Time", "MLLB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
-    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
-    let itemCode = [35, 34, 32, 38, 33, 40, 39, 36];
+    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLLB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
+    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6"];
+    let itemCode = [35, 34, 32, 40, 38, 33, 41, 39, 36];
 
     window.onload = function() {
         drawRouletteWheel();
@@ -238,7 +238,7 @@
     var rotateTimeOut = function() {
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1957.5,
+            animateTo: 1970,
             duration: 10000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
@@ -300,7 +300,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1957.5,
+            animateTo: 1970,
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
@@ -456,6 +456,22 @@
                 $('#submitBtn').css('display', 'block');
                 break;
             case 40:
+                message = "Wow! You have won the Fog Lamp Voucher";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#stepTwoBtn').html('&nbsp;Go to Shopee&nbsp;');
+                $('#stepTwoBtn').click(function () {
+                    document.getElementById('websiteID').href = "https://shopee.ph/product/63655774/1242175506/";
+                    $('#websiteID')[0].click();
+                });
+                break;
+            case 41:
                 message = "Wow! You have won iPhone 8!";
                 $('#userName').css('display', 'block');
                 $('#phone').css('display', 'block');
