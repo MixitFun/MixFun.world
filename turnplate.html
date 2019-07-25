@@ -193,10 +193,10 @@
         outsideRadius: 192, //大转盘外圆的半径
         textRadius: 160, //大转盘奖品位置距离圆心的距离
         insideRadius: 68, //大转盘内圆的半径
-        startAngle: 0, //开始角度
+        startAngle: 270, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
-    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLLB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
+    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLBB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
     turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6"];
     let itemCode = [35, 34, 32, 40, 38, 33, 41, 39, 36];
 
@@ -238,7 +238,7 @@
     var rotateTimeOut = function() {
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1970,
+            animateTo: 1982,
             duration: 10000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
@@ -257,7 +257,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: turnplate.getRotateAngle,
-            animateTo: angles + 1800,
+            animateTo: angles + 1812,
             duration: 10000,
             callback: function() {
                 turnplate.bRotate = !turnplate.bRotate;
@@ -267,30 +267,6 @@
     };
 
     var hasSpinning = false;
-    $('.pointer').click(function() {
-        if (balanceCoin < 100) {
-            $('#alert').html('<p>You don\'t have enough coins!</p>');
-            $('#ModalAlert').modal('show');
-        } else {
-            if (!hasSpinning) {
-                hasSpinning = true;
-                $('#ModalConf').modal('show');
-            }
-        }
-    });
-
-    function tapToSpin() {
-        if (balanceCoin < 100) {
-            $('#alert').html('<p>You don\'t have enough coins!</p>');
-            $('#ModalAlert').modal('show');
-        } else {
-            if (!hasSpinning) {
-                hasSpinning = true;
-                $('#ModalConf').modal('show');
-            }
-        }
-    }
-
     var transactionID;
     function doSpin() {
         $('#ModalConf').modal('hide');
@@ -300,7 +276,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1970,
+            animateTo: 1982,
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
@@ -341,6 +317,30 @@
                 }
             }
         });
+    }
+
+    $('.pointer').click(function() {
+        if (balanceCoin < 100) {
+            $('#alert').html('<p>You don\'t have enough coins!</p>');
+            $('#ModalAlert').modal('show');
+        } else {
+            if (!hasSpinning) {
+                hasSpinning = true;
+                $('#ModalConf').modal('show');
+            }
+        }
+    });
+
+    function tapToSpin() {
+        if (balanceCoin < 100) {
+            $('#alert').html('<p>You don\'t have enough coins!</p>');
+            $('#ModalAlert').modal('show');
+        } else {
+            if (!hasSpinning) {
+                hasSpinning = true;
+                $('#ModalConf').modal('show');
+            }
+        }
     }
 
     var prizeCode;
