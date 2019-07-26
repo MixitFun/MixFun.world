@@ -48,7 +48,7 @@
         </div>
         <div>
             <div style="display: inline-block; margin-top: 5%; margin-right: 20%">
-                <button class="btn shareBtn" style="background-image: url(img/icon_facebook.png);" onclick="shareToFackbook()"></button>
+                <button class="btn shareBtn" id="shareFacebookBtn" style="background-image: url(img/icon_facebook.png);"></button>
                 <p class="shareBtnTitle">Facebook</p>
             </div>
             <div style="display: inline-block; margin-top: 5%">
@@ -231,6 +231,40 @@
 
     function shareToFackbook() {
         window.location.href = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+    }
+
+    if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let facebookURL = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+                try {
+                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                    });
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+        })
+    } else if (platform.os.toString().indexOf('Android') > -1) {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let facebookURL = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+            try {
+                window.android.BackToAndroid(facebookURL);
+            } catch (e) {
+                window.location.href = facebookURL;
+            }
+        };
     }
 
 </script>

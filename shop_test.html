@@ -83,7 +83,8 @@
         setupWebViewJavascriptBridge(function(bridge) {
             /* Initialize your app here */
             document.getElementById('noticeBtn').onclick = function () {
-                bridge.callHandler('openURL', {'url': 'http://www.baidu.com'}, function(response) {
+                bridge.callHandler('openURLT', {'url': 'http://www.baidu.com'}, function(response) {
+                    alert(response);
                 });
             };
             document.getElementById('noticeBtn2').onclick = function () {
