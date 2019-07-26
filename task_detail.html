@@ -42,14 +42,17 @@
 <div id="referDiv" style="width: 100%; display: none;">
     <p style="margin: 6% 5% 0 5%; font-size: 15px;">Send this referral code to your friends or share below links to get reward.</p>
     <div align="center">
-        <p id="referCode" style="margin-top: 6%; font-size: 27px; font-weight: 630; color: #F45D90"></p>
+        <div align="center" style="margin-top: 6%;">
+            <p id="referCode" style="font-size: 27px; font-weight: 600; color: #F45D90; display: inline-block"></p>
+            <button class="btn copyBtn" style="background-image: url(img/icon_copy.png); background-size: cover; border: 0; margin-left: 30px; margin-top: -10px; display: inline-block" onclick="copy('code')"></button>
+        </div>
         <div>
             <div style="display: inline-block; margin-top: 5%; margin-right: 20%">
                 <button class="btn shareBtn" style="background-image: url(img/icon_facebook.png);" onclick="shareToFackbook()"></button>
                 <p class="shareBtnTitle">Facebook</p>
             </div>
             <div style="display: inline-block; margin-top: 5%">
-                <button class="btn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copy()"></button>
+                <button class="btn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copy('link')"></button>
                 <p class="shareBtnTitle">Link</p>
             </div>
         </div>
@@ -181,13 +184,14 @@
     let taskName = GetRequest().name;
     let taskCoin = GetRequest().coin;
 
-    createContext()
+    createContext();
+    var shareCode;
     function createContext() {
         if (taskCode == 'refer') {
             $('#referDiv').css('display', 'block');
             let strArr = downloadURL.split('shareCode=');
             if (strArr.length > 1) {
-                let shareCode = strArr.slice(-1);
+                shareCode = strArr.slice(-1);
                 $('#referCode').html(shareCode);
             }
             $('#shareURL').html(downloadURL);
@@ -207,14 +211,20 @@
 
     let clip = new ClipboardJS('.copyBtn', {
         text: function(trigger) {
-            return downloadURL;
+            if (copyType == "code") {
+                return shareCode;
+            }  else {
+                return downloadURL;
+            }
         }
     });
     clip.on('successfully', function(e){
         clip.destroy();
     });
 
-    function copy() {
+    var copyType;
+    function copy(type) {
+        copyType = type;
         $('#copy_label').text('Copied!');
         $('#tot').modal('show');
     }
