@@ -31,7 +31,7 @@
     </div>
     <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
     <ul id="tasklist"></ul>
-    <div align="center" style="position: fixed; bottom: 0">
+    <div id="footer" align="center" style="position: fixed; bottom: 0">
         <a target="_blank" href="https://c.lazada.com.ph/t/c.bJa4">
             <img src="img/free_gift_banner.png" style="width: 100%">
         </a>
@@ -183,7 +183,6 @@
         list-style-type: disc;
         list-style-position: inside;
     }
-
 </style>
 
 <script type="text/javascript">
@@ -222,6 +221,17 @@
         return theRequest;
     }
     let token = GetRequest().id;
+
+    var regionCode = "";
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+            alert(regionCode);
+        } catch (e) {
+            regionCode = "";
+        }
+    }
+
     var userCode;
     $.ajax({
         method: 'get',
@@ -244,9 +254,14 @@
             headers:{
                 authorization:token
             },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
             contentType:'application/json',
             dataType: 'json',
             success: function(data) {
+                let footerHeight = document.getElementById('footer').offsetHeight;
+                $('#tasklist').css('margin-bottom', ''+footerHeight+'px');
                 var listHT = "";
                 listHT += "<li><div style='height: 100%'>";
                 listHT += "<img src='img/refer_img.png'/>";

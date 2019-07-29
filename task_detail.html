@@ -265,6 +265,10 @@
                 window.location.href = facebookURL;
             }
         };
+    } else {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            window.location.href = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+        };
     }
 
 </script>
