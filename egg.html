@@ -199,6 +199,8 @@
         } else if (type == 'balance') {
             $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
             $('#ModalAlert').modal('show');
+        } else if (type == 'daybook') {
+            window.location.href = "https://mixfun.world/transaction.html?id="+token+"";
         }
     }
 
@@ -258,6 +260,7 @@
                 <div>
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 0; font-size: 15px; display: inline-block">Spent:</p>
                     <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+                    <button class="btn" style="display: none; position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; margin-top: 3px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('daybook')"></button>
                 </div>
             </div>
         </div>

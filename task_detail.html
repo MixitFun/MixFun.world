@@ -141,7 +141,6 @@
         padding: 16px;
         background-size: cover;
     }
-
 </style>
 
 <script type="text/javascript">
@@ -229,10 +228,7 @@
         $('#tot').modal('show');
     }
 
-    function shareToFackbook() {
-        window.location.href = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
-    }
-
+    let shareTitle = "I would like to refer you to join MixFun. Sign up with my link, both of us will get Mixcoin!\n";
     if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
@@ -247,7 +243,7 @@
 
         setupWebViewJavascriptBridge(function(bridge) {
             document.getElementById('shareFacebookBtn').onclick = function () {
-                let facebookURL = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
                 try {
                     bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
                     });
@@ -258,7 +254,7 @@
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
-            let facebookURL = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
             try {
                 window.android.BackToAndroid(facebookURL);
             } catch (e) {
@@ -267,7 +263,7 @@
         };
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
-            window.location.href = "https://www.facebook.com/sharer.php?title=Refer a friend&u="+downloadURL+"";
+            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
         };
     }
 
