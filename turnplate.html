@@ -23,6 +23,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v3.3"></script>
 
 <body>
     <div id="backgroudID" style="background-color: darkslateblue" align="center">
@@ -81,6 +82,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="ModalShare" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tell your friend you have redeemed <span id="productName"></span>? Share the joy with them.</p >
+                <div align="center">
+                    <div>
+                        <div style="display: inline-block; margin-top: 5%; margin-right: 20%">
+                            <button class="btn shareBtn" id="shareFacebookBtn" style="background-image: url(img/icon_facebook.png);"></button>
+                            <p class="shareBtnTitle">Facebook</p >
+                        </div>
+                        <div style="display: inline-block; margin-top: 5%">
+                            <button class="btn shareBtn copyBtn" style="background-image: url(img/icon_ic_link.png);" onclick="copyAction('link')"></button>
+                            <p class="shareBtnTitle">Link</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="modal fade" id="ModalResult" tabindex="-1" role="dialog" aria-labelledby="ModalResultTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
             <div class="modal-content" style="border-radius: 20px;">
@@ -131,6 +160,12 @@
         height:100%;
         width:100%;
         background-color: white;
+    }
+
+    .shareBtn {
+        margin-top: 5%; 
+        padding: 16px;
+        background-size: cover;
     }
 </style>
 
@@ -186,6 +221,19 @@
         }
     });
 
+    var shareURL = "";
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            shareURL = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
+        }
+    });
 
     var turnplate = {
         restaraunts: [], //大转盘奖品名称
@@ -346,6 +394,8 @@
 
     var prizeCode;
     function dealSpinResult(itemIndex) {
+        let itemName = turnplate.restaraunts[itemIndex];
+        $('#productName').html(itemName);
         hasSpinning = false;
         balanceCoin -= 100;
         prizeCode = itemCode[itemIndex];
@@ -543,6 +593,24 @@
         },500)
     })
 
+    function copyAction(type) {
+        $('#copy_label').text('Copied!');
+        $('#tot').modal('show');
+        if (type == "link") {
+            let clip = new ClipboardJS('.copyBtn', {
+                container: document.getElementById('ModalShare'),
+                text: function(trigger) {
+                    let productname = $('#productName').html();
+                    let str = "Tell your friend you have redeemed "+productname+"? Share the joy with them.</br>"+shareURL;
+                    return str;
+                }
+            });
+            clip.on('successfully', function(e){
+                clip.destroy();
+            });
+        }
+    }
+
 function buy(){
     let name = $('#userName').val();
     let address = $('#address').val();
@@ -588,17 +656,7 @@ function buy(){
         success: function(data) {
             $('#ModalResult').modal('hide');
             if (data.status == 0) {
-                var storeLink = 'https://mixfun.world/index.html';
-                var userAgentInfo = navigator.userAgent;
-                if (userAgentInfo.indexOf('iPhone') > 0) {
-                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
-                } else if (userAgentInfo.indexOf('Android') > 0) {
-                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
-                }
-                $('#alert').html('We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.</br></br>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
-                    '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
-                    '<a class="btn"  style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
-                $('#ModalAlert').modal('show');
+                $('#ModalShare').modal('show');
             } else {
                 showError = true;
                 $('#alert').html('<p>'+data.msg+'</p>');
@@ -606,6 +664,50 @@ function buy(){
             }
         }
     });
+
+    if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+                try {
+                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                    });
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+        })
+    } else if (platform.os.toString().indexOf('Android') > -1) {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+            try {
+                window.android.BackToAndroid(facebookURL);
+            } catch (e) {
+                window.location.href = facebookURL;
+            }
+        };
+    } else {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+        };
+    }
 }
 
 </script>
