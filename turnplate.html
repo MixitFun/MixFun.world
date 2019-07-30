@@ -109,6 +109,7 @@
                     <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"/>
                     <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: none; margin-top: 20px"/>
                     <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: none; margin-top: 20px"/>
+                    <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"></textarea>
                     <button onclick="buy()" id="submitBtn" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; margin-top: 20px; display: none">Submit</button>
                 </div>
             </div>
@@ -193,12 +194,12 @@
         outsideRadius: 192, //大转盘外圆的半径
         textRadius: 160, //大转盘奖品位置距离圆心的距离
         insideRadius: 68, //大转盘内圆的半径
-        startAngle: 270, //开始角度
+        startAngle: 82, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
-    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLBB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans"];
-    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6"];
-    let itemCode = [35, 34, 32, 40, 38, 33, 41, 39, 36];
+    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLBB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans", "Lucky Mystery Box 399PHP"];
+    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
+    let itemCode = [35, 34, 32, 40, 38, 33, 41, 39, 36, 45];
 
     window.onload = function() {
         drawRouletteWheel();
@@ -238,7 +239,7 @@
     var rotateTimeOut = function() {
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1982,
+            animateTo: 1963,
             duration: 10000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
@@ -257,7 +258,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: turnplate.getRotateAngle,
-            animateTo: angles + 1812,
+            animateTo: angles + 1783,
             duration: 10000,
             callback: function() {
                 turnplate.bRotate = !turnplate.bRotate;
@@ -276,7 +277,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1982,
+            animateTo: 1963,
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
@@ -358,6 +359,7 @@
         $('#phone').css('display', 'none');
         $('#moblieLegend').css('display', 'none');
         $('#moblieLegendExtra').css('display', 'none');
+        $('#address').css('display', 'none');
         $('#submitBtn').css('display', 'none');
         $('#stepOne').css('display', 'none');
         $('#stepTwoDiv').css('display', 'none');
@@ -372,6 +374,7 @@
         $('#phone').val('');
         $('#moblieLegend').val('');
         $('#moblieLegendExtra').val('');
+        $('#address').val('');
         switch (prizeCode) {
             case 32:
                 title = "Message";
@@ -476,6 +479,13 @@
                 $('#userName').css('display', 'block');
                 $('#phone').css('display', 'block');
                 break;
+            case 45:
+                message = "Wow! You have won the Lucky Mystery Box!";
+                $('#userName').css('display', 'block');
+                $('#phoneType').css('display', 'block');
+                $('#phone').css('display', 'block');
+                $('#address').css('display', 'block');
+                $('#submitBtn').css('display', 'block');
             default:
                 break;
         }
@@ -484,11 +494,16 @@
         $('#ModalResult').modal('show');
     }
 
+    var showError = false;
     $('#ModalResult').on('hidden.bs.modal',function(){
         $('#ModalResult').off('hidden.bs.modal');
-        if (prizeCode == 38 || prizeCode == 39)
-        $('#ModalAlert').modal('show');
-        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        if (!showError) {
+            showError = false;
+            if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45) {
+                $('#ModalAlert').modal('show');
+                $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+            }
+        }
     });
 
     function exModelShow() {
@@ -501,6 +516,16 @@
             }
             buttonTap = false;
             $('#ModalResult').modal('show');
+            $('#ModalResult').on('hidden.bs.modal',function(){
+                $('#ModalResult').off('hidden.bs.modal');
+                if (!showError) {
+                    showError = false;
+                    if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45) {
+                        $('#ModalAlert').modal('show');
+                        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+                    }
+                }
+            });
         });
     }
 
@@ -520,6 +545,9 @@
 
 function buy(){
     let name = $('#userName').val();
+    let address = $('#address').val();
+    let phone = $('#phone').val();
+    let phoneType = $('#phoneType').val();
     var playerID;
     if(prizeCode == 38) {
         var moblieLegend = $('#moblieLegend').val();
@@ -529,9 +557,12 @@ function buy(){
             return;
         }
         playerID = moblieLegend+"("+moblieLegendExtra+")";
+    } else if (prizeCode == 45) {
+        if (address == null || address == ''){
+            $('#resultNotice').text('Please fill up all your details.');
+            return;
+        }
     } else {
-        var phone = $('#phone').val();
-        var phoneType = $('#phoneType').val();
         if (phone == null || phone == '' || phoneType == null || phoneType == ''){
             $('#resultNotice').text('Please fill up all your details.');
             return;
@@ -547,7 +578,7 @@ function buy(){
             recipient:name,
             phone: phone,
             moblieLegend: playerID,
-            address: '',
+            address: address,
             phoneType: phoneType
         },
         headers:
@@ -569,6 +600,7 @@ function buy(){
                     '<a class="btn"  style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 $('#ModalAlert').modal('show');
             } else {
+                showError = true;
                 $('#alert').html('<p>'+data.msg+'</p>');
                 $('#ModalAlert').modal('show');
             }
