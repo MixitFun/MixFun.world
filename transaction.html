@@ -109,7 +109,7 @@
     var currentPage = 0;
     var newPage = 1;
     var maxPage = 0;
-    var pageSize = Math.round((height-40-40)/53);
+    var pageSize = Math.round((height-40-40)/41);
 
     requestList();
     function requestList() {
@@ -142,12 +142,12 @@
         let startNum = Math.max(0, listPage-1)*pageSize;
         let endNum = listPage*pageSize;
         let listData = transactionList.slice(startNum, endNum);
-        var htStr = '<table class="table" style="width: 100%; text-align: center; line-height: 21px;">';
+        var htStr = '<table class="table" style="width: 100%; text-align: center; line-height: 30px;">';
         htStr += '<thead><tr><th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Time</th>';
         htStr += '<th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Type</th>';
         htStr += '<th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Coin</th></tr></thead>';
         listData.forEach(function(item, index) {
-            let timeStr = item.createdTime;
+            let timeStr = item.createdTime.slice(0, 10);
             let descrption = item.desc;
             let coin = item.coin;
             htStr += '<tr>';
