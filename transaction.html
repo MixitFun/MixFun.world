@@ -49,7 +49,7 @@
 <body>
 <div class="container" style="padding: 0" align="center">
     <div id="transactionListDiv"></div>
-    <div style="width: 100%; position: fixed; bottom: 0">
+    <div style="width: 100%; position: fixed; bottom: 0;">
         <button class="btn" style="display: inline-block; width: 35%; color: cornflowerblue; border: 0; outline: none;" onclick="perTopList()">< Previous </button>
         <span id="pageIndex" style="display: inline-block; margin-left: 2%; margin-right: 0; color: cornflowerblue"></span>
         <button class="btn" style="display: inline-block; width: 35%; color: cornflowerblue; border: 0; outline: none;" onclick="nextTopList()">Next ></button>
@@ -109,7 +109,7 @@
     var currentPage = 0;
     var newPage = 1;
     var maxPage = 0;
-    var pageSize = Math.round((height-51-40)/57);
+    var pageSize = Math.round((height-40-40)/53);
 
     requestList();
     function requestList() {
@@ -142,10 +142,10 @@
         let startNum = Math.max(0, listPage-1)*pageSize;
         let endNum = listPage*pageSize;
         let listData = transactionList.slice(startNum, endNum);
-        var htStr = '<table class="table" style="width: 100%; text-align: center; line-height: 23px;">';
-        htStr += '<thead><tr><th style="width: 33%; height: 40px; font-size: 16px; font-weight: 400; color: #B1B5B9;">Time</th>';
-        htStr += '<th height="30px" style="width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Channel</th>';
-        htStr += '<th height="30px" style="width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Coin</th></tr></thead>';
+        var htStr = '<table class="table" style="width: 100%; text-align: center; line-height: 21px;">';
+        htStr += '<thead><tr><th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Time</th>';
+        htStr += '<th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Channel</th>';
+        htStr += '<th style="padding: 8px; width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Coin</th></tr></thead>';
         listData.forEach(function(item, index) {
             let timeStr = item.createdTime;
             let descrption = item.desc;
