@@ -27,186 +27,20 @@
     .nav-link.active {
         color: #007bff;
     }
+
+    .linkBtn {
+        position: absolute;
+        border: 0;
+        outline: none;
+        right: 15px;
+        height: 25px;
+        width: 25px;
+        margin-top: 0px;
+        background-image: url(img/balance_more.png);
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+    }
 </style>
-<script>
-	var baseUrl = "https://api.mixit.fun/";
-//    var baseUrl = "http://10.125.54.75:7001/";
-
-	$('.modal').on("hidden.bs.modal", function () {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
-            $('body').addClass('modal-open');
-        }
-    }).on("show.bs.modal", function (e) {
-        if($('.modal:visible').length)
-        {
-            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
-            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
-        }
-    });
-
-    var platform = "0";
-	function GetRequest() {
-        var url = location.search;
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            strs = str.split("&");
-            for (var i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-            }
-        }
-        platform = theRequest.platform;
-        return theRequest;
-    }
-    
-    function showSurprise() {
-        if (platform == "1") {
-            $('#coinDiv').hide();
-            $('#adsDiv').hide();
-        } else {
-            $('#coinDiv').show();
-            $('#adsDiv').show();
-        }
-    }
-
-    var token =  GetRequest().id;
-    $.ajax({
-        method: 'get',
-        url: baseUrl+'user/profile',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
-        }
-    });
-
-    $.ajax({
-        method: 'post',
-        url: baseUrl+'user/wallet/info',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data) {
-        	let watchCoin = Number(data.data.watchReward);
-        	let uploadCoin = Number(data.data.uploadReward);
-        	let inviteCoin = Number(data.data.inviteReward);
-        	let contributionCoin = Number(data.data.receivedTip);
-        	let tempTippedCoin = Number(data.data.giveAwayTip);
-            let expendCoin = Number(data.data.expend);
-        	let expenseCoin = Math.abs(expendCoin - tempTippedCoin);
-        	let tippedCoin = Math.abs(tempTippedCoin);
-            let balanceCoin = Number(data.data.balance);
-
-            $('#BalanceID').text(balanceCoin.toFixed(2));
-            $('#UploadID').text(uploadCoin.toFixed(2));
-            $('#WatchID').text(watchCoin.toFixed(2));
-            $('#InviteID').text(inviteCoin.toFixed(2));
-            $('#ContributionID').text(contributionCoin.toFixed(2));
-            $('#TippedID').text(tippedCoin.toFixed(2));
-            $('#ExpenseID').text(expenseCoin.toFixed(2));
-        }
-    });
-
-    $.ajax({
-        url : baseUrl+"interaction/invite/leaderBoard",
-        method : 'post',
-        dataType : 'json',
-        contentType:'application/json',
-        headers:
-        {
-            authorization: token
-        },
-        success: function(data){
-        	data.data.forEach(function(item, index) {
-        		if (index > 6) {
-        			return;
-        		}
-                $('#item'+index+'').html(item.date);
-                if (item.boardDataList.length > 0) {
-                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
-                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
-                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
-                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Referral Amount</th>';
-                    item.boardDataList.forEach(function(user, dindex) {
-                        let indexStr = dindex+1;
-                        let userName = user.nickname;
-                        let amount = user.num;
-                        htStr += '<tr>';
-                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
-                        htStr += '<td style="font-size: 14px">'+amount+'</td>';
-                        htStr += '</tr>';
-                    });
-                    htStr += '</table>';
-                    $('#day'+index+'').html(htStr);
-                } else {
-                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
-                    $('#day'+index+'').html(htStr);
-                }
-        	});
-        }
-    });
-
-    $.ajax({
-        url : baseUrl+"interaction/register/luck",
-        method : 'post',
-        dataType : 'json',
-        contentType:'application/json',
-        headers:
-        {
-            authorization: token
-        },
-        success: function(data){
-            data.data.forEach(function(item, index) {
-                if (index > 6) {
-                    return;
-                }
-                $('#luckItem'+index+'').html(item.date);
-                if (item.userList.length > 0) {
-                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
-                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
-                    htStr += '<th style="width: 90%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
-                    item.userList.forEach(function(user, dindex) {
-                        let indexStr = dindex+1;
-                        let userName = user.nickname;
-                        htStr += '<tr>';
-                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
-                        htStr += '</tr>';
-                    });
-                    htStr += '</table>';
-                    $('#luckDay'+index+'').html(htStr);
-                } else {
-                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
-                    $('#luckDay'+index+'').html(htStr);
-                }
-            });
-        }
-    });
-
-    function ShowNotice(type) {
-        if (type == 'leader') {
-            $('#ModalNotice').modal('show');
-        } else if (type == 'luck') {
-            $('#ModalNotice1').modal('show');
-        } else if (type == 'balance') {
-            $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
-            $('#ModalAlert').modal('show');
-        } else if (type == 'spent') {
-            window.location.href = "https://mixfun.world/transaction.html?id="+token+"&type=spent";
-        } else if (type == 'reward') {
-            window.location.href = "https://mixfun.world/transaction.html?id="+token+"&type=reward";
-        }
-    }
-
-</script>
 <body onload="showSurprise()">
 	<div class="container" style="padding: 0">
         <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
@@ -220,7 +54,7 @@
                 <div>
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Reward:</p>
                     <p id="RewardID" style="color: #1ca83c; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                    <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; margin-top: 3px; background-image: url(img/balance_more.png); background-size: 24px 24px; background-repeat: no-repeat" onclick="ShowNotice('reward')"></button>
+                    <a id="rewardURL" class="linkBtn"></a>
                     <table width="100%" style="line-height: 25px; margin-top: 0">
                         <tr>
                             <td width="33%" align="center">
@@ -263,7 +97,7 @@
                 <div>
                     <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 0; font-size: 15px; display: inline-block">Spent:</p>
                     <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                    <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; margin-top: 3px; background-image: url(img/balance_more.png); background-size: 24px 24px; background-repeat: no-repeat" onclick="ShowNotice('spent')"></button>
+                    <a id="spentURL" class="linkBtn"></a>
                 </div>
             </div>
         </div>
@@ -417,5 +251,187 @@
     </div>
 
 </body>
+
+<script>
+    var baseUrl = "https://api.mixit.fun/";
+    //    var baseUrl = "http://10.125.54.75:7001/";
+
+    $('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
+    var platform = "0";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        platform = theRequest.platform;
+        return theRequest;
+    }
+    var token =  GetRequest().id;
+
+    function showSurprise() {
+        if (platform == "1") {
+            $('#coinDiv').hide();
+            $('#adsDiv').hide();
+        } else {
+            $('#coinDiv').show();
+            $('#adsDiv').show();
+        }
+    }
+
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
+        }
+    });
+
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'user/wallet/info',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data) {
+            let watchCoin = Number(data.data.watchReward);
+            let uploadCoin = Number(data.data.uploadReward);
+            let inviteCoin = Number(data.data.inviteReward);
+            let contributionCoin = Number(data.data.receivedTip);
+            let tempTippedCoin = Number(data.data.giveAwayTip);
+            let expendCoin = Number(data.data.expend);
+            let expenseCoin = Math.abs(expendCoin - tempTippedCoin);
+            let tippedCoin = Math.abs(tempTippedCoin);
+            let balanceCoin = Number(data.data.balance);
+
+            $('#BalanceID').text(balanceCoin.toFixed(2));
+            $('#UploadID').text(uploadCoin.toFixed(2));
+            $('#WatchID').text(watchCoin.toFixed(2));
+            $('#InviteID').text(inviteCoin.toFixed(2));
+            $('#ContributionID').text(contributionCoin.toFixed(2));
+            $('#TippedID').text(tippedCoin.toFixed(2));
+            $('#ExpenseID').text(expenseCoin.toFixed(2));
+            $('#spentURL').attr('href', 'https://mixfun.world/transaction.html?id='+token+'&type=spent');
+            $('#rewardURL').attr('href', 'https://mixfun.world/transaction.html?id='+token+'&type=reward');
+        }
+    });
+
+    $.ajax({
+        url : baseUrl+"interaction/invite/leaderBoard",
+        method : 'post',
+        dataType : 'json',
+        contentType:'application/json',
+        headers:
+            {
+                authorization: token
+            },
+        success: function(data){
+            data.data.forEach(function(item, index) {
+                if (index > 6) {
+                    return;
+                }
+                $('#item'+index+'').html(item.date);
+                if (item.boardDataList.length > 0) {
+                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
+                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Referral Amount</th>';
+                    item.boardDataList.forEach(function(user, dindex) {
+                        let indexStr = dindex+1;
+                        let userName = user.nickname;
+                        let amount = user.num;
+                        htStr += '<tr>';
+                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
+                        htStr += '<td style="font-size: 14px">'+amount+'</td>';
+                        htStr += '</tr>';
+                    });
+                    htStr += '</table>';
+                    $('#day'+index+'').html(htStr);
+                } else {
+                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+                    $('#day'+index+'').html(htStr);
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        url : baseUrl+"interaction/register/luck",
+        method : 'post',
+        dataType : 'json',
+        contentType:'application/json',
+        headers:
+            {
+                authorization: token
+            },
+        success: function(data){
+            data.data.forEach(function(item, index) {
+                if (index > 6) {
+                    return;
+                }
+                $('#luckItem'+index+'').html(item.date);
+                if (item.userList.length > 0) {
+                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
+                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
+                    htStr += '<th style="width: 90%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
+                    item.userList.forEach(function(user, dindex) {
+                        let indexStr = dindex+1;
+                        let userName = user.nickname;
+                        htStr += '<tr>';
+                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
+                        htStr += '</tr>';
+                    });
+                    htStr += '</table>';
+                    $('#luckDay'+index+'').html(htStr);
+                } else {
+                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+                    $('#luckDay'+index+'').html(htStr);
+                }
+            });
+        }
+    });
+
+    function ShowNotice(type) {
+        if (type == 'leader') {
+            $('#ModalNotice').modal('show');
+        } else if (type == 'luck') {
+            $('#ModalNotice1').modal('show');
+        } else if (type == 'balance') {
+            $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
+            $('#ModalAlert').modal('show');
+        } else if (type == 'spent') {
+            window.location.href = "https://mixfun.world/transaction.html?id="+token+"&type=spent";
+        } else if (type == 'reward') {
+            window.location.href = "https://mixfun.world/transaction.html?id="+token+"&type=reward";
+        }
+    }
+
+</script>
 </html>
 
