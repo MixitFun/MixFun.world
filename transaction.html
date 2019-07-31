@@ -24,10 +24,39 @@
     li:hover{
         background-color: white;
     }
-    .nav-link.active {
-        color: #007bff;
+
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+
+    .table {
+        word-wrap: break-word;
+        word-break: break-all;
+        border-collapse:collapse;
+        border-spacing:0;
+        margin-bottom: 0;
+    }
+
+    .table td {
+        padding: 5px;
     }
 </style>
+<body>
+<div class="container" style="padding: 0" align="center">
+    <div id="transactionListDiv"></div>
+    <div style="width: 100%; position: fixed; bottom: 0">
+        <button class="btn" style="display: inline-block; width: 35%; color: cornflowerblue; border: 0; outline: none;" onclick="perTopList()">< Previous </button>
+        <span id="pageIndex" style="display: inline-block; margin-left: 2%; margin-right: 0; color: cornflowerblue"></span>
+        <button class="btn" style="display: inline-block; width: 35%; color: cornflowerblue; border: 0; outline: none;" onclick="nextTopList()">Next ></button>
+    </div>
+</div>
+</body>
+
 <script>
     var baseUrl = "https://api.mixit.fun/";
     //    var baseUrl = "http://10.125.54.75:7001/";
@@ -46,6 +75,11 @@
         }
     });
 
+    var body = document.body,
+        html = document.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
+
     var platform = "0";
     function GetRequest() {
         var url = location.search;
@@ -61,355 +95,99 @@
         return theRequest;
     }
 
-    function showSurprise() {
-        if (platform == "1") {
-            $('#coinDiv').hide();
-            $('#adsDiv').hide();
-        } else {
-            $('#coinDiv').show();
-            $('#adsDiv').show();
-        }
+    let token =  GetRequest().id;
+    let listType = GetRequest().type;
+    var requestTypes;
+    if (listType == "spent") {
+        requestTypes = "8,12,26";
+    } else if (listType == "upload") {
+        requestTypes = "11";
+    } else if (listType == "watch") {
+        requestTypes = "25,20";
     }
 
-    var token =  GetRequest().id;
-    $.ajax({
-        method: 'get',
-        url: baseUrl+'user/profile',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data){
-            $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
-        }
-    });
+    var transactionList = new Array();
+    var requestPage = 0;
+    var currentPage = 0;
+    var newPage = 1;
+    var maxPage = 0;
+    var pageSize = Math.round((height-51-40)/57);
 
-    $.ajax({
-        method: 'post',
-        url: baseUrl+'user/wallet/info',
-        headers:{
-            authorization:token
-        },
-        contentType:'application/json',
-        dataType: 'json',
-        success: function(data) {
-            let watchCoin = Number(data.data.watchReward);
-            let uploadCoin = Number(data.data.uploadReward);
-            let inviteCoin = Number(data.data.inviteReward);
-            let contributionCoin = Number(data.data.receivedTip);
-            let tempTippedCoin = Number(data.data.giveAwayTip);
-            let expendCoin = Number(data.data.expend);
-            let expenseCoin = Math.abs(expendCoin - tempTippedCoin);
-            let tippedCoin = Math.abs(tempTippedCoin);
-            let balanceCoin = Number(data.data.balance);
-
-            $('#BalanceID').text(balanceCoin.toFixed(2));
-            $('#UploadID').text(uploadCoin.toFixed(2));
-            $('#WatchID').text(watchCoin.toFixed(2));
-            $('#InviteID').text(inviteCoin.toFixed(2));
-            $('#ContributionID').text(contributionCoin.toFixed(2));
-            $('#TippedID').text(tippedCoin.toFixed(2));
-            $('#ExpenseID').text(expenseCoin.toFixed(2));
-        }
-    });
-
-    $.ajax({
-        url : baseUrl+"interaction/invite/leaderBoard",
-        method : 'post',
-        dataType : 'json',
-        contentType:'application/json',
-        headers:
-            {
-                authorization: token
+    requestList();
+    function requestList() {
+        requestPage += 1;
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'user/wallet/record',
+            headers:{
+                authorization:token
             },
-        success: function(data){
-            data.data.forEach(function(item, index) {
-                if (index > 6) {
-                    return;
-                }
-                $('#item'+index+'').html(item.date);
-                if (item.boardDataList.length > 0) {
-                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
-                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
-                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
-                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Referral Amount</th>';
-                    item.boardDataList.forEach(function(user, dindex) {
-                        let indexStr = dindex+1;
-                        let userName = user.nickname;
-                        let amount = user.num;
-                        htStr += '<tr>';
-                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
-                        htStr += '<td style="font-size: 14px">'+amount+'</td>';
-                        htStr += '</tr>';
-                    });
-                    htStr += '</table>';
-                    $('#day'+index+'').html(htStr);
-                } else {
-                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
-                    $('#day'+index+'').html(htStr);
-                }
-            });
-        }
-    });
+            data: JSON.stringify({
+                pageSize: 20,
+                pageNum: requestPage,
+                query: {type: requestTypes},
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                let arr = data.data.records;
+                transactionList.push.apply(transactionList, arr);
+                let total = data.data.total;
+                maxPage = Math.ceil(total / pageSize);
+                loadList(newPage);
+            }
+        });
+    }
 
-    $.ajax({
-        url : baseUrl+"interaction/register/luck",
-        method : 'post',
-        dataType : 'json',
-        contentType:'application/json',
-        headers:
-            {
-                authorization: token
-            },
-        success: function(data){
-            data.data.forEach(function(item, index) {
-                if (index > 6) {
-                    return;
-                }
-                $('#luckItem'+index+'').html(item.date);
-                if (item.userList.length > 0) {
-                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
-                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
-                    htStr += '<th style="width: 90%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
-                    item.userList.forEach(function(user, dindex) {
-                        let indexStr = dindex+1;
-                        let userName = user.nickname;
-                        htStr += '<tr>';
-                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
-                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
-                        htStr += '</tr>';
-                    });
-                    htStr += '</table>';
-                    $('#luckDay'+index+'').html(htStr);
-                } else {
-                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
-                    $('#luckDay'+index+'').html(htStr);
-                }
-            });
-        }
-    });
+    function loadList(listPage) {
+        currentPage = listPage;
+        let startNum = Math.max(0, listPage-1)*pageSize;
+        let endNum = listPage*pageSize;
+        let listData = transactionList.slice(startNum, endNum);
+        var htStr = '<table class="table" style="width: 100%; text-align: center; line-height: 23px;">';
+        htStr += '<thead><tr><th style="width: 33%; height: 40px; font-size: 16px; font-weight: 400; color: #B1B5B9;">Time</th>';
+        htStr += '<th height="30px" style="width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Channel</th>';
+        htStr += '<th height="30px" style="width: 33%; font-size: 16px; font-weight: 400; color: #B1B5B9;">Coin</th></tr></thead>';
+        listData.forEach(function(item, index) {
+            let timeStr = item.createdTime;
+            let descrption = item.desc;
+            let coin = item.coin;
+            htStr += '<tr>';
+            htStr += '<td style="font-size: 14px">'+timeStr+'</td>';
+            htStr += '<td style="font-size: 14px">'+descrption+'</td>';
+            if (coin > 0) {
+                htStr += '<td style="font-size: 14px; color: #1ca83c">'+coin+'</td>';
+            } else if (coin == 0) {
+                htStr += '<td style="font-size: 14px">'+coin+'</td>';
+            } else {
+                htStr += '<td style="font-size: 14px; color: #e10c20">'+coin+'</td>';
+            }
+            htStr += '</tr>';
+        });
+        htStr += '</table>';
+        $('#transactionListDiv').html(htStr);
+        $('#pageIndex').html(''+currentPage+'&nbsp;-&nbsp;'+maxPage+'');
+    };
 
-    function ShowNotice(type) {
-        if (type == 'leader') {
-            $('#ModalNotice').modal('show');
-        } else if (type == 'luck') {
-            $('#ModalNotice1').modal('show');
-        } else if (type == 'balance') {
-            $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
-            $('#ModalAlert').modal('show');
+    function perTopList() {
+        let tempNewPage = currentPage-1;
+        newPage = Math.max(1, tempNewPage);
+        if (currentPage != newPage) {
+            loadList(newPage);
+        }
+    }
+    function nextTopList() {
+        let tempNewPage = currentPage+1;
+        newPage = Math.min(maxPage, tempNewPage);
+        if (currentPage != newPage) {
+            let endNum = newPage*pageSize;
+            if (endNum <= transactionList.length) {
+                loadList(newPage);
+            } else {
+                requestList();
+            }
         }
     }
 
 </script>
-<body onload="showSurprise()">
-<div class="container" style="padding: 0">
-    <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 10px;">
-            <div>
-                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 5px; margin-right: 15px; font-size: 15px; display: inline-block">Balance:</p>
-                <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
-                <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('balance')"></button>
-            </div>
-            <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: 0 0 1%;"/>
-            <div>
-                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Reward:</p>
-                <p id="RewardID" style="color: #1ca83c; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                <table width="100%" style="line-height: 25px; margin-top: 0">
-                    <tr>
-                        <td width="33%" align="center">
-                            <p id="UploadID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Upload</p>
-                            </p>
-                        </td>
-                        <td width="33%" align="center">
-                            <p id="WatchID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Watch</p>
-                            </p>
-                        </td>
-                        <td width="33%" align="center">
-                            <p id="InviteID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Referral</p>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
-            <div>
-                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Tip:</p>
-                <table width="100%" style="line-height: 25px;">
-                    <tr>
-                        <td width="50%" align="center">
-                            <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Received</p>
-                            </p>
-                        </td>
-                        <td width="50%" align="center">
-                            <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Giveaway</p>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
-            <div>
-                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 0; font-size: 15px; display: inline-block">Spent:</p>
-                <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                <button class="btn" style="position: absolute; border: 0; outline: none; right: 15px; height: 25px; width: 25px; margin-top: 3px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('daybook')"></button>
-            </div>
-        </div>
-    </div>
-    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 0;">
-            <div align="center" style="position: relative;">
-                <img src="img/fun_leader_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
-                <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
-            </div>
-
-            <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="item0"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day1" data-toggle="tab" style="padding: 10px"><span id="item1"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day2" data-toggle="tab" style="padding: 10px"><span id="item2"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day3" data-toggle="tab" style="padding: 10px"><span id="item3"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day4" data-toggle="tab" style="padding: 10px"><span id="item4"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day5" data-toggle="tab" style="padding: 10px"><span id="item5"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#day6" data-toggle="tab" style="padding: 10px"><span id="item6"></span></a>
-                    </li>
-                </ul>
-                <div id="myTabContent" class="tab-content" style="background-color: white">
-                    <div class="tab-pane fade in active show product" id="day0"></div>
-                    <div class="tab-pane fade" id="day1"></div>
-                    <div class="tab-pane fade" id="day2"></div>
-                    <div class="tab-pane fade" id="day3"></div>
-                    <div class="tab-pane fade" id="day4"></div>
-                    <div class="tab-pane fade" id="day5"></div>
-                    <div class="tab-pane fade" id="day6"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-        <div class="card-body" style="padding: 0;">
-            <div align="center" style="position: relative;">
-                <img src="img/fun_welcome_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
-                <button class="btn" style="position: absolute; border: 0; outline: none; top: 7%; right: 0; height: 25px; width: 65px; background-color: #ffffff00" onclick="ShowNotice('luck')"></button>
-            </div>
-
-            <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link active" href="#luckDay0" data-toggle="tab" id="tabI1" style="padding: 10px"><span id="luckItem0"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay1" data-toggle="tab" style="padding: 10px"><span id="luckItem1"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay2" data-toggle="tab" style="padding: 10px"><span id="luckItem2"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay3" data-toggle="tab" style="padding: 10px"><span id="luckItem3"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay4" data-toggle="tab" style="padding: 10px"><span id="luckItem4"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay5" data-toggle="tab" style="padding: 10px"><span id="luckItem5"></span></a>
-                    </li>
-                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                        <a class="nav-link" href="#luckDay6" data-toggle="tab" style="padding: 10px"><span id="luckItem6"></span></a>
-                    </li>
-                </ul>
-                <div id="myTabConten1" class="tab-content" style="background-color: white">
-                    <div class="tab-pane fade in active show product" id="luckDay0"></div>
-                    <div class="tab-pane fade" id="luckDay1"></div>
-                    <div class="tab-pane fade" id="luckDay2"></div>
-                    <div class="tab-pane fade" id="luckDay3"></div>
-                    <div class="tab-pane fade" id="luckDay4"></div>
-                    <div class="tab-pane fade" id="luckDay5"></div>
-                    <div class="tab-pane fade" id="luckDay6"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div align="center" id="adsDiv" style="margin-top: 4%; display: none">
-        <a id="androidzaloraURL" target="_blank">
-            <img src="http://track.omguk.com/i/?CRID=134034&AID=1980884&PID=12219&WID=98417" style="width: 98%">
-        </a>
-    </div>
-</div>
- 
-<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Daily Referral Leaderboard</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <dl>
-                    <dt style="margin-bottom: 20px">How it works:</dt>
-                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>
-                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>
-                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Daily Welcoming Reward</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <dl>
-                    <dt style="margin-bottom: 20px">How it works:</dt>
-                    <dd style="margin-top: 5px; margin-bottom: 20px">Random 5 new users will win 50 PHP Loads daily.</dd>
-                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>
-                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-        <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="alert"></div>
-        </div>
-    </div>
-</div>
-
-</body>
 </html>
