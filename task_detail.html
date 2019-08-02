@@ -34,6 +34,7 @@
         <li>New users only</li>
         <li>Register or complete tutorial, if asked so</li>
         <li>Don’t change between network</li>
+        <li id="relocoli" style="display: none;">Like Reloco Facebook Page</li>
     </ul>
     <div align="center">
         <button class="btn" style="width: 70%; height: 44px; margin-top: 8%; background-color: #FEC444; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
@@ -111,7 +112,7 @@
         width: 20%;
         -webkit-box-shadow:0px 0px 5px 3px #d2aeae;
         -moz-box-shadow:0px 0px 5px 3px #d2aeae;
-        box-shadow:0px 0px 5px 3px #d2aeae;
+        box-shadow:0px 0px 5px 3px #a59f9f;
     }
 
      .TaskName {
@@ -194,6 +195,9 @@
                 $('#referCode').html(shareCode);
             }
             $('#shareURL').html(downloadURL);
+        } else if (taskCode == 'Reloco') {
+            $('#relocoli').css('display', 'list-item');
+            $('#taskDiv').css('display', 'block');
         } else {
             $('#taskDiv').css('display', 'block');
         }
@@ -202,6 +206,7 @@
         taskName = taskName.substr(0, taskName.length-1);
         taskName += "</br>"+taskCoin+"&nbsp;Mixcoin";
         $('#taskName').html(taskName);
+
     }
 
     function downloadAction() {
