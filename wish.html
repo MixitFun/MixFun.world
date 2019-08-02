@@ -96,7 +96,12 @@
 
   function AppDetails() {
     if (productObj) {
-      var linkUrl = productObj.data.link + "?sub_aff_id=" + code;
+      var linkUrl;
+      if (productObj.data.link.indexOf("?") > 0) {
+        linkUrl = productObj.data.link + "&sub_aff_id=" + code;
+      } else {
+        linkUrl = productObj.data.link + "?sub_aff_id=" + code;
+      }
       // console.log(linkUrl);
       window.location.href = linkUrl;
     }
@@ -135,7 +140,7 @@
         }
       }
     } else {
-      console.log(data);
+      console.log(temp);
     }
   }
 </script>
