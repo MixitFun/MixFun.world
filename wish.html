@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mixcoin</title>
+  <link rel="icon" href="img/logo.png" type="image/x-icon">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta property="og:url" content="" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MixFun - Funny videos & pics sharing community" />
+  <meta property="og:description" content="MixFun - Funny videos & pics sharing community" />
+  <meta property="og:image" content="images/share-logo.png" />
+  <link rel="icon" href="img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css" />
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<style>
+  li:hover {
+    background-color: white;
+  }
+
+  .nav-link.active {
+    color: #007bff;
+  }
+</style>
+<script>
+  var baseUrl = "https://api.mixit.fun/";
+     // var baseUrl = "http://34.87.14.19:7001/";
+
+  $('.modal').on("hidden.bs.modal", function() {
+    if ($('.modal:visible').length) {
+      $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+      $('body').addClass('modal-open');
+    }
+  }).on("show.bs.modal", function(e) {
+    if ($('.modal:visible').length) {
+      $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+      $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+    }
+  });
+
+  var platform = "0";
+
+  function GetRequest() {
+    var url = location.search;
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      }
+    }
+    platform = theRequest.platform;
+    return theRequest;
+  }
+
+  function showSurprise() {
+    if (platform == "1") {
+      $('#coinDiv').hide();
+      $('#adsDiv').hide();
+    } else {
+      $('#coinDiv').show();
+      $('#adsDiv').show();
+    }
+  }
+
+  var productId = GetRequest().pid;
+
+  var productJSON = {
+    "productId": productId
+  };
+  var productObj;
+  $.ajax({
+    method: 'post',
+    url: baseUrl + 'wish/product/info',
+    headers: {
+
+    },
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(productJSON),
+    success: function(data) {
+      setData(data);
+    },
+    error: function() {
+      /*错误信息处理*/
+      console.log("Android App");
+      var temp = {
+        "status": 0,
+        "msg": "success",
+        "data": {
+          "productId": 30904,
+          "platformId": 2,
+          "shopId": 11111,
+          "productName": "Bright C6  Fog Lamp H8 H9 H11 、H1、H7、9005、9006、H3、880、9004、9007 Light sou6000K 36W HID LED Headlight",
+          "price": 246,
+          "currentPrice": 246,
+          "favoriteStatus": 0,
+          "couponId": 6,
+          "couponMoney": 20,
+          "costCoin": 200,
+          "link": "https://shopee.ph/product/63655774/1242175506/",
+          "iconUrl": "https://cf.shopee.ph/file/e41a9b9a9fad898960c96a0f0093a497",
+          "sold": 278,
+          "star": "3.0"
+        }
+      }
+      setData(temp);
+    }
+  });
+
+  function AppDetails() {
+    if (productObj) {
+      window.location.href =  productObj.data.link
+    }
+  }
+  function setData(temp)
+  {
+    productObj = temp;
+    if (temp.status == 0) {
+      $('#WishProductImg').attr("src", temp.data.iconUrl);
+      $("#WishProductName").text(temp.data.productName);
+      var empty = '';
+      if (temp.data.couponId > 0) {
+        $("#currentPrice1").text(empty);
+        $("#currentPrice2").text(temp.data.currentPrice);
+        $("#offPrice").text((temp.data.currentPrice - temp.data.couponMoney));
+      } else {
+        $("#currentPrice1").text(temp.data.currentPrice);
+        $("#currentPrice2").text(empty);
+        $("#offPrice").text(empty);
+      }
+      let star = Number(temp.data.star);
+      if (star >= 1) {
+        document.getElementById("star1").style.visibility = "visible";
+        if (star >= 2) {
+          document.getElementById("star2").style.visibility = "visible";
+          if (star >= 3) {
+            document.getElementById("star3").style.visibility = "visible";
+            if (star >= 4) {
+              document.getElementById("star4").style.visibility = "visible";
+              if (star >= 5) {
+                document.getElementById("star5").style.visibility = "visible";
+                console.log('star 5.0-------')
+              }
+            }
+          }
+        }
+      }
+    } else {
+      console.log(data);
+    }
+  }
+</script>
+
+<body onload="showSurprise()">
+  <div class="container" style="padding: 0">
+
+    <div class="card" style="width: 100%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+      <div class="card-body" style="padding: 0;">
+        <div align="center" style="position: relative;">
+          <img id="WishProductImg" style="width: 100%;">
+        </div>
+      </div>
+      <div style="padding-left:10px; padding-top: 10px">
+        <p id="WishProductName" style="color: #000000; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+        <!-- <img id="share" src="img/icon_star_full.png" style="position: absolute; right: 42px; width: 22px;">
+        <img id="save" src="img/icon_star_full.png" style="position: absolute; right: 15px; width: 22px;"> -->
+      </div>
+
+      <div style="padding-left: 10px">
+        <p id="price_tag" style="color: #000000; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block">₱ </p>
+        <p id="currentPrice1" style="color: #6E80F5; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+        <p id="currentPrice2" style="text-decoration: line-through;color: #6E80F5; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+        <p id="offPrice" style="color: #F9391F; font-family: PingFangSC-Regular, sans-serif; font-size: 17px; margin-bottom: 0; display: inline-block"></p>
+      </div>
+      <div style="padding-left: 10px; padding-bottom: 10px">
+        <img id="star1" src="img/icon_star_full.png" style="width: 22px; visibility:hidden;">
+        <img id="star2" src="img/icon_star_full.png" style="width: 22px; visibility:hidden;">
+        <img id="star3" src="img/icon_star_full.png" style="width: 22px; visibility:hidden;">
+        <img id="star4" src="img/icon_star_full.png" style="width: 22px; visibility:hidden;">
+        <img id="star5" src="img/icon_star_full.png" style="width: 22px; visibility:hidden;">
+      </div>
+
+      <div align="center" style="position: relative;padding-bottom:10px">
+        <button class="btn" style="padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; background-color: #F9391F;color: #ffffff" onclick="AppDetails()">Buy Now</button>
+      </div>
+
+      <div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+          <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+              <h5 class="modal-title" id="ModalNoticeTitle">Daily Welcoming Reward</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl>
+                <dt style="margin-bottom: 20px">How it works:</dt>
+                <dd style="margin-top: 5px; margin-bottom: 20px">Random 5 new users will win 50 PHP Loads daily.</dd>
+                <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>
+                <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+          <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+              <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="alert"></div>
+          </div>
+        </div>
+      </div>
+
+</body>
+
+</html>
