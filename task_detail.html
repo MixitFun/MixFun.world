@@ -34,7 +34,8 @@
         <li>New users only</li>
         <li>Register or complete tutorial, if asked so</li>
         <li>Don’t change between network</li>
-        <li id="relocoli" style="display: none;">Like Reloco Facebook Page</li>
+        <li id="relocoli1" style="display: none;">Like Reloco Facebook Page</li>
+        <li id="relocoli2" style="display: none;">Random 100 Likers will be picked to win 1000PHP valued Couple Watch</li>
     </ul>
     <div align="center">
         <button class="btn" style="width: 70%; height: 44px; margin-top: 8%; background-color: #FEC444; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
@@ -196,7 +197,8 @@
             }
             $('#shareURL').html(downloadURL);
         } else if (taskCode == 'Reloco') {
-            $('#relocoli').css('display', 'list-item');
+            $('#relocoli1').css('display', 'list-item');
+            $('#relocoli2').css('display', 'list-item');
             $('#taskDiv').css('display', 'block');
         } else {
             $('#taskDiv').css('display', 'block');

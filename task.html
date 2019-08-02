@@ -36,6 +36,7 @@
             <img src="img/free_gift_banner.png" style="width: 100%">
         </a>
     </div>
+    <a id="jumpLink" style="display: none"></a>
 </div>
 
 <!-- alert -->
@@ -297,7 +298,10 @@
         if (code == 'refer') {
             let validURL = "https://mixfun.world/openbox.html?shareCode="+userCode;
             let encodeURL = escape(validURL);
-            window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+
+            var jumpLink = document.getElementById('jumpLink');
+            jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+            jumpLink.click();
         } else {
             if (type == 0 || type == 1) {
                 $.ajax({
@@ -328,7 +332,10 @@
                 $('#zzd').on('hide.bs.modal', function () {
                     let validURL = url+"&UID="+userCode;
                     let encodeURL = escape(validURL);
-                    window.location.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+
+                    var jumpLink = document.getElementById('jumpLink');
+                    jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+                    jumpLink.click();
                 })
             }
         }
