@@ -32,7 +32,7 @@
 </style>
 <script>
   var baseUrl = "https://api.mixit.fun/";
-     // var baseUrl = "http://34.87.14.19:7001/";
+  // var baseUrl = "http://34.87.14.19:7001/";
 
   $('.modal').on("hidden.bs.modal", function() {
     if ($('.modal:visible').length) {
@@ -73,6 +73,7 @@
   }
 
   var productId = GetRequest().pid;
+  var code = GetRequest().code;
 
   var productJSON = {
     "productId": productId
@@ -93,37 +94,18 @@
     error: function() {
       /*错误信息处理*/
       console.log("Android App");
-      var temp = {
-        "status": 0,
-        "msg": "success",
-        "data": {
-          "productId": 30904,
-          "platformId": 2,
-          "shopId": 11111,
-          "productName": "Bright C6  Fog Lamp H8 H9 H11 、H1、H7、9005、9006、H3、880、9004、9007 Light sou6000K 36W HID LED Headlight",
-          "price": 246,
-          "currentPrice": 246,
-          "favoriteStatus": 0,
-          "couponId": 6,
-          "couponMoney": 20,
-          "costCoin": 200,
-          "link": "https://shopee.ph/product/63655774/1242175506/",
-          "iconUrl": "https://cf.shopee.ph/file/e41a9b9a9fad898960c96a0f0093a497",
-          "sold": 278,
-          "star": "3.0"
-        }
-      }
-      setData(temp);
     }
   });
 
   function AppDetails() {
     if (productObj) {
-      window.location.href =  productObj.data.link
+      var linkUrl = productObj.data.link + "?sub_aff_id=" + code;
+      // console.log(linkUrl);
+      window.location.href = linkUrl;
     }
   }
-  function setData(temp)
-  {
+
+  function setData(temp) {
     productObj = temp;
     if (temp.status == 0) {
       $('#WishProductImg').attr("src", temp.data.iconUrl);
