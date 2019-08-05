@@ -376,8 +376,8 @@
             if (data.data.status == -1) {
                 isBlockUser = true;
             }
-            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
-            lj = "https://mixfun.world/openbox?shareCode="+data.data.ownShareCode;
+            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/friend?c="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
+            lj = "https://mixfun.world/friend?c="+data.data.ownShareCode;
             if (data.data.avatar == null) {
                 $('#tx').attr('src','img/logo_midium.png');
             } else {
@@ -394,9 +394,9 @@
                 $('.shade').css('display','none');
             }
             $('#copy').attr('data-clipboard-text',data.data.ownShareCode);
-            $('#lj').val("https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
-            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/openbox?shareCode="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
-            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/openbox?shareCode="+data.data.ownShareCode);
+            $('#lj').val("https://mixfun.world/friend?c="+data.data.ownShareCode);
+            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/friend?c="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
+            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/friend?c="+data.data.ownShareCode);
         }
     });
 
