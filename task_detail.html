@@ -16,6 +16,17 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+        'page_title' : 'MixFun',
+        'page_path': '/task_detail'
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -192,7 +203,7 @@
     function createContext() {
         if (taskCode == 'refer') {
             $('#referDiv').css('display', 'block');
-            let strArr = downloadURL.split('shareCode=');
+            let strArr = downloadURL.split('c=');
             if (strArr.length > 1) {
                 shareCode = strArr.slice(-1);
                 $('#referCode').html(shareCode);
