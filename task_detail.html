@@ -288,6 +288,11 @@
             }
         });
         $('#zzd').on('hide.bs.modal', function () {
+            gtag('event', 'task_detail',{
+                'event_category': 'start_task',
+                'event_label': taskCode,
+                'value': 1
+            });
             window.location.href = downloadURL;
         })
     }
@@ -327,11 +332,6 @@
 
         setupWebViewJavascriptBridge(function(bridge) {
             document.getElementById('shareFacebookBtn').onclick = function () {
-                gtag('event', 'task_detail',{
-                    'event_category': 'iOS',
-                    'event_label': taskCode,
-                    'value': 1
-                });
                 let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
                 try {
                     bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
@@ -343,11 +343,6 @@
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
-            gtag('event', 'task_detail',{
-                'event_category': 'Android',
-                'event_label': taskCode,
-                'value': 1
-            });
             let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
             try {
                 window.android.BackToAndroid(facebookURL);
@@ -357,11 +352,6 @@
         };
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
-            gtag('event', 'task_detail',{
-                'event_category': 'web',
-                'event_label': taskCode,
-                'value': 1
-            });
             window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
         };
     }
