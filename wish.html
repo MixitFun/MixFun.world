@@ -110,6 +110,7 @@
   function setData(temp) {
     productObj = temp;
     if (temp.status == 0) {
+      document.title = temp.data.productName;
       $('#WishProductImg').attr("src", temp.data.iconUrl);
       $("#WishProductName").text(temp.data.productName);
       var empty = '';
