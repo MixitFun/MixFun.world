@@ -992,15 +992,15 @@
             } catch (e) {
                 window.location.href = facebookURL;
             }
-            try {
-                let regionCode = window.android.getRegionCode();
-                if (regionCode == "ph") {
-                    $('#activityList').show();
-                }
-            } catch (e) {
+        };
+        try {
+            let regionCode = window.android.getRegionCode();
+            if (regionCode == "ph") {
                 $('#activityList').show();
             }
-        };
+        } catch (e) {
+            $('#activityList').show();
+        }
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             let productname = $('#productName').html();
