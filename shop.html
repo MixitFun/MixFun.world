@@ -120,13 +120,10 @@
                     <a class="nav-link active" href="#gcash" data-toggle="tab" id="tabIn">GCash</a>
                 </li>
                 <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link" href="#draw" data-toggle="tab">Mobile Legends</a>
+                    <a class="nav-link" href="#draw" data-toggle="tab">MLBB</a>
                 </li>
                 <li class="nav-item" style="font-size: 13px">
                     <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
-                </li>
-                <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link" href="#rulesofsurvival" data-toggle="tab">Rules of Survival</a>
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content">
@@ -135,8 +132,6 @@
                 <div class="tab-pane fade" id="draw">
                 </div>
                 <div class="tab-pane fade" id="buy">
-                </div>
-                <div class="tab-pane fade" id="rulesofsurvival">
                 </div>
             </div>
         </div>
@@ -399,7 +394,6 @@
             $('#adsDiv').hide();
             $('#spinDiv').hide();
         } else {
-            $('#activityList').show();
             $('#adsDiv').show();
             $('#spinDiv').show();
             if (platform.os.toString().indexOf('iOS') > -1) {
@@ -982,6 +976,11 @@
                     window.location.href = facebookURL;
                 }
             };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                if (newPlatform == "0" && response == "ph") {
+                    $('#activityList').show();
+                }
+            });
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -992,6 +991,14 @@
                 window.android.BackToAndroid(facebookURL);
             } catch (e) {
                 window.location.href = facebookURL;
+            }
+            try {
+                let regionCode = window.android.getRegionCode();
+                if (regionCode == "ph") {
+                    $('#activityList').show();
+                }
+            } catch (e) {
+                $('#activityList').show();
             }
         };
     } else {
