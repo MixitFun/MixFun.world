@@ -10,8 +10,88 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
     <link rel="stylesheet" href="css/font-awesome.css"/>
 </head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+        'page_title' : 'MixFun',
+        'page_path': '/player'
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<style>
+    .footer{
+        background-color: #6c757d;
+        opacity:0.8;
+        z-index: 999;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        padding: 10px;
+    }
+    .content{
+        position: relative;
+        min-height: 100%;
+    }
+
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+</style>
+<body style="background-color: #f9f9f9">
+<div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
+    <div id="video" style="display: none; margin-bottom: 10px">
+        <video id="player" style="width: 100%;" preload="auto" controls="controls">
+            <source id="source" type="video/mp4"/>
+            <track>
+        </video>
+    </div>
+    <div id="image" style="margin-bottom: 15px">
+        <img id="img" style="width: 100%;">
+    </div>
+    <div id="contentDiv">
+        <p id="contentString" style="white-space: pre-wrap"></p>
+    </div>
+    <div style="padding-bottom: 10px">
+        <row style="text-align: center; display: block;">
+            <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
+            <a class="col-3" style="margin: auto;"><img src="img/icon_comment.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
+        </row>
+        <p id="title" style="margin-top: 10px">
+        </p>
+    </div>
+    <div align="center">
+        <button class= "btn" style="margin-top: -10px; margin-bottom: 10px; color: #7abaff" onclick="goHotVideo()">More Videos</button>
+        <a id="jumpLink" style="display: none"></a>
+    </div>
+</div>
+
+<div id="footer" class="footer">
+    <div class="row" vertical-align>
+        <div class="col-8" style="display: inline-flex; padding-right: 0px">
+            <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
+            <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
+        </div>
+        <div class="col-4" style="margin: auto">
+            <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right;">Download</a>
+        </div>
+    </div>
+</div>
+</body>
 <script type="text/javascript">
+    $( document ).ready(function() {
+        let footerHeight = document.getElementById('footer').clientHeight;
+        $('#content').css('margin-bottom', footerHeight+"px");
+    });
+
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -24,24 +104,20 @@
         }
         return theRequest;
     }
-
     vi = GetRequest().id;
     $(document).ready(function() {
         var type = 1;
         var userAgentInfo = navigator.userAgent;
-
         if (userAgentInfo.indexOf('iPhone') > 0) {
             type = 2;
         } else if (userAgentInfo.indexOf('Android') > 0) {
             type = 3;
         }
-
         if (type === 1) {
             $('#content').attr('style', 'width:70%');
             var clientHeight = document.body.clientHeight/2;
             $('video').css('height',clientHeight);
         }
-
         $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
             $('title').html(data.data.title);
             if (data.data.user.avatar != null) {
@@ -73,73 +149,13 @@
                 $('#contentString').text(data.data.content);
                 $('#title').css('display','none');
             }
-
         });
     });
 
-</script>
-<style>
-    .footer{
-        background-color: #6c757d;
-        opacity:0.8;
-        z-index: 999;
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        padding: 10px;
+    function goHotVideo() {
+        let jumpLink = document.getElementById('jumpLink');
+        jumpLink.href = 'hot.html';
+        jumpLink.click();
     }
-    .content{
-        position: relative;
-        min-height: 100%;
-    }
-</style>
-<body style="background-color: #f9f9f9">
-<div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
-    <div id="video" style="display: none; margin-bottom: 10px">
-        <video id="player" style="width: 100%;" preload="auto" controls="controls">
-            <source id="source" type="video/mp4"/>
-            <track>
-        </video>
-    </div>
-    <div id="image" style="margin-bottom: 15px">
-        <img id="img" style="width: 100%;">
-    </div>
-    <div id="contentDiv">
-        <p id="contentString" style="white-space: pre-wrap"></p>
-    </div>
-    <div style="padding-bottom: 10px">
-        <row style="text-align: center; display: block;">
-            <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
-            <a class="col-3" style="margin: auto;"><img src="img/icon_comment.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
-        </row>
-        <p id="title" style="height: 150px; margin-top: 10px">
-        </p>
-    </div>
-</div>
-
-<div id="footer" class="footer">
-    <div class="row" vertical-align>
-        <div class="col-8" style="display: inline-flex; padding-right: 0px">
-            <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
-            <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
-        </div>
-        <div class="col-4" style="margin: auto">
-            <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right;">Download</a>
-        </div>
-    </div>
- </div>
-</body>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-138276305-1', {
-        'page_title' : 'MixFun',
-        'page_path': '/player'
-    });
 </script>
 </html>
-
