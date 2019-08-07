@@ -208,7 +208,7 @@
                     let imageURL = item.thumbnailUrl;
                     let playUrl = item.playUrl;
                     htStr += '<p style="margin-bottom: 5px; text-align: left; margin-left: 5%; margin-right: 5%; margin-top: 10px">'+title+'</p>';
-                    htStr += '<div class="topDiv "><video id="topImage'+index+'" controls="controls" style="width: 100%"><source src=\''+playUrl+'\' type="video/mp4"/><track></video>';
+                    htStr += '<div class="topDiv "><video id="topImage'+index+'" poster=\''+imageURL+'\' controls="controls" style="width: 100%"><source src=\''+playUrl+'\' type="video/mp4"/><track></video>';
                     htStr += '</div>';
                 });
                 $('#videoListDiv').html(htStr);
