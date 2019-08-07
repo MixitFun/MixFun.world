@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
     <link rel="stylesheet" href="css/font-awesome.css"/>
-    <link rel="stylesheet" href="css/video-js.min.css"/>
 </head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
@@ -24,7 +23,7 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-<script src="js/video.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="flowplayer.min.js"></script>
 
 <style>
     .footer{
@@ -58,8 +57,8 @@
         <div id="video" style="display: none; margin-bottom: 10px">
             <video id="player" style="width: 100%;" class="video-js" controls preload="none" data-setup="{}">
                 <source id="source1" type="video/mp4">
-                <source id="source2" type="video/webm">
-                <source id="source3" type="video/ogg">
+                <source id="source2" type="rtmp/flv">
+                <source id="source3" type="video/mov">
             </video>
         </div>
         <div id="image" style="margin-bottom: 15px">
