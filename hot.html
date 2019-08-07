@@ -132,7 +132,7 @@
         success: function(data) {
             var htStr = '';
             data.data.forEach(function(item, index) {
-                let title = (index+1)+"、"+item.title;
+                let title = item.title;
                 let imageURL = item.thumbnailUrl;
                 let playUrl = item.playUrl;
                 htStr += '<p style="margin-bottom: 5px; text-align: left; margin-left: 5%; margin-right: 5%; margin-top: 10px">'+title+'</p>';
