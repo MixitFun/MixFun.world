@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
     <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/video-js.min.css"/>
 </head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
@@ -23,6 +24,7 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/video.min.js" type="text/javascript"></script>
 
 <style>
     .footer{
@@ -54,9 +56,8 @@
 <div id="container">
     <div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
         <div id="video" style="display: none; margin-bottom: 10px">
-            <video id="player" style="width: 100%;" preload="auto" controls="controls">
+            <video id="player" style="width: 100%;" class="video-js" controls preload="none" data-setup="{}">
                 <source id="source" type="video/mp4"/>
-                <track>
             </video>
         </div>
         <div id="image" style="margin-bottom: 15px">
@@ -143,19 +144,19 @@
             if (data.data.type == 1){
                 $('#video').css('display','block');
                 $('#source').attr('src', data.data.playUrl);
-                $('video').attr('poster', data.data.thumbnailUrl);
-                $('video').attr('atuoplay', true);
-                $('video').css('background-color', 'black');
-                document.getElementById('player').load();
+                $('#video').attr('poster', data.data.thumbnailUrl);
+                // $('#video').attr('atuoplay', true);
+                // $('#video').css('background-color', 'black');
+                // document.getElementById('player').load();
                 $('#image').css('display','none');
                 $('#contentDiv').css('display','none');
-                $('#play').click();
+                // $('#play').click();
             } else if(data.data.type == 3){
                 $('#img').attr('src', data.data.thumbnailUrl);
                 $('#video').css('display','none');
                 $('#contentDiv').css('display','none');
-                $('#img').css('src', data.data.thumbnailWidth);
-                $('#img').css('src', data.data.thumbnailheight);
+                // $('#img').css('src', data.data.thumbnailWidth);
+                // $('#img').css('src', data.data.thumbnailheight);
             } else if (data.data.type == 4) {
                 $('#video').css('display','none');
                 $('#image').css('display','none');
@@ -179,14 +180,10 @@
             success: function(data) {
                 var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
                 data.data.forEach(function(item, index) {
-                    let playURL = item.thumbnailUrl;
-                    let imageURL = item.playUrl;
+                    let imageURL = item.thumbnailUrl;
+                    let playUrl = item.playUrl;
                     htStr += '<img class="topImage" src="'+imageURL+'">'
-                    // htStr += '<tr>';
-                    // htStr += '<td style="width: 45%"><div><video poster='+imageURL+' preload="auto" controls="controls" style="width: 45%"><source src='+playURL+' type="video/mp4"><track></video></div></td>';
-                    // htStr += '</tr>';
                 });
-                //               htStr += '</table>';
                 $('#videoListDiv').html(htStr);
             }
         });
