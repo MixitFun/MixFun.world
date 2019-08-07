@@ -187,6 +187,49 @@
                 </div>
             </div>
         </div>
+        <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+            <div class="card-body" style="padding: 0;">
+                <div align="center" style="position: relative;">
+                    <img src="img/fun_follower_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                    <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
+                </div>
+
+                <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link active" href="#followerDay0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="followerItem0"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay1" data-toggle="tab" style="padding: 10px"><span id="followerItem1"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay2" data-toggle="tab" style="padding: 10px"><span id="followerItem2"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay3" data-toggle="tab" style="padding: 10px"><span id="followerItem3"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay4" data-toggle="tab" style="padding: 10px"><span id="followerItem4"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay5" data-toggle="tab" style="padding: 10px"><span id="followerItem5"></span></a>
+                        </li>
+                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                            <a class="nav-link" href="#followerDay6" data-toggle="tab" style="padding: 10px"><span id="followerItem6"></span></a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent2" class="tab-content" style="background-color: white">
+                        <div class="tab-pane fade in active show product" id="followerDay0"></div>
+                        <div class="tab-pane fade" id="followerDay1"></div>
+                        <div class="tab-pane fade" id="followerDay2"></div>
+                        <div class="tab-pane fade" id="followerDay3"></div>
+                        <div class="tab-pane fade" id="followerDay4"></div>
+                        <div class="tab-pane fade" id="followerDay5"></div>
+                        <div class="tab-pane fade" id="followerDay6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div align="center" id="adsDiv" style="margin-top: 4%; display: none">
             <a id="androidzaloraURL" target="_blank">
                 <img src="http://track.omguk.com/i/?CRID=134034&AID=1980884&PID=12219&WID=98417" style="width: 98%">
@@ -253,8 +296,9 @@
 </body>
 
 <script>
-    var baseUrl = "https://api.mixit.fun/";
+    // var baseUrl = "https://api.mixit.fun/";
     //    var baseUrl = "http://10.125.54.75:7001/";
+    var baseUrl  = "http://127.0.0.1:7001/";
 
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
@@ -417,6 +461,46 @@
         }
     });
 
+    $.ajax({
+        url : baseUrl+"interaction/follower/rank",
+        method : 'post',
+        dataType : 'json',
+        contentType:'application/json',
+        headers:
+            {
+                authorization: token
+            },
+        success: function(data){
+            data.data.forEach(function(item, index) {
+                if (index > 6) {
+                    return;
+                }
+                $('#followerItem'+index+'').html(item.date);
+                if (item.followerDataList.length > 0) {
+                    var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
+                    htStr += '<tr><th style="width: 10%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 10px"></th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">User Nickname</th>';
+                    htStr += '<th style="width: 45%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 20px">Follower Number</th>';
+                    item.followerDataList.forEach(function(user, dindex) {
+                        let indexStr = dindex+1;
+                        let userName = user.nickname;
+                        let follower = user.follower;
+                        htStr += '<tr>';
+                        htStr += '<td style="font-size: 14px">'+indexStr+'</td>';
+                        htStr += '<td style="font-size: 14px">'+userName+'</td>';
+                        htStr += '<td style="font-size: 14px">'+follower+'</td>';
+                        htStr += '</tr>';
+                    });
+                    htStr += '</table>';
+                    $('#followerDay'+index+'').html(htStr);
+                } else {
+                    let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+                    $('#followerDay'+index+'').html(htStr);
+                }
+            });
+        }
+    });
+
     function ShowNotice(type) {
         if (type == 'leader') {
             $('#ModalNotice').modal('show');
@@ -434,4 +518,3 @@
 
 </script>
 </html>
-
