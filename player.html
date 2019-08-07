@@ -45,7 +45,7 @@
     }
 
     .topDiv {
-        width: 100%;
+        width: 90%;
         margin-bottom: 3%;
         position: relative;
     }
@@ -208,23 +208,12 @@
                     let imageURL = item.thumbnailUrl;
                     let playUrl = item.playUrl;
                     htStr += '<p style="margin-bottom: 5px; text-align: left; margin-left: 5%; margin-right: 5%; margin-top: 10px">'+title+'</p>';
-                    htStr += '<div class="topDiv "><video class="topImage" id="topImage'+index+'" controls="controls" style="width: 90%"><source src=\''+playUrl+'\' type="video/mp4"/><track></video>';
+                    htStr += '<div class="topDiv "><video id="topImage'+index+'" controls="controls" style="width: 100%"><source src=\''+playUrl+'\' type="video/mp4"/><track></video>';
                     htStr += '</div>';
                 });
                 $('#videoListDiv').html(htStr);
             }
         });
-    }
-
-    function FullScreen() {
-        var ele = document.documentElement;
-        if (ele .requestFullscreen) {
-            ele .requestFullscreen();
-        } else if (ele .mozRequestFullScreen) {
-            ele .mozRequestFullScreen();
-        } else if (ele .webkitRequestFullScreen) {
-            ele .webkitRequestFullScreen();
-        }
     }
 
 </script>
