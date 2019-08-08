@@ -223,11 +223,17 @@
 
     $( document ).ready(function() {
         if (regionCode == 'id') {
-            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerA').attr('href', 'https://c.lazada.co.id/t/c.XLkS');
             $('#bannerImg').attr('src', 'img/free_gift_banner_id.png');
+        } else if (regionCode == "ph") {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_ph.png');
+        } else if (regionCode == "") {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_ph.png');
         } else {
-            $('#bannerA').attr('href', 'https://c.lazada.com.ph/t/c.bJa4');
-            $('#bannerImg').attr('src', 'img/free_gift_banner.png');
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
     });
 
