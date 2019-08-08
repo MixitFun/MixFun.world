@@ -19,6 +19,7 @@
 </head>
 
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/jquery.i18n.properties-min-1.0.9.js" type="text/javascript"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
 <script src="js/clipboard.min.js"></script>
@@ -81,14 +82,15 @@
 
     <div class="card" style="width: 95%;border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <div class="card-body" style="padding: 10px;">
-            <p style="color: #9B9B9B;font-size: medium">You've invited <span id="num" style="color: #6974FF"></span> friends</p>
+            <p><span id="inviteNum1" style="color: #9B9B9B;font-size: medium"></span><span id="num" style="color: #6974FF"></span><span id="inviteNum2" style="color: #9B9B9B;font-size: medium"></span></p>
             <div id="ref"></div>
-            <p class="card-text">Your referral code：
+            <p class="card-text">
+                <span id="referralCode"></span>
                 <input id="shareId" style="border: 0px;width: 100px;" readonly/>
-                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" >&nbsp;Copy&nbsp;</button>
+                <button class="btn shareId" id="copy" data-clipboard-target="#shareId" data-clipboard-action="copy" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="copy('shareId')" ></button>
             </p>
             <div style="margin-top: 20px; margin-bottom: 10px;">
-                <p>Share your referral code or click the link below to invite your friends, and win Mixcoin Reward!</p>
+                <p id="shareReferal"></p>
                 <row>
                     <a class="col-4 fc" style="padding: 10%"  href="" target="_blank">
                         <img  id="tips" src="img/icon_facebook.png" data-toggle="popover" data-placement="top" data-content="Share the referral link to your friend and both of you will win 50 coins.">
@@ -109,8 +111,8 @@
     </div>
 
     <div class="shade" align="center">
-        <p>If you have a referral code, enter here to get 50 Mixcoin reward.</p>
-        <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
+        <p id="shareReferal1"></p>
+        <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;">
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
     <div id="activityList" style="margin-top: 20px"></div>
@@ -128,11 +130,11 @@
 </div>
 
 <!-- alert -->
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitleAlert" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <h5 class="modal-title" id="ModalNoticeTitleAlert"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -143,20 +145,20 @@
 </div>
 
 <!-- alert -->
-<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalConf" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitleConf" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Warning</h5>
+                <h5 class="modal-title" id="ModalNoticeTitleConf"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p id="type1"><span class="hf"></span> coins will be deducted. No Refund. Confirm to draw?</p>
-                <p id="type2"><span class="hf"></span> coins will be deducted. Confirm to redeem?</p>
-                <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px">Continue</button>
-                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px">Cancel</button>
+                <p id="type1"><span class="hf"></span><span id="type1Text"></span></p>
+                <p id="type2"><span class="hf"></span><span id="type2Text"></span></p>
+                <button class="btn btn-info" onclick="cjl()" style="margin-top: 20px" id="ModalConfContinue"></button>
+                <button class="btn" data-dismiss="modal" aria-label="Close" style="margin-top: 20px" id="ModalConfCancel"></button>
                 <input id="it" type="hidden"/>
                 <input id="itname" type="hidden"/>
                 <input id="ittype" type="hidden"/>
@@ -166,33 +168,32 @@
 </div>
 
 <!-- Exchange -->
-<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
+<div class="modal fade" id="ModalExchange" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitleExchange" aria-hidden="true" style="margin-top: 8%;border-radius: 20px;">
     <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title">Redeem
-                </h5>
+                <h5 class="modal-title" id="ModalNoticeTitleExchange"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="padding-bottom: 5px;">
-                    <span>We will send out the prizes as soon as possible in 3 DAYS. Thanks for your patience.</span>
+                    <span id="exchangeNotice"></span>
             </div>
             <span id="bt" style="color: red;margin-left: 10%;"></span>
             <div class="modal-body" align="center">
                 <input type="hidden" id="id"/>
                 <input type="hidden" id="commodity_id"/>
-                <input class="form-control" type="text" id="recipient" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
-                <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
+                <input class="form-control" type="text" id="recipient" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 10px;">
+                <input class="form-control" type="text" id="phone" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="moblieLegend" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: inline-block;"/>
                 <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
                 <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <input class="form-control" type="text" id="gcashAccount" placeholder="Enter your GCash account" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
-                <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
-                <p style="margin-top: 10px;">Please double check your input information.</p>
-                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;">Submit</button>
+                <input class="form-control" type="text" id="gcashAccount" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <textarea class="form-control" id="address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <p style="margin-top: 10px;" id="exchangeNotice1"></p>
+                <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" id="exchangeSubmit"></button>
             </div>
         </div>
     </div>
@@ -225,8 +226,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="gcashNoticeID" style="margin-bottom: 20px;"></p >
-                <p>Tell your friend you have redeemed <span id="productName"></span>? Share the joy with them.</p >
+                <p id="gcashNoticeID" style="margin-bottom: 20px;"></p>
+                <p id="gcashNotice"></p>
                 <div align="center">
                     <div>
                         <div style="display: inline-block; margin-top: 5%; margin-right: 20%">
@@ -254,7 +255,7 @@
             </div>
             <div class="modal-body" align="center" style="padding-top: 0">
                 <dl style="text-align: left">
-                    <dd style="margin-top: 10px">Please download GCash with below link and register first:</dd>
+                    <dd style="margin-top: 10px" id="downloadGcashNotice"></dd>
                     <dd style="margin-top: 20px; margin-bottom: 20px"><a id="iOSGCash" target="_blank">iOS&nbsp;&nbsp;</a><a id="AndroidGCash" target="_blank">&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></dd>
                 </dl>
             </div>
@@ -387,6 +388,53 @@
         };
     }
 
+    var shareCodeSuccess;
+    var blockMsg;
+    var emptyStockMsg;
+    var gcashBuyNotice;
+    var gcashDisableNotice;
+    var lang = 'en';
+    $(function() {
+        jQuery.i18n.properties({
+            name: 'strings',
+            path: 'i18n/',
+            mode: 'map',
+            language: lang,
+            callback: function() {
+                $('#inviteNum1').html($.i18n.prop('inviteNum1'));
+                $('#inviteNum2').html($.i18n.prop('inviteNum2'));
+                $('#referralCode').html($.i18n.prop('referralCode'));
+                $('#copy').html($.i18n.prop('copy'));
+                $('#shareReferal').html($.i18n.prop('shareReferal'));
+                $('#shareReferal1').html($.i18n.prop('shareReferal1'));
+                $('#shareCode').attr('placeholder', $.i18n.prop('shareCodePlaceHolder'));
+                $('#type1Text').html($.i18n.prop('type1Text'));
+                $('#type2Text').html($.i18n.prop('type2Text'));
+                $('#ModalConfContinue').text($.i18n.prop('ModalConfContinue'));
+                $('#ModalConfCancel').text($.i18n.prop('ModalConfCancel'));
+                $('#ModalNoticeTitleAlert').text($.i18n.prop('ModalNoticeTitleAlert'));
+                $('#ModalNoticeTitleConf').text($.i18n.prop('ModalNoticeTitleConf'));
+                $('#ModalNoticeTitleExchange').text($.i18n.prop('ModalNoticeTitleExchange'));
+                $('#exchangeNotice').html($.i18n.prop('exchangeNotice'));
+                $('#exchangeNotice1').text($.i18n.prop('exchangeNotice1'));
+                $('#exchangeSubmit').text($.i18n.prop('exchangeSubmit'));
+                $('#phoneType').attr('placeholder', $.i18n.prop('phoneTypePlaceHolder'));
+                $('#recipient').attr('placeholder', $.i18n.prop('recipientPlaceHolder'));
+                $('#phone').attr('placeholder', $.i18n.prop('phonePlaceHolder'));
+                $('#moblieLegend').attr('placeholder', $.i18n.prop('moblieLegendPlaceHolder'));
+                $('#gcashAccount').attr('placeholder', $.i18n.prop('gcashAccountPlaceHolder'));
+                $('#address').attr('placeholder', $.i18n.prop('addressPlaceHolder'));
+                $('#gcashNotice').html($.i18n.prop('gcashNotice'));
+                $('#downloadGcashNotice').html($.i18n.prop('downloadGcashNotice'));
+                shareCodeSuccess = $.i18n.prop('shareCodeSuccess');
+                blockMsg = $.i18n.prop('blockMsg');
+                emptyStockMsg = $.i18n.prop('emptyStockMsg');
+                gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
+                gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
+            }
+        });
+    })
+
     var newPlatform = "0";
     function GetRequest() {
         var url = location.search;
@@ -503,7 +551,7 @@
                 },
             success: function(data){
                 if(data.status == 0){
-                    $('#alert').html('<p>Congratulations!</p><p>Both of you and your friends are received the 50 coin.</p>');
+                    $('#alert').html(shareCodeSuccess);
                     $('#ModalAlert').modal('show');
                     $('.shade').css('display','none');
                 }else{
@@ -516,7 +564,7 @@
     function cj(it,name,sale,type,commodity_id) {
         if (shopSpotDic[it] > 0) {
             if (isBlockUser) {
-                var msg = "We launched an algorithm to detect coin farming and spam activities. Your account has been blocked from prized redeem due to suspected activiteies. If you think it's a mistake, please appeal by sending email to Hello@mixfun.world. We'll review it ASAP.";
+                var msg = blockMsg;
                 $('#alert').html('<p>'+msg+'</p>');
                 $('#ModalAlert').modal('show');
             } else {
@@ -539,7 +587,7 @@
                 $('.hf').text(sale);
             }
         } else {
-            let msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
+            let msg = emptyStockMsg;
             $('#alert').html('<p>'+msg+'</p>');
             $('#ModalAlert').modal('show');
         }
@@ -639,7 +687,7 @@
                     } else {
                         let msg = data.msg;
                         if (msg == "The stock for this hour is out. Please come back next hour.") {
-                            msg = "The stock is out now, items will be restocked by every 1000 new users. Please come back later.";
+                            msg = emptyStockMsg;
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         } else {
@@ -744,7 +792,7 @@
                 }
                 $('#ModalExchange').modal('hide');
                 if(name == 'GCash') {
-                    $('#gcashNoticeID').html('MixFun & GCash will review your registration as soon as possible( about 1 month). Once confirmed you are new users, you will receive money in 3 days.');
+                    $('#gcashNoticeID').html(gcashBuyNotice);
                     $('gcashNoticeID').css('display', 'block');
                 } else {
                     $('gcashNoticeID').css('display', 'none');
@@ -904,7 +952,7 @@
                     var ht;
                     var imageURL = '';
                     if (code == '5') {
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the new GCash users, who download and register GCash APP with below links (*ONCE ONLY*).<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">'+gcashDisableNotice+'<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
                     } else {
                         ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
                     }
