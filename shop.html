@@ -395,6 +395,9 @@
     var gcashDisableNotice;
     var lang = 'en';
     $(function() {
+        if (regionCode == "id") {
+            lang = "id";
+        }
         jQuery.i18n.properties({
             name: 'strings',
             path: 'i18n/',

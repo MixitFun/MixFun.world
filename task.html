@@ -31,9 +31,9 @@
     </div>
     <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
     <ul id="tasklist"></ul>
-    <div id="footer" align="center" style="position: fixed; bottom: 0">
-        <a target="_blank" href="https://c.lazada.com.ph/t/c.bJa4">
-            <img src="img/free_gift_banner.png" style="width: 100%">
+    <div id="footer" align="center" style="position: fixed; bottom: 0; width: 100%">
+        <a id="bannerA" target="_blank">
+            <img id="bannerImg" style="width: 100%;">
         </a>
     </div>
     <a id="jumpLink" style="display: none"></a>
@@ -200,7 +200,7 @@
         try {
             regionCode = window.android.getRegionCode();
         } catch (e) {
-            regionCode = "";
+            regionCode = "id";
         }
     } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
@@ -220,6 +220,16 @@
             });
         })
     }
+
+    $( document ).ready(function() {
+        if (regionCode == 'id') {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_id.png');
+        } else {
+            $('#bannerA').attr('href', 'https://c.lazada.com.ph/t/c.bJa4');
+            $('#bannerImg').attr('src', 'img/free_gift_banner.png');
+        }
+    });
 
     var userCode;
     $.ajax({
