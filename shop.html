@@ -113,29 +113,7 @@
         <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;" placeholder="Enter your friend's referral code">
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
-    <div id="activityList" style="display: none">
-        <div style="margin-top: 20px;border-width: thin;border-color: #9B9B9B;">
-            <ul class="nav nav-tabs nav-justified">
-                <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link active" href="#gcash" data-toggle="tab" id="tabIn">GCash</a>
-                </li>
-                <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link" href="#draw" data-toggle="tab">MLBB</a>
-                </li>
-                <li class="nav-item" style="font-size: 13px">
-                    <a class="nav-link" href="#buy" data-toggle="tab">Mobile Loads</a>
-                </li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade in active show commodity" id="gcash">
-                </div>
-                <div class="tab-pane fade" id="draw">
-                </div>
-                <div class="tab-pane fade" id="buy">
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="activityList" style="margin-top: 20px"></div>
 </div>
 
 <div align="center" id="adsDiv" style="margin-top: 6%; display: none">
@@ -332,7 +310,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun/";
-//    var baseUrl = 'http://192.168.0.113:7001/';
+//    var baseUrl = "http://34.87.14.19:7001/"
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -355,23 +333,60 @@
             $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
         }
     });
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        let target = $(e.target).attr("href")
-        switch (target) {
-            case '#gcash':
-                if ($('#gcash').html().length == 0) {
-                    GetRedeem('gcash');
-                }
-                break;
-            case '#rulesofsurvival':
-                if ($('#rulesofsurvival').html().length == 0) {
-                    GetRedeem('rulesofsurvival');
-                }
-                break;
-            default:
-                break;
+
+    var regionCode = "ph";
+    if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
         }
-    });
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+                try {
+                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                    });
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+            });
+        })
+    } else if (platform.os.toString().indexOf('Android') > -1) {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+            try {
+                window.android.BackToAndroid(facebookURL);
+            } catch (e) {
+                window.location.href = facebookURL;
+            }
+        };
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+            regionCode = "ph";
+        }
+    } else {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+        };
+    }
+
     var newPlatform = "0";
     function GetRequest() {
         var url = location.search;
@@ -388,6 +403,7 @@
         spinLink.href = "https://mixfun.world/turnplate.html?id="+theRequest.id;
         return theRequest;
     }
+
     function showSurprise() {
         if (newPlatform == "1") {
             $('#activityList').hide();
@@ -396,8 +412,6 @@
         } else {
             $('#adsDiv').show();
             $('#spinDiv').show();
-            if (platform.os.toString().indexOf('iOS') > -1) {
-            }
         }
     }
     var token =  GetRequest().id;
@@ -426,14 +440,11 @@
         }
     });
     var isBlockUser = false;
-    var shopSpotDic = new Array();
     var fc;
     var lj;
     var uid;
     var iosGCashURL;
     var androidGCashURL;
-    $('#gcash').html('');
-    $('#rulesofsurvival').html('');
     $.ajax({
         method: 'get',
         url: baseUrl+'user/profile',
@@ -473,81 +484,7 @@
             $('#lj').val("https://mixfun.world/friend?c="+data.data.ownShareCode);
             $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/friend?c="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
             $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/friend?c="+data.data.ownShareCode);
-            GetRedeem('gcash');
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'shop/list',
-                headers:{
-                    authorization:token
-                },
-                data: {
-                    type: 1
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+item.img+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding-left: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('#draw').html(ht);
-                    }
-                }
-            });
-            $.ajax({
-                method: 'post',
-                url: baseUrl+'shop/list',
-                headers:{
-                    authorization:token
-                },
-                data: {
-                    type: 2
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if(data.status == 0) {
-                        var ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users. (Philippines region ONLY)</p>';
-                        data.data.forEach(function(item, index) {
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="img/shop_mobile_loads.png" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding-left: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+',2)">&nbsp;Redeem&nbsp;</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                        $('#buy').html(ht);
-                    }
-                }
-            });
+            createRedeemList();
         }
     });
     function setShareCode(){
@@ -896,16 +833,61 @@
         });
         slider.init();
     })
-    function GetRedeem(name) {
-        let type;
-        let redeemType;
-        if (name == 'gcash') {
-            type = 5;
-            redeemType = 2;
-        } else if (name == 'rulesofsurvival') {
-            type = 4;
-            redeemType = 4;
+
+    function createRedeemList() {
+        var codeList = [];
+        var codeNameList = [];
+        if (regionCode == "ph") {
+            codeList = ["5", "1", "2"];
+            codeNameList = ["GCash", "MLBB", "Mobile Loads"];
+        }  else if (regionCode == "id") {
+            codeList = ["1", "21"];
+            codeNameList = ["Mobile Legends", "PUBG"];
+        } else {
+            codeList = ["1"];
+            codeNameList = ["Mobile Legends"];
         }
+        if (codeList.length > 0) {
+            var liStr = '<ul class="nav nav-tabs nav-justified">';
+            var tabStr = '<div id="myTabContent" class="tab-content">';
+            for (var index in codeList) {
+                let code = codeList[index];
+                let name = codeNameList[index];
+                $('#shopList_'+code).html('');
+                if (index == 0) {
+                    liStr += '<li class="nav-item" style="font-size: 13px">';
+                    liStr += '<a class="nav-link active" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
+                    liStr += '</li>';
+
+                    tabStr += '<div class="tab-pane active" id="shopList_'+code+'">';
+                    tabStr += '</div>';
+                    GetRedeem(code);
+                } else {
+                    liStr += '<li class="nav-item" style="font-size: 13px">';
+                    liStr += '<a class="nav-link" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
+                    liStr += '</li>';
+
+                    tabStr += '<div class="tab-pane fade" id="shopList_'+code+'">';
+                    tabStr += '</div>';
+                }
+            }
+            liStr += '</ul>';
+            tabStr += '</div>';
+            $('#activityList').html(liStr+tabStr);
+        }
+    }
+
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        let target = $(e.target).attr("href");
+        let code = target.toString().substring(10);
+        if ($('#shopList_'+code).html().length == 0) {
+            GetRedeem(code);
+        }
+    })
+
+    var shopSpotDic = new Array();
+    function GetRedeem(code) {
+        let redeemType = 2;
         $.ajax({
             method: 'post',
             url: baseUrl+'shop/list',
@@ -913,100 +895,48 @@
                 authorization:token
             },
             data:{
-                type: type
+                type: code,
+                regionCode: regionCode
             },
             dataType: 'json',
             success: function(data) {
                 if(data.status == 0) {
                     var ht;
                     var imageURL = '';
-                    if (name == 'gcash') {
-                        imageURL = 'img/shop_gcash.png';
+                    if (code == '5') {
                         ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">Only available for the new GCash users, who download and register GCash APP with below links (*ONCE ONLY*).<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
                     } else {
-                        ht = '<p style="margin-top: 5px"></p>';
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
                     }
-                    data.data.forEach(function(item, index) {
-                        if (imageURL == '') {
-                            imageURL = item.img;
-                        }
-                        var spot = item.glh;
-                        shopSpotDic[item.id] = spot;
-                        ht+= '<div class="media"style="padding: 3%">'+
-                            '<div style="width: 25%;">' +
-                            '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                            '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                            '</div>'+
-                            '<div class="media-body" style="padding-left: 3%;">'+
-                            '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                            '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                            '<div class="mt-0">' +
-                            '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
-                            '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
-                            '</div>'+
-                            '</div>';
-                    });
-                    $('#'+name).html(ht);
+                    if (data.data.length > 0) {
+                        data.data.forEach(function(item, index) {
+                            imageURL = 'img/shopList_img_'+code+'.png';
+                            var spot = item.glh;
+                            if (isBlockUser) {
+                                spot = 0;
+                            }
+                            shopSpotDic[item.id] = spot;
+                            ht+= '<div class="media"style="padding: 3%">'+
+                                '<div style="width: 25%;">' +
+                                '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                                '</div>'+
+                                '<div class="media-body" style="padding-left: 3%;">'+
+                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                                '<div class="mt-0">' +
+                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
+                                '</div>'+
+                                '</div>';
+                        });
+                    } else {
+                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">We don\'t support the redemption in your country at the moment. We will open to your country when we reach 1,000 users. Please invite your friends to join MixFun.</p>';
+                    }
+                    $('#shopList_'+code).html(ht);
                 }
             }
         });
-    }
-
-    if (platform.os.toString().indexOf('iOS') > -1) {
-        function setupWebViewJavascriptBridge(callback) {
-            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-            window.WVJBCallbacks = [callback];
-            var WVJBIframe = document.createElement('iframe');
-            WVJBIframe.style.display = 'none';
-            WVJBIframe.src = 'https://__bridge_loaded__';
-            document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
-        }
-
-        setupWebViewJavascriptBridge(function(bridge) {
-            document.getElementById('shareFacebookBtn').onclick = function () {
-                let productname = $('#productName').html();
-                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-                try {
-                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = facebookURL;
-                }
-            };
-            bridge.callHandler("getRegionCode", null, function(response) {
-                if (newPlatform == "0" && response == "ph") {
-                    $('#activityList').show();
-                }
-            });
-        })
-    } else if (platform.os.toString().indexOf('Android') > -1) {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-            try {
-                window.android.BackToAndroid(facebookURL);
-            } catch (e) {
-                window.location.href = facebookURL;
-            }
-        };
-        try {
-            let regionCode = window.android.getRegionCode();
-            if (regionCode == "ph") {
-                $('#activityList').show();
-            }
-        } catch (e) {
-            $('#activityList').show();
-        }
-    } else {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-        };
     }
 </script>
 
