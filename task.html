@@ -200,7 +200,7 @@
         try {
             regionCode = window.android.getRegionCode();
         } catch (e) {
-            regionCode = "id";
+            regionCode = "";
         }
     } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
