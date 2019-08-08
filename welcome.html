@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="css/bootstrap.css"/>
+    <link href="css/bootstrap-grid.css"/>
+    <link href="css/bootstrap-reboot.css"/>
+    <title>MixBuzz - Top Funny Video Mix with Coin Reward</title>
+</head>
+<style>
+</style>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script type="text/javascript">
+    var flag = true;
+    $(document).ready(function(){
+        clientWidth = document.body.clientWidth;
+
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        var imgh = 0;
+        if(flag){
+            imgh = 1080*clientWidth/1920;
+            bl = clientWidth/1920;
+            $('#img').attr('src','img/mixfun.png');
+            $('body').attr('height',imgh);
+            $('.im').attr('height',68*bl);
+            $('.im').attr('width',221*bl);
+            document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px;');
+            document.getElementById("footer").setAttribute("style",'text-align:left;');
+            document.getElementById("footer").setAttribute("style",'padding-left:30%;');
+            document.getElementById("download").setAttribute("style",'text-align:left;');
+            document.getElementById("download").setAttribute("style",'padding-left:20%;');
+            $('#download').css('margin-bottom', '10%');
+            $('#logoText').css('margin-left', '8%');
+        }else{
+            imgh = 816*clientWidth/375 - 20;
+            bl = clientWidth/375;
+            $('#img').attr('src','img/mixfun_phone.png');
+            $('body').attr('height',imgh);
+            document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
+        }
+
+    });
+    window.onresize=function(){
+        clientWidth = document.body.clientWidth;
+        bl = clientWidth/1920;
+        if(flag){
+            imgh = 1080*clientWidth/1920;
+            $('body').attr('height',imgh);
+            $('.im').attr('height',68*bl);
+            $('.im').attr('width',221*bl);
+            document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px');
+        }
+    };
+</script>
+<body style="background-color: #1b1e21;">
+    <div class="container-fluid">
+        <img id="img" src="img/mixfun.png" style="width: 100%;"/>
+        <div class="container" style='position:absolute; z-index:999; top:0;width: 40%'>
+            <row>
+                <div id="empty">
+                </div>
+            </row>
+            <row>
+                <div id="download" style=" width:250%; text-align: center;">
+                    <a href="https://play.google.com/store/apps/details?id=com.mixit.buzz&rdid=com.mixit.buzz">
+                        <img class="im" style="margin-top: 20px" src="img/Button_google_big.png">
+                    </a>
+                </div>
+            </row>
+            <row>
+                <div id="footer" style="width:250%; z-index:1000; text-align: center; margin-top: 5%" >
+                    <a style="color: white;font-size:10%; margin-right: 10%" href="privacy_policy.html">Privacy Policy</a>
+                    <a style="color: white;font-size:10%;" href="term_of_service.html">Term of Service</a>
+                    <p id="logoText" style="color: white;font-size:10%;">© 2019 MIXFUN LIMITED</p>
+                </div>
+            </row>
+        </div>
+    </div>
+</body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-138276305-1');
+    gtag('commement', '');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-138276305-1', {
+    'page_title' : 'MixFun',
+    'page_path': '/welcome'
+});
+</script>
+</html>
