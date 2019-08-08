@@ -108,7 +108,6 @@
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
 </div>
-
 <div id="footer" style="width: 100%;margin-top: 20px;" align="center">
     <p>Contact us on <a href="https://www.facebook.com/groups/419649578852831/"> Facebook</a></p>
     <p style="color: #BC9982;">© 2019 MIXFUN LIMITED</p>
@@ -347,9 +346,6 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        newPlatform = theRequest.platform;
-        let spinLink = document.getElementById('spinURL');
-        spinLink.href = "https://mixfun.world/turnplate.html?id="+theRequest.id;
         return theRequest;
     }
     var token =  GetRequest().id;
