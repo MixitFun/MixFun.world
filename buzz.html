@@ -346,8 +346,6 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        let spinLink = document.getElementById('spinURL');
-        spinLink.href = "https://mixfun.world/turnplate.html?id="+theRequest.id;
         return theRequest;
     }
     var token =  GetRequest().id;
