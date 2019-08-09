@@ -180,11 +180,6 @@
         }
     });
 
-    $( document ).ready(function() {
-        let footerHeight = document.getElementById('footer').clientHeight;
-        $('#tasklist').css('margin-bottom', footerHeight+"px");
-    });
-
     var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
@@ -240,6 +235,8 @@
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
             $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
+        let footerHeight = document.getElementById('footer').clientHeight;
+        $('#tasklist').css('margin-bottom', footerHeight+"px");
     });
 
     var userCode;
