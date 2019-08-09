@@ -319,14 +319,15 @@
             success: function(data){
                 var spinItems = new Array();
                 var colors = new Array();
-                data.data.forEach(function(item, index) {
+                for(var j = 0; j < data.data.length; j++) {
+                    let item = data.data[j];
                     let name = item.description;
-                    let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
+                    let color = (j%2 == 0) ? "#FFF4D6" : "#FFFFFF";
                     let code = item.id;
-                    spinItems[index] = name;
-                    colors[index] = color;
-                    itemCode[index] = code;
-                });
+                    spinItems[j] = name;
+                    colors[j] = color;
+                    itemCode[j] = code;
+                }
                 let lastIndex = data.data.length;
                 let name = "iPhone 8";
                 let color = (lastIndex%2 == 0) ? "#FFF4D6" : "#FFFFFF";
