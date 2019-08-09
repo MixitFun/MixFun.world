@@ -383,7 +383,7 @@
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            let shareTitle = "Tell your friend you idhave redeemed "+productname+"? Share the joy with them.";
             window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
         };
     }
@@ -393,6 +393,7 @@
     var emptyStockMsg;
     var gcashBuyNotice;
     var gcashDisableNotice;
+    var redeemStr;
     var lang = 'en';
     $(function() {
         if (regionCode == "id") {
@@ -429,6 +430,7 @@
                 $('#address').attr('placeholder', $.i18n.prop('addressPlaceHolder'));
                 $('#gcashNotice').html($.i18n.prop('gcashNotice'));
                 $('#downloadGcashNotice').html($.i18n.prop('downloadGcashNotice'));
+                redeemStr = $.i18n.prop('redeemStr');
                 shareCodeSuccess = $.i18n.prop('shareCodeSuccess');
                 blockMsg = $.i18n.prop('blockMsg');
                 emptyStockMsg = $.i18n.prop('emptyStockMsg');
@@ -891,9 +893,12 @@
         if (regionCode == "ph") {
             codeList = ["5", "1", "2"];
             codeNameList = ["GCash", "MLBB", "Mobile Loads"];
-        }  else if (regionCode == "id") {
+        } else if (regionCode == "id") {
             codeList = ["1", "21"];
             codeNameList = ["Mobile Legends", "PUBG"];
+        } else if (regionCode == "cn") {
+            codeList = ["5", "1", "2", "21"];
+            codeNameList = ["GCash", "MLBB", "Mobile Loads", "PUBG"];
         } else {
             codeList = ["1"];
             codeNameList = ["Mobile Legends"];
@@ -977,7 +982,7 @@
                                 '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
                                 '<div class="mt-0">' +
                                 '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">&nbsp;Redeem&nbsp;</button></p></div>'+
+                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">'+redeemStr+'</button></p></div>'+
                                 '</div>'+
                                 '</div>';
                         });

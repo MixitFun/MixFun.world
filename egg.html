@@ -20,6 +20,7 @@
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
+<script src="js/platform.js" type="text/javascript"></script>
 <style>
 	li:hover{
         background-color: white;
@@ -189,9 +190,9 @@
             </div>
         </div>
 
-        <div align="center" id="adsDiv" style="margin-top: 4%; display: none">
+        <div align="center" id="adsDiv" style="margin-top: 4%; display: none; width: 100%">
             <a id="androidzaloraURL" target="_blank">
-                <img src="http://track.omguk.com/i/?CRID=134034&AID=1980884&PID=12219&WID=98417" style="width: 98%">
+                <img id="zaloraImg" style="width: 100%">
             </a>
         </div>
 	</div>
@@ -251,9 +252,7 @@
             </div>
         </div>
     </div>
-
 </body>
-
 <script>
     var baseUrl = "https://api.mixit.fun/";
     //    var baseUrl = "http://10.125.54.75:7001/";
@@ -269,6 +268,41 @@
         {
             $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
             $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
+    var regionCode = "";
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+            regionCode = "id";
+        }
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+            });
+        })
+    }
+
+    $( document ).ready(function() {
+        if (regionCode == 'id') {
+            $('#zaloraImg').attr('src', 'img/zalora_banner_id.png');
+            $('#androidzaloraURL').attr('href', 'https://c.lazada.co.id/t/c.XLkS');
+        } else {
+            $('#zaloraImg').attr('src', 'http://track.omguk.com/i/?CRID=134034&AID=1980884&PID=12219&WID=98417');
         }
     });
 
@@ -307,7 +341,10 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data){
-            $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
+            if (regionCode == 'id') {
+            } else {
+                $('#androidzaloraURL').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=12219&UID='+data.data.ownShareCode);
+            }
         }
     });
 
