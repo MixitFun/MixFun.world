@@ -235,8 +235,6 @@
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
             $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
-        let footerHeight = document.getElementById('footer').clientHeight;
-        $('#tasklist').css('margin-bottom', footerHeight+"px");
     });
 
     var userCode;
@@ -267,8 +265,6 @@
             contentType:'application/json',
             dataType: 'json',
             success: function(data) {
-                let footerHeight = document.getElementById('footer').offsetHeight;
-                $('#tasklist').css('margin-bottom', ''+footerHeight+'px');
                 var listHT = "";
                 listHT += "<li><div style='height: 100%'>";
                 listHT += "<img src='img/refer_img.png'/>";
@@ -297,6 +293,8 @@
                     listHT += "<hr style='margin-bottom: 0'>";
                 });
                 $('#tasklist').html(listHT);
+                let footerHeight = document.getElementById('footer').offsetHeight;
+                $('#tasklist').css('margin-bottom', ''+footerHeight+'px');
             }
         });
     }

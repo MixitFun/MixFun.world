@@ -185,6 +185,59 @@
         }
     });
 
+    var regionCode = "ph";
+    if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+                try {
+                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                    });
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+            // bridge.callHandler("getRegionCode", null, function(response) {
+            //     regionCode = response;
+            // });
+        })
+    } else if (platform.os.toString().indexOf('Android') > -1) {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+            try {
+                window.android.BackToAndroid(facebookURL);
+            } catch (e) {
+                window.location.href = facebookURL;
+            }
+        };
+        // try {
+        //     regionCode = window.android.getRegionCode();
+        // } catch (e) {
+        //     regionCode = "ph";
+        // }
+    } else {
+        document.getElementById('shareFacebookBtn').onclick = function () {
+            let productname = $('#productName').html();
+            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+        };
+    }
+
     var body = document.body,
         html = document.documentElement;
 
@@ -193,6 +246,7 @@
     $('#backgroudID').css('height', height+"px");
 
     var baseUrl = "https://api.mixit.fun/";
+ //   var baseUrl = "http://34.87.14.19:7001/";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -245,13 +299,43 @@
         startAngle: 82, //开始角度
         bRotate: false //false:停止;ture:旋转
     };
-    turnplate.restaraunts = ["Digital Voucher 100PH", "Zalora Voucher", "Next Time", "Fog Lamp Voucher", "MLBB diamonds 11", "50 Coins", "iPhone 8", "Mobile loads 10PHP", "Mini Beans 50Beans", "Lucky Mystery Box 399PHP"];
-    turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF"];
-    let itemCode = [35, 34, 32, 40, 38, 33, 41, 39, 36, 45];
 
-    window.onload = function() {
-        drawRouletteWheel();
-    };
+    var restaraunts = new Array();
+    var colors = new Array();
+    var itemCode = new Array();
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'shop/list',
+        headers:{
+            authorization:token
+        },
+        data:{
+            type: 6,
+            regionCode: regionCode
+        },
+        dataType: 'json',
+        success: function(data){
+            data.data.forEach(function(item, index) {
+                let name = item.description;
+                let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
+                let code = item.id;
+                restaraunts[index] = name;
+                colors[index] = color;
+                itemCode[index] = code;
+            });
+            let lastIndex = data.data.length;
+            let name = "iPhone 8";
+            let color = (lastIndex%2 == 0) ? "#FFF4D6" : "#FFFFFF";
+            let code = 41;
+            restaraunts[lastIndex] = name;
+            colors[lastIndex] = color;
+            itemCode[lastIndex] = code;
+
+            turnplate.restaraunts = restaraunts;
+            turnplate.colors = colors;
+            drawRouletteWheel();
+        }
+    });
 
     function drawRouletteWheel() {
         var canvas = document.getElementById("wheelcanvas");
@@ -350,7 +434,7 @@
                     let item = data.data.commodityId;
                     transactionID = data.data.transactionId;
                     let itemIndex = itemCode.indexOf(item, 0);
-                    if (itemIndex == -1 || itemIndex == 6) {
+                    if (itemIndex == -1) {
                         itemIndex = 2;
                     }
                     rotateFunc(itemIndex+1);
@@ -525,9 +609,8 @@
                 });
                 break;
             case 41:
-                message = "Wow! You have won iPhone 8!";
-                $('#userName').css('display', 'block');
-                $('#phone').css('display', 'block');
+                title = "Message";
+                message = "Oh... nothing for you this time. Would you like to try it again?";
                 break;
             case 45:
                 message = "Wow! You have won the Lucky Mystery Box!";
@@ -665,49 +748,6 @@ function buy(){
         }
     });
 
-    if (platform.os.toString().indexOf('iOS') > -1) {
-        function setupWebViewJavascriptBridge(callback) {
-            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-            window.WVJBCallbacks = [callback];
-            var WVJBIframe = document.createElement('iframe');
-            WVJBIframe.style.display = 'none';
-            WVJBIframe.src = 'https://__bridge_loaded__';
-            document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
-        }
-
-        setupWebViewJavascriptBridge(function(bridge) {
-            document.getElementById('shareFacebookBtn').onclick = function () {
-                let productname = $('#productName').html();
-                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-                try {
-                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = facebookURL;
-                }
-            };
-        })
-    } else if (platform.os.toString().indexOf('Android') > -1) {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-            try {
-                window.android.BackToAndroid(facebookURL);
-            } catch (e) {
-                window.location.href = facebookURL;
-            }
-        };
-    } else {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-        };
-    }
 }
 
 </script>
