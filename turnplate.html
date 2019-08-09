@@ -221,7 +221,6 @@
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
         }
-
         setupWebViewJavascriptBridge(function(bridge) {
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let productname = $('#productName').html();
@@ -237,7 +236,6 @@
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
             });
-            createTurnplate();
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -252,10 +250,8 @@
         };
         try {
             regionCode = window.android.getRegionCode();
-            createTurnplate();
         } catch (e) {
             regionCode = "ph";
-            createTurnplate();
         }
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -263,7 +259,6 @@
             let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
             window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
         };
-        createTurnplate();
     }
 
     var balanceCoin = 0;
@@ -300,6 +295,10 @@
     var restaraunts = new Array();
     var colors = new Array();
     var itemCode = new Array();
+
+    $(document).ready(function() {
+        createTurnplate();
+    });
     function createTurnplate() {
         $.ajax({
             method: 'post',
