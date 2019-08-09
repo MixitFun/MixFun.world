@@ -53,6 +53,7 @@
     </ul>
     <div align="center">
         <button class="btn" style="width: 70%; height: 44px; margin-top: 8%; background-color: #FEC444; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
+        <button id="tempDownloadBtn" style="display: none;"></button>
     </div>
 </div>
 <div id="referDiv" style="width: 100%; display: none;">
@@ -289,12 +290,12 @@
             }
         });
         $('#zzd').on('hide.bs.modal', function () {
+            $('#tempDownloadBtn').click();
             gtag('event', 'task_detail',{
                 'event_category': 'start_task',
                 'event_label': taskCode,
                 'value': 1
             });
-            window.location.href = downloadURL;
         })
     }
 
@@ -341,6 +342,14 @@
                     window.location.href = facebookURL;
                 }
             };
+            document.getElementById('tempDownloadBtn').click = function () {
+                try {
+                    bridge.callHandler('openURL', {'url': downloadURL}, function(response) {
+                    });
+                } catch (e) {
+                    window.location.href = downloadURL;
+                }
+            };
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -351,9 +360,19 @@
                 window.location.href = facebookURL;
             }
         };
+        document.getElementById('tempDownloadBtn').click = function () {
+            try {
+                window.android.BackToAndroid(downloadURL);
+            } catch (e) {
+                window.location.href = downloadURL;
+            }
+        };
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
+        };
+        document.getElementById('tempDownloadBtn').click = function () {
+            window.location.href = downloadURL;
         };
     }
 
