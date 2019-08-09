@@ -186,6 +186,29 @@
         }
     });
 
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    $('#backgroudID').css('height', height+"px");
+
+    var baseUrl = "https://api.mixit.fun/";
+ //   var baseUrl = "http://34.87.14.19:7001/";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    let token = GetRequest().id;
+
     var regionCode = "ph";
     if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
@@ -214,6 +237,7 @@
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
             });
+            createTurnplate();
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -231,36 +255,15 @@
         } catch (e) {
             regionCode = "ph";
         }
+        createTurnplate();
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             let productname = $('#productName').html();
             let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
             window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
         };
+        createTurnplate();
     }
-
-    var body = document.body,
-        html = document.documentElement;
-
-    var height = Math.max( body.scrollHeight, body.offsetHeight,
-        html.clientHeight, html.scrollHeight, html.offsetHeight );
-    $('#backgroudID').css('height', height+"px");
-
-    var baseUrl = "https://api.mixit.fun/";
- //   var baseUrl = "http://34.87.14.19:7001/";
-    function GetRequest() {
-        var url = location.search;
-        var theRequest = new Object();
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            strs = str.split("&");
-            for (var i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-            }
-        }
-        return theRequest;
-    }
-    let token = GetRequest().id;
 
     var balanceCoin = 0;
     $.ajax({
@@ -296,65 +299,67 @@
     var restaraunts = new Array();
     var colors = new Array();
     var itemCode = new Array();
-    $.ajax({
-        method: 'post',
-        url: baseUrl+'shop/list',
-        headers:{
-            authorization:token
-        },
-        data:{
-            type: 6,
-            regionCode: regionCode
-        },
-        dataType: 'json',
-        success: function(data){
-            data.data.forEach(function(item, index) {
-                let name = item.description;
-                let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
-                let code = item.id;
-                restaraunts[index] = name;
-                colors[index] = color;
-                itemCode[index] = code;
-            });
-            let lastIndex = data.data.length;
-            let name = "iPhone 8";
-            let color = (lastIndex%2 == 0) ? "#FFF4D6" : "#FFFFFF";
-            let code = 41;
-            restaraunts[lastIndex] = name;
-            colors[lastIndex] = color;
-            itemCode[lastIndex] = code;
-            if (restaraunts.length == 10) {
-                fixToAngles = 1783;
-                defaultAngles = 2035;
-                turnplate = {
-                    restaraunts: [], //大转盘奖品名称
-                    colors: [], //大转盘奖品区块对应背景颜色
-                    gailv: [],  //各奖品概率
-                    outsideRadius: 192, //大转盘外圆的半径
-                    textRadius: 160, //大转盘奖品位置距离圆心的距离
-                    insideRadius: 68, //大转盘内圆的半径
-                    startAngle: 82, //开始角度
-                    bRotate: false //false:停止;ture:旋转
-                };
-            } else if (restaraunts.length == 6) {
-                fixToAngles = 1890;
-                defaultAngles = 2134;
-                turnplate = {
-                    restaraunts: [], //大转盘奖品名称
-                    colors: [], //大转盘奖品区块对应背景颜色
-                    gailv: [],  //各奖品概率
-                    outsideRadius: 192, //大转盘外圆的半径
-                    textRadius: 160, //大转盘奖品位置距离圆心的距离
-                    insideRadius: 68, //大转盘内圆的半径
-                    startAngle: 11, //开始角度
-                    bRotate: false //false:停止;ture:旋转
-                };
+    function createTurnplate() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'shop/list',
+            headers:{
+                authorization:token
+            },
+            data:{
+                type: 6,
+                regionCode: regionCode
+            },
+            dataType: 'json',
+            success: function(data){
+                data.data.forEach(function(item, index) {
+                    let name = item.description;
+                    let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
+                    let code = item.id;
+                    restaraunts[index] = name;
+                    colors[index] = color;
+                    itemCode[index] = code;
+                });
+                let lastIndex = data.data.length;
+                let name = "iPhone 8";
+                let color = (lastIndex%2 == 0) ? "#FFF4D6" : "#FFFFFF";
+                let code = 41;
+                restaraunts[lastIndex] = name;
+                colors[lastIndex] = color;
+                itemCode[lastIndex] = code;
+                if (restaraunts.length == 10) {
+                    fixToAngles = 1783;
+                    defaultAngles = 2035;
+                    turnplate = {
+                        restaraunts: [], //大转盘奖品名称
+                        colors: [], //大转盘奖品区块对应背景颜色
+                        gailv: [],  //各奖品概率
+                        outsideRadius: 192, //大转盘外圆的半径
+                        textRadius: 160, //大转盘奖品位置距离圆心的距离
+                        insideRadius: 68, //大转盘内圆的半径
+                        startAngle: 82, //开始角度
+                        bRotate: false //false:停止;ture:旋转
+                    };
+                } else if (restaraunts.length == 6) {
+                    fixToAngles = 1890;
+                    defaultAngles = 2134;
+                    turnplate = {
+                        restaraunts: [], //大转盘奖品名称
+                        colors: [], //大转盘奖品区块对应背景颜色
+                        gailv: [],  //各奖品概率
+                        outsideRadius: 192, //大转盘外圆的半径
+                        textRadius: 160, //大转盘奖品位置距离圆心的距离
+                        insideRadius: 68, //大转盘内圆的半径
+                        startAngle: 11, //开始角度
+                        bRotate: false //false:停止;ture:旋转
+                    };
+                }
+                turnplate.restaraunts = restaraunts;
+                turnplate.colors = colors;
+                drawRouletteWheel();
             }
-            turnplate.restaraunts = restaraunts;
-            turnplate.colors = colors;
-            drawRouletteWheel();
-        }
-    });
+        });
+    }
 
     function drawRouletteWheel() {
         var canvas = document.getElementById("wheelcanvas");
