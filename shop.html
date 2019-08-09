@@ -311,7 +311,7 @@
 
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun/";
-//    var baseUrl = "http://34.87.14.19:7001/"
+ //   var baseUrl = "http://34.87.14.19:7001/";
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -492,6 +492,7 @@
             $('#ref').html(ht);
         }
     });
+
     var isBlockUser = false;
     var fc;
     var lj;
@@ -888,112 +889,92 @@
     })
 
     function createRedeemList() {
-        var codeList = [];
-        var codeNameList = [];
-        if (regionCode == "ph") {
-            codeList = ["5", "1", "2"];
-            codeNameList = ["GCash", "MLBB", "Mobile Loads"];
-        } else if (regionCode == "id") {
-            codeList = ["1", "21"];
-            codeNameList = ["Mobile Legends", "PUBG"];
-        } else if (regionCode == "cn") {
-            codeList = ["5", "1", "2", "21"];
-            codeNameList = ["GCash", "MLBB", "Mobile Loads", "PUBG"];
-        } else {
-            codeList = ["1"];
-            codeNameList = ["Mobile Legends"];
-        }
-        if (codeList.length > 0) {
-            var liStr = '<ul class="nav nav-tabs nav-justified">';
-            var tabStr = '<div id="myTabContent" class="tab-content">';
-            for (var index in codeList) {
-                let code = codeList[index];
-                let name = codeNameList[index];
-                $('#shopList_'+code).html('');
-                if (index == 0) {
-                    liStr += '<li class="nav-item" style="font-size: 13px">';
-                    liStr += '<a class="nav-link active" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
-                    liStr += '</li>';
-
-                    tabStr += '<div class="tab-pane active" id="shopList_'+code+'">';
-                    tabStr += '</div>';
-                    GetRedeem(code);
-                } else {
-                    liStr += '<li class="nav-item" style="font-size: 13px">';
-                    liStr += '<a class="nav-link" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
-                    liStr += '</li>';
-
-                    tabStr += '<div class="tab-pane fade" id="shopList_'+code+'">';
-                    tabStr += '</div>';
-                }
-            }
-            liStr += '</ul>';
-            tabStr += '</div>';
-            $('#activityList').html(liStr+tabStr);
-        }
-    }
-
-    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-        let target = $(e.target).attr("href");
-        let code = target.toString().substring(10);
-        if ($('#shopList_'+code).html().length == 0) {
-            GetRedeem(code);
-        }
-    })
-
-    var shopSpotDic = new Array();
-    function GetRedeem(code) {
-        let redeemType = 2;
         $.ajax({
             method: 'post',
-            url: baseUrl+'shop/list',
-            headers:{
-                authorization:token
+            url: baseUrl + 'shop/list/all',
+            headers: {
+                authorization: token
             },
-            data:{
-                type: code,
+            data: {
                 regionCode: regionCode
             },
             dataType: 'json',
-            success: function(data) {
-                if(data.status == 0) {
-                    var ht;
-                    var imageURL = '';
-                    if (code == '5') {
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">'+gcashDisableNotice+'<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
-                    } else {
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
-                    }
-                    if (data.data.length > 0) {
-                        data.data.forEach(function(item, index) {
-                            imageURL = 'img/shopList_img_'+code+'.png';
-                            var spot = item.glh;
-                            if (isBlockUser) {
-                                spot = 0;
-                            }
-                            shopSpotDic[item.id] = spot;
-                            ht+= '<div class="media"style="padding: 3%">'+
-                                '<div style="width: 25%;">' +
-                                '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
-                                '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
-                                '</div>'+
-                                '<div class="media-body" style="padding-left: 3%;">'+
-                                '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
-                                '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
-                                '<div class="mt-0">' +
-                                '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
-                                '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">'+redeemStr+'</button></p></div>'+
-                                '</div>'+
-                                '</div>';
-                        });
-                    } else {
-                        ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">We don\'t support the redemption in your country at the moment. We will open to your country when we reach 1,000 users. Please invite your friends to join MixFun.</p>';
-                    }
-                    $('#shopList_'+code).html(ht);
+            success: function (data) {
+                if (data.status == 0) {
+                    var liStr = '<ul class="nav nav-tabs nav-justified">';
+                    var tabStr = '<div id="myTabContent" class="tab-content">';
+                    data.data.forEach(function(item, index) {
+                        let code = item.type;
+                        let name = item.name;
+                        $('#shopList_' + code).html('');
+                        if (index == 0) {
+                            liStr += '<li class="nav-item" style="font-size: 13px">';
+                            liStr += '<a class="nav-link active" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
+                            liStr += '</li>';
+
+                            tabStr += '<div class="tab-pane active" id="shopList_'+code+'">';
+                            tabStr += '</div>';
+                        } else {
+                            liStr += '<li class="nav-item" style="font-size: 13px">';
+                            liStr += '<a class="nav-link" href="#shopList_'+code+'" data-toggle="tab">'+name+'</a>';
+                            liStr += '</li>';
+
+                            tabStr += '<div class="tab-pane fade" id="shopList_'+code+'">';
+                            tabStr += '</div>';
+                        }
+                    });
+                    liStr += '</ul>';
+                    tabStr += '</div>';
+                    $('#activityList').html(liStr + tabStr);
+                    data.data.forEach(function(item, index) {
+                        let code = item.type;
+                        let list = item.itemList;
+                        GetRedeemList(code, list);
+                    });
                 }
             }
         });
     }
+
+    var shopSpotDic = new Array();
+    function GetRedeemList(code, list) {
+        let redeemType = 2;
+        var ht;
+        var imageURL = '';
+        if (code == '5') {
+            ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%; text-align: left" class="alert alert-primary">'+gcashDisableNotice+'<br>Download now:<a target="_blank" href='+iosGCashURL+'>&nbsp;&nbsp;iOS&nbsp;&nbsp;</a><a target="_blank" href='+androidGCashURL+'>&nbsp;&nbsp;&nbsp;Android&nbsp;&nbsp;</a></p>';
+        } else {
+            ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">Items will be restocked by every 1000 new users.</p>';
+        }
+        if (list.length > 0) {
+            for (var index in list) {
+                let item = list[index];
+                imageURL = 'img/shopList_img_'+code+'.png';
+                var spot = item.glh;
+                if (isBlockUser) {
+                    spot = 0;
+                }
+                shopSpotDic[item.id] = spot;
+                ht+= '<div class="media"style="padding: 3%">'+
+                    '<div style="width: 25%;">' +
+                    '<img src="'+imageURL+'" class="align-self-start mr-sm-2" style="width: 100%;border-radius: 5px;"/>' +
+                    '<div style="width: 100%;height: 20px;background-color: #1b1e21;color: white;opacity: 0.6;margin-top: -20px;">'+item.sale+' coin</div>'+
+                    '</div>'+
+                    '<div class="media-body" style="padding-left: 3%;">'+
+                    '<div class="mt-0"><p style="width: 100%;margin: 0px;text-align: left;"><span style="width: 80%;">'+item.name+'</span><span style="color: #9B9B9B;float: right;font-size: small;">Daily Total：'+item.amount+'</span></p></div>'+
+                    '<p style="margin-top: 2px;margin-bottom: 5px;text-align: left;">'+item.description+'</p>'+
+                    '<div class="mt-0">' +
+                    '<p style="width: 100%;text-align: left;"><span id="shop'+item.id+'">Spot: '+spot+'</span>' +
+                    '<button class="btn-sm" style="float: right;background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="cj('+item.id+',\''+item.name+'\','+item.sale+','+redeemType+')">'+redeemStr+'</button></p></div>'+
+                    '</div>'+
+                    '</div>';
+            }
+        } else {
+            ht = '<p style="color: #ff000080;margin-top: 5px;width: 95%" class="alert alert-primary">We don\'t support the redemption in your country at the moment. We will open to your country when we reach 1,000 users. Please invite your friends to join MixFun.</p>';
+        }
+        $('#shopList_'+code).html(ht);
+    }
+
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
