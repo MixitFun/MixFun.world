@@ -136,6 +136,7 @@
                     <input class="form-control" type="text" id="userName" placeholder="Enter your name" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; display: none"/>
                     <input placeholder="Telecom Company(Smart or Globe)" class="form-control" id="phoneType" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;margin-top: 20px; display: none">
                     <input class="form-control" type="text" id="phone" placeholder="Enter your phone number" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"/>
+                    <input class="form-control" type="text" id="pubgID" placeholder="Enter your Player ID" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"/>
                     <input class="form-control" type="text" id="moblieLegend" placeholder="Mobile Legends ID:12345678" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 78%; display: none; margin-top: 20px"/>
                     <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: none; margin-top: 20px"/>
                     <textarea class="form-control" id="address" placeholder="Enter your address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 20px; display: none"></textarea>
@@ -210,9 +211,9 @@
                     window.location.href = facebookURL;
                 }
             };
-            // bridge.callHandler("getRegionCode", null, function(response) {
-            //     regionCode = response;
-            // });
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+            });
         })
     } else if (platform.os.toString().indexOf('Android') > -1) {
         document.getElementById('shareFacebookBtn').onclick = function () {
@@ -225,11 +226,11 @@
                 window.location.href = facebookURL;
             }
         };
-        // try {
-        //     regionCode = window.android.getRegionCode();
-        // } catch (e) {
-        //     regionCode = "ph";
-        // }
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+            regionCode = "ph";
+        }
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             let productname = $('#productName').html();
@@ -289,17 +290,9 @@
         }
     });
 
-    var turnplate = {
-        restaraunts: [], //大转盘奖品名称
-        colors: [], //大转盘奖品区块对应背景颜色
-        gailv: [],  //各奖品概率
-        outsideRadius: 192, //大转盘外圆的半径
-        textRadius: 160, //大转盘奖品位置距离圆心的距离
-        insideRadius: 68, //大转盘内圆的半径
-        startAngle: 82, //开始角度
-        bRotate: false //false:停止;ture:旋转
-    };
-
+    var turnplate;
+    var defaultAngles;
+    var fixToAngles;
     var restaraunts = new Array();
     var colors = new Array();
     var itemCode = new Array();
@@ -330,7 +323,33 @@
             restaraunts[lastIndex] = name;
             colors[lastIndex] = color;
             itemCode[lastIndex] = code;
-
+            if (restaraunts.length == 10) {
+                fixToAngles = 1783;
+                defaultAngles = 2035;
+                turnplate = {
+                    restaraunts: [], //大转盘奖品名称
+                    colors: [], //大转盘奖品区块对应背景颜色
+                    gailv: [],  //各奖品概率
+                    outsideRadius: 192, //大转盘外圆的半径
+                    textRadius: 160, //大转盘奖品位置距离圆心的距离
+                    insideRadius: 68, //大转盘内圆的半径
+                    startAngle: 82, //开始角度
+                    bRotate: false //false:停止;ture:旋转
+                };
+            } else if (restaraunts.length == 6) {
+                fixToAngles = 1890;
+                defaultAngles = 2134;
+                turnplate = {
+                    restaraunts: [], //大转盘奖品名称
+                    colors: [], //大转盘奖品区块对应背景颜色
+                    gailv: [],  //各奖品概率
+                    outsideRadius: 192, //大转盘外圆的半径
+                    textRadius: 160, //大转盘奖品位置距离圆心的距离
+                    insideRadius: 68, //大转盘内圆的半径
+                    startAngle: 11, //开始角度
+                    bRotate: false //false:停止;ture:旋转
+                };
+            }
             turnplate.restaraunts = restaraunts;
             turnplate.colors = colors;
             drawRouletteWheel();
@@ -371,7 +390,7 @@
     var rotateTimeOut = function() {
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1963,
+            animateTo: defaultAngles,
             duration: 10000,
             callback: function() {
                 $('#alert').html('<p>Net Error!</p>');
@@ -390,7 +409,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: turnplate.getRotateAngle,
-            animateTo: angles + 1783,
+            animateTo: angles + fixToAngles,
             duration: 10000,
             callback: function() {
                 turnplate.bRotate = !turnplate.bRotate;
@@ -409,7 +428,7 @@
         $('#wheelcanvas').stopRotate();
         $('#wheelcanvas').rotate({
             angle: 0,
-            animateTo: 1963,
+            animateTo: defaultAngles,
             duration: 15000,
             callback: function () {
                 if (!doRequst) {
@@ -425,7 +444,9 @@
             headers:{
                 authorization:token
             },
-            contentType:'application/json',
+            data:{
+                regionCode: regionCode
+            },
             dataType: 'json',
             success: function(data) {
                 doRequst = true;
@@ -434,8 +455,8 @@
                     let item = data.data.commodityId;
                     transactionID = data.data.transactionId;
                     let itemIndex = itemCode.indexOf(item, 0);
-                    if (itemIndex == -1) {
-                        itemIndex = 2;
+                    if (itemIndex == -1 || itemIndex == (itemCode.length-1)) {
+                        itemIndex = 0;
                     }
                     rotateFunc(itemIndex+1);
                 } else {
@@ -491,6 +512,7 @@
         $('#userName').css('display', 'none');
         $('#phoneType').css('display', 'none');
         $('#phone').css('display', 'none');
+        $('#pubgID').css('display', 'none');
         $('#moblieLegend').css('display', 'none');
         $('#moblieLegendExtra').css('display', 'none');
         $('#address').css('display', 'none');
@@ -506,6 +528,7 @@
         $('#userName').val('');
         $('#phoneType').val('');
         $('#phone').val('');
+        $('#pubgID').val('');
         $('#moblieLegend').val('');
         $('#moblieLegendExtra').val('');
         $('#address').val('');
@@ -619,6 +642,28 @@
                 $('#phone').css('display', 'block');
                 $('#address').css('display', 'block');
                 $('#submitBtn').css('display', 'block');
+            case 54:
+                message = "Wow! You have won PUBG UC 28 Dollars!";
+                $('#userName').css('display', 'block');
+                $('#pubgID').css('display', 'block');
+                $('#submitBtn').css('display', 'block');
+                break;
+            case 55:
+                message = "25% OFF for new customers, no min. spend, max discount 500k aplicable for ALL products marked \"dijual oleh ZALORA\". Valid every Monday, Wednesday, Friday.";
+                $('#codeID').css('display', 'inline-block');
+                $('#codeName').css('display', 'inline-block');
+                $('#stepOne').css('display', 'inline-block');
+                $('#stepOneDiv').css('text-align', 'left');
+                $('#stepOneDiv').css('margin-left', '30px');
+                $('#stepTwoDiv').css('display', 'block');
+                $('#codeIDBtn').css('display', 'inline-block');
+                $('#codeName').html("Voucher Code:&nbsp;");
+                $('#stepTwoBtn').html('&nbsp;Go to Zalora&nbsp;');
+                $('#stepTwoBtn').click(function () {
+                    document.getElementById('websiteID').href = "https://clk.omgt3.com/?AID=1980884&PID=10295";
+                    $('#websiteID')[0].click();
+                });
+                break;
             default:
                 break;
         }
@@ -632,7 +677,7 @@
         $('#ModalResult').off('hidden.bs.modal');
         if (!showError) {
             showError = false;
-            if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45) {
+            if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45 || prizeCode == 54) {
                 $('#ModalAlert').modal('show');
                 $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
             }
@@ -653,7 +698,7 @@
                 $('#ModalResult').off('hidden.bs.modal');
                 if (!showError) {
                     showError = false;
-                    if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45) {
+                    if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45 || prizeCode == 54) {
                         $('#ModalAlert').modal('show');
                         $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
                     }
@@ -713,6 +758,13 @@ function buy(){
             $('#resultNotice').text('Please fill up all your details.');
             return;
         }
+    } else if (prizeCode == 54) {
+        var pubgID = $('#pubgID').val();
+        if (pubgID == null || pubgID == ''){
+            $('#resultNotice').text('Please fill up all your details.');
+            return;
+        }
+        playerID = pubgID;
     } else {
         if (phone == null || phone == '' || phoneType == null || phoneType == ''){
             $('#resultNotice').text('Please fill up all your details.');
