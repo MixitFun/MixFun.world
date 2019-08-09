@@ -296,9 +296,7 @@
     var colors = new Array();
     var itemCode = new Array();
 
-    $(document).ready(function() {
-        createTurnplate();
-    });
+    setTimeout(function() { createTurnplate(); }, 500);
     function createTurnplate() {
         $.ajax({
             method: 'post',
