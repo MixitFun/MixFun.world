@@ -314,7 +314,7 @@
                     let name = item.description;
                     let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
                     let code = item.id;
-                    restaraunts[index] = name;
+                    spinItems[index] = name;
                     colors[index] = color;
                     itemCode[index] = code;
                 });
@@ -322,10 +322,10 @@
                 let name = "iPhone 8";
                 let color = (lastIndex%2 == 0) ? "#FFF4D6" : "#FFFFFF";
                 let code = 41;
-                restaraunts[lastIndex] = name;
+                spinItems[lastIndex] = name;
                 colors[lastIndex] = color;
                 itemCode[lastIndex] = code;
-                if (restaraunts.length == 10) {
+                if (spinItems.length == 10) {
                     fixToAngles = 1783;
                     defaultAngles = 2035;
                     turnplate = {
@@ -338,7 +338,7 @@
                         startAngle: 82, //开始角度
                         bRotate: false //false:停止;ture:旋转
                     };
-                } else if (restaraunts.length == 6) {
+                } else if (spinItems.length == 6) {
                     fixToAngles = 1890;
                     defaultAngles = 2134;
                     turnplate = {
