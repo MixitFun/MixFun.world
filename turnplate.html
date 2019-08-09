@@ -252,10 +252,11 @@
         };
         try {
             regionCode = window.android.getRegionCode();
+            createTurnplate();
         } catch (e) {
             regionCode = "ph";
+            createTurnplate();
         }
-        createTurnplate();
     } else {
         document.getElementById('shareFacebookBtn').onclick = function () {
             let productname = $('#productName').html();
