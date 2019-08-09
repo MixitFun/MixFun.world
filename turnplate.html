@@ -292,9 +292,7 @@
     var turnplate;
     var defaultAngles;
     var fixToAngles;
-    var restaraunts = [];
-    var colors = [];
-    var itemCode = [];
+    var itemCode = new Array();
 
     setTimeout(function() { createTurnplate(); }, 500);
     function createTurnplate() {
@@ -310,6 +308,8 @@
             },
             dataType: 'json',
             success: function(data){
+                var spinItems = new Array();
+                var colors = new Array();
                 data.data.forEach(function(item, index) {
                     let name = item.description;
                     let color = (index%2 == 0) ? "#FFF4D6" : "#FFFFFF";
@@ -352,8 +352,8 @@
                         bRotate: false //false:停止;ture:旋转
                     };
                 }
-                turnplate.restaraunts = restaraunts;
-                turnplate.colors = colors;
+                turnplate.restaraunts = spinItems.slice();
+                turnplate.colors = colors.slice();
                 drawRouletteWheel();
             }
         });
