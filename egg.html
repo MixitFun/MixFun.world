@@ -6,10 +6,10 @@
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta property="og:url" content="" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="MixFun - Funny videos & pics sharing community" />
-    <meta property="og:description" content="MixFun - Funny videos & pics sharing community" />
+    <meta property="og:url" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="MixFun - Funny videos & pics sharing community"/>
+    <meta property="og:description" content="MixFun - Funny videos & pics sharing community"/>
     <meta property="og:image" content="images/share-logo.png" />
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
@@ -42,162 +42,163 @@
         background-repeat: no-repeat;
     }
 </style>
+
 <body onload="showSurprise()">
-	<div class="container" style="padding: 0">
-        <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-            <div class="card-body" style="padding: 10px;">
-                <div>
-                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 5px; margin-right: 15px; font-size: 15px; display: inline-block">Balance:</p>
-                    <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
-                    <button class="btn" style="position: absolute; border: 0; outline: none; right: 13px; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('balance')"></button>
-                </div>
-                <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: 0 0 1%;"/>
-                <div>
-                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Reward:</p>
-                    <p id="RewardID" style="color: #1ca83c; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                    <a id="rewardURL" class="linkBtn"></a>
-                    <table width="100%" style="line-height: 25px; margin-top: 0">
-                        <tr>
-                            <td width="33%" align="center">
-                                <p id="UploadID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Upload</p>
-                                </p>
-                            </td>
-                            <td width="33%" align="center">
-                                <p id="WatchID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Watch</p>
-                                </p>
-                            </td>
-                            <td width="33%" align="center">
-                                <p id="InviteID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Referral</p>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
-                <div style="display: none">
-                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Tip:</p>
-                    <table width="100%" style="line-height: 25px;">
-                        <tr>
-                            <td width="50%" align="center">
-                                <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Received</p>
-                                </p>
-                            </td>
-                            <td width="50%" align="center">
-                                <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; font-size: 15px">
-                                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Giveaway</p>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <hr style="display: none; height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
-                <div>
-                    <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 0; font-size: 15px; display: inline-block">Spent:</p>
-                    <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
-                    <a id="spentURL" class="linkBtn"></a>
+<div class="container" style="padding: 0">
+    <div id="coinDiv" class="card" style="display: none; width: 98%; margin-left: 1%; margin-top: 3%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body" style="padding: 10px;">
+            <div>
+                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 5px; margin-right: 15px; font-size: 15px; display: inline-block">Balance:</p>
+                <p id="BalanceID" style="color: #767EF0; font-family: PingFangSC-Regular, sans-serif; font-size: 16px; margin-bottom: 0px; display: inline-block"></p>
+                <button class="btn" style="position: absolute; border: 0; outline: none; right: 13px; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 20px 20px; background-repeat: no-repeat" onclick="ShowNotice('balance')"></button>
+            </div>
+            <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: 0 0 1%;"/>
+            <div>
+                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Reward:</p>
+                <p id="RewardID" style="color: #1ca83c; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+                <a id="rewardURL" class="linkBtn"></a>
+                <table width="100%" style="line-height: 25px; margin-top: 0">
+                    <tr>
+                        <td width="33%" align="center">
+                            <p id="UploadID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Upload</p>
+                            </p>
+                        </td>
+                        <td width="33%" align="center">
+                            <p id="WatchID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Watch</p>
+                            </p>
+                        </td>
+                        <td width="33%" align="center">
+                            <p id="InviteID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Referral</p>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
+            <div style="display: none">
+                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-bottom: 0; margin-right: 15px; font-size: 15px; display: inline-block">Tip:</p>
+                <table width="100%" style="line-height: 25px;">
+                    <tr>
+                        <td width="50%" align="center">
+                            <p id="ContributionID" style="color: #1ca83c; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Received</p>
+                            </p>
+                        </td>
+                        <td width="50%" align="center">
+                            <p id="TippedID" style="color: #e10c20; font-size: medium; margin-bottom: 2px; font-size: 15px">
+                            <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; font-size: 13px">Giveaway</p>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="display: none; height:1px; border:none; border-top:1px dotted #CECECE; margin: -10px 0 1%;"/>
+            <div>
+                <p style="color: #9B9B9B; font-family: PingFangSC-Regular, sans-serif; margin-right: 15px; margin-bottom: 0; font-size: 15px; display: inline-block">Spent:</p>
+                <p id="ExpenseID" style="color: #e10c20; font-family: PingFangSC-Regular, sans-serif; font-size: 15px; margin-bottom: 0; display: inline-block"></p>
+                <a id="spentURL" class="linkBtn"></a>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body" style="padding: 0;">
+            <div align="center" style="position: relative;">
+                <img src="img/fun_follower_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
+            </div>
+
+            <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link active" href="#followerDay0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="followerItem0"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay1" data-toggle="tab" style="padding: 10px"><span id="followerItem1"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay2" data-toggle="tab" style="padding: 10px"><span id="followerItem2"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay3" data-toggle="tab" style="padding: 10px"><span id="followerItem3"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay4" data-toggle="tab" style="padding: 10px"><span id="followerItem4"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay5" data-toggle="tab" style="padding: 10px"><span id="followerItem5"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#followerDay6" data-toggle="tab" style="padding: 10px"><span id="followerItem6"></span></a>
+                    </li>
+                </ul>
+                <div id="myTabContent2" class="tab-content" style="background-color: white">
+                    <div class="tab-pane fade in active show product" id="followerDay0"></div>
+                    <div class="tab-pane fade" id="followerDay1"></div>
+                    <div class="tab-pane fade" id="followerDay2"></div>
+                    <div class="tab-pane fade" id="followerDay3"></div>
+                    <div class="tab-pane fade" id="followerDay4"></div>
+                    <div class="tab-pane fade" id="followerDay5"></div>
+                    <div class="tab-pane fade" id="followerDay6"></div>
                 </div>
             </div>
         </div>
-        <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-            <div class="card-body" style="padding: 0;">
-                <div align="center" style="position: relative;">
-                    <img src="img/fun_follower_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
-                    <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
-                </div>
+    </div>
 
-                <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-                    <ul class="nav nav-tabs nav-justified">
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link active" href="#followerDay0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="followerItem0"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay1" data-toggle="tab" style="padding: 10px"><span id="followerItem1"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay2" data-toggle="tab" style="padding: 10px"><span id="followerItem2"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay3" data-toggle="tab" style="padding: 10px"><span id="followerItem3"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay4" data-toggle="tab" style="padding: 10px"><span id="followerItem4"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay5" data-toggle="tab" style="padding: 10px"><span id="followerItem5"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#followerDay6" data-toggle="tab" style="padding: 10px"><span id="followerItem6"></span></a>
-                        </li>
-                    </ul>
-                    <div id="myTabContent2" class="tab-content" style="background-color: white">
-                        <div class="tab-pane fade in active show product" id="followerDay0"></div>
-                        <div class="tab-pane fade" id="followerDay1"></div>
-                        <div class="tab-pane fade" id="followerDay2"></div>
-                        <div class="tab-pane fade" id="followerDay3"></div>
-                        <div class="tab-pane fade" id="followerDay4"></div>
-                        <div class="tab-pane fade" id="followerDay5"></div>
-                        <div class="tab-pane fade" id="followerDay6"></div>
-                    </div>
+    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
+        <div class="card-body" style="padding: 0;">
+            <div align="center" style="position: relative;">
+                <img src="img/fun_leader_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
+            </div>
+
+            <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="item0"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day1" data-toggle="tab" style="padding: 10px"><span id="item1"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day2" data-toggle="tab" style="padding: 10px"><span id="item2"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day3" data-toggle="tab" style="padding: 10px"><span id="item3"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day4" data-toggle="tab" style="padding: 10px"><span id="item4"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day5" data-toggle="tab" style="padding: 10px"><span id="item5"></span></a>
+                    </li>
+                    <li class="nav-item" style="font-size: 12px; width: 14.28%">
+                        <a class="nav-link" href="#day6" data-toggle="tab" style="padding: 10px"><span id="item6"></span></a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content" style="background-color: white">
+                    <div class="tab-pane fade in active show product" id="day0"></div>
+                    <div class="tab-pane fade" id="day1"></div>
+                    <div class="tab-pane fade" id="day2"></div>
+                    <div class="tab-pane fade" id="day3"></div>
+                    <div class="tab-pane fade" id="day4"></div>
+                    <div class="tab-pane fade" id="day5"></div>
+                    <div class="tab-pane fade" id="day6"></div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
-            <div class="card-body" style="padding: 0;">
-                <div align="center" style="position: relative;">
-                    <img src="img/fun_leader_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
-                    <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
-                </div>
+    <div align="center" id="adsDiv" style="margin-top: 4%; display: none; width: 100%">
+        <a id="androidzaloraURL" target="_blank">
+            <img id="zaloraImg" style="width: 100%">
+        </a>
+    </div>
+</div>
 
-                <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
-                    <ul class="nav nav-tabs nav-justified">
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link active" href="#day0" data-toggle="tab" id="tabIn" style="padding: 10px"><span id="item0"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day1" data-toggle="tab" style="padding: 10px"><span id="item1"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day2" data-toggle="tab" style="padding: 10px"><span id="item2"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day3" data-toggle="tab" style="padding: 10px"><span id="item3"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day4" data-toggle="tab" style="padding: 10px"><span id="item4"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day5" data-toggle="tab" style="padding: 10px"><span id="item5"></span></a>
-                        </li>
-                        <li class="nav-item" style="font-size: 12px; width: 14.28%">
-                            <a class="nav-link" href="#day6" data-toggle="tab" style="padding: 10px"><span id="item6"></span></a>
-                        </li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content" style="background-color: white">
-                        <div class="tab-pane fade in active show product" id="day0"></div>
-                        <div class="tab-pane fade" id="day1"></div>
-                        <div class="tab-pane fade" id="day2"></div>
-                        <div class="tab-pane fade" id="day3"></div>
-                        <div class="tab-pane fade" id="day4"></div>
-                        <div class="tab-pane fade" id="day5"></div>
-                        <div class="tab-pane fade" id="day6"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div align="center" id="adsDiv" style="margin-top: 4%; display: none; width: 100%">
-            <a id="androidzaloraURL" target="_blank">
-                <img id="zaloraImg" style="width: 100%">
-            </a>
-        </div>
-	</div>
-     
-	<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -209,17 +210,17 @@
             <div class="modal-body">
                 <dl>
                     <dt style="margin-bottom: 20px">Coming soon...</dt>
-<!--                    <dt style="margin-bottom: 20px">How it works:</dt>-->
-<!--                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>-->
-<!--                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>-->
-<!--                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>-->
+                    <!--                    <dt style="margin-bottom: 20px">How it works:</dt>-->
+                    <!--                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>-->
+                    <!--                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>-->
+                    <!--                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>-->
                 </dl>
             </div>
         </div>
     </div>
-	</div>
+</div>
 
-    <div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
@@ -238,22 +239,23 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 
-    <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
-            <div class="modal-content" style="border-radius: 20px;">
-                <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                    <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="alert"></div>
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body" id="alert"></div>
         </div>
     </div>
+</div>
 </body>
+
 <script>
     var baseUrl = "https://api.mixit.fun/";
     //    var baseUrl = "http://10.125.54.75:7001/";
