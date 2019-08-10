@@ -305,6 +305,9 @@
 
     setTimeout(function() { createTurnplate(); }, 500);
     function createTurnplate() {
+        if (regionCode != "ph" && regionCode != "id") {
+            regionCode = "ph";
+        }
         $.ajax({
             method: 'post',
             url: baseUrl+'shop/list',
