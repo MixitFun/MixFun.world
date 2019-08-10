@@ -755,68 +755,67 @@
         }
     }
 
-function buy(){
-    let name = $('#userName').val();
-    let address = $('#address').val();
-    let phone = $('#phone').val();
-    let phoneType = $('#phoneType').val();
-    var playerID;
-    if(prizeCode == 38) {
-        var moblieLegend = $('#moblieLegend').val();
-        var moblieLegendExtra = $('#moblieLegendExtra').val();
-        if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
-            $('#resultNotice').text('Please fill up all your details.');
-            return;
-        }
-        playerID = moblieLegend+"("+moblieLegendExtra+")";
-    } else if (prizeCode == 45) {
-        if (address == null || address == ''){
-            $('#resultNotice').text('Please fill up all your details.');
-            return;
-        }
-    } else if (prizeCode == 54) {
-        var pubgID = $('#pubgID').val();
-        if (pubgID == null || pubgID == ''){
-            $('#resultNotice').text('Please fill up all your details.');
-            return;
-        }
-        playerID = pubgID;
-    } else {
-        if (phone == null || phone == '' || phoneType == null || phoneType == ''){
-            $('#resultNotice').text('Please fill up all your details.');
-            return;
-        }
-    }
-    $.ajax({
-        url : baseUrl+"shop/buy",
-        type : 'post',
-        dataType : 'json',
-        data: {
-            id: transactionID,
-            commodityId:prizeCode,
-            recipient:name,
-            phone: phone,
-            moblieLegend: playerID,
-            address: address,
-            phoneType: phoneType
-        },
-        headers:
-            {
-                authorization: token
-            },
-        success: function(data) {
-            $('#ModalResult').modal('hide');
-            if (data.status == 0) {
-                $('#ModalShare').modal('show');
-            } else {
-                showError = true;
-                $('#alert').html('<p>'+data.msg+'</p>');
-                $('#ModalAlert').modal('show');
+    function buy(){
+        let name = $('#userName').val();
+        let address = $('#address').val();
+        let phone = $('#phone').val();
+        let phoneType = $('#phoneType').val();
+        var playerID;
+        if(prizeCode == 38) {
+            var moblieLegend = $('#moblieLegend').val();
+            var moblieLegendExtra = $('#moblieLegendExtra').val();
+            if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
+                $('#resultNotice').text('Please fill up all your details.');
+                return;
+            }
+            playerID = moblieLegend+"("+moblieLegendExtra+")";
+        } else if (prizeCode == 45) {
+            if (address == null || address == '' || phone == null || phone == '' || name == null || name == ''){
+                $('#resultNotice').text('Please fill up all your details.');
+                return;
+            }
+        } else if (prizeCode == 54) {
+            var pubgID = $('#pubgID').val();
+            if (pubgID == null || pubgID == ''){
+                $('#resultNotice').text('Please fill up all your details.');
+                return;
+            }
+            playerID = pubgID;
+        } else {
+            if (phone == null || phone == '' || phoneType == null || phoneType == ''){
+                $('#resultNotice').text('Please fill up all your details.');
+                return;
             }
         }
-    });
-
-}
+        $.ajax({
+            url : baseUrl+"shop/buy",
+            type : 'post',
+            dataType : 'json',
+            data: {
+                id: transactionID,
+                commodityId:prizeCode,
+                recipient:name,
+                phone: phone,
+                moblieLegend: playerID,
+                address: address,
+                phoneType: phoneType
+            },
+            headers:
+                {
+                    authorization: token
+                },
+            success: function(data) {
+                $('#ModalResult').modal('hide');
+                if (data.status == 0) {
+                    $('#ModalShare').modal('show');
+                } else {
+                    showError = true;
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
 
 </script>
 
