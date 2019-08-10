@@ -171,6 +171,15 @@
 </style>
 
 <script type="text/javascript">
+    var baseUrl = "https://api.mixit.fun/";
+    //   var baseUrl = "http://34.87.14.19:7001/";
+
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    $('#backgroudID').css('height', height+"px");
 
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
@@ -186,15 +195,6 @@
         }
     });
 
-    var body = document.body,
-        html = document.documentElement;
-
-    var height = Math.max( body.scrollHeight, body.offsetHeight,
-        html.clientHeight, html.scrollHeight, html.offsetHeight );
-    $('#backgroudID').css('height', height+"px");
-
-    var baseUrl = "https://api.mixit.fun/";
- //   var baseUrl = "http://34.87.14.19:7001/";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -210,7 +210,14 @@
     let token = GetRequest().id;
 
     var regionCode = "ph";
-    if (platform.os.toString().indexOf('iOS') > -1) {
+    var addJSFunction = true;
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+        }
+        JSBridgeComplete();
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
             if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
@@ -219,46 +226,44 @@
             WVJBIframe.style.display = 'none';
             WVJBIframe.src = 'https://__bridge_loaded__';
             document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+                JSBridgeComplete();
+            }, 0)
         }
+
         setupWebViewJavascriptBridge(function(bridge) {
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let productname = $('#productName').html();
                 let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
                 let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-                try {
-                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = facebookURL;
-                }
+                bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                });
             };
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
             });
+            addJSFunction = false;
+            JSBridgeComplete();
         })
-    } else if (platform.os.toString().indexOf('Android') > -1) {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-            try {
-                window.android.BackToAndroid(facebookURL);
-            } catch (e) {
-                window.location.href = facebookURL;
-            }
-        };
-        try {
-            regionCode = window.android.getRegionCode();
-        } catch (e) {
-            regionCode = "ph";
-        }
     } else {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
-        };
+        JSBridgeComplete();
+    }
+
+    function JSBridgeComplete() {
+        if (addJSFunction) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+shareURL+"";
+                try {
+                    window.android.BackToAndroid(facebookURL);
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+        }
+        createTurnplate();
     }
 
     var balanceCoin = 0;
@@ -303,7 +308,6 @@
     var fixToAngles;
     var itemCode = new Array();
 
-    setTimeout(function() { createTurnplate(); }, 500);
     function createTurnplate() {
         if (regionCode != "ph" && regionCode != "id") {
             regionCode = "ph";
