@@ -312,6 +312,7 @@
 <script type="text/javascript">
     var baseUrl = "https://api.mixit.fun/";
  //   var baseUrl = "http://34.87.14.19:7001/";
+
     var clientHeight = document.body.clientHeight;
     var clientWidth = document.body.clientWidth;
     $('.top').css('height',170/(375/clientWidth)+"px");
@@ -335,112 +336,7 @@
         }
     });
 
-    var regionCode = "ph";
-    if (platform.os.toString().indexOf('iOS') > -1) {
-        function setupWebViewJavascriptBridge(callback) {
-            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-            window.WVJBCallbacks = [callback];
-            var WVJBIframe = document.createElement('iframe');
-            WVJBIframe.style.display = 'none';
-            WVJBIframe.src = 'https://__bridge_loaded__';
-            document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
-        }
-
-        setupWebViewJavascriptBridge(function(bridge) {
-            document.getElementById('shareFacebookBtn').onclick = function () {
-                let productname = $('#productName').html();
-                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-                try {
-                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = facebookURL;
-                }
-            };
-            bridge.callHandler("getRegionCode", null, function(response) {
-                regionCode = response;
-            });
-        })
-    } else if (platform.os.toString().indexOf('Android') > -1) {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-            try {
-                window.android.BackToAndroid(facebookURL);
-            } catch (e) {
-                window.location.href = facebookURL;
-            }
-        };
-        try {
-            regionCode = window.android.getRegionCode();
-        } catch (e) {
-            regionCode = "ph";
-        }
-    } else {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let productname = $('#productName').html();
-            let shareTitle = "Tell your friend you idhave redeemed "+productname+"? Share the joy with them.";
-            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
-        };
-    }
-
-    var shareCodeSuccess;
-    var blockMsg;
-    var emptyStockMsg;
-    var gcashBuyNotice;
-    var gcashDisableNotice;
-    var redeemStr;
-    var lang = 'en';
-    $(function() {
-        if (regionCode == "id") {
-            lang = "id";
-        }
-        jQuery.i18n.properties({
-            name: 'strings',
-            path: 'i18n/',
-            mode: 'map',
-            language: lang,
-            callback: function() {
-                $('#inviteNum1').html($.i18n.prop('inviteNum1'));
-                $('#inviteNum2').html($.i18n.prop('inviteNum2'));
-                $('#referralCode').html($.i18n.prop('referralCode'));
-                $('#copy').html($.i18n.prop('copy'));
-                $('#shareReferal').html($.i18n.prop('shareReferal'));
-                $('#shareReferal1').html($.i18n.prop('shareReferal1'));
-                $('#shareCode').attr('placeholder', $.i18n.prop('shareCodePlaceHolder'));
-                $('#type1Text').html($.i18n.prop('type1Text'));
-                $('#type2Text').html($.i18n.prop('type2Text'));
-                $('#ModalConfContinue').text($.i18n.prop('ModalConfContinue'));
-                $('#ModalConfCancel').text($.i18n.prop('ModalConfCancel'));
-                $('#ModalNoticeTitleAlert').text($.i18n.prop('ModalNoticeTitleAlert'));
-                $('#ModalNoticeTitleConf').text($.i18n.prop('ModalNoticeTitleConf'));
-                $('#ModalNoticeTitleExchange').text($.i18n.prop('ModalNoticeTitleExchange'));
-                $('#exchangeNotice').html($.i18n.prop('exchangeNotice'));
-                $('#exchangeNotice1').text($.i18n.prop('exchangeNotice1'));
-                $('#exchangeSubmit').text($.i18n.prop('exchangeSubmit'));
-                $('#phoneType').attr('placeholder', $.i18n.prop('phoneTypePlaceHolder'));
-                $('#recipient').attr('placeholder', $.i18n.prop('recipientPlaceHolder'));
-                $('#phone').attr('placeholder', $.i18n.prop('phonePlaceHolder'));
-                $('#moblieLegend').attr('placeholder', $.i18n.prop('moblieLegendPlaceHolder'));
-                $('#gcashAccount').attr('placeholder', $.i18n.prop('gcashAccountPlaceHolder'));
-                $('#address').attr('placeholder', $.i18n.prop('addressPlaceHolder'));
-                $('#gcashNotice').html($.i18n.prop('gcashNotice'));
-                $('#downloadGcashNotice').html($.i18n.prop('downloadGcashNotice'));
-                redeemStr = $.i18n.prop('redeemStr');
-                shareCodeSuccess = $.i18n.prop('shareCodeSuccess');
-                blockMsg = $.i18n.prop('blockMsg');
-                emptyStockMsg = $.i18n.prop('emptyStockMsg');
-                gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
-                gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
-            }
-        });
-    })
-
-    var newPlatform = "0";
+    var newVersion = "0";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -451,14 +347,126 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        newPlatform = theRequest.platform;
+        newVersion = theRequest.platform;
         let spinLink = document.getElementById('spinURL');
         spinLink.href = "https://mixfun.world/turnplate.html?id="+theRequest.id;
         return theRequest;
     }
+    var token =  GetRequest().id;
+
+    var regionCode = "id";
+    var addJSFunction = true;
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+        }
+        JSBridgeComplete();
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+                JSBridgeComplete();
+            }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+                bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                });
+            };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+            });
+            addJSFunction = false;
+            JSBridgeComplete();
+        })
+    } else {
+        JSBridgeComplete();
+    }
+
+    function JSBridgeComplete() {
+        if (addJSFunction) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let productname = $('#productName').html();
+                let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+                try {
+                    window.android.BackToAndroid(facebookURL);
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+        }
+        translate();
+    }
+
+    var shareCodeSuccess;
+    var blockMsg;
+    var emptyStockMsg;
+    var gcashBuyNotice;
+    var gcashDisableNotice;
+    var redeemStr;
+    var lang = 'en';
+    function translate() {
+        $(function() {
+            if (regionCode == "id") {
+                lang = "id";
+            }
+            jQuery.i18n.properties({
+                name: 'strings',
+                path: 'i18n/',
+                mode: 'map',
+                language: lang,
+                callback: function() {
+                    $('#inviteNum1').html($.i18n.prop('inviteNum1'));
+                    $('#inviteNum2').html($.i18n.prop('inviteNum2'));
+                    $('#referralCode').html($.i18n.prop('referralCode'));
+                    $('#copy').html($.i18n.prop('copy'));
+                    $('#shareReferal').html($.i18n.prop('shareReferal'));
+                    $('#shareReferal1').html($.i18n.prop('shareReferal1'));
+                    $('#shareCode').attr('placeholder', $.i18n.prop('shareCodePlaceHolder'));
+                    $('#type1Text').html($.i18n.prop('type1Text'));
+                    $('#type2Text').html($.i18n.prop('type2Text'));
+                    $('#ModalConfContinue').text($.i18n.prop('ModalConfContinue'));
+                    $('#ModalConfCancel').text($.i18n.prop('ModalConfCancel'));
+                    $('#ModalNoticeTitleAlert').text($.i18n.prop('ModalNoticeTitleAlert'));
+                    $('#ModalNoticeTitleConf').text($.i18n.prop('ModalNoticeTitleConf'));
+                    $('#ModalNoticeTitleExchange').text($.i18n.prop('ModalNoticeTitleExchange'));
+                    $('#exchangeNotice').html($.i18n.prop('exchangeNotice'));
+                    $('#exchangeNotice1').text($.i18n.prop('exchangeNotice1'));
+                    $('#exchangeSubmit').text($.i18n.prop('exchangeSubmit'));
+                    $('#phoneType').attr('placeholder', $.i18n.prop('phoneTypePlaceHolder'));
+                    $('#recipient').attr('placeholder', $.i18n.prop('recipientPlaceHolder'));
+                    $('#phone').attr('placeholder', $.i18n.prop('phonePlaceHolder'));
+                    $('#moblieLegend').attr('placeholder', $.i18n.prop('moblieLegendPlaceHolder'));
+                    $('#gcashAccount').attr('placeholder', $.i18n.prop('gcashAccountPlaceHolder'));
+                    $('#address').attr('placeholder', $.i18n.prop('addressPlaceHolder'));
+                    $('#gcashNotice').html($.i18n.prop('gcashNotice'));
+                    $('#downloadGcashNotice').html($.i18n.prop('downloadGcashNotice'));
+                    redeemStr = $.i18n.prop('redeemStr');
+                    shareCodeSuccess = $.i18n.prop('shareCodeSuccess');
+                    blockMsg = $.i18n.prop('blockMsg');
+                    emptyStockMsg = $.i18n.prop('emptyStockMsg');
+                    gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
+                    gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
+                }
+            });
+        })
+    }
 
     function showSurprise() {
-        if (newPlatform == "1") {
+        if (newVersion == "1") {
             $('#activityList').hide();
             $('#adsDiv').hide();
             $('#spinDiv').hide();
@@ -467,7 +475,7 @@
             $('#spinDiv').show();
         }
     }
-    var token =  GetRequest().id;
+
     $.ajax({
         method: 'get',
         url: baseUrl+'user/referralList',
