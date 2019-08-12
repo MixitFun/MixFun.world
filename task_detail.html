@@ -45,7 +45,7 @@
         <li>New users only</li>
         <li>Register or complete tutorial, if asked so</li>
         <li>Don’t change between network</li>
-        <li style="font-weight: 700; color: crimson">Must finished REGISTRATION</li>
+        <li id="registLi" style="font-size: 16px; font-weight: 700; color: crimson">Must finished REGISTRATION</li>
     </ul>
     <ul id="relocoul" style="display: none;">
         <li>Like Reloco Facebook Page</li>
@@ -190,6 +190,7 @@
 </style>
 
 <script type="text/javascript">
+    var baseUrl = "https://api.mixit.fun/";
 
     var body = document.body,
         html = document.documentElement;
@@ -218,7 +219,6 @@
         },500)
     })
 
-    var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -236,6 +236,73 @@
     let taskName = GetRequest().name;
     let taskCoin = GetRequest().coin;
     let token = GetRequest().token;
+
+    var regionCode = "ph";
+    var addJSFunction = true;
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+        } catch (e) {
+        }
+        JSBridgeComplete();
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+                JSBridgeComplete();
+            }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
+                bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
+                });
+            };
+            document.getElementById('tempDownloadBtn').click = function () {
+                bridge.callHandler('openURL', {'url': downloadURL}, function(response) {
+                });
+            };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+            });
+            addJSFunction = true;
+            JSBridgeComplete();
+        })
+    } else {
+        JSBridgeComplete();
+    }
+
+    let shareTitle = "I would like to refer you to join MixFun. Sign up with my link, both of us will get Mixcoin!\n";
+    function JSBridgeComplete() {
+        if (addJSFunction) {
+            document.getElementById('shareFacebookBtn').onclick = function () {
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
+                try {
+                    window.android.BackToAndroid(facebookURL);
+                } catch (e) {
+                    window.location.href = facebookURL;
+                }
+            };
+            document.getElementById('tempDownloadBtn').click = function () {
+                try {
+                    window.android.BackToAndroid(downloadURL);
+                } catch (e) {
+                    window.location.href = downloadURL;
+                }
+            };
+        }
+        if (regionCode == "ph") {
+            $('#registLi').text("Kailangang matapos ang REGISTRATION");
+        }
+    }
 
     createContext();
     var shareCode;
@@ -317,63 +384,6 @@
         copyType = type;
         $('#copy_label').text('Copied!');
         $('#tot').modal('show');
-    }
-
-    let shareTitle = "I would like to refer you to join MixFun. Sign up with my link, both of us will get Mixcoin!\n";
-    if (platform.os.toString().indexOf('iOS') > -1) {
-        function setupWebViewJavascriptBridge(callback) {
-            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-            window.WVJBCallbacks = [callback];
-            var WVJBIframe = document.createElement('iframe');
-            WVJBIframe.style.display = 'none';
-            WVJBIframe.src = 'https://__bridge_loaded__';
-            document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
-        }
-
-        setupWebViewJavascriptBridge(function(bridge) {
-            document.getElementById('shareFacebookBtn').onclick = function () {
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
-                try {
-                    bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = facebookURL;
-                }
-            };
-            document.getElementById('tempDownloadBtn').click = function () {
-                try {
-                    bridge.callHandler('openURL', {'url': downloadURL}, function(response) {
-                    });
-                } catch (e) {
-                    window.location.href = downloadURL;
-                }
-            };
-        })
-    } else if (platform.os.toString().indexOf('Android') > -1) {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
-            try {
-                window.android.BackToAndroid(facebookURL);
-            } catch (e) {
-                window.location.href = facebookURL;
-            }
-        };
-        document.getElementById('tempDownloadBtn').click = function () {
-            try {
-                window.android.BackToAndroid(downloadURL);
-            } catch (e) {
-                window.location.href = downloadURL;
-            }
-        };
-    } else {
-        document.getElementById('shareFacebookBtn').onclick = function () {
-            window.location.href = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
-        };
-        document.getElementById('tempDownloadBtn').click = function () {
-            window.location.href = downloadURL;
-        };
     }
 
 </script>
