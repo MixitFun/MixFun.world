@@ -30,7 +30,8 @@
         <button class="btn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover" onclick="showNotcie()"></button>
     </div>
     <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
-    <ul id="tasklist"></ul>
+    <ul id="tasklist" style="margin-bottom: 0"></ul>
+    <div id="foxBottomDiv"></div>
     <div id="footer" align="center" style="position: fixed; bottom: 0; width: 100%">
         <a id="bannerA" target="_blank">
             <img id="bannerImg" style="width: 100%;">
@@ -300,7 +301,7 @@
                 });
                 $('#tasklist').html(listHT);
                 let footerHeight = document.getElementById('footer').offsetHeight;
-                $('#tasklist').css('margin-bottom', ''+footerHeight+'px');
+                $('#foxBottomDiv').css('height', ''+footerHeight+'px');
             }
         });
     }
