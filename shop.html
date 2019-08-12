@@ -359,9 +359,10 @@
     if (platform.os.toString().indexOf('Android') > -1) {
         try {
             regionCode = window.android.getRegionCode();
+            JSBridgeComplete();
         } catch (e) {
+            JSBridgeComplete();
         }
-        JSBridgeComplete();
     } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
@@ -373,11 +374,11 @@
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function() {
                 document.documentElement.removeChild(WVJBIframe);
-                JSBridgeComplete();
             }, 0)
         }
 
         setupWebViewJavascriptBridge(function(bridge) {
+            addJSFunction = false;
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let productname = $('#productName').html();
                 let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
@@ -387,9 +388,9 @@
             };
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
+                JSBridgeComplete();
             });
-            addJSFunction = false;
-            JSBridgeComplete();
+
         })
     } else {
         JSBridgeComplete();

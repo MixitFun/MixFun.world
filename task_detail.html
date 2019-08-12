@@ -242,9 +242,10 @@
     if (platform.os.toString().indexOf('Android') > -1) {
         try {
             regionCode = window.android.getRegionCode();
+            JSBridgeComplete();
         } catch (e) {
+            JSBridgeComplete();
         }
-        JSBridgeComplete();
     } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
