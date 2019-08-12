@@ -256,11 +256,11 @@
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function() {
                 document.documentElement.removeChild(WVJBIframe);
-                JSBridgeComplete();
             }, 0)
         }
 
         setupWebViewJavascriptBridge(function(bridge) {
+            addJSFunction = false;
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
                 bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
@@ -272,9 +272,8 @@
             };
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
+                JSBridgeComplete();
             });
-            addJSFunction = true;
-            JSBridgeComplete();
         })
     } else {
         JSBridgeComplete();
@@ -361,6 +360,7 @@
             gtag('event', 'task_detail',{
                 'event_category': 'start_task',
                 'event_label': taskCode,
+
                 'value': 1
             });
         })
