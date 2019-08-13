@@ -68,7 +68,7 @@
     }
 
     .shareBtn {
-        margin-top: 5%; 
+        margin-top: 5%;
         padding: 16px;
         background-size: cover;
     }
@@ -116,6 +116,13 @@
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
     <div id="activityList" style="margin-top: 20px"></div>
+</div>
+
+<div id="redeemschedule" align="center" style="margin-top: 10px">
+  <details>
+    <summary>See the redeem schedule</summary>
+    <div id="schedulelist" style="padding: 2%"></div>
+  </details>
 </div>
 
 <div align="center" id="adsDiv" style="margin-top: 6%; display: none">
@@ -944,6 +951,43 @@
         });
     }
 
+
+    $.ajax({
+        method: 'get',
+        url: baseUrl + 'shop/redeem/schedule',
+        headers: {
+          authorization: token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data) {
+          if (data.status == 0 && data.data.length > 0) {
+            var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
+            htStr += '<th style="width: 50%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 0px">Project</th>';
+            htStr += '<th style="width: 50%; font-size: 15px; font-weight: 400; color: #B1B5B9; padding-top: 0px">Date</th>';
+            data.data.forEach(function(user, dindex) {
+              let indexStr = dindex + 1;
+              let name = user.name;
+              let date = user.date;
+              htStr += '<tr>';
+              htStr += '<td style="font-size: 14px">' + name + '</td>';
+              htStr += '<td style="font-size: 14px">' + date + '</td>';
+              htStr += '</tr>';
+            });
+            htStr += '</table>';
+            htStr += '<p style="text-align: center; margin-top: 10px;>This is the current redeem schedule of MixFun.</br>Please be patient and enjoy the video!</p>';
+            $('#schedulelist').html(htStr);
+          } else {
+            let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+            $('#schedulelist').html(htStr);
+          }
+        },
+        error: function() {
+          let htStr = '<div><p style="text-align: center; margin-top: 10px;">Announce Soon</p></div>';
+          $('#schedulelist').html(htStr);
+        }
+    });
+
     var shopSpotDic = new Array();
     function GetRedeemList(code, list) {
         let redeemType = 2;
@@ -997,4 +1041,3 @@
     });
 </script>
 </html>
-
