@@ -107,7 +107,7 @@
         <div class="card-body" style="padding: 0;">
             <div align="center" style="position: relative;">
                 <img src="img/fun_follower_banner.png" style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px">
-                <button class="btn" style="position: absolute; border: 0; outline: none; top: 18%; right: 0; height: 25px; width: 70px; background-color: #ffffff00" onclick="ShowNotice('leader')"></button>
+                <button class="btn" style="position: absolute; border: 0; outline: none; top: 2%; right: 0; height: 25px; width: 50px; background-color: #ffffff00" onclick="ShowNotice('follow')"></button>
             </div>
 
             <div style="margin-top: 10px;border-width: thin;border-color: #9B9B9B;">
@@ -209,32 +209,28 @@
             </div>
             <div class="modal-body">
                 <dl>
-                    <dt style="margin-bottom: 20px">Coming soon...</dt>
-                    <!--                    <dt style="margin-bottom: 20px">How it works:</dt>-->
-                    <!--                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>-->
-                    <!--                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>-->
-                    <!--                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>-->
+                    <dt style="margin-bottom: 20px">How it works:</dt>
+                    <dd style="margin-top: 5px; margin-bottom: 20px">The top 5 referrers will win 50PHP Mobile Loads. The referral number will be counted and refreshed daily.</dd>
+                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>
+                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>
                 </dl>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Daily Welcoming Reward</h5>
+                <h5 class="modal-title" id="ModalNoticeTitle1">Daily Welcoming Reward</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <dl>
-                    <dt style="margin-bottom: 20px">How it works:</dt>
-                    <dd style="margin-top: 5px; margin-bottom: 20px">Random 5 new users will win 50 PHP Loads daily.</dd>
-                    <dt style="margin-bottom: 20px">Cut off time: 12AM</dt>
-                    <dd style="margin-top: 5px">Please contact hello@mixfun.world to redeem your prizes.</dd>
+                    <dt style="margin-bottom: 20px">Coming soon...</dt>
                 </dl>
             </div>
         </div>
@@ -294,9 +290,10 @@
     if (platform.os.toString().indexOf('Android') > -1) {
         try {
             regionCode = window.android.getRegionCode();
+            JSBridgeComplete();
         } catch (e) {
+            JSBridgeComplete();
         }
-        JSBridgeComplete();
     } else if (platform.os.toString().indexOf('iOS') > -1) {
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
@@ -308,15 +305,14 @@
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function() {
                 document.documentElement.removeChild(WVJBIframe);
-                JSBridgeComplete();
             }, 0)
         }
 
         setupWebViewJavascriptBridge(function(bridge) {
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
+                JSBridgeComplete();
             });
-            JSBridgeComplete();
         })
     } else {
         JSBridgeComplete();
@@ -471,7 +467,7 @@
     function ShowNotice(type) {
         if (type == 'leader') {
             $('#ModalNotice').modal('show');
-        } else if (type == 'luck') {
+        } else if (type == 'follow') {
             $('#ModalNotice1').modal('show');
         } else if (type == 'balance') {
             $('#alert').html('<p>Balance is not updated in real time, some coins may be held for spam analysis.</p>');
