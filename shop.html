@@ -115,10 +115,10 @@
         <input class="form-control" id="shareCode" style="width: 70%;border-radius: 15px;">
         <button class="btn btn-light" style="margin-top: 10px; background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" onclick="setShareCode()">Submit</button>
     </div>
-    <div id="activityList" style="margin-top: 20px"></div>
+    <div id="activityList" style="margin-top: 20px; display: none"></div>
 </div>
 
-<div id="redeemschedule" align="center" style="margin-top: 10px">
+<div id="redeemschedule" align="center" style="margin-top: 10px; display: none">
   <details>
     <summary>See the Delievered Rewards Date</summary>
     <div id="schedulelist" style="padding: 2%"></div>
@@ -483,9 +483,12 @@
             $('#activityList').hide();
             $('#adsDiv').hide();
             $('#spinDiv').hide();
+            $('#redeemschedule').hide();
         } else {
+            $('#activityList').show();
             $('#adsDiv').show();
             $('#spinDiv').show();
+            $('#redeemschedule').show();
         }
     }
 
@@ -647,7 +650,7 @@
             $('#moblieLegendExtra').val('');
             $('#rosInput').val('');
             $('#gcashAccount').val('');
-            if(name == 'Mobile Legends') {
+            if(name == 'Mobile Legends' || name == 'ML Adventure') {
                 $('#gcashAccount').css('display', 'none');
                 $('#rosInput').css('display', 'none');
                 $('#address').css('display','none');
@@ -753,7 +756,7 @@
         var name = $('#itname').val();
         var recipient = $('#recipient').val();
         var playerID;
-        if(name == 'Mobile Legends') {
+        if(name == 'Mobile Legends' || name == 'ML Adventure') {
             var moblieLegend = $('#moblieLegend').val();
             var moblieLegendExtra = $('#moblieLegendExtra').val();
             if (moblieLegend == null || moblieLegend == '' || moblieLegendExtra == null || moblieLegendExtra == ''){
