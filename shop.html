@@ -674,6 +674,14 @@
                 $('#moblieLegendExtra').css('display','none');
                 $('#rosInput').css('display', 'none');
                 $('#gcashAccount').css('display', 'block');
+            } else if (name == 'Mobile Pulsa') {
+                $('#address').css('display','none');
+                $('#phone').css('display','block');
+                $('#phoneType').css('display','none');
+                $('#moblieLegend').css('display','none');
+                $('#moblieLegendExtra').css('display','none');
+                $('#rosInput').css('display', 'none');
+                $('#gcashAccount').css('display', 'none');
             } else {
                 $('#gcashAccount').css('display', 'none');
                 $('#rosInput').css('display', 'none');
@@ -778,6 +786,16 @@
                 return;
             }
             playerID = gcashID;
+        } else if (name == 'Mobile Pulsa') {
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var phone = $('#phone').val();
+            if (phone == null || phone == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
         } else{
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
