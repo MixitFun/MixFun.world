@@ -674,7 +674,7 @@
                 $('#moblieLegendExtra').css('display','none');
                 $('#rosInput').css('display', 'none');
                 $('#gcashAccount').css('display', 'block');
-            } else if (name == 'Mobile Pulsa') {
+            } else if (name == 'Mobile Pulsa' || name == 'Go Pay') {
                 $('#address').css('display','none');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','none');
@@ -786,7 +786,7 @@
                 return;
             }
             playerID = gcashID;
-        } else if (name == 'Mobile Pulsa') {
+        } else if (name == 'Mobile Pulsa' || name == 'Go Pay') {
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
