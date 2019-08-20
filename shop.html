@@ -428,6 +428,7 @@
     var blockMsg;
     var emptyStockMsg;
     var gcashBuyNotice;
+    var buyNotice;
     var gcashDisableNotice;
     var redeemStr;
     var lang = 'en';
@@ -451,14 +452,14 @@
                     $('#shareCode').attr('placeholder', $.i18n.prop('shareCodePlaceHolder'));
                     $('#type1Text').html($.i18n.prop('type1Text'));
                     $('#type2Text').html($.i18n.prop('type2Text'));
-                    $('#ModalConfContinue').text($.i18n.prop('ModalConfContinue'));
-                    $('#ModalConfCancel').text($.i18n.prop('ModalConfCancel'));
-                    $('#ModalNoticeTitleAlert').text($.i18n.prop('ModalNoticeTitleAlert'));
-                    $('#ModalNoticeTitleConf').text($.i18n.prop('ModalNoticeTitleConf'));
+                    $('#ModalConfContinue').html($.i18n.prop('ModalConfContinue'));
+                    $('#ModalConfCancel').html($.i18n.prop('ModalConfCancel'));
+                    $('#ModalNoticeTitleAlert').html($.i18n.prop('ModalNoticeTitleAlert'));
+                    $('#ModalNoticeTitleConf').html($.i18n.prop('ModalNoticeTitleConf'));
                     $('#ModalNoticeTitleExchange').text($.i18n.prop('ModalNoticeTitleExchange'));
                     $('#exchangeNotice').html($.i18n.prop('exchangeNotice'));
-                    $('#exchangeNotice1').text($.i18n.prop('exchangeNotice1'));
-                    $('#exchangeSubmit').text($.i18n.prop('exchangeSubmit'));
+                    $('#exchangeNotice1').html($.i18n.prop('exchangeNotice1'));
+                    $('#exchangeSubmit').html($.i18n.prop('exchangeSubmit'));
                     $('#phoneType').attr('placeholder', $.i18n.prop('phoneTypePlaceHolder'));
                     $('#recipient').attr('placeholder', $.i18n.prop('recipientPlaceHolder'));
                     $('#phone').attr('placeholder', $.i18n.prop('phonePlaceHolder'));
@@ -472,7 +473,9 @@
                     blockMsg = $.i18n.prop('blockMsg');
                     emptyStockMsg = $.i18n.prop('emptyStockMsg');
                     gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
+                    buyNotice = $.i18n.prop('buyNotice');
                     gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
+
                 }
             });
         })
@@ -844,13 +847,15 @@
                 }
                 $('#ModalExchange').modal('hide');
                 if(name == 'GCash') {
-                    $('#gcashNoticeID').html(gcashBuyNotice);
-                    $('gcashNoticeID').css('display', 'block');
+                    $('#alert').html(gcashBuyNotice +
+                        '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                        '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 } else {
-                    $('gcashNoticeID').css('display', 'none');
+                    $('#alert').html(buyNotice +
+                        '<a class="btn btn-info" href="'+storeLink+'" target="_blank">YES</a>' +
+                        '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
                 }
-                $('#productName').html(name);
-                $('#ModalShare').modal('show');
+                $('#ModalAlert').modal('show');
                 let sopt = shopSpotDic[commodity_id];
                 let subSopt = Math.max(0, sopt-1);
                 shopSpotDic[commodity_id] = subSopt;
