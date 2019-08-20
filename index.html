@@ -34,6 +34,7 @@
             $('body').attr('height',imgh);
             $('.im').attr('height',68*bl);
             $('.im').attr('width',221*bl);
+            document.getElementById("app").setAttribute("style",'margin-right:20px');
             document.getElementById("empty").setAttribute("style",'height:'+imgh*3/4+'px;');
             document.getElementById("footer").setAttribute("style",'text-align:left;');
             document.getElementById("footer").setAttribute("style",'padding-left:30%;');
@@ -62,7 +63,7 @@
         }
     };
 </script>
-<body style="background-color: #1b1e21;">
+<body style="background-color: #1b1e21; margin: 0">
     <div class="container-fluid">
         <img id="img" src="img/mixfun.png" style="width: 100%;"/>
         <div class="container" style='position:absolute; z-index:999; top:0;width: 40%'>
@@ -77,6 +78,9 @@
                     </a>
                     <a href="https://play.google.com/store/apps/details?id=com.mixit.fun&rdid=com.mixit.fun">
                         <img class="im" style="margin-top: 20px" src="img/Button_google_big.png">
+                    </a>
+                    <a href="https://app.mixfun.world/apk">
+                        <img class="im" style="margin-top: 20px" src="img/Button_apk_big.png">
                     </a>
                 </div>
             </row>
