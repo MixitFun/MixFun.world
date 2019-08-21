@@ -1,1 +1,168 @@
-coming soon...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MixFun - Funny videos & pics sharing community" />
+    <meta property="og:description" content="MixFun - Funny videos & pics sharing community" />
+    <meta property="og:image" content="images/share-logo.png" />
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+        'page_title' : 'MixFun',
+        'page_path': '/help'
+    });
+</script>
+<style>
+    li:hover{
+        background-color: white;
+    }
+
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
+    }
+
+    .table {
+        word-wrap: break-word;
+        word-break: break-all;
+        border-collapse:collapse;
+        border-spacing:0;
+        margin-bottom: 0;
+    }
+
+    .table td {
+        padding: 5px;
+    }
+</style>
+<body>
+<div class="container" style="padding: 0" align="center">
+    <div align="left" style="margin-left: 3%; margin-top: 3%">
+        <img src="img/help_remen.png" style="display: inline-block; width: 20px; height: 20px;">
+        <p style="display: inline-block; font-size: 12px; font-weight: 600; color: #4e555b">Hot Questions</p>
+    </div>
+    <div class="panel-group" id="accordion" style="text-align: left">
+    </div>
+</div>
+</body>
+
+<script>
+    var baseUrl = "https://api.mixit.fun/";
+    //    var baseUrl = "http://10.125.54.75:7001/";
+
+    $('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
+    });
+
+    var body = document.body,
+        html = document.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+    var platform = "0";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        platform = theRequest.platform;
+        return theRequest;
+    }
+
+    let token =  GetRequest().id;
+
+    loadList();
+    function loadList() {
+        var htmlStr = "";
+        let titles = ["How to earn Mixcoin?", "How to refer friends?", "How to redeem Mobile Legend Diamonds, GCash/GoPay and other items?", "Why I still cannot receive my rewards?", "Gcash redemption", "How to chat with other people?", "How to check message that sent by others"];
+        let contents = [
+            "You may earn coins by <br>" +
+        "1 Watch/upload videos<br>" +
+        "2 Give claps/comments/share<br>" +
+        "3 Invite new friends to join MixFun —— 50 coins<br>" +
+        "4 Do Task —— 100 coins<br>" +
+        "If you have any question when you are using app, please contact us at <br>" +
+        "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "1 Open your homepage and click to “I’m feeling Lucky” page. There is a page for you to enter the referral code.<br>" +
+            "2 Send your referral code or referral link to your friend. <br>" +
+            "3 Once they used your referral code to register, you will receive 50 Mixcoin.<br>" +
+            "If you have any question when you are using app, please contact us at <br>" +
+            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "1 Go to personal center and click \"I'm feeling lucky\".<br>" +
+            "2 Click \"Redeem\" to your favorite item.<br>" +
+            "3 Make sure you have enough coins to redeem rewards.<br>" +
+            "4 Leave your information and double check before you click submit.<br>" +
+            "If you have any question when you are using app, please contact us at <br>" +
+            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "We will send out the prizes as soon as possible in 3 DAYS. <br>" +
+            "Also you can check the redemption schedule on the \"I' m feeling lucky\"  page.<br>" +
+            "Thanks for your patience.<br>" +
+            "If you have any problem please come back to us, provide your MixFun referral code for us to check.<br>",
+            "Please notice it is only available for the newly downloaded and registered GCash user.<br>" +
+            "GCash will review your registration as soon as possible(about 1 month).<br>" +
+            "Once confirmed you are new users, you will receive money in 3 days.<br>" +
+            "If you have any question when you are using app, please contact us at <br>" +
+            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "1 Click on the video comment page to follow the user.<br>" +
+            "2 Go to users’ homepage and send message to them.<br>" +
+            "3 Check friends' message on the Message page<br>" +
+            "If you have any question when you are using app, please contact us at <br>" +
+            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "You can check your message on the Message page.<br>" +
+            "If you have any question when you are using app, please contact us at <br>" +
+            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>"
+        ];
+
+        for(var j = 0; j < titles.length; j++) {
+            let title = titles[j];
+            let content = contents[j];
+            htmlStr += "<div class='panel panel-default'>";
+            htmlStr += "<div class='panel-heading'>";
+            htmlStr += "<p class='panel-title'>";
+            htmlStr += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse"+j+"'>"+title+"</a></p></div>";
+            if (j == 0) {
+                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
+            } else {
+                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse'>";
+            }
+            htmlStr += "<div class='panel-body'>"+content+"</div></div>";
+            htmlStr += "</div>";
+        }
+        $('#accordion').html(htmlStr);
+    }
+
+</script>
+</html>
