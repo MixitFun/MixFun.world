@@ -134,6 +134,7 @@
             WVJBIframe.src = 'https://__bridge_loaded__';
             document.documentElement.appendChild(WVJBIframe);
             setTimeout(function() {
+                JSBridgeComplete();
                 document.documentElement.removeChild(WVJBIframe);
             }, 0)
         }
