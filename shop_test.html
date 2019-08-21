@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hahaha!!! Watch this, you will like it!</title>
+    <title>Help</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MixFun - Funny videos & pics sharing community" />
+    <meta property="og:description" content="MixFun - Funny videos & pics sharing community" />
+    <meta property="og:image" content="images/share-logo.png" />
     <link rel="icon" href="img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
+<script type="text/javascript" src="js/platform.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
 <script>
@@ -19,88 +26,78 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
         'page_title' : 'MixFun',
-        'page_path': '/player'
+        'page_path': '/help'
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-<script type="text/javascript" src="flowplayer.min.js"></script>
-
 <style>
-    .footer{
-        background-color: #6c757d;
-        opacity:0.8;
-        z-index: 999;
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        padding: 10px;
-    }
-    .content{
-        position: relative;
-        min-height: 100%;
+    li:hover{
+        background-color: white;
     }
 
-    img, object {
-        max-width: 100%;
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        box-shadow:none;
     }
 
-    .topImage {
-        float: left;
-        width: 45%;
-        margin-left: 3.3%;
-        margin-bottom: 3%;
+    .table {
+        word-wrap: break-word;
+        word-break: break-all;
+        border-collapse:collapse;
+        border-spacing:0;
+        margin-bottom: 0;
+    }
+
+    .table td {
+        padding: 5px;
+    }
+
+    .linkBtn {
+        border: 0;
+        outline: none;
+        background-color: white;
+        padding: 0;
+        color: cornflowerblue;
     }
 </style>
-<body style="background-color: #f9f9f9">
-<div id="container">
-    <div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
-        <div id="video" style="display: none; margin-bottom: 10px">
-            <video id="player" style="width: 100%;" class="video-js" controls preload="none" data-setup="{}">
-                <source id="source1" type="video/mp4">
-                <source id="source2" type="rtmp/flv">
-                <source id="source3" type="video/mov">
-            </video>
-        </div>
-        <div id="image" style="margin-bottom: 15px">
-            <img id="img" style="width: 100%;">
-        </div>
-        <div id="contentDiv">
-            <p id="contentString" style="white-space: pre-wrap"></p>
-        </div>
-        <div style="padding-bottom: 10px">
-            <row style="text-align: center; display: block;">
-                <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
-                <a class="col-3" style="margin: auto;"><img src="img/icon_comment.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
-            </row>
-            <p id="title" style="margin-top: 10px"></p>
-        </div>
+<body>
+<div class="container" style="padding: 0" align="center">
+    <div align="left" style="margin-left: 3%; margin-top: 3%">
+        <img src="img/help_remen.png" style="display: inline-block; width: 20px; height: 20px;">
+        <p style="display: inline-block; font-size: 12px; font-weight: 600; color: #4e555b">Hot Questions</p>
     </div>
-
-    <div align="center">
-        <p style="margin-top: 10px">Top List</p>
-        <div id="videoListDiv"></div>
-    </div>
-
-    <div id="footer" class="footer">
-        <div class="row" vertical-align>
-            <div class="col-8" style="display: inline-flex; padding-right: 0px">
-                <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
-                <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
-            </div>
-            <div class="col-4" style="margin: auto">
-                <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right;">Download</a>
-            </div>
-        </div>
+    <div class="panel-group" id="accordion" style="text-align: left">
     </div>
 </div>
 </body>
 
-<script type="text/javascript">
-    $( document ).ready(function() {
-        let footerHeight = document.getElementById('footer').clientHeight;
-        $('#container').css('margin-bottom', footerHeight+"px");
+<script>
+    var baseUrl = "https://api.mixit.fun/";
+    //    var baseUrl = "http://10.125.54.75:7001/";
+
+    $('.modal').on("hidden.bs.modal", function () {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+            $('body').addClass('modal-open');
+        }
+    }).on("show.bs.modal", function (e) {
+        if($('.modal:visible').length)
+        {
+            $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+            $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+        }
     });
 
+    var body = document.body,
+        html = document.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+    var isNew = "0";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -111,85 +108,120 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
+        isNew = theRequest.platform;
         return theRequest;
     }
 
-    vi = GetRequest().id;
-    var baseUrl = "https://api.mixit.fun/";
-    //   var baseUrl = "http://34.87.14.19:7001/";
-    $(document).ready(function() {
-        var type = 1;
-        var userAgentInfo = navigator.userAgent;
-
-        if (userAgentInfo.indexOf('iPhone') > 0) {
-            type = 2;
-        } else if (userAgentInfo.indexOf('Android') > 0) {
-            type = 3;
+    let token =  GetRequest().id;
+    loadList();
+    var regionCode = "ph";
+    var addJSFunction = true;
+    var facebookHomeLink = "https://www.facebook.com/real.mixfun";
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+            JSBridgeComplete();
+        } catch (e) {
+            JSBridgeComplete();
+        }
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+            }, 0)
         }
 
-        if (type === 1) {
-            $('#content').attr('style', 'width:70%');
-            var clientHeight = document.body.clientHeight/2;
-            $('video').css('height',clientHeight);
-        }
-
-        $.get(baseUrl+'dynamic/getInfo?id='+vi, function (data) {
-            $('title').html(data.data.title);
-            if (data.data.user.avatar != null) {
-                $('#avatar').attr('src', data.data.user.avatar);
-            }
-            $('#nickname').text(data.data.user.nickname);
-            $('#claps').text(data.data.myClaps);
-            $('#comments').text(data.data.myComments);
-            $('#title').text(data.data.title);
-            if (data.data.type == 1){
-                $('#video').css('display','block');
-                $('#source1').attr('src', data.data.playUrl);
-                $('#source2').attr('src', data.data.playUrl);
-                $('#source3').attr('src', data.data.playUrl);
-                $('#video').attr('poster', data.data.thumbnailUrl);
-                // $('#video').attr('atuoplay', true);
-                // $('#video').css('background-color', 'black');
-                // document.getElementById('player').load();
-                $('#image').css('display','none');
-                $('#contentDiv').css('display','none');
-                // $('#play').click();
-            } else if(data.data.type == 3){
-                $('#img').attr('src', data.data.thumbnailUrl);
-                $('#video').css('display','none');
-                $('#contentDiv').css('display','none');
-                // $('#img').css('src', data.data.thumbnailWidth);
-                // $('#img').css('src', data.data.thumbnailheight);
-            } else if (data.data.type == 4) {
-                $('#video').css('display','none');
-                $('#image').css('display','none');
-                $('#contentString').text(data.data.content);
-                $('#title').css('display','none');
-            }
-        });
-        getTopList();
-    });
-
-    function getTopList() {
-        $.ajax({
-            method: 'post',
-            url: baseUrl+'dynamic/page/top',
-            data: JSON.stringify({
-                pageSize: 10,
-                pageNum: 1
-            }),
-            contentType:'application/json',
-            dataType: 'json',
-            success: function(data) {
-                var htStr = '<table style="width: 100%; text-align: center; line-height: 26px; margin-bottom: 15px">';
-                data.data.forEach(function(item, index) {
-                    let imageURL = item.thumbnailUrl;
-                    let playUrl = item.playUrl;
-                    htStr += '<img class="topImage" src="'+imageURL+'">'
+        setupWebViewJavascriptBridge(function(bridge) {
+            addJSFunction = false;
+            document.getElementById('facebookLink').onclick = function () {
+                bridge.callHandler('openURL', {'url': facebookHomeLink}, function(response) {
                 });
-                $('#videoListDiv').html(htStr);
+            };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+                JSBridgeComplete();
+            });
+        })
+    } else {
+        JSBridgeComplete();
+    }
+
+    function JSBridgeComplete() {
+        if (addJSFunction) {
+            document.getElementById('facebookLink').onclick = function () {
+                try {
+                    window.android.BackToAndroid(facebookHomeLink);
+                } catch (e) {
+                    window.location.href = facebookHomeLink;
+                }
+            };
+        }
+    }
+
+    function loadList() {
+        var htmlStr = "";
+        let titles = ["How to earn Mixcoin?", "How to refer friends?", "How to redeem Mobile Legend Diamonds, GCash/GoPay and other items?", "Why can't I still receive my rewards?", "GCash redemption", "How to chat with other people?", "How to check message that sent by others?"];
+        let contents = [
+            "You may earn coins by <br>" +
+            "1 Watch/upload videos<br>" +
+            "2 Give claps/comments/share<br>" +
+            "3 Invite new friends to join MixFun —— 50 coins<br>" +
+            "4 Do Task —— 100 coins<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>facebook</button>",
+            "1 Open your homepage and click to “I’m feeling Lucky” page. There is a page for you to enter the referral code.<br>" +
+            "2 Send your referral code or referral link to your friend. <br>" +
+            "3 Once they used your referral code to register, you will receive 50 Mixcoin.<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
+            "1 Go to personal center and click \"I'm feeling lucky\".<br>" +
+            "2 Click \"Redeem\" to your favorite item.<br>" +
+            "3 Make sure you have enough coins to redeem rewards.<br>" +
+            "4 Leave your information and double check before you click submit.<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
+            "We will send out the prizes as soon as possible in 3 DAYS. <br>" +
+            "Also you can check the redemption schedule on the \"I' m feeling lucky\"  page.<br>" +
+            "Thanks for your patience.<br>" +
+            "If you have any problem please come back to us, provide your MixFun referral code for us to check.<br>",
+            "Please notice it is only available for the newly downloaded and registered GCash user.<br>" +
+            "GCash will review your registration as soon as possible(about 1 month).<br>" +
+            "Once confirmed you are new users, you will receive money in 3 days.<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
+            "1 Click on the video comment page to follow the user.<br>" +
+            "2 Go to users’ homepage and send message to them.<br>" +
+            "3 Check friends' message on the Message page<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
+            "You can check your message on the Message page.<br>" +
+            "<br>If you have any question when you are using app, please contact us at <br>" +
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>"
+        ];
+
+        for(var j = 0; j < titles.length; j++) {
+            let title = titles[j];
+            let content = contents[j];
+            htmlStr += "<div class='panel panel-default'>";
+            htmlStr += "<div class='panel-heading'>";
+            htmlStr += "<p class='panel-title'>";
+            htmlStr += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse"+j+"'>"+title+"</a></p></div>";
+            if (j == 0) {
+                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
+            } else {
+                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
             }
-        });
+            htmlStr += "<div class='panel-body'>"+content+"</div></div>";
+            htmlStr += "</div>";
+        }
+        $('#accordion').html(htmlStr);
     }
 
 </script>
