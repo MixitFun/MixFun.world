@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FAQ</title>
+    <title>Help</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,10 +13,12 @@
     <meta property="og:image" content="images/share-logo.png" />
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
+<script type="text/javascript" src="js/platform.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -51,6 +53,14 @@
 
     .table td {
         padding: 5px;
+    }
+
+    .linkBtn {
+        border: 0;
+        outline: none;
+        background-color: white;
+        padding: 0;
+        color: cornflowerblue;
     }
 </style>
 <body>
@@ -87,7 +97,7 @@
     var height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight);
 
-    var platform = "0";
+    var isNew = "0";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -98,13 +108,63 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        platform = theRequest.platform;
+        isNew = theRequest.platform;
         return theRequest;
     }
 
     let token =  GetRequest().id;
-
     loadList();
+    var regionCode = "ph";
+    var addJSFunction = true;
+    var facebookHomeLink = "https://www.facebook.com/real.mixfun";
+    if (platform.os.toString().indexOf('Android') > -1) {
+        try {
+            regionCode = window.android.getRegionCode();
+            JSBridgeComplete();
+        } catch (e) {
+            JSBridgeComplete();
+        }
+    } else if (platform.os.toString().indexOf('iOS') > -1) {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+            }, 0)
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            addJSFunction = false;
+            document.getElementById('facebookLink').onclick = function () {
+                bridge.callHandler('openURL', {'url': facebookHomeLink}, function(response) {
+                });
+            };
+            bridge.callHandler("getRegionCode", null, function(response) {
+                regionCode = response;
+                JSBridgeComplete();
+            });
+        })
+    } else {
+        JSBridgeComplete();
+    }
+
+    function JSBridgeComplete() {
+        if (addJSFunction) {
+            document.getElementById('facebookLink').onclick = function () {
+                try {
+                    window.android.BackToAndroid(facebookHomeLink);
+                } catch (e) {
+                    window.location.href = facebookHomeLink;
+                }
+            };
+        }
+    }
+
     function loadList() {
         var htmlStr = "";
         let titles = ["How to earn Mixcoin?", "How to refer friends?", "How to redeem Mobile Legend Diamonds, GCash/GoPay and other items?", "Why can't I still receive my rewards?", "GCash redemption", "How to chat with other people?", "How to check message that sent by others?"];
@@ -115,18 +175,18 @@
             "3 Invite new friends to join MixFun —— 50 coins<br>" +
             "4 Do Task —— 100 coins<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a></p>",
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
             "1 Open your homepage and click to “I’m feeling Lucky” page. There is a page for you to enter the referral code.<br>" +
             "2 Send your referral code or referral link to your friend. <br>" +
             "3 Once they used your referral code to register, you will receive 50 Mixcoin.<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
             "1 Go to personal center and click \"I'm feeling lucky\".<br>" +
             "2 Click \"Redeem\" to your favorite item.<br>" +
             "3 Make sure you have enough coins to redeem rewards.<br>" +
             "4 Leave your information and double check before you click submit.<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
             "We will send out the prizes as soon as possible in 3 DAYS. <br>" +
             "Also you can check the redemption schedule on the \"I' m feeling lucky\"  page.<br>" +
             "Thanks for your patience.<br>" +
@@ -135,15 +195,15 @@
             "GCash will review your registration as soon as possible(about 1 month).<br>" +
             "Once confirmed you are new users, you will receive money in 3 days.<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
             "1 Click on the video comment page to follow the user.<br>" +
             "2 Go to users’ homepage and send message to them.<br>" +
             "3 Check friends' message on the Message page<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>",
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
             "You can check your message on the Message page.<br>" +
             "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<a href='https://www.facebook.com/real.mixfun'>https://www.facebook.com/real.mixfun</a>"
+            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>"
         ];
 
         for(var j = 0; j < titles.length; j++) {
@@ -156,7 +216,7 @@
             if (j == 0) {
                 htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
             } else {
-                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse'>";
+                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
             }
             htmlStr += "<div class='panel-body'>"+content+"</div></div>";
             htmlStr += "</div>";
