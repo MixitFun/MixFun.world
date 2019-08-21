@@ -129,6 +129,7 @@
         $('#content').attr('style', 'width:70%');
     }
 
+    var regionCode = "ph";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -151,12 +152,14 @@
             $('#shareCode').text(theRequest.c);
             $('#copy').attr('data-clipboard-text',theRequest.c);
             theRequest['shadeCode'] = theRequest['c'];
+            if (theRequest.r == 'id') {
+                regionCode = 'id';
+            }
 	    }
         return theRequest;
     }
     GetRequest();
 
-    var regionCode = "ph";
     var addJSFunction = true;
     if (platform.os.toString().indexOf('Android') > -1) {
         try {
