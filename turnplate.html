@@ -475,7 +475,7 @@
                     let item = data.data.commodityId;
                     transactionID = data.data.transactionId;
                     let itemIndex = itemCode.indexOf(item, 0);
-                    if (itemIndex == -1 || itemIndex == (itemCode.length-1)) {
+                    if (itemIndex == -1 || itemIndex >= (itemCode.length-1)) {
                         itemIndex = 0;
                     }
                     rotateFunc(itemIndex+1);
@@ -694,36 +694,22 @@
 
     var showError = false;
     $('#ModalResult').on('hidden.bs.modal',function(){
-        $('#ModalResult').off('hidden.bs.modal');
         if (!showError) {
             showError = false;
             if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45 || prizeCode == 54) {
                 $('#ModalAlert').modal('show');
-                $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+                $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow(true)" style="margin-left: 20%">Cancel</button>');
             }
         }
     });
 
-    function exModelShow() {
-        var buttonTap = true;
+    function exModelShow(isShow) {
         $('#ModalAlert').modal('hide');
         $('#ModalAlert').on('hidden.bs.modal', function () {
-            $('#ModalAlert').off('hidden.bs.modal');
-            if (!buttonTap) {
-                return;
+            if (isShow) {
+                isShow = false;
+                $('#ModalResult').modal('show');
             }
-            buttonTap = false;
-            $('#ModalResult').modal('show');
-            $('#ModalResult').on('hidden.bs.modal',function(){
-                $('#ModalResult').off('hidden.bs.modal');
-                if (!showError) {
-                    showError = false;
-                    if (prizeCode == 38 || prizeCode == 39 || prizeCode == 45 || prizeCode == 54) {
-                        $('#ModalAlert').modal('show');
-                        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to won the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
-                    }
-                }
-            });
         });
     }
 
