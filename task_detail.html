@@ -40,17 +40,8 @@
     <p class="TaskName" id="taskName"></p>
 </div>
 <div id="taskDiv" style="position: absolute; width: 100%; display: none">
-    <h6 style="margin-top: 8%; margin-left: 6%; font-size: 16px;">Description</h6>
-    <ul id="normalul">
-        <li>New users only</li>
-        <li>Register or complete tutorial, if asked so</li>
-        <li>Don’t change between network</li>
-        <li id="registLi" style="font-size: 16px; font-weight: 700; color: crimson">Must finished REGISTRATION</li>
-    </ul>
-    <ul id="relocoul" style="display: none;">
-        <li>Like Reloco Facebook Page</li>
-        <li>Random 100 Likers will be picked to win 1000PHP valued Couple Watch</li>
-    </ul>
+    <h6 style="margin-top: 8%; margin-left: 6%; font-size: 16px;" id="descriptionID"></h6>
+    <ul id="normalul"></ul>
     <div align="center">
         <button class="btn" style="width: 70%; height: 44px; margin-top: 8%; background-color: #FEC444; color: white;font: 18px PingFangSC-Regular, sans-serif;" onclick="downloadAction()">Start Task</button>
         <button id="tempDownloadBtn" style="display: none;"></button>
@@ -307,7 +298,9 @@
     createContext();
     var shareCode;
     function createContext() {
+        var descriptionStr = 'Description';
         if (taskCode == 'refer') {
+            $('#descriptionID').text(descriptionStr);
             $('#referDiv').css('display', 'block');
             let strArr = downloadURL.split('c=');
             if (strArr.length > 1) {
@@ -316,10 +309,36 @@
             }
             $('#shareURL').html(downloadURL);
         } else if (taskCode == 'Reloco') {
-            $('#normalul').css('display', 'none');
-            $('#relocoul').css('display', 'block');
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Like Reloco Facebook Page</li>';
+            htmlStr += '<li>Random 100 Likers will be picked to win 1000PHP valued Couple Watch</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'InstagramId' || taskCode == 'InstagramPh') {
+            descriptionStr = 'Please follow us on Instagram';
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'YouTube') {
+            descriptionStr = 'Please follow us on YouTube';
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'FacebookId' || taskCode == 'FacebookId') {
+            descriptionStr = 'Please follow us on Facebook';
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
+            $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
         } else {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>New users only</li>';
+            htmlStr += '<li>Register or complete tutorial, if asked so</li>';
+            htmlStr += '<li>Don’t change between network</li>';
+            htmlStr += '<li id="registLi" style="font-size: 16px; font-weight: 700; color: crimson">Must finished REGISTRATION</li>';
+            $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
         }
         document.getElementById('taskImage').src = 'img/'+taskCode+'_img.png';
@@ -327,7 +346,6 @@
         taskName = taskName.substr(0, taskName.length-1);
         taskName += "</br>"+taskCoin+"&nbsp;Mixcoin";
         $('#taskName').html(taskName);
-
     }
 
     function downloadAction() {
