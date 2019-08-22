@@ -108,6 +108,7 @@
     var baseUrl = "https://api.mixit.fun/";
     //   var baseUrl = "http://34.87.14.19:7001/";
 
+    var prePlayIndex = -1;
     $.ajax({
         method: 'post',
         url: baseUrl+'dynamic/page/top',
@@ -129,12 +130,16 @@
             });
             $('#videoListDiv').html(htStr);
 
-            // data.data.forEach(function(item, index) {
-            //     let video = document.getElementsByTagName("topImage0")[0];
-            //     video.addEventListener("playing", function () {
-            //
-            //     }, true);
-            // });
+            data.data.forEach(function(item, index) {
+                let video = document.getElementById("topImage"+index);
+                video.addEventListener("playing", function () {
+                    if (prePlayIndex > 0 && prePlayIndex != index) {
+                        let preVideo = document.getElementById("topImage" + prePlayIndex);
+                        preVideo.pause();
+                    }
+                    prePlayIndex = index;
+                }, true);
+            });
         }
     });
 
