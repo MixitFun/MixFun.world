@@ -795,11 +795,11 @@
                     authorization: token
                 },
             success: function(data) {
+                showError = true;
                 $('#ModalResult').modal('hide');
                 if (data.status == 0) {
                     $('#ModalShare').modal('show');
                 } else {
-                    showError = true;
                     $('#alert').html('<p>'+data.msg+'</p>');
                     $('#ModalAlert').modal('show');
                 }
