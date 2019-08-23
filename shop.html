@@ -198,6 +198,7 @@
                 <input class="form-control" type="text" id="moblieLegendExtra" placeholder="1234" maxlength="4" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; width: 20%; display: inline-block;"/>
                 <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="gcashAccount" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="freefireAccount" placeholder="Player ID: 0123456789" maxlength="10" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;" id="exchangeNotice1"></p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" id="exchangeSubmit"></button>
@@ -653,46 +654,31 @@
             $('#moblieLegendExtra').val('');
             $('#rosInput').val('');
             $('#gcashAccount').val('');
+            $('#freefireAccount').val('');
+
+            $('#gcashAccount').css('display', 'none');
+            $('#rosInput').css('display', 'none');
+            $('#moblieLegend').css('display','none');
+            $('#moblieLegendExtra').css('display','none');
+            $('#address').css('display','none');
+            $('#phone').css('display','none');
+            $('#phoneType').css('display','none');
+            $('#freefireAccount').css('display','none');
             if(name == 'Mobile Legends' || name == 'ML Adventure') {
-                $('#gcashAccount').css('display', 'none');
-                $('#rosInput').css('display', 'none');
-                $('#address').css('display','none');
-                $('#phone').css('display','none');
-                $('#phoneType').css('display','none');
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
             } else if(name == 'Rules of Survival') {
-                $('#gcashAccount').css('display', 'none');
-                $('#address').css('display','none');
-                $('#phone').css('display','none');
-                $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display','none');
                 $('#rosInput').css('display', 'block');
             } else if (name == 'GCash') {
-                $('#address').css('display','none');
-                $('#phone').css('display','none');
-                $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display','none');
-                $('#rosInput').css('display', 'none');
                 $('#gcashAccount').css('display', 'block');
             } else if (name == 'Mobile Pulsa' || name == 'Go Pay') {
-                $('#address').css('display','none');
                 $('#phone').css('display','block');
-                $('#phoneType').css('display','none');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display','none');
-                $('#rosInput').css('display', 'none');
-                $('#gcashAccount').css('display', 'none');
+            } else if (name == 'Free Fire') {
+                $('#freefireAccount').css('display','block');
             } else {
-                $('#gcashAccount').css('display', 'none');
-                $('#rosInput').css('display', 'none');
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
                 $('#phoneType').css('display','block');
-                $('#moblieLegend').css('display','none');
-                $('#moblieLegendExtra').css('display', 'none');
             }
             $('#ModalExchange').modal('show');
             $('#id').val(data.data.id);
@@ -799,6 +785,17 @@
                 $('#bt').text('Please fill up all your details.');
                 return;
             }
+        } else if (name == 'Free Fire') {
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var freefireID = $('#freefireAccount').val();
+            if (freefireID == null || freefireID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = freefireID;
         } else{
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
