@@ -428,6 +428,7 @@
     var shareCodeSuccess;
     var blockMsg;
     var emptyStockMsg;
+    var hasStockMsg;
     var gcashBuyNotice;
     var buyNotice;
     var gcashDisableNotice;
@@ -473,6 +474,7 @@
                     shareCodeSuccess = $.i18n.prop('shareCodeSuccess');
                     blockMsg = $.i18n.prop('blockMsg');
                     emptyStockMsg = $.i18n.prop('emptyStockMsg');
+                    hasStockMsg = $.i18n.prop('hasStockMsg');
                     gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
                     buyNotice = $.i18n.prop('buyNotice');
                     gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
@@ -722,6 +724,9 @@
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         } else {
+                            if (data.status == 1013) {
+                                msg = hasStockMsg;
+                            }
                             $('#alert').html('<p>'+msg+'</p>');
                             $('#ModalAlert').modal('show');
                         }
