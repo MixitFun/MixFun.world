@@ -949,7 +949,7 @@
             dataType: 'json',
             success: function (data) {
                 if (data.status == 0) {
-                    var liStr = '<ul class="nav nav-tabs nav-justified">';
+                    var liStr = '<ul class="nav nav-tabs">';
                     var tabStr = '<div id="myTabContent" class="tab-content">';
                     data.data.forEach(function(item, index) {
                         let code = item.type;
