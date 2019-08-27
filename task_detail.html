@@ -335,6 +335,28 @@
             htmlStr += '<li style="font-size: 16px; font-weight: 700; color: crimson">Only the users finished the task can get the coins.</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'lemon_loan') {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Step1: Install</li>';
+            htmlStr += '<li>Step2: Open</li>';
+            htmlStr += '<li>Step3: Register</li>';
+            htmlStr += '<li>Step4: Apply loan (NO COST)</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'dana') {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Step1: Install</li>';
+            htmlStr += '<li>Step2: Open</li>';
+            htmlStr += '<li>Step3: Register</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'indodana') {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Step1: Install</li>';
+            htmlStr += '<li>Step2: Open</li>';
+            htmlStr += '<li>Step3: Register</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
         } else {
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>New users only</li>';
