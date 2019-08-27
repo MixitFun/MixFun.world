@@ -2,38 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Help</title>
+    <title>Task</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:url" content="" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="MixFun - Funny videos & pics sharing community" />
-    <meta property="og:description" content="MixFun - Funny videos & pics sharing community" />
-    <meta property="og:image" content="images/share-logo.png" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content="images/share-logo.png"/>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="js/platform.js"></script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-138276305-1', {
-        'page_title' : 'MixFun',
-        'page_path': '/help'
-    });
-</script>
-<style>
-    li:hover{
-        background-color: white;
-    }
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/clipboard.min.js"></script>
 
+<body>
+
+<div>
+    <div align="center" style="margin-top: 15px">
+        <img src="img/Task_banner.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
+        <button class="btn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover" onclick="showNotcie()"></button>
+    </div>
+    <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
+    <ul id="tasklist" style="margin-bottom: 0"></ul>
+    <div id="foxBottomDiv"></div>
+    <div id="footer" align="center" style="position: fixed; bottom: 0; width: 100%">
+        <a id="bannerA" target="_blank">
+            <img id="bannerImg" style="width: 100%;">
+        </a>
+    </div>
+    <a id="jumpLink" style="display: none"></a>
+</div>
+
+<!-- alert -->
+<div class="modal fade" id="tot" tabindex="-1" role="dialog" aria-labelledby="Box" aria-hidden="true" style="margin-top: 20%; z-index: 9999">
+    <div class="modal-dialog" role="document" style="border-radius: 20px;height: 100%">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-body">
+                <h5 class="modal-title" id="copy_label"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alert"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalNotice" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle">Instruction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl>
+                    <dd style="margin-bottom: 20px">Please follow the instruction to download the app and you will get coin.</dd>
+                    <ul class="noticeul">
+                        <li class="noticeli">Pending: System is reviewing your download status.</li>
+                        <li class="noticeli">Completed: You have received Mixcoin.</li>
+                        <li class="noticeli">Failed: Your application is invalid because you are not new download/register user or not finished the whole download process.</li>
+                    </ul>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<style>
     .btn:focus,
     .btn:active:focus,
     .btn.active:focus,
@@ -43,40 +100,72 @@
         box-shadow:none;
     }
 
-    .table {
-        word-wrap: break-word;
-        word-break: break-all;
-        border-collapse:collapse;
-        border-spacing:0;
-        margin-bottom: 0;
-    }
-
-    .table td {
-        padding: 5px;
-    }
-
-    .linkBtn {
-        border: 0;
-        outline: none;
+    html,body{
+        height:100%;
+        width:100%;
         background-color: white;
-        padding: 0;
-        color: cornflowerblue;
+    }
+
+    * {margin: 0; padding: 0;}
+
+    ul {
+        list-style-type: none;
+    }
+
+    h6 {
+        font: bold 15px PingFangSC-Regular, sans-serif;
+        margin-top: 15px;
+    }
+
+    li img {
+        float: left;
+        margin: auto 10px;
+        border-radius: 6px 6px 6px 6px;
+        width: 20%;
+        vertical-align: middle;
+    }
+
+    li p {
+        font-size: 12px;
+        margin: 0 10px 5px 23%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    li .btn-sm {
+        float: right;
+        background: linear-gradient(to right, #F45D82, #6C81F8);
+        border-radius: 20px;
+        border: 0px;
+        color: white;
+        margin: 18px 8px 0 8px;
+    }
+
+    li {
+        padding: 0px;
+        overflow: auto;
+    }
+
+    .noticeli{
+        font-size: 14px;
+        margin-right: 5%;
+    }
+
+    .noticeul {
+        list-style-type: disc;
+        list-style-position: inside;
     }
 </style>
-<body>
-<div class="container" style="padding: 0" align="center">
-    <div align="left" style="margin-left: 3%; margin-top: 3%">
-        <img src="img/help_remen.png" style="display: inline-block; width: 20px; height: 20px;">
-        <p style="display: inline-block; font-size: 12px; font-weight: 600; color: #4e555b">Hot Questions</p>
-    </div>
-    <div class="panel-group" id="accordion" style="text-align: left">
-    </div>
-</div>
-</body>
 
-<script>
-    var baseUrl = "https://api.mixit.fun/";
-    //    var baseUrl = "http://10.125.54.75:7001/";
+<script type="text/javascript">
+
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
 
     $('.modal').on("hidden.bs.modal", function () {
         if($('.modal:visible').length)
@@ -92,12 +181,7 @@
         }
     });
 
-    var body = document.body,
-        html = document.documentElement;
-    var height = Math.max( body.scrollHeight, body.offsetHeight,
-        html.clientHeight, html.scrollHeight, html.offsetHeight);
-
-    var isNew = "0";
+    var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -108,15 +192,11 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-        isNew = theRequest.platform;
         return theRequest;
     }
+    let token = GetRequest().id;
 
-    let token =  GetRequest().id;
-    loadList();
     var regionCode = "ph";
-    var addJSFunction = true;
-    var facebookHomeLink = "https://www.facebook.com/real.mixfun";
     if (platform.os.toString().indexOf('Android') > -1) {
         try {
             regionCode = window.android.getRegionCode();
@@ -139,11 +219,6 @@
         }
 
         setupWebViewJavascriptBridge(function(bridge) {
-            addJSFunction = false;
-            document.getElementById('facebookLink').onclick = function () {
-                bridge.callHandler('openURL', {'url': facebookHomeLink}, function(response) {
-                });
-            };
             bridge.callHandler("getRegionCode", null, function(response) {
                 regionCode = response;
                 JSBridgeComplete();
@@ -154,75 +229,117 @@
     }
 
     function JSBridgeComplete() {
-        if (addJSFunction) {
-            document.getElementById('facebookLink').onclick = function () {
-                try {
-                    window.android.BackToAndroid(facebookHomeLink);
-                } catch (e) {
-                    window.location.href = facebookHomeLink;
-                }
-            };
+        if (regionCode == 'id') {
+            $('#bannerA').attr('href', 'https://c.lazada.co.id/t/c.XLkS');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_id.png');
+        } else if (regionCode == "ph") {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerImg').attr('src', 'img/test_shop_ph.png');
+        } else if (regionCode == "") {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_ph.png');
+        } else {
+            $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
     }
 
-    function loadList() {
-        var htmlStr = "";
-        let titles = ["How to earn Mixcoin?", "How to refer friends?", "How to redeem Mobile Legend Diamonds, GCash/GoPay and other items?", "Why can't I still receive my rewards?", "GCash redemption", "How to chat with other people?", "How to check message that sent by others?"];
-        let contents = [
-            "You may earn coins by <br>" +
-            "1 Watch/upload videos<br>" +
-            "2 Give claps/comments/share<br>" +
-            "3 Invite new friends to join MixFun —— 50 coins<br>" +
-            "4 Do Task —— 100 coins<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'><a href=''>https://www.facebook.com/real.mixfun</a></button>",
-            "1 Open your homepage and click to “I’m feeling Lucky” page. There is a page for you to enter the referral code.<br>" +
-            "2 Send your referral code or referral link to your friend. <br>" +
-            "3 Once they used your referral code to register, you will receive 50 Mixcoin.<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
-            "1 Go to personal center and click \"I'm feeling lucky\".<br>" +
-            "2 Click \"Redeem\" to your favorite item.<br>" +
-            "3 Make sure you have enough coins to redeem rewards.<br>" +
-            "4 Leave your information and double check before you click submit.<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
-            "We will send out the prizes as soon as possible in 3 DAYS. <br>" +
-            "Also you can check the redemption schedule on the \"I' m feeling lucky\"  page.<br>" +
-            "Thanks for your patience.<br>" +
-            "If you have any problem please come back to us, provide your MixFun referral code for us to check.<br>",
-            "Please notice it is only available for the newly downloaded and registered GCash user.<br>" +
-            "GCash will review your registration as soon as possible(about 1 month).<br>" +
-            "Once confirmed you are new users, you will receive money in 3 days.<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
-            "1 Click on the video comment page to follow the user.<br>" +
-            "2 Go to users’ homepage and send message to them.<br>" +
-            "3 Check friends' message on the Message page<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>",
-            "You can check your message on the Message page.<br>" +
-            "<br>If you have any question when you are using app, please contact us at <br>" +
-            "<button class='linkBtn' id='facebookLink'>https://www.facebook.com/real.mixfun</button>"
-        ];
+    var userCode;
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'user/profile',
+        headers:{
+            authorization:token
+        },
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data){
+            userCode = data.data.ownShareCode;
+            getTaskList();
+        }
+    });
 
-        for(var j = 0; j < titles.length; j++) {
-            let title = titles[j];
-            let content = contents[j];
-            htmlStr += "<div class='panel panel-default'>";
-            htmlStr += "<div class='panel-heading'>";
-            htmlStr += "<p class='panel-title'>";
-            htmlStr += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse"+j+"'>"+title+"</a></p></div>";
-            if (j == 0) {
-                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
-            } else {
-                htmlStr += "<div id='collapse"+j+"' class='panel-collapse collapse in'>";
+    function getTaskList() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'task/list',
+            headers:{
+                authorization:token
+            },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                var listHT = "";
+                listHT += "<li><div style='height: 100%'>";
+                listHT += "<img src='img/refer_img.png'/>";
+                listHT += '<button class= "btn-sm" onclick="goDownLoad(0, \'refer\', 50, \'\', \'Refer a friend\')">&nbsp;+50&nbsp;</button>';
+                listHT += "<h6>Refer a friend</h6>";
+                listHT += "<p>Refer a friend to get 50 Mixcoin</p></div>";
+                listHT += "</li>";
+                listHT += "<hr style='margin-bottom: 0'>";
+
+                data.data.forEach(function(item, index) {
+                    var btnTitle;
+                    var status = item.status;
+                    if (status == 0) {
+                        btnTitle = "+"+item.coin;
+                    } else if (status == 1) {
+                        btnTitle = "Pending";
+                    } else {
+                        btnTitle = "Completed";
+                    }
+                    listHT += "<li><div style='height: 100%'>";
+                    listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += "<h6>"+item.taskName+"</h6>";
+                    listHT += "<p>"+item.taskDesc+"</p></div>";
+                    listHT += "</li>";
+                    listHT += "<hr style='margin-bottom: 0'>";
+                });
+                $('#tasklist').html(listHT);
+                let footerHeight = document.getElementById('footer').offsetHeight;
+                $('#foxBottomDiv').css('height', ''+footerHeight+'px');
             }
-            htmlStr += "<div class='panel-body'>"+content+"</div></div>";
-            htmlStr += "</div>";
-        }
-        $('#accordion').html(htmlStr);
+        });
     }
 
+    function goDownLoad(type, code, coin, url, name) {
+        if (code == 'refer') {
+            let validURL = "https://mixfun.world/friend.html?c="+userCode;
+            let encodeURL = escape(validURL);
+
+            var jumpLink = document.getElementById('jumpLink');
+            jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&name=\"'+name+'\"';
+            jumpLink.click();
+        } else {
+            if (type == 0 || type == 1) {
+                let validURL = url+"&UID="+userCode;
+                let encodeURL = escape(validURL);
+
+                var jumpLink = document.getElementById('jumpLink');
+                jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                jumpLink.click();
+            }
+        }
+    }
+
+    function showNotcie() {
+        $('#ModalNotice').modal('show');
+    }
+
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+        'page_title' : 'MixFun',
+        'page_path': '/task'
+    });
 </script>
 </html>
