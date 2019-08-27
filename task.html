@@ -323,6 +323,14 @@
                 jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
                 jumpLink.click();
             }
+            if (code == 'lemon_loan' || code == 'indodana' || code == 'dana') {
+                let validURL = url+"&source=1132502&aff_sub="+userCode;
+                let encodeURL = escape(validURL);
+
+                var jumpLink = document.getElementById('jumpLink');
+                jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                jumpLink.click();
+            }
         }
     }
 
