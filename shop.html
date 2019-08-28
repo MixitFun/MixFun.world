@@ -433,6 +433,9 @@
     var buyNotice;
     var gcashDisableNotice;
     var redeemStr;
+    var quitNotice;
+    var cancelStr;
+    var quitStr;
     var lang = 'en';
     function translate() {
         $(function() {
@@ -478,7 +481,9 @@
                     gcashBuyNotice = $.i18n.prop('gcashBuyNotice');
                     buyNotice = $.i18n.prop('buyNotice');
                     gcashDisableNotice = $.i18n.prop('gcashDisableNotice');
-
+                    quitNotice = $.i18n.prop('quitNotice');
+                    cancelStr = $.i18n.prop('ModalConfCancel');
+                    quitStr = $.i18n.prop('quitStr');
                 }
             });
         })
@@ -879,7 +884,7 @@
     }
     $('#ModalExchange').on('hide.bs.modal',function(){
         $('#ModalAlert').modal('show');
-        $('#alert').html('<p style="color: red;">Confirm to quit? If you quitted, you won’t able to redeem the gift. </p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">Quit</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">Cancel</button>');
+        $('#alert').html('<p style="color: red;">'+quitNotice+'</p><button class="btn btn-info" data-dismiss="modal" aria-label="Close" style="margin-left: 20%">'+quitStr+'</button><button class="btn" onclick="exModelShow()" style="margin-left: 20%">'+cancelStr+'</button>');
     });
     function copy(id){
         var copyVal = $('#'+id).val();
