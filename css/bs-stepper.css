@@ -48,7 +48,7 @@
 @media (max-width: 520px) {
   .bs-stepper .step-trigger {
     flex-direction: column;
-    padding: 10px;
+    padding: 0;
   }
 }
 
@@ -78,10 +78,10 @@
   background-color: rgba(0, 0, 0, .12);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 520px) {
   .bs-stepper-line,
   .bs-stepper .line {
-    flex-basis: 20px;
+    flex-basis: 3px;
   }
 }
 
