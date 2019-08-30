@@ -36,8 +36,8 @@
             <div><p style="color: #0b2e13; font-size: 14px">You have completed for <span id="completedDayCount" style="font-size: 18px; color: #ec608b"></span> day</p></div>
             <div id="stepper_header" class="bs-stepper-header" role="tablist" style="padding-top: 15px; margin-top: -16px; margin-bottom: -8px"></div>
             <div align="center" style="margin-top: 10px">
-                <p id="ChallegeNotice" style="color: darkgrey; font-size: 12px; display: none">You can get <span style="font-size: 12px; color: #ec608b">300</span> coins after you completed the challenge.</p>
                 <button id="ChallegeBtn" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; display: none"></button>
+                <p id="ChallegeNotice" style="color: darkgrey; font-size: 12px; margin-top: 10px">You can get <span style="font-size: 12px; color: #ec608b">300</span> coins after you completed the challenge.</p>
             </div>
         </div>
         <hr style="margin-bottom: 20px">
@@ -314,7 +314,7 @@
                     var btnTitle;
                     var status = item.status;
                     if (status == 0) {
-                        btnTitle = "+"+item.coin;
+                        btnTitle = "+"+item.coin+"Coins";
                     } else if (status == 1) {
                         btnTitle = "Pending";
                     } else {
@@ -385,17 +385,27 @@
             success: function(data) {
                 challengeList = 0;
                 var completedCount = 0;
-                let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                var currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                currentStatus = 3;
                 if (currentStatus == 4) {
 
                 } else if (currentStatus == 3 ) {
                     $('#ChallegeNotice').hide();
+                    $('#ChallegeBtn').text('Receive 300 coins');
                     $('#ChallegeBtn').show();
+                    var element = document.getElementById('ChallegeBtn');
+                    element.addEventListener("click", function(e) {
+                        getChallengeReward();
+                    }, false);
                 } else if (currentStatus == 2) {
-                    $('#ChallegeNotice').hide();
-                    $('#ChallegeBtn').show();
-                } else {
                     $('#ChallegeNotice').show();
+                    $('#ChallegeBtn').text('Restart');
+                    $('#ChallegeBtn').show();
+                    var element = document.getElementById('ChallegeBtn');
+                    element.addEventListener("click", function(e) {
+                        restartChallenge();
+                    }, false);
+                } else {
                     $('#ChallegeBtn').hide();
                 }
                 let currentDay = data.data.currentDay;
@@ -453,6 +463,46 @@
                     let selectIndex = event.detail.to+1;
                     $('#ChallegeIndex').html(selectIndex+'/'+challengeList);
                 });
+            }
+        });
+    }
+
+    function restartChallenge() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/reset',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0){
+                    getChallengeList();
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
+    function getChallengeReward() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/reward',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0){
+                    getChallengeList();
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
             }
         });
     }
