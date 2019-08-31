@@ -15,7 +15,9 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bs-stepper.css"/>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -25,11 +27,26 @@
 <body>
 
 <div>
-    <div align="center" style="margin-top: 15px">
-        <img src="img/Task_banner.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
-        <button class="btn" style="position: absolute; border: 0; outline: none; top: 3.5%; right: 2.5%; height: 25px; width: 65px; background-image: url(img/Rules_btn.png); background-size: cover" onclick="showNotcie()"></button>
+    <div style="margin-bottom: 10px;">
+        <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0; display: inline-block">7 Days Challenge</h5>
+        <button class="btn" style="display: inline-block; border: 0; outline: none; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 15px 15px; background-position: top; background-repeat: no-repeat" onclick="ShowNotice('challenge')"></button>
+        <h6 id="ChallegeIndex" style="margin-top: 20px; margin-right: 15px; margin-bottom: 0; float: right; display: inline-block">1/7</h6>
+        <div id="stepper" class="bs-stepper" style="width: 90%; margin-left: 5%; margin-top: 20px; display: none">
+            <div id="stepper_content" class="bs-stepper-content" style="margin-bottom: 1px"></div>
+            <div><p style="color: #0b2e13; font-size: 14px">You have completed for <span id="completedDayCount" style="font-size: 18px; color: #ec608b"></span> day</p></div>
+            <div id="stepper_header" class="bs-stepper-header" role="tablist" style="padding-top: 15px; margin-top: -16px; margin-bottom: -8px"></div>
+            <div align="center" style="margin-top: 10px">
+                <button id="ChallegeBtn" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; display: none"></button>
+                <p id="ChallegeNotice" style="color: darkgrey; font-size: 12px; margin-top: 10px">You can get <span style="font-size: 12px; color: #ec608b">300</span> coins after you completed the challenge.</p>
+            </div>
+        </div>
+        <div id="ChallengeComplete" style="margin-top: 16px; display: none">
+            <p style="margin: 0; text-align: center; font-size: 18px; font-weight: 600; color: hotpink">Congratulations!</br>You have received 300Coins.</p>
+        </div>
+        <hr style="margin-bottom: 20px">
     </div>
-    <h5 style="margin-top: 20px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
+
+    <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0">Available Tasks</h5>
     <ul id="tasklist" style="margin-bottom: 0"></ul>
     <div id="foxBottomDiv"></div>
     <div id="footer" align="center" style="position: fixed; bottom: 0; width: 100%">
@@ -69,18 +86,18 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Instruction</h5>
+                <h5 class="modal-title" id="ModalNoticeTitle">7 Days Challenge Rules</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <dl>
-                    <dd style="margin-bottom: 20px">Please follow the instruction to download the app and you will get coin.</dd>
+                    <dd style="margin-bottom: 20px">Complete two tasks per day for 7 days in a row, you will receive 300 coins once.</dd>
                     <ul class="noticeul">
-                        <li class="noticeli">Pending: System is reviewing your download status.</li>
-                        <li class="noticeli">Completed: You have received Mixcoin.</li>
-                        <li class="noticeli">Failed: Your application is invalid because you are not new download/register user or not finished the whole download process.</li>
+                        <li class="noticeli">Make sure your records are not interrupted.</li>
+                        <li class="noticeli">Once interrupted, the recording will resume.</li>
+                        <li class="noticeli">Task must be completed on the same day.</li>
                     </ul>
                 </dl>
             </div>
@@ -157,6 +174,20 @@
         list-style-type: disc;
         list-style-position: inside;
     }
+
+    .bs-stepper-label {
+        font-weight: 400;
+        font-size: 12px;
+        color: #ec608b;
+    }
+
+    .active .bs-stepper-circle {
+        background-color: #ec608b;
+    }
+
+    .bs-stepper-circle {
+        background-color: #f4e5f7;
+    }
 </style>
 
 <script type="text/javascript">
@@ -181,6 +212,7 @@
         }
     });
 
+    //   var baseUrl = "http://34.92.40.15:7001/";
     var baseUrl = "https://api.mixit.fun/";
     function GetRequest() {
         var url = location.search;
@@ -234,7 +266,7 @@
             $('#bannerImg').attr('src', 'img/free_gift_banner_id.png');
         } else if (regionCode == "ph") {
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
-            $('#bannerImg').attr('src', 'img/test_shop_ph.png');
+            $('#bannerImg').attr('src', 'img/free_gift_banner_ph.png');
         } else if (regionCode == "") {
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?PID=36350&AID=1980884');
             $('#bannerImg').attr('src', 'img/free_gift_banner_ph.png');
@@ -285,7 +317,7 @@
                     var btnTitle;
                     var status = item.status;
                     if (status == 0) {
-                        btnTitle = "+"+item.coin;
+                        btnTitle = "+"+item.coin+"Coins";
                     } else if (status == 1) {
                         btnTitle = "Pending";
                     } else {
@@ -322,12 +354,175 @@
                 var jumpLink = document.getElementById('jumpLink');
                 jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
                 jumpLink.click();
+            } else if (code == 'lemon_loan' || code == 'indodana' || code == 'dana') {
+                let validURL = url+"&source=1132502&aff_sub="+userCode;
+                let encodeURL = escape(validURL);
+
+                var jumpLink = document.getElementById('jumpLink');
+                jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                jumpLink.click();
             }
         }
     }
 
-    function showNotcie() {
-        $('#ModalNotice').modal('show');
+    function ShowNotice(type) {
+        if (type == 'challenge') {
+            $('#ModalNotice').modal('show');
+        }
+    }
+
+    var challengeList = 0;
+    getChallengeList();
+    function getChallengeList() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/list',
+            headers:{
+                authorization:token
+            },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                challengeList = 0;
+                var completedCount = 0;
+                let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                if (currentStatus == 4) {
+                    $('#ChallengeComplete').show();
+                    $('#stepper').hide();
+                } else if (currentStatus == 3 ) {
+                    $('#ChallengeComplete').hide();
+                    $('#stepper').show();
+                    $('#ChallegeNotice').hide();
+                    $('#ChallegeBtn').text('Receive 300 coins');
+                    $('#ChallegeBtn').show();
+                    var element = document.getElementById('ChallegeBtn');
+                    element.addEventListener("click", function(e) {
+                        getChallengeReward();
+                    }, false);
+                } else if (currentStatus == 2) {
+                    $('#ChallengeComplete').hide();
+                    $('#stepper').show();
+                    $('#ChallegeNotice').show();
+                    $('#ChallegeBtn').text('Restart');
+                    $('#ChallegeBtn').show();
+                    var element = document.getElementById('ChallegeBtn');
+                    element.addEventListener("click", function(e) {
+                        restartChallenge();
+                    }, false);
+                } else {
+                    $('#ChallengeComplete').hide();
+                    $('#stepper').show();
+                    $('#ChallegeBtn').hide();
+                }
+                let currentDay = data.data.currentDay;
+                var headerStr = '';
+                var contentStr = '';
+                data.data.dayList.forEach(function(item, index) {
+                    challengeList++;
+                    let day = item.day;
+                    var labelStr = '&nbsp';
+                    var dayStr = day;
+                    if (item.status == 0) { //0未完成 1已完成
+                        dayStr = '✔';
+                        completedCount++;
+                    }
+                    if (day == currentDay) {
+                        labelStr = 'Today';
+                        if (currentStatus == 1) {
+                            dayStr = '✖️';
+                        }
+                    }
+                    headerStr += '<div class="step" data-target="#part'+day+'">';
+                    headerStr += '<button type="button" class="step-trigger" role="tab" aria-controls="part'+day+'" id="part'+day+'-trigger"; style="background-color: rgba(0,0,0,0)">';
+                    headerStr += '<span class="bs-stepper-circle">'+dayStr+'</span>';
+                    headerStr += '<span class="bs-stepper-label">'+labelStr+'</span>';
+                    headerStr += '</button></div>';
+                    headerStr += '<div class="line" style="margin-top: 20px"></div>';
+
+                    contentStr += '<div id="part'+day+'" class="content" role="tabpanel" aria-labelledby="part'+day+'-trigger">';
+                    item.taskList.forEach(function (listItem, listIndex) {
+                        var buttonStr = '&nbspStart&nbsp';
+                        if (listItem.taskStatus == 1) {
+                            buttonStr = '&nbspCompleted&nbsp';
+                        }
+                        contentStr += '<li style="list-style-type: none"><div>';
+                        contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskCode+'</h6>';
+                        contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                        contentStr += '</div></li>';
+                        contentStr += '<hr style="margin-bottom: 0; margin-top: 15px; margin-bottom: 15px">';
+                    });
+                    contentStr += '</div>';
+                });
+                if (headerStr.length > 24) {
+                    headerStr = headerStr.slice(0, -24);
+                }
+                $('#stepper_header').html(headerStr);
+                $('#stepper_content').html(contentStr);
+                $('#ChallegeIndex').html(currentDay+'/'+challengeList);
+                $('#completedDayCount').text(completedCount);
+
+                var stepper = new Stepper(document.querySelector('#stepper'), {
+                    linear: false,
+                    animation: true
+                });
+                stepper.to(currentDay);
+
+                var stepperNode = document.querySelector('#stepper');
+                stepperNode.addEventListener('show.bs-stepper', function (event) {
+                    let selectIndex = event.detail.to+1;
+                    $('#ChallegeIndex').html(selectIndex+'/'+challengeList);
+                });
+            }
+        });
+    }
+
+    function restartChallenge() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/reset',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0){
+                    getChallengeList();
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
+    function getChallengeReward() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/reward',
+            headers:{
+                authorization:token
+            },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0){
+                    $('#ChallengeComplete').show();
+                    $('#stepper').hide();
+                    getChallengeList();
+                }else{
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
+    function showChallengeDetail(name) {
+        alert(name);
     }
 
 </script>
