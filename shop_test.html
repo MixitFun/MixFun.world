@@ -388,7 +388,8 @@
             success: function(data) {
                 challengeList = 0;
                 var completedCount = 0;
-                let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                var currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                currentStatus = 2;
                 if (currentStatus == 4) {
                     $('#ChallengeComplete').show();
                     $('#stepper').hide();
@@ -425,7 +426,7 @@
                     let day = item.day;
                     var labelStr = '&nbsp';
                     var dayStr = day;
-                    if (item.status == 1) { //0未完成 1已完成
+                    if (item.status == 0) { //0未完成 1已完成
                         dayStr = '✔';
                         completedCount++;
                     }
