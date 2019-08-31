@@ -25,7 +25,6 @@
 <script src="js/clipboard.min.js"></script>
 
 <body>
-
 <div>
     <div style="margin-bottom: 10px; display: block">
         <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0; display: inline-block">7 Days Challenge</h5>
@@ -42,6 +41,7 @@
         </div>
         <div id="ChallengeComplete" style="margin-top: 16px; display: none">
             <p style="margin: 0; text-align: center; font-size: 18px; font-weight: 600; color: hotpink">Congratulations!</br>You have received 300Coins.</p>
+
         </div>
         <hr style="margin-bottom: 20px">
     </div>
@@ -371,7 +371,7 @@
     }
 
     var challengeList = 0;
-    getChallengeList();
+       getChallengeList();
     function getChallengeList() {
         $.ajax({
             method: 'post',
@@ -424,13 +424,13 @@
                     let day = item.day;
                     var labelStr = '&nbsp';
                     var dayStr = day;
-                    if (item.status == 1) { //0未完成 1已完成
+                    if (item.status == 0) { //0未完成 1已完成
                         dayStr = '✔';
                         completedCount++;
                     }
                     if (day == currentDay) {
                         labelStr = 'Today';
-                        if (currentStatus == 2) {
+                        if (currentStatus == 1) {
                             dayStr = '✖';
                         }
                     }
@@ -554,7 +554,7 @@
     function showChallengeDetail(name, desc) {
         $('#ModalAlertTitle').text(name);
         switch (name) {
-            case "rate the app":
+            case "Review app":
                 var storeLink = 'https://mixfun.world/index.html';
                 if (platform.os.toString().indexOf('Android') > -1) {
                     storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
@@ -586,7 +586,7 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
         'page_title' : 'MixFun',
-        'page_path': '/task'
+        'page_path': '/shop_test'
     });
 </script>
 </html>
