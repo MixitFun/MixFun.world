@@ -27,7 +27,7 @@
 <body>
 
 <div>
-    <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 10px; display: block">
         <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0; display: inline-block">7 Days Challenge</h5>
         <button class="btn" style="display: inline-block; border: 0; outline: none; height: 25px; width: 25px; background-image: url(img/Fun_Creators_Notice.png); background-size: 15px 15px; background-position: top; background-repeat: no-repeat" onclick="ShowNotice('challenge')"></button>
         <h6 id="ChallegeIndex" style="margin-top: 20px; margin-right: 15px; margin-bottom: 0; float: right; display: inline-block">1/7</h6>
@@ -68,11 +68,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalAlertTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <h5 class="modal-title" id="ModalAlertTitle">Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -388,8 +388,7 @@
             success: function(data) {
                 challengeList = 0;
                 var completedCount = 0;
-                var currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
-                currentStatus = 2;
+                let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
                 if (currentStatus == 4) {
                     $('#ChallengeComplete').show();
                     $('#stepper').hide();
@@ -426,7 +425,7 @@
                     let day = item.day;
                     var labelStr = '&nbsp';
                     var dayStr = day;
-                    if (item.status == 0) { //0未完成 1已完成
+                    if (item.status == 1) { //0未完成 1已完成
                         dayStr = '✔';
                         completedCount++;
                     }
@@ -446,13 +445,13 @@
                     contentStr += '<div id="part'+day+'" class="content" role="tabpanel" aria-labelledby="part'+day+'-trigger">';
                     item.taskList.forEach(function (listItem, listIndex) {
                         contentStr += '<li style="list-style-type: none"><div>';
-                        contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskCode+'</h6>';
+                        contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskName+'</h6>';
                         if (listItem.taskStatus == 1) {
                             let buttonStr = '&nbspCompleted&nbsp';
-                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\')">'+buttonStr+'</button>';
                         } else {
                             let buttonStr = '&nbspStart&nbsp';
-                            contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                            contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\')">'+buttonStr+'</button>';
                         }
                         contentStr += '</div></li>';
                         contentStr += '<hr style="margin-bottom: 0; margin-top: 15px; margin-bottom: 15px">';
@@ -530,8 +529,51 @@
         });
     }
 
+    function rateTheApp() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'message/evaluation/app',
+            headers:{
+                authorization:token
+            },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0) {
+                    getChallengeList();
+                } else {
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
     function showChallengeDetail(name) {
-        alert(name);
+        $('#ModalAlertTitle').text(name);
+        switch (name) {
+            case "rateApp":
+                var storeLink = 'https://mixfun.world/index.html';
+                if (platform.os.toString().indexOf('Android') > -1) {
+                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
+                } else if (platform.os.toString().indexOf('iOS') > -1) {
+                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
+                }
+                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                    '<a class="btn btn-info" id="rateAppBtn" href="'+storeLink+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+                var rateAppBtnNode = document.querySelector('#rateAppBtn');
+                rateAppBtnNode.addEventListener('click', function (event) {
+                    rateTheApp();
+                });
+                break;
+            default:
+                break;
+        }
     }
 
 </script>
