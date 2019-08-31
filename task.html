@@ -68,11 +68,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+<div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalAlertTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
             <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
-                <h5 class="modal-title" id="ModalNoticeTitle">Message</h5>
+                <h5 class="modal-title" id="ModalAlertTitle">Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -529,8 +529,51 @@
         });
     }
 
+    function rateTheApp() {
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'message/evaluation/app',
+            headers:{
+                authorization:token
+            },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 0) {
+                    getChallengeList();
+                } else {
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                    $('#ModalAlert').modal('show');
+                }
+            }
+        });
+    }
+
     function showChallengeDetail(name) {
-        alert(name);
+        $('#ModalAlertTitle').text(name);
+        switch (name) {
+            case "rateApp":
+                var storeLink = 'https://mixfun.world/index.html';
+                if (platform.os.toString().indexOf('Android') > -1) {
+                    storeLink = 'https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.mixit.fun';
+                } else if (platform.os.toString().indexOf('iOS') > -1) {
+                    storeLink = 'https://itunes.apple.com/ph/app/id1450796214?mt=8';
+                }
+                $('#alert').html('<p>If you enjoy using MixFun, please leave a good review for us? Thank you for your support! </p>' +
+                    '<a class="btn btn-info" id="rateAppBtn" href="'+storeLink+'" target="_blank">YES</a>' +
+                    '<a class="btn " id="pj" style="padding-left: 20%"  href="'+storeLink+'" data-dismiss="modal" target="_blank">NO</a>');
+                $('#ModalAlert').modal('show');
+                var rateAppBtnNode = document.querySelector('#rateAppBtn');
+                rateAppBtnNode.addEventListener('click', function (event) {
+                    rateTheApp();
+                });
+                break;
+            default:
+                break;
+        }
     }
 
 </script>
