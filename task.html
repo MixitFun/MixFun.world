@@ -426,13 +426,13 @@
                     var labelStr = '&nbsp';
                     var dayStr = day;
                     if (item.status == 1) { //0未完成 1已完成
-                        dayStr = '&nbsp✔';
+                        dayStr = '✔';
                         completedCount++;
                     }
                     if (day == currentDay) {
                         labelStr = 'Today';
                         if (currentStatus == 2) {
-                            dayStr = '&nbsp✖️';
+                            dayStr = '✖';
                         }
                     }
                     headerStr += '<div class="step" data-target="#part'+day+'">';
@@ -444,13 +444,15 @@
 
                     contentStr += '<div id="part'+day+'" class="content" role="tabpanel" aria-labelledby="part'+day+'-trigger">';
                     item.taskList.forEach(function (listItem, listIndex) {
-                        var buttonStr = '&nbspStart&nbsp';
-                        if (listItem.taskStatus == 1) {
-                            buttonStr = '&nbspCompleted&nbsp';
-                        }
                         contentStr += '<li style="list-style-type: none"><div>';
                         contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskCode+'</h6>';
-                        contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                        if (listItem.taskStatus == 1) {
+                            let buttonStr = '&nbspCompleted&nbsp';
+                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                        } else {
+                            let buttonStr = '&nbspStart&nbsp';
+                            contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\')">'+buttonStr+'</button>';
+                        }
                         contentStr += '</div></li>';
                         contentStr += '<hr style="margin-bottom: 0; margin-top: 15px; margin-bottom: 15px">';
                     });
@@ -486,6 +488,9 @@
             headers:{
                 authorization:token
             },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
             contentType:'application/json',
             dataType: 'json',
             success: function(data) {
@@ -506,6 +511,9 @@
             headers:{
                 authorization:token
             },
+            data: JSON.stringify({
+                code:regionCode,
+            }),
             contentType:'application/json',
             dataType: 'json',
             success: function(data) {

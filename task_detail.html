@@ -381,7 +381,8 @@
             method: 'post',
             url: baseUrl+'task/start',
             headers:{
-                authorization:token
+                authorization:token,
+                regionCode:regionCode
             },
             data: JSON.stringify({
                 code:taskCode
