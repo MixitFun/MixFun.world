@@ -419,8 +419,10 @@
         }
         if (regionCode == "id") {
             $('#bannerImg').attr('src', 'img/free_gift_banner_id.png');
+            $('#phone').attr('maxlength', '13');
         } else {
             $('#bannerImg').attr('src', 'img/lazada_banner.png');
+            $('#phone').attr('maxlength', '11');
         }
         translate();
     }
