@@ -451,15 +451,16 @@
                     item.taskList.forEach(function (listItem, listIndex) {
                         contentStr += '<li style="list-style-type: none"><div>';
                         contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskName+'</h6>';
+                        let taskDesc = escape(listItem.taskDesc);
                         if (listItem.taskStatus == 1) {
                             let buttonStr = '&nbspCompleted&nbsp';
-                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
+                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                         } else {
                             let buttonStr = '···';
                             if (day == currentDay) {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             } else {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             }
                         }
                         contentStr += '</div></li>';
@@ -562,6 +563,7 @@
     }
 
     function showChallengeDetail(name, desc) {
+        let showDesc = unescape(desc);
         $('#ModalAlertTitle').text(name);
         switch (name) {
             case "Review app":
@@ -581,7 +583,7 @@
                 });
                 break;
             default:
-                $('#alert').html('<p>'+desc+'</p>');
+                $('#alert').html('<p>'+showDesc+'</p>');
                 $('#ModalAlert').modal('show');
                 break;
         }
