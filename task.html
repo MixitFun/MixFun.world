@@ -416,6 +416,7 @@
                     $('#ChallegeBtn').hide();
                 }
                 let currentDay = data.data.currentDay;
+                let perDay = Math.max(1, currentDay-1);
                 var headerStr = '';
                 var contentStr = '';
                 data.data.dayList.forEach(function(item, index) {
@@ -427,11 +428,15 @@
                         dayStr = '✔';
                         completedCount++;
                     }
-                    if (day == currentDay) {
-                        labelStr = 'Today';
+                    if (day == perDay) {
                         if (currentStatus == 2) {
                             dayStr = '✖';
                         }
+                        if (day == currentDay) {
+                            labelStr = 'Today';
+                        }
+                    } else if (day == currentDay) {
+                        labelStr = 'Today';
                     }
                     headerStr += '<div class="step" data-target="#part'+day+'">';
                     headerStr += '<button type="button" class="step-trigger" role="tab" aria-controls="part'+day+'" id="part'+day+'-trigger"; style="background-color: rgba(0,0,0,0)">';
