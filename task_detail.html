@@ -16,7 +16,6 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
 </head>
-<script src="js/jquery.i18n.properties-min-1.0.9.js" type="text/javascript"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
 <script>
@@ -29,6 +28,7 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/jquery.i18n.properties-min-1.0.9.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
@@ -274,7 +274,6 @@
 
     let shareTitle = "I would like to refer you to join MixFun. Sign up with my link, both of us will get Mixcoin!\n";
     function JSBridgeComplete() {
-        translate();
         if (addJSFunction) {
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
@@ -292,6 +291,7 @@
                 }
             };
         }
+        translate();
     }
 
     var lang = 'en';
