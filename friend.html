@@ -159,47 +159,8 @@
         return theRequest;
     }
     GetRequest();
-
-    var addJSFunction = true;
-    if (platform.os.toString().indexOf('Android') > -1) {
-        try {
-            regionCode = window.android.getRegionCode();
-            JSBridgeComplete();
-        } catch (e) {
-            JSBridgeComplete();
-        }
-    } else if (platform.os.toString().indexOf('iOS') > -1) {
-        function setupWebViewJavascriptBridge(callback) {
-            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
-            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
-            window.WVJBCallbacks = [callback];
-            var WVJBIframe = document.createElement('iframe');
-            WVJBIframe.style.display = 'none';
-            WVJBIframe.src = 'https://__bridge_loaded__';
-            document.documentElement.appendChild(WVJBIframe);
-            setTimeout(function() {
-                document.documentElement.removeChild(WVJBIframe);
-            }, 0)
-        }
-
-        setupWebViewJavascriptBridge(function(bridge) {
-            addJSFunction = false;
-            bridge.callHandler("getRegionCode", null, function(response) {
-                regionCode = response;
-                JSBridgeComplete();
-            });
-
-        })
-    } else {
-        JSBridgeComplete();
-    }
-
-    function JSBridgeComplete() {
-        if (addJSFunction) {
-        }
-        translate();
-    }
-
+    
+    translate();
     var lang = 'en';
     function translate() {
         $(function() {
