@@ -455,11 +455,11 @@
                             let buttonStr = '&nbspCompleted&nbsp';
                             contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
                         } else {
-                            let buttonStr = '&nbspStart&nbsp';
+                            let buttonStr = '···';
                             if (day == currentDay) {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
                             } else {
-                                contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+listItem.taskDesc+'\')">'+buttonStr+'</button>';
                             }
                         }
                         contentStr += '</div></li>';
