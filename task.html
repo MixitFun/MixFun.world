@@ -346,19 +346,21 @@
             jumpLink.click();
         } else {
             if (type == 0 || type == 1) {
-                let validURL = url+"&UID="+userCode;
-                let encodeURL = escape(validURL);
+                if (code == 'lemon_loan' || code == 'indodana' || code == 'dana' || code == 'Binomo') {
+                    let validURL = url+"&source=1132502&aff_sub="+userCode;
+                    let encodeURL = escape(validURL);
 
-                var jumpLink = document.getElementById('jumpLink');
-                jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
-                jumpLink.click();
-            } else if (code == 'lemon_loan' || code == 'indodana' || code == 'dana') {
-                let validURL = url+"&source=1132502&aff_sub="+userCode;
-                let encodeURL = escape(validURL);
+                    var jumpLink = document.getElementById('jumpLink');
+                    jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                    jumpLink.click();
+                } else {
+                    let validURL = url+"&UID="+userCode;
+                    let encodeURL = escape(validURL);
 
-                var jumpLink = document.getElementById('jumpLink');
-                jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
-                jumpLink.click();
+                    var jumpLink = document.getElementById('jumpLink');
+                    jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                    jumpLink.click();
+                }
             }
         }
     }
