@@ -223,7 +223,8 @@
         }
         return theRequest;
     }
-    let downloadURL = GetRequest().url;
+    let escDownloadURL = GetRequest().url;
+    let unEscDownloadURL = unescape(escDownloadURL);
     let taskCode = GetRequest().code;
     let taskName = GetRequest().name;
     let taskCoin = GetRequest().coin;
@@ -255,12 +256,12 @@
         setupWebViewJavascriptBridge(function(bridge) {
             addJSFunction = false;
             document.getElementById('shareFacebookBtn').onclick = function () {
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+escDownloadURL+"";
                 bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
                 });
             };
             document.getElementById('tempDownloadBtn').click = function () {
-                bridge.callHandler('openURL', {'url': downloadURL}, function(response) {
+                bridge.callHandler('openURL', {'url': unEscDownloadURL}, function(response) {
                 });
             };
             bridge.callHandler("getRegionCode", null, function(response) {
@@ -276,7 +277,7 @@
     function JSBridgeComplete() {
         if (addJSFunction) {
             document.getElementById('shareFacebookBtn').onclick = function () {
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+downloadURL+"";
+                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+escDownloadURL+"";
                 try {
                     window.android.BackToAndroid(facebookURL);
                 } catch (e) {
@@ -285,9 +286,9 @@
             };
             document.getElementById('tempDownloadBtn').click = function () {
                 try {
-                    window.android.BackToAndroid(downloadURL);
+                    window.android.BackToAndroid(unEscDownloadURL);
                 } catch (e) {
-                    window.location.href = downloadURL;
+                    window.location.href = unEscDownloadURL;
                 }
             };
         }
@@ -319,12 +320,12 @@
         if (taskCode == 'refer') {
             $('#descriptionID').text(descriptionStr);
             $('#referDiv').css('display', 'block');
-            let strArr = downloadURL.split('c=');
+            let strArr = unEscDownloadURL.split('c=');
             if (strArr.length > 1) {
                 shareCode = strArr.slice(-1);
                 $('#referCode').html(shareCode);
             }
-            $('#shareURL').html(downloadURL);
+            $('#shareURL').html(unEscDownloadURL);
         } else if (taskCode == 'Reloco') {
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>Like Reloco Facebook Page</li>';
@@ -436,7 +437,7 @@
             if (copyType == "code") {
                 return shareCode;
             }  else {
-                return downloadURL;
+                return unEscDownloadURL;
             }
         }
     });
