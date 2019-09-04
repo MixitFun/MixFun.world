@@ -314,6 +314,16 @@
                 data.data.forEach(function(item, index) {
                     var btnTitle;
                     var status = item.status;
+                    var taskCode = item.taskCode;
+                    if (platform.os.toString().indexOf('Android') > -1) {
+                        if (taskCode == 'Jeniuslos') {
+                            return;
+                        }
+                    } else if (platform.os.toString().indexOf('iOS') > -1) {
+                        if (taskCode == 'JeniusAndroid') {
+                            return;
+                        }
+                    }
                     if (status == 0) {
                         btnTitle = "+"+item.coin+"Coins";
                     } else if (status == 1) {
@@ -323,7 +333,7 @@
                     }
                     listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
-                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+item.taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
                     listHT += "<h6>"+item.taskName+"</h6>";
                     listHT += "<p>"+item.taskDesc+"</p></div>";
                     listHT += "</li>";
@@ -346,7 +356,7 @@
             jumpLink.click();
         } else {
             if (type == 0 || type == 1) {
-                if (code == 'lemon_loan' || code == 'indodana' || code == 'dana' || code == 'Binomo') {
+                if (code == 'lemon_loan' || code == 'indodana' || code == 'dana' || code == 'Binomo' || code == 'Jeniuslos' || code == 'JeniusAndroid') {
                     let validURL = url+"&source=1132502&aff_sub="+userCode;
                     let encodeURL = escape(validURL);
 
