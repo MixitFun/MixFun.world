@@ -315,12 +315,12 @@
                     var btnTitle;
                     var status = item.status;
                     var taskCode = item.taskCode;
-                    if (platform.os.toString().indexOf('Android') > -1) {
-                        if (taskCode == 'Jeniuslos') {
+                    if (platform.os.toString().indexOf('iOS') > -1) {
+                        if (taskCode == 'JeniusAndroid') {
                             return;
                         }
-                    } else if (platform.os.toString().indexOf('iOS') > -1) {
-                        if (taskCode == 'JeniusAndroid') {
+                    } else {
+                        if (taskCode == 'Jeniuslos') {
                             return;
                         }
                     }
