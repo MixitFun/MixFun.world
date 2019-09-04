@@ -199,6 +199,7 @@
                 <input class="form-control" type="text" id="rosInput" placeholder="Rules of Survival ID: 123456789" maxlength="9" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="gcashAccount" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="freefireAccount" placeholder="Player ID: 0123456789" maxlength="10" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="pubgAccount" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;" id="exchangeNotice1"></p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" id="exchangeSubmit"></button>
@@ -473,6 +474,7 @@
                     $('#moblieLegend').attr('placeholder', $.i18n.prop('moblieLegendPlaceHolder'));
                     $('#gcashAccount').attr('placeholder', $.i18n.prop('gcashAccountPlaceHolder'));
                     $('#address').attr('placeholder', $.i18n.prop('addressPlaceHolder'));
+                    $('#pubgAccount').attr('placeholder', $.i18n.prop('pubgPlaceHolder'));
                     $('#gcashNotice').html($.i18n.prop('gcashNotice'));
                     $('#downloadGcashNotice').html($.i18n.prop('downloadGcashNotice'));
                     redeemStr = $.i18n.prop('redeemStr');
@@ -664,6 +666,7 @@
             $('#rosInput').val('');
             $('#gcashAccount').val('');
             $('#freefireAccount').val('');
+            $('#pubgAccount').val('');
 
             $('#gcashAccount').css('display', 'none');
             $('#rosInput').css('display', 'none');
@@ -673,6 +676,7 @@
             $('#phone').css('display','none');
             $('#phoneType').css('display','none');
             $('#freefireAccount').css('display','none');
+            $('#pubgAccount').css('display', 'none');
             if(name == 'Mobile Legends' || name == 'ML Adventure') {
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
@@ -684,6 +688,8 @@
                 $('#phone').css('display','block');
             } else if (name == 'Free Fire') {
                 $('#freefireAccount').css('display','block');
+            } else if (name == 'PUBG') {
+                $('#pubgAccount').css('display', 'block');
             } else {
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
@@ -808,7 +814,18 @@
                 return;
             }
             playerID = freefireID;
-        } else{
+        } else if (name == 'PUBG') {
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var pubgID = $('#pubgAccount').val();
+            if (pubgID == null || pubgID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = pubgID;
+        } else {
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
                 return;
