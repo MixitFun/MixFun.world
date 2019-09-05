@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>MixFun</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="img/home_logo.png" type="image/x-icon">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content="images/share-logo.png"/>
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
-    <link rel="stylesheet" href="css/font-awesome.css"/>
 </head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
@@ -54,17 +60,33 @@
         border-radius: 8px;
     }
 
+    .ShaowDiv {
+        -webkit-box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
+        -moz-box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
+        box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
+        height: 2px;
+    }
+
 </style>
 <body>
     <div style="margin: 3%">
         <p class="TitleP">Hi friend,</br>Please follow me on MixFun and watch more of my wonderful videos. Let's discover interesting world on MixFun!</p>
     </div>
-    <div style="display: inline-block; width: 30%">
-        <p>1</p>
+    <div style="display: inline-block; margin: 0; width: 34%" align="center">
+        <img id="avatarImg" width="50%" style="margin: 0 auto; border-radius: 50%">
+        <p id="nameP" style="margin-top: 8%; font-size: 1.1rem; font-weight: 600"></p>
     </div>
-    <div style="display: inline-block; width: 70%">
-        <p>2</p>
+    <div style="display: inline-block; margin: 0; width: 62%; vertical-align:top">
+        <div style="display: inline-block; width: 48%" align="center">
+            <p id="followingP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 20%"></p>
+            <p style="color: rgb(153, 153, 153); font-size: 0.9rem">Following</p>
+        </div>
+        <div style="display: inline-block; width: 48%" align="center">
+            <p id="followerP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 20%"></p>
+            <p style="color: rgb(153, 153, 153); font-size: 0.9rem">Follower</p>
+        </div>
     </div>
+    <div class="ShaowDiv"></div>
 
 <div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
     <p id="title" style="margin-bottom: 10px"></p>
@@ -115,6 +137,8 @@
         $('#content').css('margin-bottom', footerHeight+"px");
     });
 
+  //  var baseUrl = "http://34.92.40.15:7001/";
+    var baseUrl = "https://api.mixit.fun/";
     var regionCode = "ph";
     var referralCode = "";
     function GetRequest() {
@@ -138,6 +162,20 @@
         return theRequest;
     }
     GetRequest();
+
+    $.ajax({
+        method: 'get',
+        url: baseUrl+'user/share/info?shareCode='+referralCode+'',
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data) {
+            $('#avatarImg').attr('src', data.data.user.avatar);
+            $('#nameP').text(data.data.user.nickname);
+            $('#followingP').text(data.data.user.followNum);
+            $('#followerP').text(data.data.user.followerNum);
+        }
+    });
+
 
     $(document).ready(function() {
         var type = 1;
@@ -175,8 +213,6 @@
                 $('#img').attr('src', data.data.thumbnailUrl);
                 $('#video').css('display','none');
                 $('#contentDiv').css('display','none');
-                $('#img').css('src', data.data.thumbnailWidth);
-                $('#img').css('src', data.data.thumbnailheight);
             } else if (data.data.type == 4) {
                 $('#video').css('display','none');
                 $('#image').css('display','none');
