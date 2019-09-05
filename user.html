@@ -18,7 +18,7 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
         'page_title' : 'MixFun',
-        'page_path': '/player'
+        'page_path': '/user'
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
@@ -91,6 +91,8 @@
         $('#content').css('margin-bottom', footerHeight+"px");
     });
 
+    var regionCode = "ph";
+    var referralCode = "";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -101,9 +103,18 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
+        if (theRequest.r) {
+            if (theRequest.r == 'id') {
+                regionCode = 'id';
+            }
+        }
+        if (theRequest.c) {
+            referralCode = theRequest.c;
+        }
         return theRequest;
     }
-    vi = GetRequest().id;
+    GetRequest();
+
     $(document).ready(function() {
         var type = 1;
         var userAgentInfo = navigator.userAgent;

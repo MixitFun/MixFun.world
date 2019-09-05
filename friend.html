@@ -95,10 +95,7 @@
                 theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
-	    if (theRequest.c) {
-            $('#shareCode').text(theRequest.c);
-            $('#copy').attr('data-clipboard-text',theRequest.c);
-            theRequest['shadeCode'] = theRequest['c'];
+	    if (theRequest.r) {
             if (theRequest.r == 'id') {
                 regionCode = 'id';
             }
