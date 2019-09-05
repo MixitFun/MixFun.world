@@ -63,7 +63,7 @@
                 <p style="color: white; font-size: 1rem;">+10 Mixcoin</p>
             </div>
         </div>
-        <div align="center" style="height: 7%">
+        <div align="center" style="height: 9%">
             <a id="downloadID" style="display: none"></a>
             <button class="DwonloadBtn" style="height: 100%; width: 86%; color: white; font-size: 1rem;" onclick="download()">Download Now</button>
         </div>
@@ -81,6 +81,7 @@
 
     var height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
+    height = height+10;
     $('#content').css('height', height+"px");
 
     var regionCode = "ph";
