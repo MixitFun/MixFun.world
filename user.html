@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hahaha!!! Watch this, you will like it!</title>
+    <title>MixFun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="img/home_logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
@@ -45,8 +45,27 @@
     .btn.active.focus {
         box-shadow:none;
     }
+
+    .TitleP {
+        color: white;
+        font-size: 0.9rem;
+        background: linear-gradient(148deg,#752769 0%,#27074d 50%);
+        padding: 3% 5%;
+        border-radius: 8px;
+    }
+
 </style>
-<body style="background-color: #f9f9f9">
+<body>
+    <div style="margin: 3%">
+        <p class="TitleP">Hi friend,</br>Please follow me on MixFun and watch more of my wonderful videos. Let's discover interesting world on MixFun!</p>
+    </div>
+    <div style="display: inline-block; width: 30%">
+        <p>1</p>
+    </div>
+    <div style="display: inline-block; width: 70%">
+        <p>2</p>
+    </div>
+
 <div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
     <p id="title" style="margin-bottom: 10px"></p>
     <div id="video" style="display: none; margin-bottom: 10px">
@@ -74,18 +93,23 @@
 </div>
 
 <div id="footer" class="footer">
-    <div class="row" vertical-align>
+    <div class="row">
         <div class="col-8" style="display: inline-flex; padding-right: 0px">
             <img src="img/mixit-logo.png" style="height: 50px;width: 50px;">
             <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
         </div>
         <div class="col-4" style="margin: auto">
-            <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right;">Download</a>
+            <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right; background-color: #198a07; border: 0">Download</a>
         </div>
     </div>
 </div>
 </body>
 <script type="text/javascript">
+
+    const oHtml = document.getElementsByTagName('html')[0];
+    const width = oHtml.clientWidth;
+    oHtml.style.fontSize = 14 * (width / 320) + "px";
+
     $( document ).ready(function() {
         let footerHeight = document.getElementById('footer').clientHeight;
         $('#content').css('margin-bottom', footerHeight+"px");
