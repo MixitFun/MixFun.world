@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE; display: none">
+    <div class="card" style="width: 98%; margin-left: 1%; margin-top: 4%; border-radius: 10px;box-shadow: 2px 2px 2px #EEEEEE;">
         <img src="img/bff_list_banner.png" style="width: 100%; border-top-left-radius: inherit; border-top-right-radius: inherit;">
         <div style="width: 100%; display: inline-block;" align="center">
             <p style="color: #353535; font-family: PingFangSC-Regular, sans-serif; font-size: 18px; font-weight: bold; margin-top: 10px; margin-bottom: 0; display: inline-block;">Top Clapped Videos</p>
@@ -523,7 +523,7 @@
     var topList = new Array();
     var toplistPage = 1;
     let topListPageSize = 5;
- //   requestTopList();
+    requestTopList();
     function requestTopList() {
         $.ajax({
             method: 'post',
