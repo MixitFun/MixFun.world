@@ -69,6 +69,7 @@
 
 </style>
 <body>
+<div id="content" style="min-height: 100%; background-color: white">
     <div style="margin: 3%">
         <p class="TitleP">Hi friend,</br>Please follow me on MixFun and watch more of my wonderful videos. Let's discover interesting world on MixFun!</p>
     </div>
@@ -87,29 +88,9 @@
         </div>
     </div>
     <div class="ShaowDiv"></div>
-
-<div id="content" class="container-fluid content" style="padding-top: 10px;min-height: 100%; background-color: white">
-    <p id="title" style="margin-bottom: 10px"></p>
-    <div id="video" style="display: none; margin-bottom: 10px">
-        <video id="player" style="width: 100%;" preload="auto" controls="controls">
-            <source id="source" type="video/mp4"/>
-            <track>
-        </video>
-    </div>
-    <div id="image" style="margin-bottom: 15px">
-        <img id="img" style="width: 100%;">
-    </div>
-    <div id="contentDiv">
-        <p id="contentString" style="white-space: pre-wrap"></p>
-    </div>
-    <div style="padding-bottom: 10px">
-        <row style="text-align: center; display: block;">
-            <a class="col-3" style="margin: auto; margin-right: 25%"><img src="img/icon_claps.png" style="width: 25px"> <span id="claps" style="color: #7abaff"></span></a>
-            <a class="col-3" style="margin: auto;"><img src="img/icon_share.png" style="width: 25px"> <span id="comments" style="color: #7abaff"></span></a>
-        </row>
-    </div>
+    <div id="postListDiv"></div>
     <div align="center">
-        <button class= "btn" style="margin-top: -10px; margin-bottom: 10px; color: #7abaff" onclick="goHotVideo()">More Videos</button>
+        <button class= "btn" style="margin-top: 0; margin-bottom: 10px; color: #7abaff" onclick="goHotVideo()">More Videos</button>
         <a id="jumpLink" style="display: none"></a>
     </div>
 </div>
@@ -173,54 +154,50 @@
             $('#nameP').text(data.data.user.nickname);
             $('#followingP').text(data.data.user.followNum);
             $('#followerP').text(data.data.user.followerNum);
+            loadPotList(data.data.dynamicList);
         }
     });
 
-
-    $(document).ready(function() {
-        var type = 1;
-        var userAgentInfo = navigator.userAgent;
-        if (userAgentInfo.indexOf('iPhone') > 0) {
-            type = 2;
-        } else if (userAgentInfo.indexOf('Android') > 0) {
-            type = 3;
-        }
-        if (type === 1) {
-            $('#content').attr('style', 'width:70%');
-            var clientHeight = document.body.clientHeight/2;
-            $('video').css('height',clientHeight);
-        }
-        $.get('https://api.mixit.fun/dynamic/getInfo?id=' + vi, function (data) {
-            $('title').html(data.data.title);
-            if (data.data.user.avatar != null) {
-                $('#avatar').attr('src', data.data.user.avatar);
+    function loadPotList(list) {
+        var htStr = '';
+        list.forEach(function(item, index) {
+            let title = item.title;
+            let imageURL = item.thumbnailUrl;
+            let playUrl = item.playUrl;
+            var tag = item.tag;
+            if (tag == null) {
+                tag = '';
             }
-            $('#nickname').text(data.data.user.nickname);
-            $('#claps').text(data.data.myClaps);
-            $('#comments').text(data.data.myShares);
-            $('#title').text(data.data.title);
-            if (data.data.type == 1){
-                $('#video').css('display','block');
-                $('#source').attr('src', data.data.playUrl);
-                $('video').attr('poster', data.data.thumbnailUrl);
-                $('video').attr('atuoplay', true);
-                $('video').css('background-color', 'black');
-                document.getElementById('player').load();
-                $('#image').css('display','none');
-                $('#contentDiv').css('display','none');
-                $('#play').click();
-            } else if(data.data.type == 3){
-                $('#img').attr('src', data.data.thumbnailUrl);
-                $('#video').css('display','none');
-                $('#contentDiv').css('display','none');
-            } else if (data.data.type == 4) {
-                $('#video').css('display','none');
-                $('#image').css('display','none');
-                $('#contentString').text(data.data.content);
-                $('#title').css('display','none');
+            htStr += '<p style="text-align: left; margin: 10px 5% 5px;"><span style="color: #7abaff">'+tag+'</span> '+title+'</p>';
+            if (item.type == 3) {
+                htStr += '<div class="topDiv"><img src="'+imageURL+'" style="width: 100%">';
+                htStr += '</div>';
+                htStr += '<div style="padding-bottom: 10px; margin-top: 10px;">';
+            } else if (item.type == 1) {
+                htStr += '<div class="topDiv"><video id="topImage'+index+'" poster=\''+imageURL+'\' controls="controls" style="width: 100%"><source src=\''+playUrl+'\' type="video/mp4"/><track></video>';
+                htStr += '</div>';
+                htStr += '<div style="padding-bottom: 10px; margin-top: 5px;">';
+            }
+            htStr += '<row style="text-align: center; display: block;">';
+            htStr += '<a class="col-3" style="margin: auto 25% auto auto;"><img src="img/icon_claps.png" style="width: 25px"> <span style="color: rgb(250, 92, 126); font-size: 0.9rem">'+item.myClaps+'</span></a>';
+            htStr += '<a class="col-3" style="margin: auto;"><img src="img/icon_share.png" style="width: 25px"> <span style="color: rgb(250, 92, 126); font-size: 0.9rem">'+item.myShares+'</span></a>';
+        htStr += '</row></div>';
+    });
+        $('#postListDiv').html(htStr);
+
+        list.forEach(function(item, index) {
+            if (item.type == 1) {
+                let video = document.getElementById("topImage"+index);
+                video.addEventListener("playing", function () {
+                    if (prePlayIndex > 0 && prePlayIndex != index) {
+                        let preVideo = document.getElementById("topImage" + prePlayIndex);
+                        preVideo.pause();
+                    }
+                    prePlayIndex = index;
+                }, true);
             }
         });
-    });
+    }
 
     function goHotVideo() {
         let jumpLink = document.getElementById('jumpLink');
