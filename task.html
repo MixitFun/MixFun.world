@@ -465,13 +465,13 @@
                         let taskDesc = escape(listItem.taskDesc);
                         if (listItem.taskStatus == 1) {
                             let buttonStr = '&nbspCompleted&nbsp';
-                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                         } else {
                             let buttonStr = '···';
                             if (day == currentDay) {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             } else {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+listItem.taskName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             }
                         }
                         contentStr += '</div></li>';
@@ -573,7 +573,7 @@
         });
     }
 
-    function showChallengeDetail(name, desc) {
+    function showChallengeDetail(code, name, desc) {
         let showDesc = unescape(desc);
         $('#ModalAlertTitle').text(name);
         switch (name) {
@@ -594,7 +594,9 @@
                 });
                 break;
             default:
-                $('#alert').html('<p>'+showDesc+'</p>');
+                var desc = '<p>'+showDesc+'</p>';
+                desc += '<div align="center"><img src="img/'+code+'_desc.png" style="width: 90%;" /></div>';
+                $('#alert').html(desc);
                 $('#ModalAlert').modal('show');
                 break;
         }
