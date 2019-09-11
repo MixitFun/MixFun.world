@@ -418,26 +418,6 @@
                 if (currentStatus == 4) {
                     $('#ChallengeComplete').show();
                     $('#stepper').hide();
-                } else if (currentStatus == 3 ) {
-                    $('#ChallengeComplete').hide();
-                    $('#stepper').show();
-                    $('#ChallegeNotice').hide();
-                    $('#ChallegeBtn').text('Receive 300 coins');
-                    $('#ChallegeBtn').show();
-                    var element = document.getElementById('ChallegeBtn');
-                    element.addEventListener("click", function(e) {
-                        getChallengeReward();
-                    }, false);
-                } else if (currentStatus == 2) {
-                    $('#ChallengeComplete').hide();
-                    $('#stepper').show();
-                    $('#ChallegeNotice').hide();
-                    $('#ChallegeBtn').text('Restart');
-                    $('#ChallegeBtn').show();
-                    var element = document.getElementById('ChallegeBtn');
-                    element.addEventListener("click", function(e) {
-                        restartChallenge();
-                    }, false);
                 } else {
                     $('#ChallengeComplete').hide();
                     $('#stepper').show();
