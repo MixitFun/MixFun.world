@@ -244,7 +244,9 @@
     let token = GetRequest().id;
 
     var regionCode = "ph";
+    var osCode = "3";
     if (platform.os.toString().indexOf('Android') > -1) {
+        osCode = "0";
         try {
             regionCode = window.android.getRegionCode();
             JSBridgeComplete();
@@ -252,6 +254,7 @@
             JSBridgeComplete();
         }
     } else if (platform.os.toString().indexOf('iOS') > -1) {
+        osCode = "1";
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
             if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
@@ -332,6 +335,7 @@
                     var btnTitle;
                     var status = item.status;
                     var taskCode = item.taskCode;
+                    var url = item.downUrl;
                     if (platform.os.toString().indexOf('iOS') > -1) {
                         if (taskCode == 'JeniusAndroid') {
                             return;
@@ -350,7 +354,7 @@
                     }
                     listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
-                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+taskCode+'\','+item.coin+',\''+item.downUrl+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+taskCode+'\','+item.coin+',\''+url+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
                     listHT += "<h6>"+item.taskName+"</h6>";
                     listHT += "<p>"+item.taskDesc+"</p></div>";
                     listHT += "</li>";
@@ -375,6 +379,16 @@
             if (type == 0 || type == 1) {
                 if (code == 'lemon_loan' || code == 'indodana' || code == 'dana' || code == 'Binomo' || code == 'JeniusIos' || code == 'JeniusAndroid') {
                     let validURL = url+"&source=1132502&aff_sub="+userCode;
+                    let encodeURL = escape(validURL);
+
+                    var jumpLink = document.getElementById('jumpLink');
+                    jumpLink.href = 'https://mixfun.world/task_detail.html?url='+encodeURL+''+'&code='+code+'&coin='+coin+'&token='+token+'&name=\"'+name+'\"';
+                    jumpLink.click();
+                } else if (code == 'Pollfish') {
+                    let timestamp = new Date().getTime();
+                    let timestampStr = timestamp+"";
+                    let jsonStr = JSON.stringify({"api_key": "fec6e21d-cb45-4a17-9092-7610bfab1f93", "device_id": userCode, "request_uuid": userCode, "offerwall": "true", "version": "5", "os": osCode, "ip": "8.8.8.8", "encryption": "NONE", "timestamp": timestampStr, "debug": "true"});
+                    let validURL = url+"&json="+jsonStr;
                     let encodeURL = escape(validURL);
 
                     var jumpLink = document.getElementById('jumpLink');
