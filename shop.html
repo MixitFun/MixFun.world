@@ -198,7 +198,9 @@
                 <input class="form-control" type="text" id="gcashAccount" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="freefireAccount" placeholder="Player ID: 0123456789" maxlength="10" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <input class="form-control" type="text" id="pubgAccount" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <input class="form-control" type="text" id="paypalID" placeholder="PayPal Account ID" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
                 <textarea class="form-control" id="address" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
+                <textarea class="form-control" id="bitcoinID" placeholder="Bitcoin Account" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"></textarea>
                 <p style="margin-top: 10px;" id="exchangeNotice1"></p>
                 <button onclick="buy()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" id="exchangeSubmit"></button>
             </div>
@@ -663,9 +665,12 @@
             $('#moblieLegendExtra').val('');
             $('#rosInput').val('');
             $('#gcashAccount').val('');
+            $('#paypalID').val('');
             $('#freefireAccount').val('');
             $('#pubgAccount').val('');
+            $('#bitcoinID').val('');
 
+            $('#recipient').css('display', 'block');
             $('#gcashAccount').css('display', 'none');
             $('#rosInput').css('display', 'none');
             $('#moblieLegend').css('display','none');
@@ -675,6 +680,8 @@
             $('#phoneType').css('display','none');
             $('#freefireAccount').css('display','none');
             $('#pubgAccount').css('display', 'none');
+            $('#paypalID').css('display', 'none');
+            $('#bitcoinID').css('display', 'none');
             if(name == 'Mobile Legends' || name == 'ML Adventure') {
                 $('#moblieLegend').css('display','inline-block');
                 $('#moblieLegendExtra').css('display','inline-block')
@@ -688,6 +695,11 @@
                 $('#freefireAccount').css('display','block');
             } else if (name == 'PUBG') {
                 $('#pubgAccount').css('display', 'block');
+            } else if (name == "Paypal") {
+                $('#paypalID').css('display', 'block');
+            } else if (name == "Bitcoin") {
+                $('#recipient').css('display', 'none');
+                $('#bitcoinID').css('display', 'block');
             } else {
                 $('#address').css('display','block');
                 $('#phone').css('display','block');
@@ -824,6 +836,25 @@
                 return;
             }
             playerID = pubgID;
+        } else if (name == 'Paypal') {
+            if (recipient == null || recipient == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            var paypalID = $('#paypalID').val();
+            if (paypalID == null || paypalID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            playerID = paypalID;
+        } else if (name == 'Bitcoin') {
+            var bitcoinID = $('#bitcoinID').val();
+            if (bitcoinID == null || bitcoinID == ''){
+                $('#bt').text('Please fill up all your details.');
+                return;
+            }
+            recipient = bitcoinID;
+            playerID = "";
         } else {
             if (recipient == null || recipient == ''){
                 $('#bt').text('Please fill up all your details.');
