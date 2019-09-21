@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I would like to refer you to join MixFun. Sign up with my link, both of us will get Mixcoin!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="img/home_logo.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css"/>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/jquery.i18n.properties-min-1.0.9.js" type="text/javascript"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/clipboard.js" type="text/javascript"></script>
+<script src="js/platform.js" type="text/javascript"></script>
+
+<style>
+
+    .DwonloadBtn {
+        -webkit-box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
+        -moz-box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
+        box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
+        background: linear-gradient(148deg,rgba(117,175,234,1) 0%,rgba(73,68,254,1) 100%);
+        border-radius: 8px;
+        border: 0;
+        outline: none;
+    }
+
+    .linkBtn {
+        position: absolute;
+        border: 0;
+        outline: none;
+        right: 15px;
+        height: 25px;
+        width: 25px;
+        margin-top: 0px;
+        background-image: url(img/balance_more.png);
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+    }
+
+</style>
+
+<body>
+    <div id="content" style="background-color: white">
+
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    const oHtml = document.getElementsByTagName('html')[0];
+    const width = oHtml.clientWidth;
+    oHtml.style.fontSize = 14 * (width / 320) + "px";
+
+    var body = document.body,
+        html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    height = height+10;
+    $('#content').css('height', height+"px");
+
+    var baseUrl = "https://api.mixit.fun/";
+    var roomID = "";
+    var regionCode = "ph";
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+	    if (theRequest.r) {
+            if (theRequest.r == 'id') {
+                regionCode = 'id';
+            }
+	    }
+	    if (theRequest.c) {
+	        roomID = theRequest.c;
+        }
+        return theRequest;
+    }
+    GetRequest();
+    
+    translate();
+    var lang = 'en';
+    function translate() {
+        $(function() {
+            if (regionCode == "id") {
+                lang = "id";
+            }
+            jQuery.i18n.properties({
+                name: 'strings',
+                path: 'i18n/',
+                mode: 'map',
+                language: lang,
+                callback: function() {
+                }
+            });
+        })
+    }
+
+    $.ajax({
+        method: 'post',
+        url: baseUrl+'chat/room/info',
+        data: JSON.stringify({
+            code: roomID,
+        }),
+        contentType:'application/json',
+        dataType: 'json',
+        success: function(data) {
+
+        }
+    });
+
+    function download() {
+        document.getElementById('downloadID').href = "https://app.mixfun.world/open";
+        $('#downloadID')[0].click();
+    }
+
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138276305-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-138276305-1', {
+        'page_title' : 'MixFun',
+        'page_path': '/friend'
+    });
+</script>
+</html>
