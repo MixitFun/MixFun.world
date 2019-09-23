@@ -21,30 +21,50 @@
         -webkit-box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
         -moz-box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
         box-shadow:0px 2px 9px 0px rgba(255,255,255,0.5);
-        background: linear-gradient(148deg,rgba(117,175,234,1) 0%,rgba(73,68,254,1) 100%);
-        border-radius: 8px;
+        background: #28c266;
         border: 0;
         outline: none;
+        color: white;
+        font-size: 1.2rem;
     }
 
-    .linkBtn {
-        position: absolute;
-        border: 0;
-        outline: none;
-        right: 15px;
-        height: 25px;
-        width: 25px;
-        margin-top: 0px;
-        background-image: url(img/balance_more.png);
-        background-size: 24px 24px;
+    .ShaowDiv {
+        -webkit-box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
+        -moz-box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
+        box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
+        height: 1px;
+    }
+
+    .RoomImageDiv {
+        width: 6.5rem;
+        height: 6rem;
+        background-size: cover;
         background-repeat: no-repeat;
+        display: inline-block;
+        border-radius: 10%;
     }
 
 </style>
 
 <body>
     <div id="content" style="background-color: white">
-
+        <div align="left" style="margin-top: 3%; margin-left: 4.5%">
+            <img src="image/mixit.png" style="width: 12%; background-size: cover; background-repeat: no-repeat; display: inline-block">
+            <p style="display: inline-block; margin: auto auto 0 8px; vertical-align: middle; font-size: 1.3rem; font-weight: 500; color: rgb(51, 51, 51)">MixFun</p>
+        </div>
+        <div class="ShaowDiv" style="margin-top: 3%"></div>
+        <div style="margin-top: 20%" align="center">
+            <div id="roomImage1" class="RoomImageDiv"></div>
+            <div id="roomImage2" class="RoomImageDiv" style="margin-left: 2%; margin-right: 2%"></div>
+            <div id="roomImage3" class="RoomImageDiv"></div>
+        </div>
+        <div style="margin-top: 2rem" align="center">
+            <p id="roomName" style="color: rgb(51, 51, 51); font-size: 2rem; font-weight: 500; margin-bottom: 0"></p>
+            <p id="roomMemberNum" style="color: rgb(153, 153, 153); font-size: 1rem; font-weight: 300; margin-bottom: 1rem"></p>
+            <p id="roomDesc" style="color: rgb(51, 51, 51); font-size: 1.4rem; font-weight: 400; margin-bottom: 2.5rem"></p>
+            <a id="downloadID" style="display: none"></a>
+            <button class="DwonloadBtn" style="height: 3rem; width: 12rem; border-radius: 1.5rem" onclick="download()">Join</button>
+        </div>
     </div>
 </body>
 
@@ -114,7 +134,18 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data) {
-
+            if (data.data.imgUrl1) {
+                $('#roomImage1').css('background-image', 'url('+data.data.imgUrl1+')');
+            }
+            if (data.data.imgUrl2) {
+                $('#roomImage2').css('background-image', 'url('+data.data.imgUrl2+')');
+            }
+            if (data.data.imgUrl3) {
+                $('#roomImage3').css('background-image', 'url('+data.data.imgUrl3+')');
+            }
+            $('#roomName').html(data.data.roomName);
+            $('#roomMemberNum').html(''+data.data.enterNum+' members, '+data.data.contentNum+' contents');
+            $('#roomDesc').html(data.data.roomDesc);
         }
     });
 
@@ -132,7 +163,7 @@
     gtag('js', new Date());
     gtag('config', 'UA-138276305-1', {
         'page_title' : 'MixFun',
-        'page_path': '/friend'
+        'page_path': '/room'
     });
 </script>
 </html>
