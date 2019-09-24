@@ -4,7 +4,7 @@
         "details": [
             {
                 "appID": "RPN67TQBH3.com.mixit.fun",
-                "paths": [ "*" ]
+                "paths": [ "/chatRoom" ]
             }
         ]
     }
