@@ -1,5 +1,11 @@
 {
-   "webcredentials": {
-       "apps": ["RPN67TQBH3.com.mixit.fun"]
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "RPN67TQBH3.com.mixit.fun",
+                "paths": [ "*" ]
+            }
+        ]
     }
 }
