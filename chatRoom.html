@@ -62,7 +62,6 @@
             <p id="roomName" style="color: rgb(51, 51, 51); font-size: 2rem; font-weight: 500; margin: 0 1rem; word-break: break-all; word-wrap: break-word; line-height: 2.8rem;"></p>
             <p id="roomMemberNum" style="color: rgb(153, 153, 153); font-size: 1rem; font-weight: 300; margin-bottom: 3rem; margin-top: 0.5rem"></p>
             <p id="roomDesc" style="color: rgb(51, 51, 51); font-size: 1.4rem; font-weight: 400; margin-bottom: 2.5rem; display: none"></p>
-            <a id="downloadID" style="display: none"></a>
             <button class="DwonloadBtn" style="height: 3rem; width: 12rem; border-radius: 1.5rem; margin-bottom: 3rem" onclick="download()">Join Group</button>
         </div>
     </div>
@@ -152,8 +151,7 @@
     function download() {
         let params = location.search;
         let jumpURL = "https://mixfun.world/app"+params+"&op=chatRoom";
-        document.getElementById('downloadID').href = jumpURL;
-        $('#downloadID')[0].click();
+        window.location.href = jumpURL;
     }
 
 </script>
