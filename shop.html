@@ -103,7 +103,7 @@
     </div>
 
     <div id="spinDiv" align="center" style="margin-top: 4%; display: none">
-        <a id="spinURL" target="_blank">
+        <a id="spinURL" target="_blank" href="http://shortlink.in/BDi">
             <img src="img/Challenge_banner.png" style="width: 98%">
         </a>
     </div>
@@ -357,8 +357,6 @@
             }
         }
         newVersion = theRequest.platform;
-        let spinLink = document.getElementById('spinURL');
-        spinLink.href = "https://mixfun.world/task.html?id="+theRequest.id;
         return theRequest;
     }
     var token =  GetRequest().id;
