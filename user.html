@@ -201,8 +201,10 @@
     }
 
     function goHotVideo() {
+        let params = location.search;
+        let jumpURL = "https://app.mixfun.world/link"+params+"&op=user";
         let jumpLink = document.getElementById('jumpLink');
-        jumpLink.href = 'hot.html';
+        jumpLink.href = jumpURL;
         jumpLink.click();
     }
 </script>
