@@ -59,9 +59,9 @@
     }
 
     .ShaowDiv {
-        -webkit-box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
-        -moz-box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
-        box-shadow:0px 2px 9px 0px rgba(153,153,153,0.5);
+        -webkit-box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
+        -moz-box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
+        box-shadow:1px 2px 2px 0px rgba(235,235,235,0.5);
         height: 1px;
     }
 
@@ -79,12 +79,15 @@
     </div>
     <div style="display: inline-block; margin: 0; width: 62%; vertical-align:top">
         <div style="display: inline-block; width: 48%" align="center">
-            <p id="followingP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 20%"></p>
+            <p id="followingP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 5%"></p>
             <p style="color: rgb(153, 153, 153); font-size: 0.9rem">Following</p>
         </div>
         <div style="display: inline-block; width: 48%" align="center">
-            <p id="followerP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 20%"></p>
+            <p id="followerP" style="color: rgb(51, 51, 51); font-size: 1rem; font-weight: 500; margin-bottom: 5%; margin-top: 5%"></p>
             <p style="color: rgb(153, 153, 153); font-size: 0.9rem">Follower</p>
+        </div>
+        <div align="center" style="margin-top: 2%; margin-bottom: 5%">
+            <button class= "btn" style="background: linear-gradient(to right, #F45D82, #6C81F8); color: white; height: 2.4rem; width: 6rem; border-radius: 1.2rem; border: 0" onclick="followAction()">Follow</button>
         </div>
     </div>
     <div class="ShaowDiv"></div>
@@ -102,7 +105,7 @@
             <p style="color: white; margin-left: 10px; margin-bottom: 0px">MixFun - Funny videos & pics sharing community</p>
         </div>
         <div class="col-4" style="margin: auto">
-            <a class="btn btn-info" href="https://app.mixfun.world/share" style="float: right; background-color: #198a07; border: 0">Download</a>
+            <a id="downloadA" class="btn btn-info" style="float: right; background-color: #198a07; border: 0">Download</a>
         </div>
     </div>
 </div>
@@ -118,7 +121,6 @@
         $('#content').css('margin-bottom', footerHeight+"px");
     });
 
-  //  var baseUrl = "http://34.92.40.15:7001/";
     var baseUrl = "https://api.mixit.fun/";
     var regionCode = "ph";
     var referralCode = "";
@@ -152,6 +154,8 @@
         dataType: 'json',
         success: function(data) {
             userID = data.data.user.uid;
+            let jumpURL = "https://app.mixfun.world/link?c="+userID+"&op=user";
+            $('#downloadA').attr('href', jumpURL);
             $('#avatarImg').attr('src', data.data.user.avatar);
             $('#nameP').text(data.data.user.nickname);
             $('#followingP').text(data.data.user.followNum);
@@ -203,6 +207,12 @@
     }
 
     function goHotVideo() {
+        let jumpLink = document.getElementById('jumpLink');
+        jumpLink.href = 'hot.html';
+        jumpLink.click();
+    }
+
+    function followAction() {
         let jumpURL = "https://app.mixfun.world/link?c="+userID+"&op=user";
         let jumpLink = document.getElementById('jumpLink');
         jumpLink.href = jumpURL;
