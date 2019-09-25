@@ -122,6 +122,7 @@
     var baseUrl = "https://api.mixit.fun/";
     var regionCode = "ph";
     var referralCode = "";
+    var userID = "";
     function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
@@ -150,6 +151,7 @@
         contentType:'application/json',
         dataType: 'json',
         success: function(data) {
+            userID = data.data.user.uid;
             $('#avatarImg').attr('src', data.data.user.avatar);
             $('#nameP').text(data.data.user.nickname);
             $('#followingP').text(data.data.user.followNum);
@@ -201,8 +203,7 @@
     }
 
     function goHotVideo() {
-        let params = location.search;
-        let jumpURL = "https://app.mixfun.world/link"+params+"&op=user";
+        let jumpURL = "https://app.mixfun.world/link?c="+userID+"&op=user";
         let jumpLink = document.getElementById('jumpLink');
         jumpLink.href = jumpURL;
         jumpLink.click();
