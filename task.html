@@ -25,7 +25,7 @@
 <body>
 <div>
     <div align="center" style="margin-top: 10px">
-        <img src="img/Challenge_banner_default.png" style="width: 95%; border-radius: 10px 10px 10px 10px;">
+        <img id="Challengebanner" style="width: 95%; border-radius: 10px 10px 10px 10px;">
     </div>
     <div style="margin-bottom: 10px;">
         <h5 style="margin-top: 15px; margin-left: 3%; margin-bottom: 0; display: inline-block">7 Days Challenge</h5>
@@ -434,6 +434,15 @@
                     challengeVersion = data.data.challengeType;
                 }
                 let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                if (challengeVersion == 1) {
+                    $('#Challengebanner').attr('src', 'img/Challenge_banner_default.png');
+                }  else if (challengeVersion == 2) {
+                    if (regionCode == 'id') {
+                        $('#Challengebanner').attr('src', 'img/Challenge_banner2_id.png');
+                    } else {
+                        $('#Challengebanner').attr('src', 'img/Challenge_banner2_ph.png');
+                    }
+                }
                 if (currentStatus == 4) {
                     $('#ChallengeComplete').show();
                     $('#stepper').hide();
