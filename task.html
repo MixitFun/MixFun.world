@@ -328,6 +328,7 @@
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
             $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
+        getChallengeList();
     }
 
     var userCode;
@@ -450,7 +451,6 @@
 
     var challengeList = 0;
     var canWithDraw = false;
-    getChallengeList();
     function getChallengeList() {
         $.ajax({
             method: 'post',
