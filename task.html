@@ -134,7 +134,7 @@
                         <button class="btn btn-primary" id="MaxamountNum"></button>
                     </div>
                 </div>
-                <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; margin-top: 25px; width: 60%;" onclick="doWithdraw()">Withdraw</button>
+                <button class="btn" id="WithdrawBtn" style="border-radius: 20px;border: 0px;color: white; margin-top: 25px; width: 60%;" onclick="doWithdraw()">Withdraw</button>
             </div>
         </div>
     </div>
@@ -486,7 +486,7 @@
                         $('#MinWithdrawP').text('*Minimum withdrawal 6000 Rp.');
                         $('#MinamountNum').text('6000 Rp');
                         $('#MaxamountNum').text('13000 Rp');
-                        if (earnmoney >= 6000) {
+                        if (data.data.moneyCoin >= 6000) {
                             canWithDraw = true;
                         }
                     } else {
@@ -496,9 +496,14 @@
                         $('#MinWithdrawP').text('*Minimum withdrawal 25 PHP.');
                         $('#MinamountNum').text('25 PHP');
                         $('#MaxamountNum').text('50 PHP');
-                        if (earnmoney >= 25) {
+                        if (data.data.moneyCoin >= 25) {
                             canWithDraw = true;
                         }
+                    }
+                    if (canWithDraw) {
+                        $('#WithdrawBtn').css('background', 'linear-gradient(to right, #F45D82, #6C81F8)');
+                    } else {
+                        $('#WithdrawBtn').css('background', 'gray');
                     }
                     var persentStr = Number(persent*100).toFixed(2);
                     persentStr += '%';
