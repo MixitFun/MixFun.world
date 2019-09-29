@@ -456,7 +456,8 @@
             method: 'post',
             url: baseUrl+'challenge/list',
             headers:{
-                authorization:token
+                authorization:token,
+                regionCode:regionCode
             },
             data: JSON.stringify({
                 code:regionCode,
