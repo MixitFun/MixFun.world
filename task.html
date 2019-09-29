@@ -107,14 +107,34 @@
 <div class="modal fade" id="ModalWithdraw" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
-            <div class="modal-body">
-                <dl>
-                    <dd style="margin-bottom: 20px">Complete two tasks per day for 7 days, you will receive a total of 300 coins in rewards.</dd>
-                    <ul class="noticeul">
-                        <li class="noticeli">Complete the two tasks of the day, coins will be automatically sent to your account.</li>
-                        <li class="noticeli">Task must be completed on the same day.</li>
-                    </ul>
-                </dl>
+            <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 40px; width: 60px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 0" align="center">
+                <p style="font-size: 1rem">You have accumulated <span id="EarnMoneySpan" style="font-weight: 600"></span> now.</p>
+                <div class="progress" style="width: 88%;">
+                    <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #F76B1C"><span class="sr-only"></span></div>
+                </div>
+                <div align="left" style="margin-top: 6px">
+                    <p id="MinWithdrawP" style="font-size: 0.4rem; color: crimson; margin-left: 6%"></p>
+                </div>
+                <div>
+                    <p style="font-size: 0.9rem; margin-left: 6%; margin-bottom: 10px; text-align: left">Platform:</p>
+                    <div class="btn-group" data-toggle="buttons">
+                        <button class="btn btn-primary">GCash</button>
+                        <button class="btn btn-primary">Mobile Loads</button>
+                    </div>
+                </div>
+                <div>
+                    <p style="font-size: 0.9rem; margin-left: 6%; margin-bottom: 10px; text-align: left">Amount:</p>
+                    <div class="btn-group" data-toggle="buttons">
+                        <button class="btn btn-primary" id="MinamountNum"></button>
+                        <button class="btn btn-primary" id="MaxamountNum"></button>
+                    </div>
+                </div>
+                <button class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white; margin-top: 25px; width: 60%;" onclick="doWithdraw()">Withdraw</button>
             </div>
         </div>
     </div>
@@ -429,6 +449,7 @@
     }
 
     var challengeList = 0;
+    var canWithDraw = false;
     getChallengeList();
     function getChallengeList() {
         $.ajax({
@@ -446,20 +467,41 @@
                 challengeList = 0;
                 var completedCount = 0;
                 var challengeVersion = 1;
-                // if (data.data.challengeType) {
-                //     challengeVersion = data.data.challengeType;
-                // }
+                if (data.data.challengeType) {
+                    challengeVersion = data.data.challengeType;
+                }
                 let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
                 var backgroundsize = '110%';
                 if (challengeVersion == 1) {
                     $('#Challengebanner').attr('src', 'img/Challenge_banner_default_1.png');
                 }  else if (challengeVersion == 2) {
                     backgroundsize = '100%';
+                    let earnmoney = data.data.moneyCoin + data.data.withdrawCoin + data.data.withdrawingCoin;
+                    var persent = 0;
                     if (regionCode == 'id') {
                         $('#Challengebanner').attr('src', 'img/Challenge_banner_id_2.png');
+                        persent = Math.max(0, earnmoney/13000);
+                        $('#EarnMoneySpan').html(earnmoney + '&nbsp;Rp');
+                        $('#MinWithdrawP').text('*Minimum withdrawal 6000 Rp.');
+                        $('#MinamountNum').text('6000 Rp');
+                        $('#MaxamountNum').text('13000 Rp');
+                        if (earnmoney >= 6000) {
+                            canWithDraw = true;
+                        }
                     } else {
                         $('#Challengebanner').attr('src', 'img/Challenge_banner_ph_2.png');
+                        persent = Math.max(0, earnmoney/50);
+                        $('#EarnMoneySpan').html(earnmoney + '&nbsp;PHP');
+                        $('#MinWithdrawP').text('*Minimum withdrawal 25 PHP.');
+                        $('#MinamountNum').text('25 PHP');
+                        $('#MaxamountNum').text('50 PHP');
+                        if (earnmoney >= 25) {
+                            canWithDraw = true;
+                        }
                     }
+                    var persentStr = Number(persent*100).toFixed(2);
+                    persentStr += '%';
+                    document.getElementById('progressbar').style.width = persentStr;
                 }
                 if (currentStatus == 4) {
                     $('#ChallengeComplete').show();
@@ -757,6 +799,24 @@
                 $('#alert').html(desc);
                 $('#ModalAlert').modal('show');
                 break;
+        }
+    }
+
+    // $(function() {
+    //     $("#MinamountNum .btn").click(function(){
+    //         $(this).button('loading').delay(1000).queue(function() {
+    //         });
+    //     });
+    // });
+    // $(function() {
+    //     $("#MaxamountNum .btn").click(function(){
+    //         $(this).button('loading').delay(1000).queue(function() {
+    //         });
+    //     });
+    // });
+
+    function doWithdraw() {
+        if (canWithDraw) {
         }
     }
 
