@@ -435,12 +435,12 @@
                 }
                 let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
                 if (challengeVersion == 1) {
-                    $('#Challengebanner').attr('src', 'img/Challenge_banner_default.png');
+                    $('#Challengebanner').attr('src', 'img/Challenge_banner_default_1.png');
                 }  else if (challengeVersion == 2) {
                     if (regionCode == 'id') {
-                        $('#Challengebanner').attr('src', 'img/Challenge_banner2_id.png');
+                        $('#Challengebanner').attr('src', 'img/Challenge_banner_id_2.png');
                     } else {
-                        $('#Challengebanner').attr('src', 'img/Challenge_banner2_ph.png');
+                        $('#Challengebanner').attr('src', 'img/Challenge_banner_ph_2.png');
                     }
                 }
                 if (currentStatus == 4) {
@@ -471,7 +471,7 @@
                     var labelStr = 'Day'+day;
                     var labelColor = '#ec608b';
                     var coinStr = '';
-                    var coinBg = 'img/challenge_coin_color.png';
+                    var coinBg = 'img/challenge_coin_color_'+challengeVersion+'.png';
                     var coinNumBg = 'img/challenge_num_color.png';
                     switch (day) {
                         case 1:
@@ -551,13 +551,13 @@
 
                     if (day < currentDay) {
                         labelColor = '#9B9B9B';
-                        coinBg = 'img/challenge_coin_gray.png';
+                        coinBg = 'img/challenge_coin_gray_'+challengeVersion+'.png';
                         coinNumBg = 'img/challenge_num_gray.png';
                     } else if (day == currentDay) {
                         if (day == perDay) {
                             if (currentStatus == 2) {
                                 labelColor = '#9B9B9B';
-                                coinBg = 'img/challenge_coin_gray.png';
+                                coinBg = 'img/challenge_coin_gray_.png';
                                 coinNumBg = 'img/challenge_num_gray.png';
                             }
                         }
@@ -567,7 +567,7 @@
                     }
                     if (item.status == 1) { //0未完成 1已完成
                         labelColor = '#9B9B9B';
-                        coinBg = 'img/challenge_coin_gray.png';
+                        coinBg = 'img/challenge_coin_gray_'+challengeVersion+'.png';
                         coinNumBg = 'img/challenge_num_gray.png';
                         completedCount++;
                     }
