@@ -104,6 +104,22 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalWithdraw" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-body">
+                <dl>
+                    <dd style="margin-bottom: 20px">Complete two tasks per day for 7 days, you will receive a total of 300 coins in rewards.</dd>
+                    <ul class="noticeul">
+                        <li class="noticeli">Complete the two tasks of the day, coins will be automatically sent to your account.</li>
+                        <li class="noticeli">Task must be completed on the same day.</li>
+                    </ul>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 
 <style>
@@ -434,9 +450,11 @@
                 //     challengeVersion = data.data.challengeType;
                 // }
                 let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
+                var backgroundsize = '110%';
                 if (challengeVersion == 1) {
                     $('#Challengebanner').attr('src', 'img/Challenge_banner_default_1.png');
                 }  else if (challengeVersion == 2) {
+                    backgroundsize = '100%';
                     if (regionCode == 'id') {
                         $('#Challengebanner').attr('src', 'img/Challenge_banner_id_2.png');
                     } else {
@@ -563,7 +581,6 @@
                         }
                         labelStr = 'Today';
                     } else {
-
                     }
                     if (item.status == 1) { //0未完成 1已完成
                         labelColor = '#9B9B9B';
@@ -573,7 +590,7 @@
                     }
                     headerStr += '<div class="step" data-target="#part'+day+'">';
                     headerStr += '<button type="button" class="step-trigger" role="tab" aria-controls="part'+day+'" id="part'+day+'-trigger"; style="background-color: rgba(0,0,0,0);">';
-                    headerStr += '<span class="bs-stepper-circle" style="background-image: url('+coinBg+'); background-repeat: no-repeat; background-size: 110%;">';
+                    headerStr += '<span class="bs-stepper-circle" style="background-image: url('+coinBg+'); background-repeat: no-repeat; background-size: '+backgroundsize+';">';
                     if (coinStr.length > 0) {
                         headerStr += '<span class="CoinSpan" style="background-image: url('+coinNumBg+');">'+coinStr+'</span>';
                     }
@@ -585,19 +602,25 @@
                     contentStr += '<div id="part'+day+'" class="content" role="tabpanel" aria-labelledby="part'+day+'-trigger">';
                     item.taskList.forEach(function (listItem, listIndex) {
                         contentStr += '<li style="list-style-type: none"><div>';
-                        contentStr += '<h6 style="margin: 0; display: inline-block">'+listItem.taskName+'</h6>';
                         let taskDesc = escape(listItem.taskDesc);
                         let encodeName = escape(listItem.taskName);
+                        let taskCode = listItem.taskCode;
                         if (listItem.taskStatus == 1) {
                             let buttonStr = '&nbspCompleted&nbsp';
-                            contentStr += '<button class= "btn-sm" disabled="disabled" style="display: inline-block; margin: 0;" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                         } else {
                             let buttonStr = '···';
                             if (day == currentDay) {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="margin: 0; background: lightgray" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             } else {
-                                contentStr += '<button class= "btn-sm" style="display: inline-block; margin: 0; background: lightgray" onclick="showChallengeDetail(\''+listItem.taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="margin: 0; background: lightgray" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             }
+                        }
+                        if (taskCode == 'doSpeTask') {
+                            contentStr += '<h6 style="margin: 0;">'+listItem.taskName+'</h6>';
+                            contentStr += '<p style="color: crimson; font-size: 0.6rem; margin-left: 0">*Make sure you are newly download and register user.</p>';
+                        } else {
+                            contentStr += '<h6 style="margin: 0;">'+listItem.taskName+'</h6>';
                         }
                         contentStr += '</div></li>';
                         contentStr += '<hr style="margin-bottom: 0; margin-top: 15px; margin-bottom: 15px">';
@@ -704,6 +727,7 @@
     }
 
     function cashOut() {
+        $('#ModalWithdraw').modal('show');
     }
 
     function showChallengeDetail(code, encodeName, desc) {
