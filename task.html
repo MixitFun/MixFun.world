@@ -430,9 +430,9 @@
                 challengeList = 0;
                 var completedCount = 0;
                 var challengeVersion = 1;
-                if (data.data.challengeType) {
-                    challengeVersion = data.data.challengeType;
-                }
+                // if (data.data.challengeType) {
+                //     challengeVersion = data.data.challengeType;
+                // }
                 let currentStatus = data.data.status; //1进行中 2中断 3 已完成未领奖 4已完成已领奖
                 if (challengeVersion == 1) {
                     $('#Challengebanner').attr('src', 'img/Challenge_banner_default_1.png');
