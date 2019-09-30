@@ -105,6 +105,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalNotice1" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitle1">7 Days Challenge Rules</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl>
+                    <dd style="margin-bottom: 20px">Complete two tasks per day for 7 days, you will receive rewards.</dd>
+                    <ul class="noticeul">
+                        <li class="noticeli">Complete the two tasks of the day, rewards will be automatically sent to your account.</li>
+                        <li class="noticeli">Task must be completed on the same day.</li>
+                    </ul>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="ModalWithdraw" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
         <div class="modal-content" style="border-radius: 20px;">
@@ -501,7 +523,11 @@
 
     function ShowNotice(type) {
         if (type == 'challenge') {
-            $('#ModalNotice').modal('show');
+            if (challengeVersion == 1) {
+                $('#ModalNotice').modal('show');
+            } else if (challengeVersion == 2) {
+                $('#ModalNotice1').modal('show');
+            }
         }
     }
 
@@ -510,6 +536,7 @@
     var moneyCoin = 0;
     var redeemCoin = 0;
     var canWithDraw = false;
+    var challengeVersion = 1;
     function getChallengeList() {
         $.ajax({
             method: 'post',
@@ -526,7 +553,6 @@
             success: function(data) {
                 challengeList = 0;
                 var completedCount = 0;
-                var challengeVersion = 1;
                 if (data.data.challengeType) {
                     challengeVersion = data.data.challengeType;
                 }
