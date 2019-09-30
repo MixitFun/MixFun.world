@@ -114,7 +114,7 @@
                 </button>
             </div>
             <div class="modal-body" style="padding-top: 0" align="center">
-                <p style="font-size: 1rem">You have accumulated <span id="EarnMoneySpan" style="font-weight: 600"></span> now.</p>
+                <p style="font-size: 1rem; margin-bottom: 0">You have accumulated <span id="EarnMoneySpan" style="font-weight: 600"></span> now.</p>
                 <p style="font-size: 1rem">You have redeemed <span id="RedeemedSpan" style="font-weight: 600"></span> now.</p>
                 <div class="progress" style="width: 88%;">
                     <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #F76B1C"><span class="sr-only"></span></div>
@@ -447,7 +447,7 @@
                     }
                     listHT += "<li><div style='height: 100%'>";
                     listHT += "<img src='img/"+item.taskCode+"_img.png'/>";
-                    listHT += '<button class= "btn-sm" onclick="goDownLoad('+status+',\''+taskCode+'\','+item.coin+',\''+url+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
+                    listHT += '<button class= "btn-sm" id="TaskBtn_'+taskCode+'" onclick="goDownLoad('+status+',\''+taskCode+'\','+item.coin+',\''+url+'\',\''+item.taskName+'\')">&nbsp;'+btnTitle+'&nbsp;</button>';
                     listHT += "<h6>"+item.taskName+"</h6>";
                     listHT += "<p>"+item.taskDesc+"</p></div>";
                     listHT += "</li>";
@@ -724,21 +724,27 @@
                         let taskDesc = escape(listItem.taskDesc);
                         let encodeName = escape(listItem.taskName);
                         let taskCode = listItem.taskCode;
-                        if (listItem.taskStatus == 1) {
-                            let buttonStr = '&nbspCompleted&nbsp';
-                            contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
-                        } else {
-                            let buttonStr = '···';
-                            if (day == currentDay) {
-                                contentStr += '<button class= "btn-sm" style="margin: 0; background: lightgray" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
-                            } else {
-                                contentStr += '<button class= "btn-sm" style="margin: 0; background: lightgray" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
-                            }
-                        }
                         if (taskCode == 'doSpeTask') {
+                            if (listItem.taskStatus == 1) {
+                                let buttonStr = '&nbspCompleted&nbsp';
+                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 1rem 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            } else if (listItem.taskStatus == 2) {
+                                let buttonStr = '&nbspPending&nbsp';
+                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 1rem 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            } else {
+                                let buttonStr = '&nbspStart&nbspTask&nbsp';
+                                contentStr += '<button class= "btn-sm" style="margin: 1rem 0 0;" onclick="startChallengeTask()">'+buttonStr+'</button>';
+                            }
                             contentStr += '<h6 style="margin: 0;">'+listItem.taskName+'</h6>';
                             contentStr += '<p style="color: crimson; font-size: 0.6rem; margin-left: 0">*Make sure you are newly download and register user.</p>';
                         } else {
+                            if (listItem.taskStatus == 1) {
+                                let buttonStr = '&nbspCompleted&nbsp';
+                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            } else {
+                                let buttonStr = '···';
+                                contentStr += '<button class= "btn-sm" style="margin: 0; background: lightgray" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                            }
                             contentStr += '<h6 style="margin: 0;">'+listItem.taskName+'</h6>';
                         }
                         contentStr += '</div></li>';
@@ -843,6 +849,16 @@
                 }
             }
         });
+    }
+
+    function startChallengeTask() {
+        var code = 'TaskBtn_';
+        if (platform.os.toString().indexOf('iOS') > -1) {
+            code += 'JeniusIos';
+        } else {
+            code += 'JeniusAndroid';
+        }
+        $('#'+code)[0].click();
     }
 
     function cashOut() {
@@ -1035,7 +1051,7 @@
                             break;
                     }
                     resetCashout();
-                    $('#alert').html('<p>success</p>');
+                    $('#alert').html('<p>Submitted successfully!</p>');
                 } else {
                     $('#alert').html('<p>'+data.msg+'</p>');
                 }
