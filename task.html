@@ -17,6 +17,7 @@
 </head>
 <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<script src="js/jquery.i18n.properties-min-1.0.9.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/platform.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
@@ -114,6 +115,7 @@
             </div>
             <div class="modal-body" style="padding-top: 0" align="center">
                 <p style="font-size: 1rem">You have accumulated <span id="EarnMoneySpan" style="font-weight: 600"></span> now.</p>
+                <p style="font-size: 1rem">You have redeemed <span id="RedeemedSpan" style="font-weight: 600"></span> now.</p>
                 <div class="progress" style="width: 88%;">
                     <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #F76B1C"><span class="sr-only"></span></div>
                 </div>
@@ -122,19 +124,42 @@
                 </div>
                 <div>
                     <p style="font-size: 0.9rem; margin-left: 6%; margin-bottom: 10px; text-align: left">Platform:</p>
-                    <div class="btn-group" data-toggle="buttons">
-                        <button class="btn btn-primary">GCash</button>
-                        <button class="btn btn-primary">Mobile Loads</button>
+                    <div class="btn-toolbar" data-toggle="buttons" style="display: inline-block">
+                        <button class="btn btn-primary" id="CashoutGCash"></button>
+                        <button class="btn btn-primary" style="margin-left: 10px" id="CashoutML"></button>
                     </div>
                 </div>
                 <div>
-                    <p style="font-size: 0.9rem; margin-left: 6%; margin-bottom: 10px; text-align: left">Amount:</p>
-                    <div class="btn-group" data-toggle="buttons">
+                    <p style="font-size: 0.9rem; margin: 10px auto 10px 6%; text-align: left">Amount:</p>
+                    <div class="btn-toolbar" data-toggle="buttons" style="display: inline-block">
                         <button class="btn btn-primary" id="MinamountNum"></button>
-                        <button class="btn btn-primary" id="MaxamountNum"></button>
+                        <button class="btn btn-primary" style="margin-left: 10px" id="MaxamountNum"></button>
                     </div>
                 </div>
                 <button class="btn" id="WithdrawBtn" style="border-radius: 20px;border: 0px;color: white; margin-top: 25px; width: 60%;" onclick="doWithdraw()">Withdraw</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCashout" tabindex="-1" role="dialog" aria-labelledby="ModalNoticeTitleCashout" aria-hidden="true"">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" style="border-radius: 20px;">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="background: linear-gradient(to right, #b4d0ef, #e4f1f8);border-radius: 20px 20px 0 0;">
+                <h5 class="modal-title" id="ModalNoticeTitleCashout"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 5px;">
+                <span id="exchangeNotice"></span>
+            </div>
+            <span id="bt" style="color: red;margin-left: 10%;"></span>
+            <div class="modal-body" align="center">
+                <input class="form-control" type="text" id="recipient" style="border-radius: 15px;background-color: #F1F1F1;border: 0px; margin-top: 0"/>
+                <input class="form-control" type="text" id="phone" maxlength="11" style="border-radius: 15px;background-color: #F1F1F1;border: 0px;"/>
+                <p style="margin-top: 10px; font-size: 0.8rem" id="exchangeNotice1"></p>
+                <button onclick="requestWithdraw()" class="btn" style="background: linear-gradient(to right, #F45D82, #6C81F8);border-radius: 20px;border: 0px;color: white;" id="exchangeSubmit"></button>
             </div>
         </div>
     </div>
@@ -198,6 +223,14 @@
     li {
         padding: 0px;
         overflow: auto;
+    }
+
+    input{
+        margin-top: 15px;
+    }
+
+    li:hover{
+        background-color: white;
     }
 
     .noticeli{
@@ -279,7 +312,7 @@
     }
     let token = GetRequest().id;
 
-    var regionCode = "ph";
+    var regionCode = "id";
     var osCode = "3";
     if (platform.os.toString().indexOf('Android') > -1) {
         osCode = "0";
@@ -328,7 +361,30 @@
             $('#bannerA').attr('href', 'https://clk.omgt3.com/?AID=1980884&PID=33226');
             $('#bannerImg').attr('src', 'img/free_gift_banner_globe.png');
         }
+        translate();
         getChallengeList();
+    }
+
+    var lang = 'en';
+    function translate() {
+        $(function() {
+            if (regionCode == "id") {
+                lang = "id";
+            }
+            jQuery.i18n.properties({
+                name: 'strings',
+                path: 'i18n/',
+                mode: 'map',
+                language: lang,
+                callback: function() {
+                    $('#exchangeNotice').html($.i18n.prop('exchangeNotice'));
+                    $('#exchangeNotice1').html($.i18n.prop('exchangeNotice1'));
+                    $('#recipient').attr('placeholder', $.i18n.prop('recipientPlaceHolder'));
+                    $('#phone').attr('placeholder', $.i18n.prop('phonePlaceHolder'));
+                    $('#exchangeSubmit').html($.i18n.prop('exchangeSubmit'));
+                }
+            });
+        })
     }
 
     var userCode;
@@ -449,7 +505,10 @@
         }
     }
 
+    var baseAmount = 2;
     var challengeList = 0;
+    var moneyCoin = 0;
+    var redeemCoin = 0;
     var canWithDraw = false;
     function getChallengeList() {
         $.ajax({
@@ -477,25 +536,37 @@
                     $('#Challengebanner').attr('src', 'img/Challenge_banner_default_1.png');
                 }  else if (challengeVersion == 2) {
                     backgroundsize = '100%';
+                    moneyCoin = data.data.moneyCoin;
+                    redeemCoin = data.data.withdrawCoin + data.data.withdrawingCoin;
                     let earnmoney = data.data.moneyCoin + data.data.withdrawCoin + data.data.withdrawingCoin;
                     var persent = 0;
                     if (regionCode == 'id') {
                         $('#Challengebanner').attr('src', 'img/Challenge_banner_id_2.png');
-                        persent = Math.max(0, earnmoney/13000);
+                        $('#phone').attr('maxlength', '13');
+                        persent = Math.max(0, earnmoney/12000);
                         $('#EarnMoneySpan').html(earnmoney + '&nbsp;Rp');
+                        $('#RedeemedSpan').html(redeemCoin + '&nbsp;Rp');
                         $('#MinWithdrawP').text('*Minimum withdrawal 6000 Rp.');
                         $('#MinamountNum').text('6000 Rp');
-                        $('#MaxamountNum').text('13000 Rp');
+                        $('#MaxamountNum').text('12000 Rp');
+                        $('#CashoutGCash').text('GoPay');
+                        $('#CashoutML').text('OVO');
+                        baseAmount = -2;
                         if (data.data.moneyCoin >= 6000) {
                             canWithDraw = true;
                         }
                     } else {
                         $('#Challengebanner').attr('src', 'img/Challenge_banner_ph_2.png');
+                        $('#phone').attr('maxlength', '11');
                         persent = Math.max(0, earnmoney/50);
                         $('#EarnMoneySpan').html(earnmoney + '&nbsp;PHP');
+                        $('#RedeemedSpan').html(redeemCoin + '&nbsp;PHP');
                         $('#MinWithdrawP').text('*Minimum withdrawal 25 PHP.');
                         $('#MinamountNum').text('25 PHP');
                         $('#MaxamountNum').text('50 PHP');
+                        $('#CashoutGCash').text('GCash');
+                        $('#CashoutML').text('Mobile Loads');
+                        baseAmount = 0;
                         if (data.data.moneyCoin >= 25) {
                             canWithDraw = true;
                         }
@@ -607,7 +678,7 @@
                                 if (regionCode == 'ph') {
                                     coinStr = '+10';
                                 } else if (regionCode == 'id') {
-                                    coinStr = '+4K';
+                                    coinStr = '+3K';
                                 }
                             }
                             break;
@@ -775,6 +846,12 @@
     }
 
     function cashOut() {
+        cashoutAmount = 0;
+        cashoutPlatfrom = '';
+        $("#CashoutML").removeClass("active");
+        $("#CashoutGCash").removeClass("active");
+        $("#MaxamountNum").removeClass("active");
+        $("#MinamountNum").removeClass("active");
         $('#ModalWithdraw').modal('show');
     }
 
@@ -808,21 +885,185 @@
         }
     }
 
-    // $(function() {
-    //     $("#MinamountNum .btn").click(function(){
-    //         $(this).button('loading').delay(1000).queue(function() {
-    //         });
-    //     });
-    // });
-    // $(function() {
-    //     $("#MaxamountNum .btn").click(function(){
-    //         $(this).button('loading').delay(1000).queue(function() {
-    //         });
-    //     });
-    // });
+    var cashoutPlatfrom = '';
+    var cashoutAmount = 0;
+
+    $("#CashoutGCash").click(function(){
+        if (cashoutPlatfrom == 'ml') {
+            $("#CashoutML").removeClass("active");
+        }
+        cashoutPlatfrom = 'gcash';
+        $(this).addClass("active");
+    });
+
+    $("#CashoutML").click(function(){
+        if (cashoutPlatfrom == 'gcash') {
+            $("#CashoutGCash").removeClass("active");
+        }
+        cashoutPlatfrom = 'ml';
+        $(this).addClass("active");
+    });
+
+    $("#MinamountNum").click(function(){
+        if (cashoutAmount == (baseAmount-2)) {
+            $("#MaxamountNum").removeClass("active");
+        }
+        cashoutAmount = baseAmount-1;
+        $(this).addClass("active");
+
+        switch (cashoutAmount) {
+            case -1:
+                if (moneyCoin >= 25) {
+                    canWithDraw = true;
+                } else {
+                    canWithDraw = false;
+                }
+                break;
+            case -3:
+                if (moneyCoin >= 6000) {
+                    canWithDraw = true;
+                } else {
+                    canWithDraw = false;
+                }
+                break;
+            default:
+                break;
+        }
+        if (canWithDraw) {
+            $('#WithdrawBtn').css('background', 'linear-gradient(to right, #F45D82, #6C81F8)');
+        } else {
+            $('#WithdrawBtn').css('background', 'gray');
+        }
+    });
+
+    $("#MaxamountNum").click(function(){
+        if (cashoutAmount == (baseAmount-1)) {
+            $("#MinamountNum").removeClass("active");
+        }
+        cashoutAmount = baseAmount-2;
+        $(this).addClass("active");
+
+        switch (cashoutAmount) {
+            case -2:
+                if (moneyCoin >= 50) {
+                    canWithDraw = true;
+                } else {
+                    canWithDraw = false;
+                }
+                break;
+            case -4:
+                if (moneyCoin >= 12000) {
+                    canWithDraw = true;
+                } else {
+                    canWithDraw = false;
+                }
+                break;
+            default:
+                break;
+        }
+        if (canWithDraw) {
+            $('#WithdrawBtn').css('background', 'linear-gradient(to right, #F45D82, #6C81F8)');
+        } else {
+            $('#WithdrawBtn').css('background', 'gray');
+        }
+    });
 
     function doWithdraw() {
+        if (canWithDraw && cashoutPlatfrom != '' && cashoutAmount != 0) {
+            $('#recipient').val('');
+            $('#phone').val('');
+            $('#bt').text('');
+            $('#ModalWithdraw').modal('hide');
+            $('#ModalCashout').modal('show');
+        }
+    }
+
+    function requestWithdraw() {
+        var recipient = $('#recipient').val();
+        var phone = $('#phone').val();
+        if (recipient == null || recipient == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        if (phone == null || phone == ''){
+            $('#bt').text('Please fill up all your details.');
+            return;
+        }
+        var tempCashoutPlatfrom = cashoutPlatfrom;
+        if (baseAmount == -2) {
+            if (tempCashoutPlatfrom == 'gcash') {
+                tempCashoutPlatfrom = 'gopay';
+            } else if (tempCashoutPlatfrom == 'ml') {
+                tempCashoutPlatfrom = 'ovo';
+            }
+        }
+        $.ajax({
+            method: 'post',
+            url: baseUrl+'challenge/withdraw',
+            headers:{
+                authorization:token
+            },
+            data: JSON.stringify({
+                commodityId: cashoutAmount,
+                recipient:recipient,
+                phone: phone,
+                phoneType: tempCashoutPlatfrom
+            }),
+            contentType:'application/json',
+            dataType: 'json',
+            success: function(data) {
+                $('#ModalCashout').modal('hide');
+                if(data.status == 0) {
+                    switch (cashoutAmount) {
+                        case -1:
+                            moneyCoin -= 25;
+                            redeemCoin += 25;
+                            break;
+                        case -2:
+                            moneyCoin -= 50;
+                            redeemCoin += 50;
+                            break;
+                        case -3:
+                            moneyCoin -= 6000;
+                            redeemCoin += 6000;
+                            break;
+                        case -4:
+                            moneyCoin -= 12000;
+                            redeemCoin += 12000;
+                            break;
+                        default:
+                            break;
+                    }
+                    resetCashout();
+                    $('#alert').html('<p>success</p>');
+                } else {
+                    $('#alert').html('<p>'+data.msg+'</p>');
+                }
+                $('#ModalAlert').modal('show');
+            }
+        });
+    }
+
+    function resetCashout() {
+        if (regionCode == 'id') {
+            $('#RedeemedSpan').html(redeemCoin + '&nbsp;Rp');
+            if (moneyCoin >= 6000) {
+                canWithDraw = true;
+            } else {
+                canWithDraw = false;
+            }
+        } else {
+            $('#RedeemedSpan').html(redeemCoin + '&nbsp;PHP');
+            if (moneyCoin >= 25) {
+                canWithDraw = true;
+            } else {
+                canWithDraw = false;
+            }
+        }
         if (canWithDraw) {
+            $('#WithdrawBtn').css('background', 'linear-gradient(to right, #F45D82, #6C81F8)');
+        } else {
+            $('#WithdrawBtn').css('background', 'gray');
         }
     }
 
