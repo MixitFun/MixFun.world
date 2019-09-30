@@ -753,16 +753,16 @@
                         if (taskCode == 'doSpeTask') {
                             if (listItem.taskStatus == 1) {
                                 let buttonStr = '&nbspCompleted&nbsp';
-                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 1rem 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 5% 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             } else if (listItem.taskStatus == 2) {
                                 let buttonStr = '&nbspPending&nbsp';
-                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 1rem 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" disabled="disabled" style="margin: 5% 0 0;" onclick="showChallengeDetail(\''+taskCode+'\', \''+encodeName+'\', \''+taskDesc+'\')">'+buttonStr+'</button>';
                             } else {
                                 let buttonStr = '&nbspStart&nbspTask&nbsp';
-                                contentStr += '<button class= "btn-sm" style="margin: 1rem 0 0;" onclick="startChallengeTask()">'+buttonStr+'</button>';
+                                contentStr += '<button class= "btn-sm" style="margin: 5% 0 0;" onclick="startChallengeTask()">'+buttonStr+'</button>';
                             }
                             contentStr += '<h6 style="margin: 0;">'+listItem.taskName+'</h6>';
-                            contentStr += '<p style="color: crimson; font-size: 0.6rem; margin-left: 0">*Make sure you are newly download and register user.</p>';
+                            contentStr += '<p style="color: crimson; font-size: 0.8rem; margin-left: 0">*Make sure you are newly download and register user.</p>';
                         } else {
                             if (listItem.taskStatus == 1) {
                                 let buttonStr = '&nbspCompleted&nbsp';
