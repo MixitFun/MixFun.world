@@ -389,7 +389,7 @@
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let productname = $('#productName').html();
                 let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+                let facebookURL = "https://app.mixfun.world/apk";
                 bridge.callHandler('openURL', {'url': facebookURL}, function(response) {
                 });
             };
@@ -408,7 +408,7 @@
             document.getElementById('shareFacebookBtn').onclick = function () {
                 let productname = $('#productName').html();
                 let shareTitle = "Tell your friend you have redeemed "+productname+"? Share the joy with them.";
-                let facebookURL = "https://www.facebook.com/sharer.php?title="+shareTitle+"&u="+lj+"";
+                let facebookURL = "https://app.mixfun.world/apk";
                 try {
                     window.android.BackToAndroid(facebookURL);
                 } catch (e) {
@@ -548,7 +548,7 @@
             if (data.data.status < 0) {
                 isBlockUser = true;
             }
-            fc = "https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/friend?c="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁";
+            fc = "https://app.mixfun.world/apk";
             lj = "https://mixfun.world/friend?c="+data.data.ownShareCode;
             if (data.data.avatar == null) {
                 $('#tx').attr('src','img/logo_midium.png');
@@ -577,8 +577,8 @@
                 $('.shade').css('display','none');
             }
             $('#lj').val("https://mixfun.world/friend?c="+data.data.ownShareCode);
-            $('.fc').attr('href',"https://www.facebook.com/sharer/sharer.php?u=https://mixfun.world/friend?c="+data.data.ownShareCode+" &t=Please help me to win the iPhone!📱Just click the link below😁");
-            $('#wc').attr('href',"https://api.whatsapp.com/api/send?phone=+8618682018597&send?text=Please help me to win the iPhone!📱Just click the link below😁  https://mixfun.world/friend?c="+data.data.ownShareCode);
+            $('.fc').attr('href',"https://app.mixfun.world/apk");
+            $('#wc').attr('href',"https://app.mixfun.world/apk");
             createRedeemList();
         }
     });
