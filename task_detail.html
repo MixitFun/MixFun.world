@@ -376,12 +376,18 @@
             htmlStr += '<li id="finishdLi" style="font-size: 16px; font-weight: 700; color: crimson">Only the users finished the task can get the coins.</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'Atome_Credit') {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>New users only</li>';
+            htmlStr += '<li>Install app</li>';
+            htmlStr += '<li>Loan submission</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
         } else {
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>New users only</li>';
             htmlStr += '<li>Register or complete tutorial, if asked so</li>';
             htmlStr += '<li>Don’t change between network</li>';
-            htmlStr += '<li id="registLi" style="font-size: 16px; font-weight: 700; color: crimson"></li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
         }
