@@ -330,21 +330,21 @@
             htmlStr += '<li>Random 100 Likers will be picked to win 1000PHP valued Couple Watch</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
-        } else if (taskCode == 'InstagramId' || taskCode == 'InstagramPh') {
+        } else if (taskCode == 'InstagramId' || taskCode == 'InstagramPh' || taskCode == 'InstagramVfun') {
             descriptionStr = 'Please follow us on Instagram';
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
             htmlStr += '<li id="finishdLi" style="font-size: 16px; font-weight: 700; color: crimson">Only the users finished the task can get the coins.</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
-        } else if (taskCode == 'YouTube') {
+        } else if (taskCode == 'YouTube' || taskCode == 'YouTubeVfun') {
             descriptionStr = 'Please follow us on YouTube';
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
             htmlStr += '<li id="finishdLi" style="font-size: 16px; font-weight: 700; color: crimson">Only the users finished the task can get the coins.</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
-        } else if (taskCode == 'FacebookPh' || taskCode == 'FacebookId' || taskCode == 'FacebookUSA') {
+        } else if (taskCode == 'FacebookPh' || taskCode == 'FacebookId' || taskCode == 'FacebookUSA' || taskCode == 'FacebookVfun') {
             descriptionStr = 'Please follow us on Facebook';
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>It takes just 10seconds and this will help to grow the community and provide better tasks.</li>';
@@ -381,6 +381,12 @@
             var htmlStr = '<li>New users only</li>';
             htmlStr += '<li>Install app</li>';
             htmlStr += '<li>Loan submission</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
+        } else  if (taskCode == 'HSBC') {
+            $('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Apply for Credit Crad</li>';
+            htmlStr += '<li>Appove in 1month</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
         } else {
