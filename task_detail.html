@@ -389,6 +389,13 @@
             htmlStr += '<li>Appove in 1month</li>';
             $('#normalul').html(htmlStr);
             $('#taskDiv').css('display', 'block');
+        } else if (taskCode == 'DownloadVfun') {
+        	$('#descriptionID').text(descriptionStr);
+            var htmlStr = '<li>Download VFun App and rate the app 5 stars in store</li>';
+            htmlStr += '<li>Register or complete tutorial, if asked so</li>';
+            htmlStr += '<li>Don’t change between network</li>';
+            $('#normalul').html(htmlStr);
+            $('#taskDiv').css('display', 'block');
         } else {
             $('#descriptionID').text(descriptionStr);
             var htmlStr = '<li>New users only</li>';
