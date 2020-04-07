@@ -719,12 +719,16 @@
                         labelStr = 'Today';
                     } else {
                     }
+					
                     if (item.status == 1) { //0未完成 1已完成
-                        labelColor = '#9B9B9B';
-                        coinBg = 'img/challenge_coin_gray_'+challengeVersion+'.png';
-                        coinNumBg = 'img/challenge_num_gray.png';
+                        labelColor = '#ec608b';
+                        coinBg = 'img/challenge_coin_color_'+challengeVersion+'.png';
+                        coinNumBg = 'img/challenge_num_color.png';
                         completedCount++;
-                    }
+                    }else{
+						coinBg = 'img/challenge_coin_gray_'+challengeVersion+'.png';
+                        coinNumBg = 'img/challenge_num_gray.png'; 
+					}
                     headerStr += '<div class="step" data-target="#part'+day+'">';
                     headerStr += '<button type="button" class="step-trigger" role="tab" aria-controls="part'+day+'" id="part'+day+'-trigger"; style="background-color: rgba(0,0,0,0);">';
                     headerStr += '<span class="bs-stepper-circle" style="background-image: url('+coinBg+'); background-repeat: no-repeat; background-size: '+backgroundsize+';">';
@@ -872,9 +876,11 @@
     function startChallengeTask() {
         var code = 'TaskBtn_';
         if (platform.os.toString().indexOf('iOS') > -1) {
-            code += 'Atome_Credit';
+            <!-- code += 'Atome_Credit'; -->
+            code += 'IndoApp';
         } else {
-            code += 'Atome_Credit';
+            <!-- code += 'Atome_Credit'; -->
+            code += 'IndoApp';
         }
         $('#'+code)[0].click();
     }
